@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{AA1204D0-59EF-4254-BF1A-87DF67980AAD}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>PolyPaint</RootNamespace>
     <AssemblyName>PolyPaint</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -35,6 +35,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>palette.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -123,19 +126,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\position.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\efface.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="palette.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\dupliquer.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\lasso.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\crayon.png" />
