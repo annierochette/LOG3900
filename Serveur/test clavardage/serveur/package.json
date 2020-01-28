@@ -1,8 +1,12 @@
 {
-    "name": "socket-chat-example",
+    "name": "PolyDraw",
     "version": "0.0.1",
-    "description": "my first socket.io app",
+    "description": "PolyMessagerie",
     "dependencies": {
-        "express": "^4.17.1"
+        "express": "^4.17.1",
+        "socket.io": "^2.3.0"
+    },
+    "devDependencies": {
+        "@types/node": "^13.5.1"
     }
 }
