@@ -8,12 +8,16 @@
         Title="MainWindow" Height="450" Width="800">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="93*"/>
+            <ColumnDefinition Width="106*"/>
+        </Grid.ColumnDefinitions>
         <Button x:Name="connectToIPButton" Content="Connexion" HorizontalAlignment="Left" Margin="235,86,0,0" VerticalAlignment="Top" Click="connectToIPAddress" Width="75" />
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="20" Margin="103,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="20" Margin="103,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text=" "/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="37,86,0,0" TextWrapping="Wrap" Text="adresse IP:" VerticalAlignment="Top" Height="20" Width="58"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="300" Margin="356,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="364" TextChanged="textBox1_TextChanged"/>
-        <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="30" Margin="366,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="260"/>
-        <Button x:Name="sendMessage" Content="Envoyer" HorizontalAlignment="Left" Margin="631,350,0,0" VerticalAlignment="Top" Width="89" Height="30"/>
+        <ListBox x:Name="messageList" HorizontalAlignment="Left" Height="300" Margin="356,29,0,0" VerticalAlignment="Top" Width="364" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="MessageBox" HorizontalAlignment="Left" Height="30" Margin="366,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" Grid.ColumnSpan="2"/>
+        <Button x:Name="sendMessageButton" Content="Envoyer" HorizontalAlignment="Left" Margin="259.3,350,0,0" VerticalAlignment="Top" Width="89" Height="30" Grid.Column="1" Click="sendMessage"/>
         <Image x:Name="image" HorizontalAlignment="Left" Height="45" Margin="24,10,0,0" VerticalAlignment="Top" Width="199" Source="PolyMessagerie.png"/>
         <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="24,162,0,0" TextWrapping="Wrap" Text="pseudonyme:" VerticalAlignment="Top"/>
         <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="23" Margin="103,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>

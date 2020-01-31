@@ -12,37 +12,63 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Quobject.SocketIoClientDotNet.Client;
+using Newtonsoft.Json;
 
 namespace Prototype_Lourd
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            socket.On("chat message", (data) =>
+            {
+                addMessage((string)data);
+            });
         }
+
+        private const string SERVER_IP= "127.0.0.1"; 
+        private const string SERVER_PORT = "8080";
+  
+        private Socket socket = IO.Socket("http://" + SERVER_IP + ":" + SERVER_PORT);
 
         private void connectToIPAddress(object sender, RoutedEventArgs e)
         {
-            
+            socket = IO.Socket("http://" + SERVER_IP + ":" + SERVER_PORT);
+            socket.On(Socket.EVENT_CONNECT, () =>
+            {
+                Console.WriteLine("yaaas");
+            });
+
+            socket.On(Socket.EVENT_CONNECT_TIMEOUT, () =>
+            {
+                System.Windows.MessageBox.Show("Connection timeout", "Error");
+            });
+            socket.On(Socket.EVENT_CONNECT_ERROR, () =>
+            {
+                System.Windows.MessageBox.Show("Connection error", "Error");
+            });
+
         }
 
-        private void Main_Navigated(object sender, NavigationEventArgs e)
+  
+        private void addMessage(string message)
         {
+            this.Dispatcher.Invoke(() =>
+            {
+                messageList.Items.Add(message);
 
+            });
         }
-
-        private void button1_Click(object sender, RoutedEventArgs e)
+       
+        
+        private void sendMessage(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void textBox1_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
+            string message = MessageBox.Text;
+            socket.Emit( "chat message", JsonConvert.SerializeObject(message));
+           
         }
     }
 }
