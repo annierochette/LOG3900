@@ -20,9 +20,11 @@ namespace Prototype_Lourd
 
     public partial class MainWindow : Window
     {
+        public bool isConnected { get; set; }
         public MainWindow()
         {
             InitializeComponent();
+            isConnected = false;
             socket.On("chat message", (data) =>
             {
                 addMessage((string)data);
@@ -39,7 +41,8 @@ namespace Prototype_Lourd
             socket = IO.Socket("http://" + SERVER_IP + ":" + SERVER_PORT);
             socket.On(Socket.EVENT_CONNECT, () =>
             {
-                Console.WriteLine("yaaas");
+                Console.WriteLine("Connected to server");
+                isConnected = true;
             });
 
             socket.On(Socket.EVENT_CONNECT_TIMEOUT, () =>
@@ -56,19 +59,41 @@ namespace Prototype_Lourd
   
         private void addMessage(string message)
         {
-            this.Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(() =>
             {
                 messageList.Items.Add(message);
-
+ 
             });
         }
-       
-        
+
+        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                sendMessage(sender, e);
+            }
+        }
+
         private void sendMessage(object sender, RoutedEventArgs e)
         {
-            string message = MessageBox.Text;
+            if (!string.IsNullOrWhiteSpace(messageBox.Text)) { 
+            string timestamp = getTimestamp(DateTime.Now);
+            string message = timestamp + " "+ messageBox.Text;
             socket.Emit( "chat message", JsonConvert.SerializeObject(message));
-           
+            }
+            messageBox.Text = string.Empty;
         }
+
+        public static string getTimestamp(DateTime value)
+        {
+            return value.ToString("HH:mm:ss");
+        }
+
+        private void messageBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        
     }
 }

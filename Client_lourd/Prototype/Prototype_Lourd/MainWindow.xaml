@@ -7,21 +7,33 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
+    <Window.Resources>
+        <Style x:Key="DisconnectButton" TargetType="Button">
+            <Style.Triggers>
+                
+                <DataTrigger Binding="{Binding isConnected}" Value="false">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+          
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="93*"/>
             <ColumnDefinition Width="106*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="connectToIPButton" Content="Connexion" HorizontalAlignment="Left" Margin="235,86,0,0" VerticalAlignment="Top" Click="connectToIPAddress" Width="75" />
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="20" Margin="103,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text=" "/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="37,86,0,0" TextWrapping="Wrap" Text="adresse IP:" VerticalAlignment="Top" Height="20" Width="58"/>
-        <ListBox x:Name="messageList" HorizontalAlignment="Left" Height="300" Margin="356,29,0,0" VerticalAlignment="Top" Width="364" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="MessageBox" HorizontalAlignment="Left" Height="30" Margin="366,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" Grid.ColumnSpan="2"/>
-        <Button x:Name="sendMessageButton" Content="Envoyer" HorizontalAlignment="Left" Margin="259.3,350,0,0" VerticalAlignment="Top" Width="89" Height="30" Grid.Column="1" Click="sendMessage"/>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="45" Margin="24,10,0,0" VerticalAlignment="Top" Width="199" Source="PolyMessagerie.png"/>
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="24,162,0,0" TextWrapping="Wrap" Text="pseudonyme:" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="23" Margin="103,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="button" Content="Ok" HorizontalAlignment="Left" Margin="235,155,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="connectToIPButton" Content="Connexion" HorizontalAlignment="Left" Margin="248,99,0,0" VerticalAlignment="Top" Click="connectToIPAddress" Width="75" />
+        <TextBox x:Name="ipTextBox" HorizontalAlignment="Left" Height="20" Margin="116,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text=" "/>
+        <TextBlock x:Name="ipAddress" HorizontalAlignment="Left" Margin="50,99,0,0" TextWrapping="Wrap" Text="Adresse IP:" VerticalAlignment="Top" Height="20" Width="58"/>
+        <ListBox x:Name="messageList" HorizontalAlignment="Left" Height="300" Margin="32.4,43,0,0" VerticalAlignment="Top" Width="364" Grid.Column="1"/>
+        <TextBox x:Name="messageBox" HorizontalAlignment="Left" Height="30" Margin="42.4,348,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" TextChanged="messageBox_TextChanged" KeyDown="OnKeyDownHandler" Grid.Column="1" />
+        <Button x:Name="sendMessageButton" Content="Envoyer" HorizontalAlignment="Left" Margin="307.4,348,0,0" VerticalAlignment="Top" Width="89" Height="30" Grid.Column="1" Click="sendMessage"/>
+        <Image x:Name="logo" HorizontalAlignment="Left" Height="45" Margin="24,10,0,0" VerticalAlignment="Top" Width="199" Source="PolyMessagerie.png"/>
+        <TextBlock x:Name="username" HorizontalAlignment="Left" Margin="37,202,0,0" TextWrapping="Wrap" Text="Pseudonyme:" VerticalAlignment="Top"/>
+        <TextBox x:Name="usernameTextBox" HorizontalAlignment="Left" Height="23" Margin="116,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="selectUsernameButton" Content="Ok" HorizontalAlignment="Left" Margin="248,195,0,0" VerticalAlignment="Top" Width="75" />
+        <Button x:Name="disconnectButton" Content="Deconnexion" HorizontalAlignment="Left" Margin="248,124,0,0" VerticalAlignment="Top" Width="75" Style="{StaticResource DisconnectButton}"/>
 
     </Grid>
 </Window>
