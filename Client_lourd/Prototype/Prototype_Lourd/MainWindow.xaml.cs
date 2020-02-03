@@ -14,49 +14,86 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Quobject.SocketIoClientDotNet.Client;
 using Newtonsoft.Json;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Prototype_Lourd
 {
 
-    public partial class MainWindow : Window
+    public partial class MainWindow : INotifyPropertyChanged
     {
-        public bool isConnected { get; set; }
+        private const string SERVER_IP = "127.0.0.1";
+        private const string SERVER_PORT = "8080";
+        private Socket socket;
+        private bool _isConnected;
+        private bool _hasValidUsername;
+        private string serverIP;
+        private string username;
+        public event PropertyChangedEventHandler PropertyChanged;
         public MainWindow()
         {
+            DataContext = this;
             InitializeComponent();
-            isConnected = false;
+            serverIP = SERVER_IP;
+            _isConnected = false;
+            _hasValidUsername = false;
+            socket = IO.Socket("http://" + serverIP + ":" + SERVER_PORT);
             socket.On("chat message", (data) =>
             {
                 addMessage((string)data);
             });
         }
 
-        private const string SERVER_IP= "127.0.0.1"; 
-        private const string SERVER_PORT = "8080";
-  
-        private Socket socket = IO.Socket("http://" + SERVER_IP + ":" + SERVER_PORT);
+       
 
         private void connectToIPAddress(object sender, RoutedEventArgs e)
         {
-            socket = IO.Socket("http://" + SERVER_IP + ":" + SERVER_PORT);
+            socket = IO.Socket("http://" + ipTextBox.Text + ":" + SERVER_PORT);
             socket.On(Socket.EVENT_CONNECT, () =>
             {
                 Console.WriteLine("Connected to server");
-                isConnected = true;
+                IsConnected = true;
+                
             });
 
-            socket.On(Socket.EVENT_CONNECT_TIMEOUT, () =>
-            {
-                System.Windows.MessageBox.Show("Connection timeout", "Error");
-            });
-            socket.On(Socket.EVENT_CONNECT_ERROR, () =>
-            {
-                System.Windows.MessageBox.Show("Connection error", "Error");
-            });
+            //socket.On(Socket.EVENT_CONNECT_TIMEOUT, () =>
+            //{
+            //    System.Windows.MessageBox.Show("Délai de connexion dépassé", "Error");
+                
+            //});
+         
+            //socket.On(Socket.EVENT_CONNECT_ERROR, () =>
+            //{
+            //    System.Windows.MessageBox.Show("Erreur de connexion", "Error");
+                
+            //});
 
         }
 
-  
+        public bool IsConnected 
+        {
+            get {
+                return _isConnected; }
+            set
+            {
+                _isConnected = value; 
+                OnPropertyChanged("IsConnected"); 
+            }
+        }
+
+        public bool HasValidUsername
+        {
+            get
+            {
+                return _hasValidUsername;
+            }
+            set
+            {
+                _hasValidUsername = value;
+                OnPropertyChanged("HasValidUsername");
+            }
+        }
+
         private void addMessage(string message)
         {
             Dispatcher.Invoke(() =>
@@ -66,7 +103,7 @@ namespace Prototype_Lourd
             });
         }
 
-        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        private void sendMessageOnEnter(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
@@ -78,7 +115,7 @@ namespace Prototype_Lourd
         {
             if (!string.IsNullOrWhiteSpace(messageBox.Text)) { 
             string timestamp = getTimestamp(DateTime.Now);
-            string message = timestamp + " "+ messageBox.Text;
+            string message = timestamp + " "+ username +": "+ messageBox.Text;
             socket.Emit( "chat message", JsonConvert.SerializeObject(message));
             }
             messageBox.Text = string.Empty;
@@ -94,6 +131,26 @@ namespace Prototype_Lourd
 
         }
 
-        
+        private void selectUsername(object sender, RoutedEventArgs e)
+        {
+            username = usernameTextBox.Text;
+            HasValidUsername = true;
+            usernameTextBox.Text = string.Empty;
+        }
+
+        private void ipTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            serverIP = ipTextBox.Text;
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void disconnectButton_Click(object sender, RoutedEventArgs e)
+        {
+            IsConnected = false;
+        }
     }
 }
