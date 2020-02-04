@@ -25,24 +25,18 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="985dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint" />
-            </com.google.android.material.textfield.TextInputLayout>
-
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/EditText"   />
             <ImageButton
                 android:id="@+id/imageButton2"
                 android:layout_width="22dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:contentDescription="@string/app_name"
-                app:srcCompat="@android:drawable/ic_menu_send" />
+                app:srcCompat="@android:drawable/ic_menu_send"
+                android:onClick="sendMessage"/>
 
         </LinearLayout>
 
