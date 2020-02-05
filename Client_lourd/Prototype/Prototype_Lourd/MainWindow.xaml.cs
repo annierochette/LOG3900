@@ -27,20 +27,21 @@ namespace Prototype_Lourd
         private Socket socket;
         private bool _isConnected;
         private bool _hasValidUsername;
-        private string serverIP;
-        private string username;
+        private string _serverIP;
+        private string _username;
         public event PropertyChangedEventHandler PropertyChanged;
         public MainWindow()
         {
             DataContext = this;
             InitializeComponent();
-            serverIP = SERVER_IP;
+            _serverIP = SERVER_IP;
             _isConnected = false;
             _hasValidUsername = false;
-            socket = IO.Socket("http://" + serverIP + ":" + SERVER_PORT);
+            socket = IO.Socket("http://" + _serverIP + ":" + SERVER_PORT);
             socket.On("chat message", (data) =>
             {
-                addMessage((string)data);
+                MessageList += Environment.NewLine + (string)data;
+                
             });
         }
 
@@ -93,14 +94,26 @@ namespace Prototype_Lourd
                 OnPropertyChanged("HasValidUsername");
             }
         }
-
-        private void addMessage(string message)
+        private string _messageList = "";
+        public string MessageList
         {
-            Dispatcher.Invoke(() =>
+            get
             {
-                messageList.Items.Add(message);
- 
-            });
+                return _messageList;
+            }
+            set
+            {
+                _messageList = value;
+                OnPropertyChanged("MessageList");
+            }
+        }
+
+        private void connectToIPAdressOnEnter(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                connectToIPAddress(sender, e);
+            }
         }
 
         private void sendMessageOnEnter(object sender, KeyEventArgs e)
@@ -111,14 +124,23 @@ namespace Prototype_Lourd
             }
         }
 
+        private void selectUsernameOnEnter(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                selectUsername(sender, e);
+            }
+        }
+
         private void sendMessage(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(messageBox.Text)) { 
             string timestamp = getTimestamp(DateTime.Now);
-            string message = timestamp + " "+ username +": "+ messageBox.Text;
+            string message = timestamp + " "+ _username +": "+ messageBox.Text;
             socket.Emit( "chat message", JsonConvert.SerializeObject(message));
             }
             messageBox.Text = string.Empty;
+            messageBox.Focus();
         }
 
         public static string getTimestamp(DateTime value)
@@ -133,14 +155,15 @@ namespace Prototype_Lourd
 
         private void selectUsername(object sender, RoutedEventArgs e)
         {
-            username = usernameTextBox.Text;
+            _username = usernameTextBox.Text;
+
             HasValidUsername = true;
-            usernameTextBox.Text = string.Empty;
+   
         }
 
         private void ipTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            serverIP = ipTextBox.Text;
+            _serverIP = ipTextBox.Text;
         }
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -151,6 +174,11 @@ namespace Prototype_Lourd
         private void disconnectButton_Click(object sender, RoutedEventArgs e)
         {
             IsConnected = false;
+        }
+
+        private void messageList_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            messageList.ScrollToEnd();
         }
     }
 }
