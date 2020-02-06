@@ -1,0 +1,7 @@
+#Wed Feb 05 15:28:50 EST 2020
+base.0=/Users/florencec-paquet/LOG3900/client_leger/app/build/intermediates/dex/debug/mergeExtDexDebug/out/classes.dex
+path.1=classes.dex
+renamed.1=classes2.dex
+path.0=classes.dex
+renamed.0=classes.dex
+base.1=/Users/florencec-paquet/LOG3900/client_leger/app/build/intermediates/dex/debug/mergeProjectDexDebug/out/classes.dex
