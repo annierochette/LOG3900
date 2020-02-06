@@ -5,19 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Prototype_Lourd"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-
+        Title="MainWindow" Height="450" Width="800" Background="#FF979BDB">
+    
     <Grid>
-        <Button x:Name="connectToIPButton" Content="Connexion" HorizontalAlignment="Left" Margin="235,86,0,0" VerticalAlignment="Top" Click="connectToIPAddress" Width="75" />
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="20" Margin="103,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="37,86,0,0" TextWrapping="Wrap" Text="adresse IP:" VerticalAlignment="Top" Height="20" Width="58"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="300" Margin="356,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="364" TextChanged="textBox1_TextChanged"/>
-        <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="30" Margin="366,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="260"/>
-        <Button x:Name="sendMessage" Content="Envoyer" HorizontalAlignment="Left" Margin="631,350,0,0" VerticalAlignment="Top" Width="89" Height="30"/>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="45" Margin="24,10,0,0" VerticalAlignment="Top" Width="199" Source="PolyMessagerie.png"/>
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="24,162,0,0" TextWrapping="Wrap" Text="pseudonyme:" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="23" Margin="103,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="button" Content="Ok" HorizontalAlignment="Left" Margin="235,155,0,0" VerticalAlignment="Top" Width="75"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="93*"/>
+            <ColumnDefinition Width="106*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="connectToIPButton" Content="Connexion" HorizontalAlignment="Left" Margin="248,99,0,0" VerticalAlignment="Top" Click="connectToIPAddress" Width="75" />
+        <TextBox x:Name="ipTextBox" Text="127.0.0.1" HorizontalAlignment="Left" Height="20" Margin="116,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="ipTextBox_TextChanged" KeyDown="connectToIPAdressOnEnter" />
+        <TextBlock x:Name="ipAddress" HorizontalAlignment="Left" Margin="50,99,0,0" TextWrapping="Wrap" Text="Adresse IP:" VerticalAlignment="Top" Height="20" Width="63" Foreground="Black"/>
+        <TextBox IsEnabled="{Binding Path=HasValidUsername}" Text="{Binding MessageList, UpdateSourceTrigger=PropertyChanged}" x:Name="messageList" HorizontalAlignment="Left" Height="300" Margin="32.4,43,0,0" VerticalAlignment="Top" VerticalContentAlignment="Bottom" Width="364" Grid.Column="1" TextChanged="messageList_TextChanged" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"/>
+        <TextBox IsEnabled="{Binding Path=HasValidUsername}" x:Name="messageBox" HorizontalAlignment="Left" Height="30" Margin="42.4,348,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" KeyDown="sendMessageOnEnter" TextChanged="messageBox_TextChanged" Grid.Column="1" />
+        <Button IsEnabled="{Binding Path=HasValidUsername}" x:Name="sendMessageButton" Content="Envoyer" HorizontalAlignment="Left" Margin="307.4,348,0,0" VerticalAlignment="Top" Width="89" Height="30" Grid.Column="1" Click="sendMessage"/>
+        <Image x:Name="logo" HorizontalAlignment="Left" Height="45" Margin="24,10,0,0" VerticalAlignment="Top" Width="199" Source="PolyMessagerie.png"/>
+        <TextBlock x:Name="usernameTextBlock" HorizontalAlignment="Left" Margin="37,202,0,0" TextWrapping="Wrap" Text="Pseudonyme:" VerticalAlignment="Top"/>
+        <TextBox IsEnabled="{Binding Path=IsConnected}" Text="{Binding Path=Username, Mode=TwoWay}" x:Name="usernameTextBox" HorizontalAlignment="Left" Height="23" Margin="116,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" KeyDown="selectUsernameOnEnter"/>
+        <Button IsEnabled="{Binding Path=IsConnected}" x:Name="selectUsernameButton" Content="Ok" HorizontalAlignment="Left" Margin="248,195,0,0" VerticalAlignment="Top" Width="75" Click="selectUsername"/>
+        <Button IsEnabled="{Binding Path=IsConnected}" x:Name="disconnectButton" Content="Deconnexion" HorizontalAlignment="Left" Margin="248,124,0,0" VerticalAlignment="Top" Width="75" Click="disconnectButton_Click"/>
 
     </Grid>
 </Window>
