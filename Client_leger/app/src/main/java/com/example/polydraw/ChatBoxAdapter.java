@@ -27,8 +27,8 @@ public class ChatBoxAdapter extends RecyclerView.Adapter<ChatBoxAdapter.MyViewHo
     }
 
 
-    public ChatBoxAdapter(List<Message> MessageList) {
-        this.MessageList = MessageList;
+    public ChatBoxAdapter(List<Message> MessagesList) {
+        this.MessageList = MessagesList;
     }
 
     @Override public int getItemCount() {
@@ -42,7 +42,7 @@ public class ChatBoxAdapter extends RecyclerView.Adapter<ChatBoxAdapter.MyViewHo
     }
 
     @Override public void onBindViewHolder(final ChatBoxAdapter.MyViewHolder holder, final int position){
-        Message m = MessageList.get(position);
+        final Message m = MessageList.get(position);
         holder.username.setText(m.getUsername());
         holder.message.setText(m.getMessage());
     }
