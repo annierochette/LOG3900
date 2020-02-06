@@ -26,7 +26,7 @@ public class ChatBoxActivity extends AppCompatActivity {
     public RecyclerView myRecyclerView;
     public List<Message> MessageList;
     public ChatBoxAdapter chatBoxAdapter;
-    public EditText messagetxt;
+    public EditText messageTxt;
     public Button send;
 
     private Socket socket;
@@ -38,14 +38,15 @@ public class ChatBoxActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatbox);
 
-        messagetxt = (EditText) findViewById(R.id.message);
+        messageTxt = (EditText) findViewById(R.id.message);
         send = (Button) findViewById(R.id.send);
 
         Username = (String) getIntent().getExtras().getString(MainActivity.USERNAME);
 
         try {
 
-            socket = IO.socket("http://192.168.2.194:3000");
+//            socket = IO.socket("http://192.168.2.194:3000");
+            socket = IO.socket("http://10.200.17.65:5050");
 
             socket.connect();
 
@@ -64,9 +65,9 @@ public class ChatBoxActivity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!messagetxt.getText().toString().isEmpty()) {
-                    socket.emit("messagedetection", Username, messagetxt.getText().toString());
-                    messagetxt.setText(" ");
+                if (!messageTxt.getText().toString().isEmpty()) {
+                    socket.emit("messagedetection", Username, messageTxt.getText().toString());
+                    messageTxt.setText(" ");
                 }
             }
         });
