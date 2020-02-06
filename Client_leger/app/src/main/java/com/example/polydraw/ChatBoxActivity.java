@@ -65,7 +65,7 @@ public class ChatBoxActivity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!messageTxt.getText().toString().isEmpty()) {
+                if (!messageTxt.getText().toString().trim().isEmpty() && !messageTxt.getText().toString().isEmpty()) {
                     socket.emit("messagedetection", Username, messageTxt.getText().toString());
                     messageTxt.setText(" ");
                 }
