@@ -8,7 +8,7 @@ var usernames = new Set();
 
 app.get('/', function(req, res){
   // console.log(path.resolve(__dirname + '/../client/index.html'))
-  res.sendFile(path.resolve(__dirname + '/index.html'));
+  // res.sendFile(path.resolve(__dirname + '/index.html'));
 });
 
 io.on('connection', function(socket){
