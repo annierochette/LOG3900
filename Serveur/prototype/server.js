@@ -21,16 +21,16 @@ io.on('connection', function(socket){
       io.emit('chat message', JSON.stringify(message));
   });
   
-  io.on("changeUsername", function(username){
+  socket.on("changeUsername", function(username){
     var nameUsed = usernames.has(username);  
     if (nameUsed) {
-        socket.emit("changeUsername", {"accept":false});
+        socket.emit("changeUsername", false);
         socket.disconnect();
     }
     else {
         usernamesMap.set(socket.id, username);
         usernames.add(username);
-        socket.emit("changeUsername", {"accept":true});
+        socket.emit("changeUsername", true);
     }
   });
 
