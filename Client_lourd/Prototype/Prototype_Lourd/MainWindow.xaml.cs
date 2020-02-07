@@ -37,19 +37,25 @@ namespace Prototype_Lourd
             _serverIP = SERVER_IP;
             _isConnected = false;
             _hasValidUsername = false;
-            socket = IO.Socket("http://" + _serverIP + ":" + SERVER_PORT);
+            socket = IO.Socket("http://" + ipTextBox.Text + ":" + SERVER_PORT);
             socket.On("chat message", (data) =>
             {
-                MessageList += Environment.NewLine + (string)data;
+                Message messageTemplate = new Message();
+                var message = JsonConvert.DeserializeAnonymousType(data.ToString(), messageTemplate);
+                Console.WriteLine((string)data);
+                string timeStamp = getTimestamp(DateTime.Now);
+                MessageList += Environment.NewLine + timeStamp + " " + message.username + ": " + message.body;
                 
             });
-        }
-
        
+        }
 
         private void connectToIPAddress(object sender, RoutedEventArgs e)
         {
-            socket = IO.Socket("http://" + ipTextBox.Text + ":" + SERVER_PORT);
+
+            if (!string.IsNullOrWhiteSpace(ipTextBox.Text)) {
+
+            socket = IO.Socket("http://" + _serverIP + ":" + SERVER_PORT);
             socket.On(Socket.EVENT_CONNECT, () =>
             {
                 Console.WriteLine("Connected to server");
@@ -57,19 +63,9 @@ namespace Prototype_Lourd
                 
             });
 
-            //socket.On(Socket.EVENT_CONNECT_TIMEOUT, () =>
-            //{
-            //    System.Windows.MessageBox.Show("Délai de connexion dépassé", "Error");
-                
-            //});
-         
-            //socket.On(Socket.EVENT_CONNECT_ERROR, () =>
-            //{
-            //    System.Windows.MessageBox.Show("Erreur de connexion", "Error");
-                
-            //});
-
+            }
         }
+
 
         public bool IsConnected 
         {
@@ -136,8 +132,10 @@ namespace Prototype_Lourd
         {
             if (!string.IsNullOrWhiteSpace(messageBox.Text)) { 
             string timestamp = getTimestamp(DateTime.Now);
-            string message = timestamp + " "+ _username +": "+ messageBox.Text;
-            socket.Emit( "chat message", JsonConvert.SerializeObject(message));
+                Message message = new Message();
+                message.username = _username;
+                message.body=  messageBox.Text;
+                socket.Emit( "chat message", JsonConvert.SerializeObject(message));
             }
             messageBox.Text = string.Empty;
             messageBox.Focus();
@@ -155,9 +153,24 @@ namespace Prototype_Lourd
 
         private void selectUsername(object sender, RoutedEventArgs e)
         {
-            _username = usernameTextBox.Text;
 
-            HasValidUsername = true;
+            if (!string.IsNullOrWhiteSpace(usernameTextBox.Text))
+            {
+                
+                _username = usernameTextBox.Text;
+                socket.Emit("changeUsername", (_username));
+                socket.On("changeUsername", (data) =>
+                {
+                    if (JsonConvert.SerializeObject(data) == "true")
+                    {
+                        HasValidUsername = true;
+                    }
+                    else { Console.WriteLine("username deja pris"); }
+                });
+
+            }
+            
+
    
         }
 
@@ -174,11 +187,17 @@ namespace Prototype_Lourd
         private void disconnectButton_Click(object sender, RoutedEventArgs e)
         {
             IsConnected = false;
+            HasValidUsername = false;
+            usernameTextBox.Text = string.Empty;
+            messageList.Text = string.Empty;
+
         }
 
         private void messageList_TextChanged(object sender, TextChangedEventArgs e)
         {
             messageList.ScrollToEnd();
         }
+
+       
     }
 }
