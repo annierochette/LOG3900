@@ -42,9 +42,8 @@ namespace Prototype_Lourd
             {
                 Message messageTemplate = new Message();
                 var message = JsonConvert.DeserializeAnonymousType(data.ToString(), messageTemplate);
-                Console.WriteLine((string)data);
                 string timeStamp = getTimestamp(DateTime.Now);
-                MessageList += Environment.NewLine + timeStamp + " " + message.username + ": " + message.body;
+                MessageList += Environment.NewLine + timeStamp + " " + message.username + ": " + message.body + Environment.NewLine;
                 
             });
        
@@ -58,12 +57,17 @@ namespace Prototype_Lourd
             socket = IO.Socket("http://" + _serverIP + ":" + SERVER_PORT);
             socket.On(Socket.EVENT_CONNECT, () =>
             {
-                Console.WriteLine("Connected to server");
                 IsConnected = true;
                 
             });
 
+            socket.On(Socket.EVENT_CONNECT_ERROR, () =>
+            {
+                 System.Windows.MessageBox.Show("Erreur de connexion.", "Erreur");
+                 socket.Close();
+            });
             }
+            
         }
 
 
@@ -165,13 +169,11 @@ namespace Prototype_Lourd
                     {
                         HasValidUsername = true;
                     }
-                    else { Console.WriteLine("username deja pris"); }
+                    else { System.Windows.MessageBox.Show("Désolé, ce pseudonyme est déjà pris!", "Erreur"); }
                 });
 
             }
-            
-
-   
+         
         }
 
         private void ipTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -186,11 +188,13 @@ namespace Prototype_Lourd
 
         private void disconnectButton_Click(object sender, RoutedEventArgs e)
         {
+            socket.Emit("disconnection", _username);
             IsConnected = false;
             HasValidUsername = false;
             usernameTextBox.Text = string.Empty;
             messageList.Text = string.Empty;
 
+           
         }
 
         private void messageList_TextChanged(object sender, TextChangedEventArgs e)
