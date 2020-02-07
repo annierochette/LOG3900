@@ -37,39 +37,42 @@ namespace Prototype_Lourd
             _serverIP = SERVER_IP;
             _isConnected = false;
             _hasValidUsername = false;
-            socket = IO.Socket("http://" + _serverIP + ":" + SERVER_PORT);
+            socket = IO.Socket("http://" + ipTextBox.Text + ":" + SERVER_PORT);
             socket.On("chat message", (data) =>
             {
-                MessageList += Environment.NewLine + (string)data;
+               // Message messageTemplate = new Message();
+               // Console.WriteLine(data);
+               // var message = JsonConvert.DeserializeAnonymousType(data.ToString(), messageTemplate);
                 
+                string timeStamp = getTimestamp(DateTime.Now);
+                //MessageList += Environment.NewLine + timeStamp + " " + message.username + ": " + message.body + Environment.NewLine;
+                MessageList += Environment.NewLine + timeStamp + " "+ (string)data + Environment.NewLine;
             });
-        }
-
        
+        }
 
         private void connectToIPAddress(object sender, RoutedEventArgs e)
         {
-            socket = IO.Socket("http://" + ipTextBox.Text + ":" + SERVER_PORT);
+
+            if (!string.IsNullOrWhiteSpace(ipTextBox.Text)) {
+
+            socket = IO.Socket("http://" + _serverIP + ":" + SERVER_PORT);
             socket.On(Socket.EVENT_CONNECT, () =>
             {
-                Console.WriteLine("Connected to server");
                 IsConnected = true;
                 
             });
 
-            //socket.On(Socket.EVENT_CONNECT_TIMEOUT, () =>
-            //{
-            //    System.Windows.MessageBox.Show("Délai de connexion dépassé", "Error");
-                
-            //});
-         
-            //socket.On(Socket.EVENT_CONNECT_ERROR, () =>
-            //{
-            //    System.Windows.MessageBox.Show("Erreur de connexion", "Error");
-                
-            //});
-
+            socket.On(Socket.EVENT_CONNECT_ERROR, () =>
+            {
+                //System.Windows.MessageBox.Show("Erreur de connexion.", "Erreur");
+                Console.WriteLine("Connection failed");
+                 
+            });
+            }
+            
         }
+
 
         public bool IsConnected 
         {
@@ -135,9 +138,11 @@ namespace Prototype_Lourd
         private void sendMessage(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(messageBox.Text)) { 
-            string timestamp = getTimestamp(DateTime.Now);
-            string message = timestamp + " "+ _username +": "+ messageBox.Text;
-            socket.Emit( "chat message", JsonConvert.SerializeObject(message));
+            //string timestamp = getTimestamp(DateTime.Now);
+            //    Message message = new Message();
+            //    message.username = _username;
+            //    message.body=  messageBox.Text;
+                socket.Emit( "chat message", JsonConvert.SerializeObject(messageBox.Text));
             }
             messageBox.Text = string.Empty;
             messageBox.Focus();
@@ -155,10 +160,23 @@ namespace Prototype_Lourd
 
         private void selectUsername(object sender, RoutedEventArgs e)
         {
-            _username = usernameTextBox.Text;
 
-            HasValidUsername = true;
-   
+            if (!string.IsNullOrWhiteSpace(usernameTextBox.Text))
+            {
+                
+                _username = usernameTextBox.Text;
+                socket.Emit("changeUsername", (_username));
+                socket.On("changeUsername", (data) =>
+                {
+                    if (JsonConvert.SerializeObject(data) == "true")
+                    {
+                        HasValidUsername = true;
+                    }
+                    else { System.Windows.MessageBox.Show("Désolé, ce pseudonyme est déjà pris!", "Erreur"); }
+                });
+
+            }
+         
         }
 
         private void ipTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -173,12 +191,20 @@ namespace Prototype_Lourd
 
         private void disconnectButton_Click(object sender, RoutedEventArgs e)
         {
+            socket.Emit("disconnection", _username);
             IsConnected = false;
+            HasValidUsername = false;
+            usernameTextBox.Text = string.Empty;
+            messageList.Text = string.Empty;
+
+           
         }
 
         private void messageList_TextChanged(object sender, TextChangedEventArgs e)
         {
             messageList.ScrollToEnd();
         }
+
+       
     }
 }
