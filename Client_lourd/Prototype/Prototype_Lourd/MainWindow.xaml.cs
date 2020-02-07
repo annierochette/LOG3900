@@ -40,11 +40,13 @@ namespace Prototype_Lourd
             socket = IO.Socket("http://" + ipTextBox.Text + ":" + SERVER_PORT);
             socket.On("chat message", (data) =>
             {
-                Message messageTemplate = new Message();
-                var message = JsonConvert.DeserializeAnonymousType(data.ToString(), messageTemplate);
-                string timeStamp = getTimestamp(DateTime.Now);
-                MessageList += Environment.NewLine + timeStamp + " " + message.username + ": " + message.body + Environment.NewLine;
+               // Message messageTemplate = new Message();
+               // Console.WriteLine(data);
+               // var message = JsonConvert.DeserializeAnonymousType(data.ToString(), messageTemplate);
                 
+                string timeStamp = getTimestamp(DateTime.Now);
+                //MessageList += Environment.NewLine + timeStamp + " " + message.username + ": " + message.body + Environment.NewLine;
+                MessageList += Environment.NewLine + timeStamp + " "+ (string)data + Environment.NewLine;
             });
        
         }
@@ -63,8 +65,9 @@ namespace Prototype_Lourd
 
             socket.On(Socket.EVENT_CONNECT_ERROR, () =>
             {
-                 System.Windows.MessageBox.Show("Erreur de connexion.", "Erreur");
-                 socket.Close();
+                //System.Windows.MessageBox.Show("Erreur de connexion.", "Erreur");
+                Console.WriteLine("Connection failed");
+                 
             });
             }
             
@@ -135,11 +138,11 @@ namespace Prototype_Lourd
         private void sendMessage(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(messageBox.Text)) { 
-            string timestamp = getTimestamp(DateTime.Now);
-                Message message = new Message();
-                message.username = _username;
-                message.body=  messageBox.Text;
-                socket.Emit( "chat message", JsonConvert.SerializeObject(message));
+            //string timestamp = getTimestamp(DateTime.Now);
+            //    Message message = new Message();
+            //    message.username = _username;
+            //    message.body=  messageBox.Text;
+                socket.Emit( "chat message", JsonConvert.SerializeObject(messageBox.Text));
             }
             messageBox.Text = string.Empty;
             messageBox.Focus();
