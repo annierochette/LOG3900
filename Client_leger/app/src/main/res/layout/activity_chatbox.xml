@@ -33,17 +33,29 @@
 
             <EditText
                 android:id="@+id/message"
-                android:layout_weight="3"
                 android:layout_width="wrap_content"
-                android:hint="your message"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:hint="Entrez votre message..." />
 
             <Button
                 android:id="@+id/send"
-                android:layout_width="71dp"
+                android:layout_width="144dp"
                 android:layout_height="63dp"
-                android:background="#00000000"
-                android:text="send" />
+                android:backgroundTint="#009688"
+                android:hint="Envoyer"
+                android:text="Envoyer"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/disconnect"
+                android:layout_width="135dp"
+                android:layout_height="63dp"
+                android:layout_weight="3"
+                android:autoText="false"
+                android:backgroundTint="#C40303"
+                android:text="Déconnexion"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
