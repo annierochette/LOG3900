@@ -9,14 +9,28 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.polydraw.MainActivity">
+        tools:context="com.example.polydraw.MainActivity"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/username"
             android:layout_width="326dp"
             android:layout_height="52dp"
+            android:layout_centerHorizontal="true"
             android:layout_centerInParent="true"
-            android:hint="Entrez votre nom!"
+            android:hint="Nom"
+            android:textSize="30dp" />
+
+        <EditText
+            android:id="@+id/ipaddress"
+            android:layout_width="326dp"
+            android:layout_height="52dp"
+            android:layout_above="@+id/username"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="474dp"
+            android:layout_marginBottom="1dp"
+            android:hint="Adresse IP"
             android:textSize="30dp" />
 
         <Button
@@ -24,11 +38,11 @@
             android:layout_width="217dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/username"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="false"
-            android:layout_marginTop="-50dp"
-            android:layout_marginRight="28dp"
-            android:text="Go to chat " />
+
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="289dp"
+            android:text="Aller au chat " />
 
     </RelativeLayout>
 

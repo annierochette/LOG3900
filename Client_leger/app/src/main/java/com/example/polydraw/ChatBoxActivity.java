@@ -32,6 +32,7 @@ public class ChatBoxActivity extends AppCompatActivity {
     private Socket socket;
 
     public String Username;
+    public String IpAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +42,14 @@ public class ChatBoxActivity extends AppCompatActivity {
         messageTxt = (EditText) findViewById(R.id.message);
         send = (Button) findViewById(R.id.send);
 
-        Username = (String) getIntent().getExtras().getString(MainActivity.USERNAME);
+        Bundle extras = getIntent().getExtras();
+
+        Username = (String) extras.getString(MainActivity.USERNAME);
+        IpAddress = (String) extras.getString(MainActivity.IP_ADDRESS);
 
         try {
 
-            socket = IO.socket("http://10.200.17.65:5050");
+            socket = IO.socket("http://" + IpAddress + ":5050");
 
             socket.connect();
 
