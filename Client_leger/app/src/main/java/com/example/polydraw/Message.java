@@ -4,13 +4,15 @@ public class Message {
 
     private String username;
     private String message;
+    private String timestamp;
 
     public Message(){
 
     }
-    public Message(String username, String message) {
+    public Message(String username, String message, String timestamp) {
         this.username = username;
         this.message = message;
+        this.timestamp = timestamp;
     }
 
     public String getUsername() {
@@ -28,4 +30,8 @@ public class Message {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    public void setTimestamp(String timestamp) { this.timestamp = timestamp; }
+
+    public String getTimestamp() { return timestamp; }
 }

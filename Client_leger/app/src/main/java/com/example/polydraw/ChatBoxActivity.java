@@ -45,12 +45,12 @@ public class ChatBoxActivity extends AppCompatActivity {
 
         try {
 
-//            socket = IO.socket("http://192.168.2.194:3000");
             socket = IO.socket("http://10.200.17.65:5050");
 
             socket.connect();
 
-            socket.emit("join", Username);
+            socket.emit("connection");
+            socket.emit("changeUsername", Username);
 
         } catch (URISyntaxException e) {
             e.printStackTrace();
@@ -66,13 +66,14 @@ public class ChatBoxActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!messageTxt.getText().toString().trim().isEmpty() && !messageTxt.getText().toString().isEmpty()) {
-                    socket.emit("messagedetection", Username, messageTxt.getText().toString());
+
+                    socket.emit("chat message", Username, messageTxt.getText().toString());
                     messageTxt.setText(" ");
                 }
             }
         });
 
-        socket.on("userjoinedthechat", new Emitter.Listener() {
+        socket.on("disconnection", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 runOnUiThread(new Runnable() {
@@ -85,32 +86,22 @@ public class ChatBoxActivity extends AppCompatActivity {
             }
         });
 
-        socket.on("userdisconnect", new Emitter.Listener() {
+        socket.on("chat message", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String data = (String) args[0];
-                        Toast.makeText(ChatBoxActivity.this, data, Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
 
-        socket.on("message", new Emitter.Listener() {
-            @Override
-            public void call(final Object... args) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
                         JSONObject data = (JSONObject) args[0];
-
                         try {
-                            String username = data.getString("senderNickname");
-                            String message = data.getString("message");
 
-                            Message m = new Message(username, message);
+                            String username = data.getString("username");
+                            String message = data.getString("message");
+                            String timestamp = data.getString("timestamp");
+
+                            Message m = new Message(username,message,timestamp);
+
 
                             MessageList.add(m);
 
@@ -119,9 +110,11 @@ public class ChatBoxActivity extends AppCompatActivity {
                             chatBoxAdapter.notifyDataSetChanged();
 
                             myRecyclerView.setAdapter(chatBoxAdapter);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
                     }
                 });
             }

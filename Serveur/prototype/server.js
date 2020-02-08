@@ -15,10 +15,21 @@ io.on('connection', function(socket){
   usernamesMap.set(socket.id, "Anonymous");
   console.log("User connected");
 
-  socket.on('chat message', function(msg){
-      var message = JSON.parse(msg);
-      message.timestamp = Date.now();
-      io.emit('chat message', JSON.stringify(message));
+  socket.on('chat message', (username, message) => {
+
+      var currentDate = new Date();
+      // var date = currentDate.getDate();
+      // var month = currentDate.getMonth();
+      // var year = currentDate.getFullYear();
+      var hours = currentDate.getHours();
+      var minutes = currentDate.getMinutes();
+      var seconds = currentDate.getSeconds();
+
+      var dateString = " à " + hours + ":" + minutes + ":" + seconds;
+
+      let  msg = {"message": message, "username": username, "timestamp": dateString}
+      console.log(username + ":" + message)
+      io.emit('chat message', msg);
   });
   
   socket.on("changeUsername", function(username){
@@ -31,6 +42,7 @@ io.on('connection', function(socket){
         usernamesMap.set(socket.id, username);
         usernames.add(username);
         socket.emit("changeUsername", true);
+        console.log(username + "has joined the chat")
     }
   });
 
@@ -42,6 +54,6 @@ io.on('connection', function(socket){
 
 });
 
-http.listen(8080, function(){
-  console.log('listening on *:8080');
+http.listen(5050, function(){
+  console.log('listening on *:5050');
 });

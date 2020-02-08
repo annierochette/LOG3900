@@ -15,6 +15,7 @@ public class ChatBoxAdapter extends RecyclerView.Adapter<ChatBoxAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView username;
         public TextView message;
+        public TextView timestamp;
 
 
         public MyViewHolder(View view) {
@@ -22,6 +23,7 @@ public class ChatBoxAdapter extends RecyclerView.Adapter<ChatBoxAdapter.MyViewHo
 
             username = (TextView) view.findViewById(R.id.username);
             message = (TextView) view.findViewById(R.id.message);
+            timestamp = (TextView) view.findViewById(R.id.timestamp);
         }
 
     }
@@ -42,7 +44,8 @@ public class ChatBoxAdapter extends RecyclerView.Adapter<ChatBoxAdapter.MyViewHo
 
     @Override public void onBindViewHolder(final ChatBoxAdapter.MyViewHolder holder, final int position){
         final Message m = MessageList.get(position);
-        holder.username.setText(m.getUsername() + " :");
+        holder.username.setText(m.getUsername());
+        holder.timestamp.setText(m.getTimestamp());
         holder.message.setText(m.getMessage());
     }
 }
