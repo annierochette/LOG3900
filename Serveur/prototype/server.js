@@ -36,7 +36,6 @@ io.on('connection', function(socket){
     var nameUsed = usernames.has(username);  
     if (nameUsed) {
         socket.emit("changeUsername", false);
-        socket.disconnect();
     }
     else {
         usernamesMap.set(socket.id, username);
@@ -46,7 +45,7 @@ io.on('connection', function(socket){
     }
   });
 
-  io.on("disconnection", function() {
+  socket.on("disconnection", function() {
       usernames.delete(usernamesMap.get(socket.id));
       usernamesMap.delete(socket.id);
       console.log("User disconnected.");

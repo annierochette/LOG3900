@@ -23,7 +23,7 @@ namespace Prototype_Lourd
     public partial class MainWindow : INotifyPropertyChanged
     {
         private const string SERVER_IP = "127.0.0.1";
-        private const string SERVER_PORT = "8080";
+        private const string SERVER_PORT = "5050";
         private Socket socket;
         private bool _isConnected;
         private bool _hasValidUsername;
@@ -37,18 +37,7 @@ namespace Prototype_Lourd
             _serverIP = SERVER_IP;
             _isConnected = false;
             _hasValidUsername = false;
-            socket = IO.Socket("http://" + ipTextBox.Text + ":" + SERVER_PORT);
-            socket.On("chat message", (data) =>
-            {
-               // Message messageTemplate = new Message();
-               // Console.WriteLine(data);
-               // var message = JsonConvert.DeserializeAnonymousType(data.ToString(), messageTemplate);
-                
-                string timeStamp = getTimestamp(DateTime.Now);
-                //MessageList += Environment.NewLine + timeStamp + " " + message.username + ": " + message.body + Environment.NewLine;
-                MessageList += Environment.NewLine + timeStamp + " "+ (string)data + Environment.NewLine;
-            });
-       
+   
         }
 
         private void connectToIPAddress(object sender, RoutedEventArgs e)
@@ -61,6 +50,21 @@ namespace Prototype_Lourd
             {
                 IsConnected = true;
                 
+            });
+
+            socket.On("chat message", (data) =>
+            {
+                Newtonsoft.Json.Linq.JObject obj = (Newtonsoft.Json.Linq.JObject) data;
+                Newtonsoft.Json.Linq.JToken un = obj.GetValue("username");
+                Newtonsoft.Json.Linq.JToken ts = obj.GetValue("timestamp");
+                Newtonsoft.Json.Linq.JToken ms = obj.GetValue("message");
+                Console.WriteLine(un);
+                Console.WriteLine(ts.ToString());
+                Console.WriteLine(ms);
+
+                //MessageList += Environment.NewLine + un.ToString() + ":" + Environment.NewLine;
+                MessageList += Environment.NewLine + un.ToString() + ts.ToString() + ":\n"+ ms.ToString() + Environment.NewLine;
+                //MessageList += Environment.NewLine + ts.ToString() + Environment.NewLine;
             });
 
             socket.On(Socket.EVENT_CONNECT_ERROR, () =>
@@ -138,11 +142,7 @@ namespace Prototype_Lourd
         private void sendMessage(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(messageBox.Text)) { 
-            //string timestamp = getTimestamp(DateTime.Now);
-            //    Message message = new Message();
-            //    message.username = _username;
-            //    message.body=  messageBox.Text;
-                socket.Emit( "chat message", JsonConvert.SerializeObject(messageBox.Text));
+                socket.Emit( "chat message", _username, messageBox.Text);
             }
             messageBox.Text = string.Empty;
             messageBox.Focus();
