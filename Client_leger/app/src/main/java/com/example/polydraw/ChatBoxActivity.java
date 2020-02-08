@@ -93,6 +93,25 @@ public class ChatBoxActivity extends AppCompatActivity {
             }
         });
 
+        socket.on("changeUsername", new Emitter.Listener() {
+            @Override
+            public void call(final Object... args) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Boolean data = (Boolean) args[0];
+                        if(!data){
+                            Toast.makeText(ChatBoxActivity.this, "Nom déjà utilisé", Toast.LENGTH_SHORT).show();
+                            socket.emit("disconnection");
+                            startActivity(new Intent(ChatBoxActivity.this, MainActivity.class));
+                            socket.disconnect();
+                        }
+
+                    }
+                });
+            }
+        });
+
         socket.on("chat message", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
