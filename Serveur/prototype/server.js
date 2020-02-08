@@ -48,6 +48,7 @@ io.on('connection', function(socket){
   socket.on("disconnection", function() {
       usernames.delete(usernamesMap.get(socket.id));
       usernamesMap.delete(socket.id);
+      socket.disconnect();
       console.log("User disconnected.");
   });
 
