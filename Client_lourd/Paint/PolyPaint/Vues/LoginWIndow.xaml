@@ -7,5 +7,22 @@
         xmlns:convertisseurs="clr-namespace:PolyPaint.Convertisseurs"        
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="PolyPaint.LoginWindow"
         mc:Ignorable="d"
-        Title="Login Window" Height="700" Width="900" Background="#CBD4E4" MinWidth="627" MinHeight="200">
+        Title="Login Window" Height="650" Width="900" Background="#CBD4E4" MinWidth="627" MinHeight="200">
+    <Grid HorizontalAlignment="Left" Height="618" VerticalAlignment="Top" Width="890" Background="#FFBF3333">
+        <Button x:Name="connexion" Content="connection" VerticalAlignment="Top" Margin="395,461,395,0" Background="#FF59D121" FontFamily="Lucida Fax" FontWeight="Bold" Height="29">
+            <Button.Effect>
+                <DropShadowEffect ShadowDepth="1" Direction="300" BlurRadius="17"/>
+            </Button.Effect>
+        </Button>
+        <Button x:Name="SignIn" Content="Créer un compte" VerticalAlignment="Top" Margin="727,532,33,0" Background="#FFD1A921" FontFamily="Lucida Fax" FontWeight="Bold" Height="43">
+            <Button.Effect>
+                <DropShadowEffect ShadowDepth="1" Direction="300" BlurRadius="17"/>
+            </Button.Effect>
+        </Button>
+        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="346,402,0,0" VerticalAlignment="Top" Width="198" Height="41" FontSize="22"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Pseudonyme" VerticalAlignment="Top" Margin="348,297,0,0" Height="30" Width="205" FontSize="18"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Mot de passe" VerticalAlignment="Top" Margin="348,376,0,0" Height="30" Width="196" FontSize="18"/>
+        <Image x:Name="logo" Height="160" VerticalAlignment="Top" Width="152" Margin="369,128,369,0" Source="circle-cropped (1).png"/>
+        <TextBox x:Name="usernameBox" HorizontalAlignment="Left" Height="41" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" Margin="346,324,0,0" FontSize="22"/>
+    </Grid>
 </Window>

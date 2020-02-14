@@ -143,5 +143,11 @@
   <ItemGroup>
     <Resource Include="Resources\efface_crayon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\logo projet.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\circle-cropped %281%29.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
