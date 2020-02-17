@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,10 +18,57 @@ public class Menu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_layout);
 
-        playButton = (Button)findViewById(R.id.play);
+        playButton = (Button) findViewById(R.id.play);
         profileButton = (Button) findViewById(R.id.profile);
         tutorialButton = (Button)findViewById(R.id.tutorial);
         settingsButton = (Button) findViewById(R.id.settings);
+
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openPlayMenuView();
+            }
+        });
+
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openProfileView();
+            }
+        });
+        tutorialButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openTutorialView();
+            }
+        });
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSettingsView();
+            }
+        });
+    }
+
+    public void openPlayMenuView(){
+        Intent intent = new Intent(this, PlayMenu.class);
+        startActivity(intent);
+    }
+
+    public void openProfileView(){
+        Intent intent = new Intent(this, Profile.class);
+        startActivity(intent);
+    }
+
+    public void openTutorialView(){
+        Intent intent = new Intent(this, Tutorial.class);
+        startActivity(intent);
+    }
+
+    public void openSettingsView(){
+        Intent intent = new Intent(this, Settings.class);
+        startActivity(intent);
     }
 
 }
