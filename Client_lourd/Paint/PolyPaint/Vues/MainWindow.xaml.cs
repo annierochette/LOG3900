@@ -15,14 +15,13 @@ using System.Windows.Shapes;
 namespace PolyPaint.Vues
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class GameMenu : UserControl
+    public partial class MainWindow : Window
     {
-        public GameMenu()
+        public MainWindow()
         {
             InitializeComponent();
         }
-
     }
 }
