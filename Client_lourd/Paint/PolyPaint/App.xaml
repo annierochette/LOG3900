@@ -14,6 +14,9 @@
             <DataTemplate DataType="{x:Type viewModel:UserProfileViewModel}">
                 <view:UserProfile />
             </DataTemplate>
-        </Application.Resources>
+            <DataTemplate DataType="{x:Type viewModel:LoginViewModel}">
+                <view:LoginWindow />
+            </DataTemplate>
+    </Application.Resources>
   
 </Application>

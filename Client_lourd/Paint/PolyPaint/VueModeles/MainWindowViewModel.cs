@@ -50,6 +50,13 @@ namespace PolyPaint.VueModeles
             ChangeViewModel(PageViewModels[0]);
         }
 
+
+        private void OnGoToLoginWindow(object obj)
+        {
+            ChangeViewModel(PageViewModels[2]);
+        }
+
+
         private void OnGoToUserProfile(object obj)
         {
             ChangeViewModel(PageViewModels[1]);
@@ -61,11 +68,13 @@ namespace PolyPaint.VueModeles
             // Add available pages and set page
             PageViewModels.Add(new GameMenuViewModel());
             PageViewModels.Add(new UserProfileViewModel());
+            PageViewModels.Add(new LoginViewModel());
 
-            CurrentPageViewModel = PageViewModels[0];
+            CurrentPageViewModel = PageViewModels[2];
 
             Mediator.Subscribe("GoToGameMenu", OnGoToGameMenu);
             Mediator.Subscribe("GoToUserProfile", OnGoToUserProfile);
+            Mediator.Subscribe("GoToLoginWindow", OnGoToLoginWindow);
         }
     }
 }
