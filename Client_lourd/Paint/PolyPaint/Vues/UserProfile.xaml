@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="PolyPaint.Vues.UserProfile"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PolyPaint.Vues"
+        mc:Ignorable="d"
+        d:DesignHeight="650" d:DesignWidth="900" >
+    <Grid Background="HotPink">
+        <Button x:Name="Back" Height="50" Width="180" Margin="20" Content="Retour au menu principal" Background="#FFFF7F11" BorderThickness="2"  FontWeight="Bold" FontSize="24" FontFamily="Ink Free" Command="{Binding GoToGameMenu}" />
+    </Grid>
+</UserControl>

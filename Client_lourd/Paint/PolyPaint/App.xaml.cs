@@ -1,4 +1,7 @@
-﻿using System;
+﻿using PolyPaint.VueModeles;
+using PolyPaint.Vues;
+using PolyPaint.Utilitaires;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +16,14 @@ namespace PolyPaint
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            MainWindow app = new MainWindow();
+            MainWindowViewModel context = new MainWindowViewModel();
+            app.DataContext = context;
+            app.Show();
+        }
     }
 }

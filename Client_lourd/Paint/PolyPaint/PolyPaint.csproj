@@ -84,8 +84,28 @@
     </ApplicationDefinition>
     <Compile Include="Convertisseurs\Convertisseurs.cs" />
     <Compile Include="Modeles\Editeur.cs" />
+    <Compile Include="Utilitaires\EventArgs.cs" />
+    <Compile Include="Utilitaires\EventRaiser.cs" />
+    <Compile Include="Utilitaires\Mediator.cs" />
     <Compile Include="Utilitaires\RelayCommand.cs" />
+    <Compile Include="VueModeles\BaseViewModel.cs" />
+    <Compile Include="VueModeles\GameMenuViewModel.cs" />
+    <Compile Include="VueModeles\IPageViewModel.cs" />
+    <Compile Include="VueModeles\MainWindowViewModel.cs" />
+    <Compile Include="VueModeles\UserProfileViewModel.cs" />
     <Compile Include="VueModeles\VueModele.cs" />
+    <Compile Include="Vues\GameMenu.xaml.cs">
+      <DependentUpon>GameMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vues\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vues\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vues\UserProfile.xaml.cs">
+      <DependentUpon>UserProfile.xaml</DependentUpon>
+    </Compile>
     <Page Include="Vues\FenetreDessin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -97,6 +117,21 @@
     <Compile Include="Vues\FenetreDessin.xaml.cs">
       <DependentUpon>FenetreDessin.xaml</DependentUpon>
     </Compile>
+    <Page Include="Vues\GameMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Vues\LoginWindow.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </Page>
+    <Page Include="Vues\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vues\UserProfile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -136,6 +171,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\efface_crayon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\woman_avatar.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
