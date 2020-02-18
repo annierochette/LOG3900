@@ -42,10 +42,10 @@
 
                 <Button
                     android:id="@+id/button3"
-                    android:layout_width="281dp"
-                    android:layout_height="102dp"
+                    android:layout_width="280dp"
+                    android:layout_height="85dp"
                     android:layout_margin="20dp"
-                    android:background="#ff7f11"
+                    android:background="@drawable/round_button"
                     android:fontFamily="sans-serif-condensed"
                     android:text="Mêlée générale"
                     android:textAllCaps="true"
@@ -55,10 +55,10 @@
 
                 <Button
                     android:id="@+id/button2"
-                    android:layout_width="284dp"
-                    android:layout_height="95dp"
+                    android:layout_width="280dp"
+                    android:layout_height="85dp"
                     android:layout_margin="20dp"
-                    android:background="#ff7f11"
+                    android:background="@drawable/round_button"
                     android:fontFamily="sans-serif-condensed"
                     android:text="Solo"
                     android:textAllCaps="true"
@@ -68,10 +68,10 @@
 
                 <Button
                     android:id="@+id/button4"
-                    android:layout_width="281dp"
-                    android:layout_height="96dp"
+                    android:layout_width="280dp"
+                    android:layout_height="85dp"
                     android:layout_margin="20dp"
-                    android:background="#ff7f11"
+                    android:background="@drawable/round_button"
                     android:fontFamily="sans-serif-condensed"
                     android:text="Libre"
                     android:textAllCaps="true"

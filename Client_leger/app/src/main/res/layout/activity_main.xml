@@ -16,41 +16,58 @@
 
         <EditText
             android:id="@+id/password"
-            android:layout_width="326dp"
-            android:layout_height="52dp"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
             android:layout_centerInParent="true"
             android:background="@drawable/round_textedit"
+            android:fontFamily="sans-serif-condensed"
             android:hint="Mot de passe"
             android:paddingStart="5dp"
             android:password="true"
-            android:textSize="30dp" />
+            android:textSize="30sp" />
 
         <EditText
             android:id="@+id/username"
-            android:layout_width="326dp"
-            android:layout_height="52dp"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
             android:layout_above="@+id/password"
             android:layout_centerHorizontal="true"
             android:layout_marginEnd="474dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/round_textedit"
+            android:fontFamily="sans-serif-condensed"
             android:hint="Nom d'utilisateur"
             android:includeFontPadding="false"
             android:paddingStart="5dp"
-            android:textSize="30dp" />
+            android:textSize="30sp" />
 
         <Button
             android:id="@+id/enterchat"
-            android:layout_width="217dp"
-            android:layout_height="wrap_content"
+            android:layout_width="280dp"
+            android:layout_height="85dp"
             android:layout_below="@+id/password"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="36dp"
             android:layout_marginRight="289dp"
             android:background="@drawable/round_button"
+            android:fontFamily="sans-serif-condensed"
             android:text="Se connecter"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="280dp"
+            android:layout_height="85dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="26dp"
+            android:layout_marginBottom="26dp"
+            android:background="@drawable/round_green_button"
+            android:fontFamily="sans-serif-condensed"
+            android:text="S'inscrire"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
 
     </RelativeLayout>
 
