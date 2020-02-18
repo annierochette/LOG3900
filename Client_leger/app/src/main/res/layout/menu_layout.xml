@@ -41,8 +41,10 @@
                     android:background="#ff7f11"
                     android:fontFamily="sans-serif-condensed"
                     android:text="Jouer"
+                    android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="48sp" />
 
                 <Button
                     android:id="@+id/tutorial"
@@ -53,8 +55,10 @@
                     android:background="#ff7f11"
                     android:fontFamily="sans-serif-condensed"
                     android:text="Tutoriel"
+                    android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-                    android:textColor="#ffffff" />
+                    android:textColor="#ffffff"
+                    android:textSize="48sp" />
 
                 <Button
                     android:id="@+id/settings"
@@ -65,8 +69,10 @@
                     android:background="#ff7f11"
                     android:fontFamily="sans-serif-condensed"
                     android:text="Paramètres"
+                    android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="48dp" />
 
             </LinearLayout>
 

@@ -33,6 +33,7 @@
                     android:layout_height="42dp"
                     android:gravity="left"
                     android:text="Nom"
+                    android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display2"
                     android:textSize="24sp" />
 
@@ -42,6 +43,7 @@
                     android:layout_height="42dp"
                     android:gravity="left"
                     android:text="Pseudonyme"
+                    android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display2"
                     android:textSize="24sp" />
 
@@ -63,6 +65,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Stats"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display4" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Badges"
+                    android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display4" />
             </LinearLayout>
         </ScrollView>
