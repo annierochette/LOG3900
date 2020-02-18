@@ -12,18 +12,19 @@ public class MainActivity extends AppCompatActivity {
 
     private Button button;
     private EditText username;
-    private EditText ipAddress;
+    private EditText password;
     public static final String USERNAME = "username";
     public static final String IP_ADDRESS = "ipAddress";
+    public static final String PASSWORD = "password";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button = (Button)findViewById(R.id.enterchat);
+        button = (Button) findViewById(R.id.enterchat);
+        password = (EditText) findViewById(R.id.password);
         username = (EditText) findViewById(R.id.username);
-        ipAddress = (EditText) findViewById(R.id.ipaddress);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
                    Bundle extras = new Bundle();
                    extras.putString(USERNAME, username.getText().toString());
-                   extras.putString(IP_ADDRESS, ipAddress.getText().toString());
+                   extras.putString(PASSWORD, password.getText().toString());
 
                    i.putExtras(extras);
 

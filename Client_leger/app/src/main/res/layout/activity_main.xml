@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/colorPrimary">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,35 +15,42 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/username"
+            android:id="@+id/password"
             android:layout_width="326dp"
             android:layout_height="52dp"
-            android:layout_centerHorizontal="true"
             android:layout_centerInParent="true"
-            android:hint="Nom"
+            android:background="@drawable/round_textedit"
+            android:hint="Mot de passe"
+            android:paddingStart="5dp"
+            android:password="true"
             android:textSize="30dp" />
 
         <EditText
-            android:id="@+id/ipaddress"
+            android:id="@+id/username"
             android:layout_width="326dp"
             android:layout_height="52dp"
-            android:layout_above="@+id/username"
+            android:layout_above="@+id/password"
             android:layout_centerHorizontal="true"
             android:layout_marginEnd="474dp"
-            android:layout_marginBottom="1dp"
-            android:hint="Adresse IP"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/round_textedit"
+            android:hint="Nom d'utilisateur"
+            android:includeFontPadding="false"
+            android:paddingStart="5dp"
             android:textSize="30dp" />
 
         <Button
             android:id="@+id/enterchat"
             android:layout_width="217dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/username"
-
+            android:layout_below="@+id/password"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="16dp"
             android:layout_marginRight="289dp"
-            android:text="Aller au chat " />
+            android:background="@drawable/round_button"
+            android:text="Se connecter"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
 
     </RelativeLayout>
 
