@@ -1,8 +1,7 @@
-const jwt = require('jsonwebtoken')
-const Player = require('../player/player.model.js')
+const jwt = require("jsonwebtoken");
+const HTTP = require("../constants/http");
 
-const authentification = async(req, res, next) => {
-    
+const authentification = async function(req, res, next) {
     try {
     const AUTHORIZATION = req.header("Authorization");
 
@@ -14,11 +13,10 @@ const authentification = async(req, res, next) => {
     const token = AUTHORIZATION.replace('Bearer ', '');
     const data = jwt.verify(token, process.env.JWT_KEY);
 
-    req.pseudo = data.pseudo;
-    next()
+    next();
     } catch (error) {
-        res.status(401).send({ error: 'Not authorized to access this resource' })
+        res.status(HTTP.STATUS.UNAUTHORIZED).send({ error: 'Not authorized to access this resource' })
     }
-}
+};
 
-module.exports = authentification
+module.exports = authentification;

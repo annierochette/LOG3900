@@ -22,9 +22,9 @@ exports.deletePlayer = async function(req, res) {
     }
 };
 
-exports.getSinglePlayer = async function(req, res) {
+exports.getSinglePlayerInfos = async function(req, res) {
     try {
-        const player = await Player.findOne({ pseudo: req.params.pseudo });
+        var player = await Player.findOne({ pseudo: req.params.pseudo }).select(req.params.fields);
         res.status(HTTP.STATUS.OK).send({ player });
     } catch (error) {
         res.status(HTTP.STATUS.BAD_REQUEST).send(error);
