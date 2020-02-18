@@ -12,17 +12,37 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="70" />
+            <ColumnDefinition Width="30" />
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="MainChat"  Background="White" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2"></TextBlock>
-        <Button x:Name="SendMessage" Content="Ok"  Grid.Column="3" Grid.ColumnSpan="1"  Grid.Row="3" FontWeight="Bold" FontSize="16" />
+        <Border Background="#2364AA" Grid.ColumnSpan="6"/>
+        <TextBlock x:Name="ChatName" Grid.Column="1" Grid.ColumnSpan="4" Text="Chat Principal" FontSize="22" Foreground="White" />
+        <TextBlock x:Name="MainChat"  Background="White" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="1" Grid.RowSpan="2"></TextBlock>
+        <ComboBox Grid.Column="4" Grid.ColumnSpan="2" >
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="Width" Value="200"/>
+                </Style>
+            </ComboBox.ItemContainerStyle>
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Foreground="Red">Red</TextBlock>
+                </StackPanel>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Foreground="Green">Green</TextBlock>
+                </StackPanel>
+            </ComboBoxItem>
+        </ComboBox>
+        <Button x:Name="SendMessage" Content="Envoyer"  Grid.Column="3" Grid.ColumnSpan="2"  Grid.Row="3" FontWeight="Bold" FontSize="16" Click="SendMessage_Click" />
         <TextBox x:Name="MessageTextBox" Grid.Column="1" Grid.Row="3"  Grid.ColumnSpan="2"></TextBox>
     </Grid>
 </UserControl>

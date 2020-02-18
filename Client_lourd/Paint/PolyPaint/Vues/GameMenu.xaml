@@ -28,9 +28,6 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <control:MessageBox Grid.Column="6"  Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" Loaded="MessageBox_Loaded"/>
-        <!--<TextBlock x:Name="MainChat" Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="4" Background="White"></TextBlock>
-        <TextBox x:Name="MainChatBox" Grid.Column="6" Grid.ColumnSpan="2"  Width="160" Height="40" Grid.Row="5" Background="White" Margin="10.2,36,68.2,32.8" BorderThickness="1" BorderBrush="Black" />
-        <Button x:Name="SendMessage" Grid.Column="7" Grid.Row="5" Height="40" Content="Ok"  Margin="63,36,0.2,36.4" FontWeight="Bold" FontSize="16" FontFamily="Sa" />-->
         <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="10,10,110.2,99.2" Command="{Binding GoToUserProfile}">
             <StackPanel>
                 <Image Source="/PolyPaint;component/Resources/woman_avatar.png"  />
