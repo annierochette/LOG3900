@@ -43,7 +43,6 @@ public class ChatBoxActivity extends AppCompatActivity {
 
         messageTxt = (EditText) findViewById(R.id.message);
         send = (Button) findViewById(R.id.send);
-        disconnect = (Button) findViewById(R.id.disconnect);
 
         Bundle extras = getIntent().getExtras();
 

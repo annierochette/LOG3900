@@ -47,15 +47,6 @@
                 android:text="Envoyer"
                 android:textColor="#FFFFFF" />
 
-            <Button
-                android:id="@+id/disconnect"
-                android:layout_width="135dp"
-                android:layout_height="63dp"
-                android:layout_weight="3"
-                android:autoText="false"
-                android:backgroundTint="#C40303"
-                android:text="Déconnexion"
-                android:textColor="#FFFFFF" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
