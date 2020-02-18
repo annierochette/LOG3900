@@ -72,7 +72,7 @@ namespace PolyPaint.VueModeles
             PageViewModels.Add(new GameMenuViewModel());
             PageViewModels.Add(new UserProfileViewModel());
             PageViewModels.Add(new GameModeMenuViewModel());
-            PageViewModels.Add(new VueModele());
+            PageViewModels.Add(new DrawingWindowViewModel());
 
             CurrentPageViewModel = PageViewModels[0];
 

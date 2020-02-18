@@ -28,9 +28,10 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="3" >
-            <Button Height="50" Width="180" Margin="20" Content="Sprint Solo" Background="#FFFF7F11" BorderThickness="2" FontWeight="Bold" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToDrawingWindow}"/>
-            <Button Height="50" Width="180" Margin="20" Content="Mêlée générale" Background="#FFFF7F11" BorderThickness="2" FontWeight="Bold" FontSize="24" FontFamily="Ink Free" Foreground="White"/>
-            <Button Height="50" Width="180" Margin="20" Content="Challenge" Background="#FFFF7F11" BorderThickness="2"  FontWeight="Bold" FontSize="24" FontFamily="Ink Free" Foreground="White"/>
+            <Button Height="50" Width="220" Margin="20" Content="SPRINT SOLO" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToDrawingWindow}"/>
+            <Button Height="50" Width="220" Margin="20" Content="MELEE GENERALE" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White"/>
+            <Button Height="50" Width="220" Margin="20" Content="CHALLENGE" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White"/>
         </StackPanel>
+        <Button x:Name="button" Content="BACK" Grid.Column="1" HorizontalAlignment="Left" Margin="0,25,0,0" VerticalAlignment="Top" Width="75" Height="40" Grid.RowSpan="2" Command="{Binding GoToGameMenu}"/>
     </Grid>
 </UserControl>

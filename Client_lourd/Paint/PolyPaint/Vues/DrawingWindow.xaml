@@ -29,6 +29,7 @@
                 <StackPanel Orientation="Horizontal">
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                 </StackPanel>
+                <Button Content="BACK" Command="{Binding GoToGameModeMenu}"></Button>
                 <Button Name="crayon" Width="40" Height="40" Margin="5" 
                         BorderBrush="{Binding Path=OutilSelectionne, Converter={StaticResource convertisseurBordure}, ConverterParameter=crayon, UpdateSourceTrigger=PropertyChanged}" 
                         Background="{Binding Path=OutilSelectionne, Converter={StaticResource convertisseurCouleurFond}, ConverterParameter=crayon, UpdateSourceTrigger=PropertyChanged}" 
