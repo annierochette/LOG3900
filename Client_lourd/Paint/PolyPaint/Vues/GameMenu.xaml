@@ -30,12 +30,16 @@
         <TextBlock x:Name="MainChat" Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="4" Background="White"></TextBlock>
         <TextBox x:Name="MainChatBox" Grid.Column="6" Grid.ColumnSpan="2"  Width="160" Height="40" Grid.Row="5" Background="White" Margin="10.2,36,68.2,32.8" BorderThickness="1" BorderBrush="Black" />
         <Button x:Name="SendMessage" Grid.Column="7" Grid.Row="5" Height="40" Content="Ok"  Margin="63,36,0.2,36.4" FontWeight="Bold" FontSize="16" FontFamily="Ink Free" />
-        <Rectangle Fill="#FFF4F4F5" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="10,10,110.2,99.2" />
-        <Image x:Name="avatar" Grid.ColumnSpan="3" Grid.RowSpan="3" Source="/PolyPaint;component/Resources/woman_avatar.png" Margin="10,10,110.2,99.2"/>
+        <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="10,10,110.2,99.2" Command="{Binding GoToUserProfile}">
+            <StackPanel>
+                <Image Source="/PolyPaint;component/Resources/woman_avatar.png"  />
+            </StackPanel>
+        </Button>
+       
         <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="3" >
-            <Button Height="50" Width="180" Margin="20" Content="Jouer" Background="#FFFEC601" BorderThickness="2" FontWeight="Bold" FontSize="24" FontFamily="Ink Free" />
-            <Button Height="50" Width="180" Margin="20" Content="Créer" Background="#FFA2B631" BorderThickness="2" FontWeight="Bold" FontSize="24" FontFamily="Ink Free" />
-            <Button Height="50" Width="180" Margin="20" Content="Profil" Background="#FFFF7F11" BorderThickness="2"  FontWeight="Bold" FontSize="24" FontFamily="Ink Free" Command="{Binding GoToUserProfile}"/>
+            <Button Height="50" Width="180" Margin="20" Content="Jouer" Background="#FFFF7F11" BorderThickness="2" FontWeight="Bold" FontSize="24" FontFamily="Ink Free" Foreground="White"/>
+            <Button Height="50" Width="180" Margin="20" Content="Créer" Background="#FFFF7F11" BorderThickness="2" FontWeight="Bold" FontSize="24" FontFamily="Ink Free" Foreground="White"/>
+            <Button Height="50" Width="180" Margin="20" Content="Paramètres" Background="#FFFF7F11" BorderThickness="2"  FontWeight="Bold" FontSize="24" FontFamily="Ink Free" Foreground="White"/>
         </StackPanel>
     </Grid>
 </UserControl>
