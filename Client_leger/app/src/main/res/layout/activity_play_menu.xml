@@ -33,6 +33,7 @@
                     android:fontFamily="sans-serif-black"
                     android:gravity="center"
                     android:text="Modes de jeu"
+                    android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display4"
                     android:textColor="#2364aa" />
 
@@ -44,8 +45,10 @@
                     android:background="#ff7f11"
                     android:fontFamily="sans-serif-condensed"
                     android:text="Mêlée générale"
+                    android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="36sp" />
 
                 <Button
                     android:id="@+id/button2"
@@ -55,8 +58,10 @@
                     android:background="#ff7f11"
                     android:fontFamily="sans-serif-condensed"
                     android:text="Solo"
+                    android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="36dp" />
 
                 <Button
                     android:id="@+id/button4"
@@ -66,8 +71,10 @@
                     android:background="#ff7f11"
                     android:fontFamily="sans-serif-condensed"
                     android:text="Libre"
+                    android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="36dp" />
 
             </LinearLayout>
         </LinearLayout>
