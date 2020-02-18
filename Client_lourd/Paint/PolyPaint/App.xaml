@@ -14,6 +14,12 @@
             <DataTemplate DataType="{x:Type viewModel:UserProfileViewModel}">
                 <view:UserProfile />
             </DataTemplate>
-        </Application.Resources>
+            <DataTemplate DataType="{x:Type viewModel:GameModeMenuViewModel}">
+                <view:GameModeMenu />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:VueModele}">
+                <view:DrawingWindow />
+            </DataTemplate>
+    </Application.Resources>
   
 </Application>

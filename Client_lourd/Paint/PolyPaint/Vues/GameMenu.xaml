@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PolyPaint.Vues"
         mc:Ignorable="d"
-        Height="650" Width="900" Background="#FFB3C646">
-    <Grid Background="#FF3DA5D9">
+        Height="650" Width="900">
+    <Grid Background="#4CAFE0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"/>
             <ColumnDefinition Width="*"/>
@@ -37,7 +37,7 @@
         </Button>
        
         <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="3" >
-            <Button Height="50" Width="180" Margin="20" Content="Jouer" Background="#FFFF7F11" BorderThickness="2" FontWeight="Bold" FontSize="24" FontFamily="Ink Free" Foreground="White"/>
+            <Button Height="50" Width="180" Margin="20" Content="Jouer" Background="#FFFF7F11" BorderThickness="2" FontWeight="Bold" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToGameModeMenu}"/>
             <Button Height="50" Width="180" Margin="20" Content="Créer" Background="#FFFF7F11" BorderThickness="2" FontWeight="Bold" FontSize="24" FontFamily="Ink Free" Foreground="White"/>
             <Button Height="50" Width="180" Margin="20" Content="Paramètres" Background="#FFFF7F11" BorderThickness="2"  FontWeight="Bold" FontSize="24" FontFamily="Ink Free" Foreground="White"/>
         </StackPanel>

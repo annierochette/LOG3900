@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Ink;
+using System.Windows.Input;
 using System.Windows.Media;
 using PolyPaint.Modeles;
 using PolyPaint.Utilitaires;
@@ -13,13 +14,26 @@ namespace PolyPaint.VueModeles
     /// Expose des commandes et propriétés connectées au modèle aux des éléments de la vue peuvent se lier.
     /// Reçoit des avis de changement du modèle et envoie des avis de changements à la vue.
     /// </summary>
-    class VueModele : INotifyPropertyChanged
+    class VueModele : INotifyPropertyChanged, IPageViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private Editeur editeur = new Editeur();
 
         // Ensemble d'attributs qui définissent l'apparence d'un trait.
         public DrawingAttributes AttributsDessin { get; set; } = new DrawingAttributes();
+
+        private ICommand _goToDrawingWindow;
+
+        public ICommand GoToDrawingWindow
+        {
+            get
+            {
+                return _goToDrawingWindow ?? (_goToDrawingWindow = new RelayCommand(x =>
+                {
+                    Mediator.Notify("GoToDrawingWindow", "");
+                }));
+            }
+        }
 
         public string OutilSelectionne
         {
