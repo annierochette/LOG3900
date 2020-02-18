@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PolyPaint.Vues"
+        xmlns:control="clr-namespace:PolyPaint.CustomControls"
         mc:Ignorable="d"
         Height="650" Width="900">
     <Grid Background="#4CAFE0">
@@ -27,19 +27,20 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="MainChat" Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="4" Background="White"></TextBlock>
+        <control:MessageBox Grid.Column="6"  Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" Loaded="MessageBox_Loaded"/>
+        <!--<TextBlock x:Name="MainChat" Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="4" Background="White"></TextBlock>
         <TextBox x:Name="MainChatBox" Grid.Column="6" Grid.ColumnSpan="2"  Width="160" Height="40" Grid.Row="5" Background="White" Margin="10.2,36,68.2,32.8" BorderThickness="1" BorderBrush="Black" />
-        <Button x:Name="SendMessage" Grid.Column="7" Grid.Row="5" Height="40" Content="Ok"  Margin="63,36,0.2,36.4" FontWeight="Bold" FontSize="16" FontFamily="Ink Free" />
+        <Button x:Name="SendMessage" Grid.Column="7" Grid.Row="5" Height="40" Content="Ok"  Margin="63,36,0.2,36.4" FontWeight="Bold" FontSize="16" FontFamily="Sa" />-->
         <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="10,10,110.2,99.2" Command="{Binding GoToUserProfile}">
             <StackPanel>
                 <Image Source="/PolyPaint;component/Resources/woman_avatar.png"  />
             </StackPanel>
         </Button>
-       
+
         <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="3" >
-            <Button Height="50" Width="180" Margin="20" Content="Jouer" Background="#FFFF7F11" BorderThickness="2" FontWeight="Bold" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToGameModeMenu}"/>
-            <Button Height="50" Width="180" Margin="20" Content="Créer" Background="#FFFF7F11" BorderThickness="2" FontWeight="Bold" FontSize="24" FontFamily="Ink Free" Foreground="White"/>
-            <Button Height="50" Width="180" Margin="20" Content="Paramètres" Background="#FFFF7F11" BorderThickness="2"  FontWeight="Bold" FontSize="24" FontFamily="Ink Free" Foreground="White"/>
+            <Button Height="50" Width="180" Margin="20" Content="JOUER" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToGameModeMenu}"/>
+            <Button Height="50" Width="180" Margin="20" Content="CRÉER" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White"/>
+            <Button Height="50" Width="180" Margin="20" Content="PARAMÈTRES" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free"  Foreground="White"/>
         </StackPanel>
     </Grid>
 </UserControl>
