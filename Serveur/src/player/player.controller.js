@@ -1,13 +1,16 @@
 var Player = require("./player.model");
 var HTTP = require("../constants/http");
+var ERR = require("../errors/messages/err");
+const jwt = require("jsonwebtoken");
+const LOGGER = require("../utils/logger");
 
 exports.createPlayer = async function(req, res) {
     // Create a new player
     try {
         const player = new Player(req.body)
+        player.token = await player.generateAuthToken()
         await player.save();
-        const token = await player.generateAuthToken()
-        res.status(HTTP.STATUS.CREATED).send({ player, token })
+        res.status(HTTP.STATUS.CREATED).send({ player })
     } catch (error) {
         res.status(HTTP.STATUS.BAD_REQUEST).send(error)
     }
@@ -15,7 +18,7 @@ exports.createPlayer = async function(req, res) {
 
 exports.deletePlayer = async function(req, res) {
     try {
-        await Player.deleteOne({pseudo: req.params.pseudo});
+        await Player.deleteOne({username: req.params.username});
         res.status(HTTP.STATUS.OK).send();
     } catch (error) {
         res.status(HTTP.STATUS.BAD_REQUEST).send();
@@ -24,9 +27,22 @@ exports.deletePlayer = async function(req, res) {
 
 exports.getSinglePlayerInfos = async function(req, res) {
     try {
-        var player = await Player.findOne({ pseudo: req.params.pseudo }).select(req.params.fields);
+        console.log(req.params.filter)
+        var player = await Player.findOne({ username: req.params.username }).select(req.params.filter);
         res.status(HTTP.STATUS.OK).send({ player });
     } catch (error) {
+        res.status(HTTP.STATUS.BAD_REQUEST).send(error);
+    }
+};
+
+exports.changeAvatar = async function(req, res) {
+    try {
+        console.log("fdsf")
+        await Player.changeAvatar(req);
+        res.status(HTTP.STATUS.OK).send();
+    } catch (error) {
+        console.log("FSDJN")
+        console.log(error);
         res.status(HTTP.STATUS.BAD_REQUEST).send(error);
     }
 };
@@ -34,18 +50,19 @@ exports.getSinglePlayerInfos = async function(req, res) {
 exports.login = async function(req, res) {
     //Login a registered player
     try {
-        const player = await Player.findByCredentials(req.body.pseudo, req.body.password);
+        const player = await Player.findByCredentials(req.body.username, req.body.password);
         
         if (!player) {
-            return res.status(HTTP.STATUS.UNAUTHORIZED).send({error: 'Login failed! Check authentication credentials'})
+            return res.status(HTTP.STATUS.UNAUTHORIZED).send({ error: ERR.MSG.WRONG_CREDENTIALS });
         }
 
         if (player.token)
         {
-            return res.status(HTTP.STATUS.UNAUTHORIZED).send({error: 'Already connected'})
+            return res.status(HTTP.STATUS.UNAUTHORIZED).send({ error: ERR.MSG.ALREADY_CONNECTED });
         }
+
         const token = await player.generateAuthToken()
-        res.status(HTTP.STATUS.OK).send({ player, token })
+        res.status(HTTP.STATUS.OK).send({ player })
     } catch (error) {
         res.status(HTTP.STATUS.BAD_REQUEST).send(error)
     }
@@ -54,9 +71,9 @@ exports.login = async function(req, res) {
 exports.logout = async function(req, res) {
     // Log user out of the application
     try {
-        await Player.removeToken(req.pseudo);
-        res.status(HTTP.STATUS.OK).send("Toekn removed");
+        await Player.removeToken(req.params.username);
+        res.status(HTTP.STATUS.OK).send("Token removed");
     } catch (error) {
-        res.status(HTTP.STATUS.INTERNAL_SERVER_ERROR).send(error)
+        res.status(HTTP.STATUS.INTERNAL_SERVER_ERROR).send(error);
     }
 };

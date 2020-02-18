@@ -2,8 +2,9 @@ const jwt = require("jsonwebtoken");
 const HTTP = require("../constants/http");
 const LOGGER = require("../utils/logger");
 const MissingAuthorizationError = require("../errors/missing.authorization");
+const UnauthorizedOperationError = require("../errors/unauthorized.operation");
 
-const authentification = async function(req, res, next) {
+const ownerAuthentification = async function(req, res, next) {
     try {
     const AUTHORIZATION = req.header("Authorization");
 
@@ -13,6 +14,11 @@ const authentification = async function(req, res, next) {
 
     const token = AUTHORIZATION.replace('Bearer ', '');
     const data = jwt.verify(token, process.env.JWT_KEY);
+    
+    if (data.username !== req.params.username) {
+        LOGGER.error(error);
+        throw new UnauthorizedOperationError();
+    }
 
     next();
     } catch (error) {
@@ -21,4 +27,4 @@ const authentification = async function(req, res, next) {
     }
 };
 
-module.exports = authentification;
+module.exports = ownerAuthentification;
