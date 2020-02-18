@@ -1,0 +1,21 @@
+{
+    "name": "fais-moi-un-dessin",
+    "version": "0.0.1",
+    "description": "PolyMessagerie",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "express": "^4.17.1",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^5.9.0",
+        "socket.io": "^2.3.0",
+        "validator": "^12.2.0"
+    },
+    "devDependencies": {
+        "@types/node": "^13.5.1",
+        "env-cmd": "^10.1.0",
+        "nodemon": "^2.0.2"
+    },
+    "scripts": {
+        "start": "env-cmd -f ./.env nodemon src/server.js"
+    }
+}
