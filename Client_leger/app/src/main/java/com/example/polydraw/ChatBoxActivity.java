@@ -2,6 +2,7 @@ package com.example.polydraw;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +30,7 @@ public class ChatBoxActivity extends AppCompatActivity {
     public ChatBoxAdapter chatBoxAdapter;
     public EditText messageTxt;
     public Button send;
-    public Button disconnect;
+
 
     private Socket socket;
 
@@ -40,6 +41,7 @@ public class ChatBoxActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatbox);
+
 
         messageTxt = (EditText) findViewById(R.id.message);
         send = (Button) findViewById(R.id.send);
@@ -78,6 +80,8 @@ public class ChatBoxActivity extends AppCompatActivity {
                 }
             }
         });
+
+
 
         socket.on("disconnection", new Emitter.Listener() {
             @Override
@@ -145,22 +149,13 @@ public class ChatBoxActivity extends AppCompatActivity {
             }
         });
 
-        disconnect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                socket.emit("disconnection");
-                startActivity(new Intent(ChatBoxActivity.this, MainActivity.class));
-                socket.disconnect();
-            }
-        });
     }
-
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
         socket.disconnect();
-
     }
+
 }
