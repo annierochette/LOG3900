@@ -37,19 +37,19 @@
                     android:id="@+id/switch2"
                     android:layout_width="181dp"
                     android:layout_height="59dp"
-                    android:text="Switch" />
+                    android:text="Personnage virtuel 1" />
 
                 <Switch
                     android:id="@+id/switch3"
                     android:layout_width="178dp"
                     android:layout_height="53dp"
-                    android:text="Switch" />
+                    android:text="Personnage virtuel 2" />
 
                 <Switch
                     android:id="@+id/switch4"
                     android:layout_width="182dp"
                     android:layout_height="51dp"
-                    android:text="Switch" />
+                    android:text="Personnage virtuel 3" />
 
             </LinearLayout>
         </LinearLayout>
