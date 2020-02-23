@@ -27,7 +27,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <control:MessageBox Grid.Column="6"  Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" Loaded="MessageBox_Loaded"/>
+        <control:MessageBox Grid.Column="6"  Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" Value="{Binding MessageList}" Loaded="MessageBox_Loaded"/>
         <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="10,10,110.2,99.2" Command="{Binding GoToUserProfile}">
             <StackPanel>
                 <Image Source="/PolyPaint;component/Resources/woman_avatar.png"  />

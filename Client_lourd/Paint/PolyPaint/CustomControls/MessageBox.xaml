@@ -3,28 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            
              xmlns:local="clr-namespace:PolyPaint.Vues"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="300">
     <Grid Background="White">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="70" />
-            <ColumnDefinition Width="30" />
-            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
         <Border Background="#2364AA" Grid.ColumnSpan="6"/>
-        <TextBlock x:Name="ChatName" Grid.Column="1" Grid.ColumnSpan="4" Text="Chat Principal" FontSize="22" Foreground="White" />
-        <TextBlock x:Name="MainChat"  Background="White" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="1" Grid.RowSpan="2"></TextBlock>
+        <TextBlock x:Name="ChatName" Grid.Column="0" Grid.ColumnSpan="4" Text="Chat Principal" FontSize="22" Foreground="White" />
+        <TextBox x:Name="messageList"  Text="{Binding MessageList, UpdateSourceTrigger=PropertyChanged}" Background="White"  Grid.ColumnSpan="6" Grid.Row="1" Grid.RowSpan="3" TextChanged="messageList_TextChanged" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"></TextBox>
         <ComboBox Grid.Column="4" Grid.ColumnSpan="2" >
             <ComboBox.ItemContainerStyle>
                 <Style TargetType="ComboBoxItem">
@@ -42,7 +43,7 @@
                 </StackPanel>
             </ComboBoxItem>
         </ComboBox>
-        <Button x:Name="SendMessage" Content="Envoyer"  Grid.Column="3" Grid.ColumnSpan="2"  Grid.Row="3" FontWeight="Bold" FontSize="16" Click="SendMessage_Click" />
-        <TextBox x:Name="MessageTextBox" Grid.Column="1" Grid.Row="3"  Grid.ColumnSpan="2"></TextBox>
+        <Button x:Name="SendMessage" Content="Envoyer"  Grid.Column="4" Grid.ColumnSpan="2"  Grid.Row="4" FontWeight="Bold" FontSize="16" Click="sendMessage" />
+        <TextBox x:Name="MessageTextBox" Grid.Column="0" Grid.Row="4"  Grid.ColumnSpan="4" TextChanged="MessageTextBox_TextChanged" KeyDown="sendMessageOnEnter"></TextBox>
     </Grid>
 </UserControl>

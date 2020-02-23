@@ -12,6 +12,13 @@ namespace PolyPaint.Vues
         public GameModeMenu()
         {
             InitializeComponent();
+
+           
+        }
+
+        private void MessageBox_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+
         }
     }
 }

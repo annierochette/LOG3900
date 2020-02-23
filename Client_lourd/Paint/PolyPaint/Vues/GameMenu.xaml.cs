@@ -1,4 +1,5 @@
 ﻿
+using PolyPaint.Modeles;
 using System.Windows.Controls;
 
 
@@ -12,6 +13,12 @@ namespace PolyPaint.Vues
         public GameMenu()
         {
             InitializeComponent();
+            var model = new Message()
+            {
+               MessageList = "Bienvenue à la messagerie!",
+            };
+
+            //DataContext = model;
         }
 
         private void MessageBox_Loaded(object sender, System.Windows.RoutedEventArgs e)

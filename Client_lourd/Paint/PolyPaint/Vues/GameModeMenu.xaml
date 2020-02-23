@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PolyPaint.Vues"
+             xmlns:control="clr-namespace:PolyPaint.CustomControls"
              mc:Ignorable="d" 
              Height="650" Width="900">
     <Grid Background="#4CAFE0">
@@ -33,5 +34,6 @@
             <Button Height="50" Width="220" Margin="20" Content="CHALLENGE" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White"/>
         </StackPanel>
         <Button x:Name="button" Content="BACK" Grid.Column="1" HorizontalAlignment="Left" Margin="0,25,0,0" VerticalAlignment="Top" Width="75" Height="40" Grid.RowSpan="2" Command="{Binding GoToGameMenu}"/>
+        <control:MessageBox Grid.Column="6"  Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" Loaded="MessageBox_Loaded"/>
     </Grid>
 </UserControl>
