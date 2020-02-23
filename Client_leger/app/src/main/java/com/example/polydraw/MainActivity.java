@@ -12,7 +12,7 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button button;
+    private Button enterAppButton;
     private EditText username;
     private Button signupButton;
 //    private EditText password;
@@ -26,12 +26,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        button = (Button) findViewById(R.id.enterapp);
+        enterAppButton = (Button) findViewById(R.id.enterapp);
 //        password = (EditText) findViewById(R.id.password);
         username = (EditText) findViewById(R.id.username);
         signupButton = (Button) findViewById(R.id.signup);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        enterAppButton.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
 
                if(!username.getText().toString().isEmpty()){
@@ -48,18 +48,13 @@ public class MainActivity extends AppCompatActivity {
             }
         } );
 
-        /*signupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSignupView();
+       signupButton.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SignupActivity.class);
+                startActivity(intent);
             }
-        });*/
+        });
 
-    }
-
-    public void openSignupView(){
-        Intent intent = new Intent(this, SignupActivity.class);
-        startActivity(intent);
     }
 
 }
