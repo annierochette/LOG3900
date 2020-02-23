@@ -5,11 +5,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class ChatBoxAdapter extends RecyclerView.Adapter<ChatBoxAdapter.MyViewHolder> {
+public class ChatViewModel extends ViewModel {
     private List<Message> MessageList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -21,14 +22,14 @@ public class ChatBoxAdapter extends RecyclerView.Adapter<ChatBoxAdapter.MyViewHo
         public MyViewHolder(View view) {
             super(view);
 
-            username = (TextView) view.findViewById(R.id.username);
+            username = (TextView) view.findViewById(R.id.password);
             message = (TextView) view.findViewById(R.id.message);
             timestamp = (TextView) view.findViewById(R.id.timestamp);
         }
 
     }
 
-    public ChatBoxAdapter(List<Message> MessagesList) {
+    /*public ChatBoxAdapter(List<Message> MessagesList) {
         this.MessageList = MessagesList;
     }
 
@@ -47,7 +48,5 @@ public class ChatBoxAdapter extends RecyclerView.Adapter<ChatBoxAdapter.MyViewHo
         holder.username.setText(m.getUsername());
         holder.timestamp.setText(m.getTimestamp());
         holder.message.setText(m.getMessage());
-    }
+    }*/
 }
-
-
