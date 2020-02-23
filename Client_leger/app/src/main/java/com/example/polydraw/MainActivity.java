@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button button;
     private EditText username;
+    private Button signupButton;
 //    private EditText password;
     public static final String USERNAME = "username";
     public static final String IP_ADDRESS = "ipAddress";
@@ -25,9 +26,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        button = (Button) findViewById(R.id.enterchat);
+        button = (Button) findViewById(R.id.enterapp);
 //        password = (EditText) findViewById(R.id.password);
         username = (EditText) findViewById(R.id.username);
+        signupButton = (Button) findViewById(R.id.signup);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
@@ -46,32 +48,18 @@ public class MainActivity extends AppCompatActivity {
             }
         } );
 
-    }
-    public boolean dispatchKeyEvent(KeyEvent event)
-        {
-            try
-            {
-                //
-                if(event.getAction()== KeyEvent.ACTION_DOWN)
-                {
-                    if(!username.getText().toString().isEmpty()){
-                        Intent i = new Intent(MainActivity.this, Menu.class);
-
-                        Bundle extras = new Bundle();
-                        extras.putString(USERNAME, username.getText().toString());
-    //                   extras.putString(PASSWORD, password.getText().toString());
-
-                        i.putExtras(extras);
-
-                        startActivity(i);
-                    }
-                }
+        /*signupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSignupView();
             }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-        return true;
+        });*/
+
+    }
+
+    public void openSignupView(){
+        Intent intent = new Intent(this, SignupActivity.class);
+        startActivity(intent);
     }
 
 }

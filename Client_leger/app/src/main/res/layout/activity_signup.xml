@@ -90,7 +90,7 @@
             android:layout_marginBottom="15dp"/>
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/signup"
             android:layout_width="280dp"
             android:layout_height="85dp"
             android:layout_below="@+id/password"

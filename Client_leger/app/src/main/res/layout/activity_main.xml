@@ -42,7 +42,7 @@
             android:textSize="30sp" />
 
         <Button
-            android:id="@+id/enterchat"
+            android:id="@+id/enterapp"
             android:layout_width="280dp"
             android:layout_height="85dp"
             android:layout_below="@+id/password"
