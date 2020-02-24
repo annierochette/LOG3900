@@ -19,18 +19,54 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="610dp"
+            <RelativeLayout
+                android:layout_width="604dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
                 android:background="@color/colorPrimary">
+
+                <Button
+                    android:id="@+id/freeButton"
+                    android:layout_width="280dp"
+                    android:layout_height="85dp"
+                    android:layout_below="@+id/soloButton"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/round_button"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Libre"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/backButton"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="26dp"
+                    android:layout_marginTop="26dp"
+                    android:background="@drawable/back_button"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Retour"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="@android:color/white" />
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
+                    android:layout_above="@+id/multiplayerButton"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="28dp"
                     android:fontFamily="sans-serif-black"
                     android:gravity="center"
                     android:text="Modes de jeu"
@@ -40,20 +76,7 @@
                     android:textSize="36sp" />
 
                 <Button
-                    android:id="@+id/button3"
-                    android:layout_width="280dp"
-                    android:layout_height="85dp"
-                    android:layout_margin="20dp"
-                    android:background="@drawable/round_button"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="Mêlée générale"
-                    android:textAllCaps="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-                    android:textColor="@android:color/white"
-                    android:textSize="30sp" />
-
-                <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/soloButton"
                     android:layout_width="280dp"
                     android:layout_height="85dp"
                     android:layout_margin="20dp"
@@ -63,28 +86,35 @@
                     android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display3"
                     android:textColor="@android:color/white"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
 
                 <Button
-                    android:id="@+id/button4"
+                    android:id="@+id/multiplayerButton"
                     android:layout_width="280dp"
                     android:layout_height="85dp"
-                    android:layout_margin="20dp"
+                    android:layout_above="@+id/soloButton"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="1dp"
                     android:background="@drawable/round_button"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="Libre"
+                    android:text="Mêlée générale"
                     android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display3"
                     android:textColor="@android:color/white"
                     android:textSize="30sp" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
             <fragment
-            android:id="@+id/chat"
-            android:name="com.example.polydraw.Chat"
-            android:layout_width="420dp"
-            android:layout_height="match_parent" />
+                android:id="@+id/chat"
+                android:name="com.example.polydraw.Chat"
+                android:layout_width="420dp"
+                android:layout_height="match_parent" />
+
         </LinearLayout>
 
     </RelativeLayout>

@@ -87,6 +87,18 @@
                 android:textColor="#FFFFFF"
                 android:textSize="30sp" />
 
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:background="@android:color/holo_red_dark"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Déconnexion"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="26dp"/>
+
         </LinearLayout>
         <fragment
         android:id="@+id/chat"
