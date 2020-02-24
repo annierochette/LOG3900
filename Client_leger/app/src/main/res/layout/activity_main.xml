@@ -15,18 +15,6 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/password"
-            android:layout_width="350dp"
-            android:layout_height="60dp"
-            android:layout_centerInParent="true"
-            android:background="@drawable/round_textedit"
-            android:fontFamily="sans-serif-condensed"
-            android:hint="Mot de passe"
-            android:paddingStart="5dp"
-            android:inputType="textPassword"
-            android:textSize="30sp" />
-
-        <EditText
             android:id="@+id/username"
             android:layout_width="350dp"
             android:layout_height="60dp"
@@ -39,6 +27,18 @@
             android:hint="Nom d'utilisateur"
             android:includeFontPadding="false"
             android:paddingStart="5dp"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/round_textedit"
+            android:fontFamily="sans-serif-condensed"
+            android:hint="Mot de passe"
+            android:paddingStart="5dp"
+            android:inputType="textPassword"
             android:textSize="30sp" />
 
         <Button
