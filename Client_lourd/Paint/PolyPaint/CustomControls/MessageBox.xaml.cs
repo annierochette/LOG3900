@@ -42,11 +42,12 @@ namespace PolyPaint.CustomControls
         }
 
         public static readonly DependencyProperty ValueProperty =
-        DependencyProperty.Register("Value", typeof(object), typeof(MessageBox), new PropertyMetadata(null));
+        DependencyProperty.Register("Value", typeof(string), typeof(MessageBox), new PropertyMetadata(null));
 
-        public object Value
+       
+        public string Value
         {
-            get { return (object)GetValue(ValueProperty); }
+            get { return (string)GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
 

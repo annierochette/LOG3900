@@ -13,5 +13,14 @@ namespace PolyPaint.Vues
             InitializeComponent();
         }
 
+        private void Back_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
+
+        private void MessageBox_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
     }
 }
