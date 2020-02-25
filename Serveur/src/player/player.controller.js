@@ -12,7 +12,7 @@ exports.createPlayer = async function(req, res) {
         await player.save();
         res.status(HTTP.STATUS.CREATED).send({ player })
     } catch (error) {
-        console.log("Error ", error.message)
+        console.log("Error ", error)
         res.status(HTTP.STATUS.BAD_REQUEST).send(error)
     }
 };

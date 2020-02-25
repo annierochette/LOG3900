@@ -1,5 +1,5 @@
 const supertest = require("supertest");
-const app = require("../../src/server.js");
+const app = require("../../src/app");
 const request = supertest(app);
 const HTTP = require("../../common/constants/http");
 const AVATAR = require("../constants/avatar");
@@ -32,6 +32,11 @@ describe("Players Rest API", () => {
       ownerToken = owner.body.player.token;
 
       done()
+  });
+
+  afterAll(async done => {
+    // Close connection to db
+    done();
   });
 
   it("should not create a new player if the password under 7 characters", async done => {
