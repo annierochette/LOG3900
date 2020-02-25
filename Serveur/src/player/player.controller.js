@@ -1,6 +1,6 @@
-var Player = require("./player.model");
-var HTTP = require("../../common/constants/http");
-var ERR = require("../errors/messages/err");
+const Player = require("./player.model");
+const HTTP = require("../../common/constants/http");
+const ERR = require("../errors/messages/err");
 const jwt = require("jsonwebtoken");
 const LOGGER = require("../utils/logger");
 

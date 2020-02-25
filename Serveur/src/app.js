@@ -9,8 +9,10 @@ var usernames = new Set();
 
 app.use(express.json({limit: "50mb"}));
 
-var usersRouter = require('./player/player.route.js');
+var usersRouter = require("./player/player.route");
+var generalStatsRouter = require("./player/general.stats.route");
 app.use(usersRouter);
+app.use(generalStatsRouter);
 
 io.attach(http);
 io.on('connection', function(socket){
