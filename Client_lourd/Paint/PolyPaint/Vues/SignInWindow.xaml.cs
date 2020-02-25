@@ -25,6 +25,58 @@ namespace PolyPaint.Vues
             InitializeComponent();
         }
 
+        public class player
+        {
+            [JsonProperty("firstName")]
+            public string firstName { get; set; }
+
+            [JsonProperty("lastName")]
+            public string lastName { get; set; }
+
+            [JsonProperty("username")]
+            public string username { get; set; }
+
+            [JsonProperty("password")]
+            public string password { get; set; }
+        }
+
+        private async void UserSign(object sender, RoutedEventArgs e)
+        {
+            string firstName = surnameBox.Text;
+            string lastName = nameBox.Text;
+            string username = usernameBox.Text;
+            string password = passBox.Password;
+            string repass = rePassBox.Password;
+
+            if (repass == password)
+            {
+
+
+
+                var HttpClient = new HttpClient();
+                var infos = new player { 
+                    firstName = firstName,
+                    lastName = lastName, 
+                    username = username,
+                    password = password
+                };
+
+
+                var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
+                var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var res = await HttpClient.PostAsync("http://localhost:5050/players", httpContent);
+                if (res.Content != null)
+                {
+                    var responseContent = await res.Content.ReadAsStringAsync();
+                    Console.WriteLine(responseContent);
+
+                }
+                Console.WriteLine(password);
+            }
+            else { System.Windows.MessageBox.Show("le mot de passe et la vérification ne correspondent pas", "Erreur"); }
+        }
+
         private void surnameBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (surnameBox.Text.Length > 0)

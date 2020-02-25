@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using Newtonsoft.Json;
+using PolyPaint.Utilitaires;
 using System.Collections.Generic;
 using System.Web;
 using System.Linq;
@@ -14,6 +15,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 
 
@@ -27,27 +30,54 @@ namespace PolyPaint.Vues
             InitializeComponent();
         }
 
-        public struct player
+        public class loginPlayer
         {
-            public string user, pass;
 
-            public player(string username, string password)
+            [JsonProperty("username")]
+            public string username { get; set; }
+
+            [JsonProperty("password")]
+            public string password { get; set; }
+        }
+
+        public bool IsEnable
+        {
+            get { return isEnable; }
+            set
             {
-                user = username;
-                pass = password;
+                isEnable = value;
+                NotifyPropertyChanged();
             }
         }
 
         private async void UserConnect(object sender, RoutedEventArgs e)
         {
+            isEnable = false;
             string username = usernameBox.Text;
             string password = passwordBox.Password;
 
             var HttpClient = new HttpClient();
-            var infos = new player(username, password);
+            var infos = new loginPlayer
+            {
+                username = username,
+                password = password
+            };
 
-            var json = JsonConvert.SerializeObject(infos);
-            //var res = await HttpClient.PostAsync("/players/login", new StringContent(json));
+            var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var res = await HttpClient.PostAsync("http://localhost:5050/players/login", httpContent);
+            if (res.Content != null)
+            {
+                var responseContent = await res.Content.ReadAsStringAsync();
+                Console.WriteLine(responseContent);
+
+            }
+            if (res.StatusCode.ToString() == "201")
+            {
+                isEnable = true;
+            }
+
             Console.WriteLine(username);
             Console.WriteLine(password);
         }

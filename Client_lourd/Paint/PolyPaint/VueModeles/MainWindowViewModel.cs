@@ -64,17 +64,22 @@ namespace PolyPaint.VueModeles
 
         private void OnGoToGameModeMenu(object obj)
         {
-            ChangeViewModel(PageViewModels[2]);
+            ChangeViewModel(PageViewModels[3]);
         }
 
         private void OnGoToDrawingWindow(object obj)
         {
-            ChangeViewModel(PageViewModels[3]);
+            ChangeViewModel(PageViewModels[4]);
         }
 
         private void OnGoToGuessingView(object obj)
         {
-            ChangeViewModel(PageViewModels[4]);
+            ChangeViewModel(PageViewModels[5]);
+        }
+
+        private void OnGoToSignInWindow(object obj)
+        {
+            ChangeViewModel(PageViewModels[6]);
         }
 
         public MainWindowViewModel()
@@ -84,10 +89,10 @@ namespace PolyPaint.VueModeles
             PageViewModels.Add(new GameMenuViewModel());
             PageViewModels.Add(new UserProfileViewModel());
             PageViewModels.Add(new LoginViewModel());
-            PageViewModels.Add(new SignInViewModel());
             PageViewModels.Add(new GameModeMenuViewModel());
             PageViewModels.Add(new DrawingWindowViewModel());
             PageViewModels.Add(new GuessingViewModel());
+            PageViewModels.Add(new SignInViewModel());
 
             CurrentPageViewModel = PageViewModels[2];
 

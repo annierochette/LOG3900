@@ -13,7 +13,7 @@
 
         <PasswordBox x:Name="passBox" HorizontalAlignment="Left" Margin="296,289,0,0" VerticalAlignment="Top" Height="36" Width="308"  PasswordChanged="passBox_PasswordChanged" FontSize="18"/>
         <PasswordBox x:Name="rePassBox" HorizontalAlignment="Left" Margin="296,330,0,0" VerticalAlignment="Top" Height="36" Width="308"  PasswordChanged="rePassBox_PasswordChanged" FontSize="18"/>
-        <Button x:Name="connection" Content="S'enregistrer" VerticalAlignment="Top" Command="{Binding GoToGameMenu}" Margin="326,377,335,0" Background="#FFFF7F11" FontFamily="Lucida Fax" FontWeight="Bold" Height="43"  />
+        <Button x:Name="connection" Content="S'enregistrer" Click="UserSign" VerticalAlignment="Top" Command="{Binding GoToGameMenu}" Margin="326,377,335,0" Background="#FFFF7F11" FontFamily="Lucida Fax" FontWeight="Bold" Height="43"  />
         <TextBlock Margin="296,117,296,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="49" Width="308" FontSize="30" FontWeight="Bold" Foreground="#FF35457C"><Run Text="      "/><Run Text="INSCRIPTION"/></TextBlock>
         <TextBlock x:Name="tbsurname" HorizontalAlignment="Left"  Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Prénom" VerticalAlignment="Top" Margin="299,168,0,0" Height="30" Width="205" FontSize="18"/>
         <TextBlock x:Name="tbname" HorizontalAlignment="Left"  Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Nom" VerticalAlignment="Top" Margin="299,207,0,0" Height="30" Width="205" FontSize="18"/>

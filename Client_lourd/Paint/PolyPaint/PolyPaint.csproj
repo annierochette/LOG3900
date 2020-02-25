@@ -154,6 +154,7 @@
     </Compile>
     <Compile Include="Vues\SignInWindow.xaml.cs">
       <DependentUpon>SignInWindow.xaml</DependentUpon>
+      </Compile>
     <Compile Include="CustomControls\MessageBoxControl.xaml.cs">
       <DependentUpon>MessageBoxControl.xaml</DependentUpon>
     </Compile>
@@ -199,6 +200,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vues\SignInWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CustomControls\MessageBoxControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
