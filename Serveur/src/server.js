@@ -5,7 +5,7 @@ var io = require('socket.io')(http);
 const path = require('path');
 const PORT = process.env.PORT || 5000;
 const morgan = require("morgan");
-const HTTP = require("./constants/http");
+const HTTP = require("../common/constants/http");
 require('./db/db')
 
 var usernamesMap = new Map();
@@ -23,6 +23,7 @@ app.get('/', function(req, res){
 
 var usersRouter = require('./player/player.route.js');
 app.use(usersRouter);
+
 io.attach(http);
 io.on('connection', function(socket){
   usernamesMap.set(socket.id, "Anonymous");
@@ -67,6 +68,14 @@ io.on('connection', function(socket){
 
 });
 
+app.get('/test', async (req, res) => {
+  res.json({message: 'pass!'})
+})
+
+console.log("PORT ", PORT);
+
 http.listen(PORT, () => {
   console.log('listening on *:', PORT);
 });
+
+module.exports = app;

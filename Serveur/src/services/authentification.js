@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const HTTP = require("../constants/http");
+const HTTP = require("../../common/constants/http");
 const LOGGER = require("../utils/logger");
 const MissingAuthorizationError = require("../errors/missing.authorization");
 

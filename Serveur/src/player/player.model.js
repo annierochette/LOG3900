@@ -2,6 +2,8 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
+const PASSWORD_MIN_LENGTH = 7;
+
 const playerSchema = mongoose.Schema({
     firstName: {
         type: String,
@@ -22,7 +24,6 @@ const playerSchema = mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minLength: 7
     },
     avatar: {
         type: String,
@@ -37,8 +38,13 @@ const playerSchema = mongoose.Schema({
 playerSchema.pre('save', async function (next) {
     // Hash the password before saving the player model
     const player = this
-
-    if (player.isModified('password')) {
+    
+    if (player.isModified("password")) {
+        
+        if (player.password.length < PASSWORD_MIN_LENGTH) {
+            throw new Error({ error: "Password must have at least " + PASSWORD_MIN_LENGTH + " characters" });
+        }
+        
         player.password = await bcrypt.hash(player.password, 8);
     }
 
@@ -47,10 +53,10 @@ playerSchema.pre('save', async function (next) {
 
 playerSchema.methods.generateAuthToken = async function() {
     // Generate an auth token for the player
-    const player = this
-    const token = jwt.sign({username: player.username}, process.env.JWT_KEY)
+    const player = this;
+    const token = jwt.sign({username: player.username}, process.env.JWT_KEY);
     player.token = token;
-    await player.save()
+    await player.save();
     return token;
 }
 

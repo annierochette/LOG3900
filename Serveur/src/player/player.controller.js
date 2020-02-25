@@ -1,5 +1,5 @@
 var Player = require("./player.model");
-var HTTP = require("../constants/http");
+var HTTP = require("../../common/constants/http");
 var ERR = require("../errors/messages/err");
 const jwt = require("jsonwebtoken");
 const LOGGER = require("../utils/logger");
@@ -8,10 +8,11 @@ exports.createPlayer = async function(req, res) {
     // Create a new player
     try {
         const player = new Player(req.body)
-        player.token = await player.generateAuthToken()
+        player.token = await player.generateAuthToken();
         await player.save();
         res.status(HTTP.STATUS.CREATED).send({ player })
     } catch (error) {
+        console.log("Error ", error.message)
         res.status(HTTP.STATUS.BAD_REQUEST).send(error)
     }
 };
@@ -27,7 +28,6 @@ exports.deletePlayer = async function(req, res) {
 
 exports.getSinglePlayerInfos = async function(req, res) {
     try {
-        console.log(req.params.filter)
         var player = await Player.findOne({ username: req.params.username }).select(req.params.filter);
         res.status(HTTP.STATUS.OK).send({ player });
     } catch (error) {
@@ -37,11 +37,9 @@ exports.getSinglePlayerInfos = async function(req, res) {
 
 exports.changeAvatar = async function(req, res) {
     try {
-        console.log("fdsf")
         await Player.changeAvatar(req);
         res.status(HTTP.STATUS.OK).send();
     } catch (error) {
-        console.log("FSDJN")
         console.log(error);
         res.status(HTTP.STATUS.BAD_REQUEST).send(error);
     }
