@@ -97,6 +97,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Convertisseurs\Convertisseurs.cs" />
+    <Compile Include="CustomControls\TimerControl.xaml.cs">
+      <DependentUpon>TimerControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modeles\Editeur.cs" />
     <Compile Include="Modeles\Message.cs" />
     <Compile Include="Utilitaires\EventArgs.cs" />
@@ -106,6 +109,7 @@
     <Compile Include="VueModeles\BaseViewModel.cs" />
     <Compile Include="VueModeles\GameMenuViewModel.cs" />
     <Compile Include="VueModeles\GameModeMenuViewModel.cs" />
+    <Compile Include="VueModeles\GuessingViewModel.cs" />
     <Compile Include="VueModeles\IPageViewModel.cs" />
     <Compile Include="VueModeles\MainWindowViewModel.cs" />
     <Compile Include="VueModeles\MessageBoxViewModel.cs" />
@@ -117,18 +121,25 @@
     <Compile Include="Vues\GameModeMenu.xaml.cs">
       <DependentUpon>GameModeMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vues\GuessingView.xaml.cs">
+      <DependentUpon>GuessingView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vues\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vues\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomControls\MessageBox.xaml.cs">
-      <DependentUpon>MessageBox.xaml</DependentUpon>
+    <Compile Include="CustomControls\MessageBoxControl.xaml.cs">
+      <DependentUpon>MessageBoxControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vues\UserProfile.xaml.cs">
       <DependentUpon>UserProfile.xaml</DependentUpon>
     </Compile>
+    <Page Include="CustomControls\TimerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -152,6 +163,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Vues\GuessingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vues\LoginWindow.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </Page>
@@ -159,7 +174,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CustomControls\MessageBox.xaml">
+    <Page Include="CustomControls\MessageBoxControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
