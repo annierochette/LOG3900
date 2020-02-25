@@ -29,6 +29,7 @@ namespace Prototype_Lourd
         private bool _hasValidUsername;
         private string _serverIP;
         private string _username;
+        private string _room;
         public event PropertyChangedEventHandler PropertyChanged;
         public MainWindow()
         {
@@ -52,7 +53,7 @@ namespace Prototype_Lourd
                 
             });
 
-            socket.On("chat message", (data) =>
+            socket.On("room chat", (data) =>
             {
                 Newtonsoft.Json.Linq.JObject obj = (Newtonsoft.Json.Linq.JObject) data;
                 Newtonsoft.Json.Linq.JToken un = obj.GetValue("username");
@@ -142,7 +143,7 @@ namespace Prototype_Lourd
         private void sendMessage(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(messageBox.Text)) { 
-                socket.Emit( "chat message", _username, messageBox.Text);
+                socket.Emit( "room chat", (_room, messageBox.Text, _username));
             }
             messageBox.Text = string.Empty;
             messageBox.Focus();
@@ -179,6 +180,23 @@ namespace Prototype_Lourd
          
         }
 
+        private void selectRoom(object sender, RoutedEventArgs e)
+        {
+
+            if (!string.IsNullOrWhiteSpace(usernameTextBox.Text))
+            {
+                _username = usernameTextBox.Text;
+                _room = roomTextBox.Text;
+                socket.Emit("room connect", (_username, _room));
+                socket.On("room connect", (data) =>
+                {
+                    MessageList += Environment.NewLine + JsonConvert.SerializeObject(data) + "is connected" + Environment.NewLine;
+                });
+
+            }
+
+        }
+
         private void ipTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             _serverIP = ipTextBox.Text;
@@ -205,6 +223,14 @@ namespace Prototype_Lourd
             messageList.ScrollToEnd();
         }
 
-       
+        private void roomTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+        }
+
+        private void usernameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
