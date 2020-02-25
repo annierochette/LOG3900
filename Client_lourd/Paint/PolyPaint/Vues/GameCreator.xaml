@@ -4,9 +4,37 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PolyPaint.Vues"
+             xmlns:custom="clr-namespace:PolyPaint.CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             Height="650" Width="900">
+    <Grid Background="#4CAFE0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <custom:MessageBoxControl Grid.Column="7"  Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="7" Loaded="MessageBoxControl_Loaded"/>
+        <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="3" >
+                <Button Height="50" Width="220" Margin="20" Content="DESSIN MANUEL" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToDrawingWindow}"/>
+                <Button Height="50" Width="220" Margin="20" Content="" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White"/>
+                <Button Height="50" Width="220" Margin="20" Content="" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free"  Foreground="White"/>
+         </StackPanel>
+
     </Grid>
 </UserControl>

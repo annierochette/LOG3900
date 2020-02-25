@@ -23,6 +23,10 @@
             <DataTemplate DataType="{x:Type viewModel:GuessingViewModel}">
                 <view:GuessingView />
             </DataTemplate>
-        </Application.Resources>
+            <DataTemplate DataType="{x:Type viewModel:GameCreatorViewModel}">
+                <view:GameCreator />
+            </DataTemplate>
+
+    </Application.Resources>
   
 </Application>

@@ -7,7 +7,7 @@
         xmlns:convertisseurs="clr-namespace:PolyPaint.Convertisseurs"        
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Height="700" Width="900" Background="#CBD4E4" MinWidth="627" MinHeight="200">
+        Height="650" Width="900" Background="#CBD4E4" MinWidth="627" MinHeight="200">
     <UserControl.Resources>
         <convertisseurs:ConvertisseurBordure x:Key="convertisseurBordure" />
         <convertisseurs:ConvertisseurCouleurFond x:Key="convertisseurCouleurFond" />
@@ -132,16 +132,17 @@
                       Width="6" Height="6" DragDelta="GlisserMouvementRecu" 
                       DragStarted="GlisserCommence" DragCompleted="GlisserTermine" Margin="122.494,0.6,272.4,-0.2"
                       />
-            <Border BorderThickness="5,5,0,0" Grid.ColumnSpan="2" Margin="0,0,0.4,0.4">
+            <Border BorderThickness="5,5,0,0" Grid.ColumnSpan="3" Margin="0,0,-342.4,-237.2" Grid.RowSpan="2">
                 <InkCanvas ClipToBounds="True" Grid.Column="0" Grid.Row="0" Name="surfaceDessin" 
                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"                           
                            MouseLeave="surfaceDessin_MouseLeave" MouseMove="surfaceDessin_MouseMove"                                              
                            Strokes="{Binding Path=Traits, Mode=OneTime}" EditingMode="{Binding Path=OutilSelectionne, Converter={StaticResource convertisseurModeEdition}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
-                           DefaultDrawingAttributes="{Binding Path=AttributsDessin, Mode=OneTime}"/>
+                           DefaultDrawingAttributes="{Binding Path=AttributsDessin, Mode=OneTime}" Margin="0.2,0.2,0,57.2"/>
                 <Border.Effect>
                     <DropShadowEffect Opacity="0.3" BlurRadius="10"/>
                 </Border.Effect>
             </Border>
+            <Button x:Name="button" Content="SAUVEGARDER" Grid.Column="2" HorizontalAlignment="Left" Height="66" Margin="132.8,187.6,-315.4,-247.2" Grid.Row="1" VerticalAlignment="Top" Width="189" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding Path=ButtonCommand}"/>
         </Grid>
     </DockPanel>
 </UserControl>

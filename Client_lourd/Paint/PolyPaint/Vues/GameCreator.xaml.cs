@@ -24,5 +24,10 @@ namespace PolyPaint.Vues
         {
             InitializeComponent();
         }
+
+        private void MessageBoxControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
     }
 }
