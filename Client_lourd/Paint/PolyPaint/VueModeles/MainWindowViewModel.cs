@@ -62,6 +62,11 @@ namespace PolyPaint.VueModeles
             ChangeViewModel(PageViewModels[1]);
         }
 
+        private void OnGoToSignInWindow(object obj)
+        {
+            ChangeViewModel(PageViewModels[3]);
+        }
+
         public MainWindowViewModel()
         {
             
@@ -69,12 +74,14 @@ namespace PolyPaint.VueModeles
             PageViewModels.Add(new GameMenuViewModel());
             PageViewModels.Add(new UserProfileViewModel());
             PageViewModels.Add(new LoginViewModel());
+            PageViewModels.Add(new SignInViewModel());
 
             CurrentPageViewModel = PageViewModels[2];
 
             Mediator.Subscribe("GoToGameMenu", OnGoToGameMenu);
             Mediator.Subscribe("GoToUserProfile", OnGoToUserProfile);
             Mediator.Subscribe("GoToLoginWindow", OnGoToLoginWindow);
+            Mediator.Subscribe("GoToSignInWindow", OnGoToSignInWindow);
         }
     }
 }

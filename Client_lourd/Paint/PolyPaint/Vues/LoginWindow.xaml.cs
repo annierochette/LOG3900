@@ -47,10 +47,25 @@ namespace PolyPaint.Vues
             var infos = new player(username, password);
 
             var json = JsonConvert.SerializeObject(infos);
-            var res = await HttpClient.PostAsync("/players/login", new StringContent(json));
+            //var res = await HttpClient.PostAsync("/players/login", new StringContent(json));
             Console.WriteLine(username);
             Console.WriteLine(password);
         }
 
+        private void usernameBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (usernameBox.Text.Length > 0)
+                tbuser.Visibility = Visibility.Collapsed;
+            else
+                tbuser.Visibility = Visibility.Visible;
+        }
+
+        private void passwordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (passwordBox.Password.Length > 0)
+                tbpass.Visibility = Visibility.Collapsed;
+            else
+                tbpass.Visibility = Visibility.Visible;
+        }
     }
 }
