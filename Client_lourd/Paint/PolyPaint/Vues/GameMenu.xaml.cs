@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿
+using PolyPaint.Modeles;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace PolyPaint.Vues
 {
@@ -22,7 +13,17 @@ namespace PolyPaint.Vues
         public GameMenu()
         {
             InitializeComponent();
+            var model = new Message()
+            {
+               MessageList = "Bienvenue à la messagerie!",
+            };
+
+            //DataContext = model;
         }
 
+        private void MessageBox_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
     }
 }
