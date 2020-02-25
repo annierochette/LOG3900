@@ -29,7 +29,7 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="3" >
-            <Button Height="50" Width="220" Margin="20" Content="SPRINT SOLO" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToDrawingWindow}"/>
+            <Button Height="50" Width="220" Margin="20" Content="SPRINT SOLO" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToGuessingView}"/>
             <Button Height="50" Width="220" Margin="20" Content="MELEE GENERALE" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White"/>
             <Button Height="50" Width="220" Margin="20" Content="CHALLENGE" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White"/>
         </StackPanel>

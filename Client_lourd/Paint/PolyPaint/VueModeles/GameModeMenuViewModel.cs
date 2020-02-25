@@ -9,6 +9,7 @@ namespace PolyPaint.VueModeles
         private ICommand _goToDrawingWindow;
         private ICommand _goToGameMenu;
         private ICommand _goToUserProfile;
+        private ICommand _goToGuessingView;
 
         public ICommand GoToDrawingWindow
         {
@@ -39,6 +40,17 @@ namespace PolyPaint.VueModeles
                 return _goToUserProfile ?? (_goToUserProfile = new RelayCommand(x =>
                 {
                     Mediator.Notify("GoToUserProfile", "");
+                }));
+            }
+        }
+
+        public ICommand GoToGuessingView
+        {
+            get
+            {
+                return _goToGuessingView ?? (_goToGuessingView = new RelayCommand(x =>
+                {
+                    Mediator.Notify("GoToGuessingView", "");
                 }));
             }
         }

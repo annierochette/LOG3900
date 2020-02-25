@@ -65,6 +65,11 @@ namespace PolyPaint.VueModeles
             ChangeViewModel(PageViewModels[3]);
         }
 
+        private void OnGoToGuessingView(object obj)
+        {
+            ChangeViewModel(PageViewModels[4]);
+        }
+
         public MainWindowViewModel()
         {
             
@@ -73,6 +78,7 @@ namespace PolyPaint.VueModeles
             PageViewModels.Add(new UserProfileViewModel());
             PageViewModels.Add(new GameModeMenuViewModel());
             PageViewModels.Add(new DrawingWindowViewModel());
+            PageViewModels.Add(new GuessingViewModel());
 
             CurrentPageViewModel = PageViewModels[0];
 
@@ -80,6 +86,7 @@ namespace PolyPaint.VueModeles
             Mediator.Subscribe("GoToUserProfile", OnGoToUserProfile);
             Mediator.Subscribe("GoToGameModeMenu", OnGoToGameModeMenu);
             Mediator.Subscribe("GoToDrawingWindow", OnGoToDrawingWindow);
+            Mediator.Subscribe("GoToGuessingView", OnGoToGuessingView);
         }
     }
 }
