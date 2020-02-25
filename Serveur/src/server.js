@@ -6,6 +6,9 @@ const HTTP = require("../common/constants/http");
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
+var usernames = new Set();
+var usernamesMap = new Map();
+
 app.use(morgan("combined", {
   skip: function (req, res) { return res.statusCode < HTTP.STATUS.BAD_REQUEST }
 }));
