@@ -3,10 +3,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:PolyPaint.CustomControls">
 
-    <Style TargetType="{x:Type controls:MessageBox}">
+    <Style TargetType="{x:Type controls:MessageBoxControl}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type controls:MessageBox}">
+                <ControlTemplate TargetType="{x:Type controls:MessageBoxControl}">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">

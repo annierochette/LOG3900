@@ -97,6 +97,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Convertisseurs\Convertisseurs.cs" />
+    <Compile Include="CustomControls\TimerControl.xaml.cs">
+      <DependentUpon>TimerControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modeles\Editeur.cs" />
     <Compile Include="Modeles\Message.cs" />
     <Compile Include="Utilitaires\EventArgs.cs" />
@@ -123,12 +126,16 @@
     <Compile Include="Vues\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomControls\MessageBox.xaml.cs">
-      <DependentUpon>MessageBox.xaml</DependentUpon>
+    <Compile Include="CustomControls\MessageBoxControl.xaml.cs">
+      <DependentUpon>MessageBoxControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vues\UserProfile.xaml.cs">
       <DependentUpon>UserProfile.xaml</DependentUpon>
     </Compile>
+    <Page Include="CustomControls\TimerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -159,7 +166,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CustomControls\MessageBox.xaml">
+    <Page Include="CustomControls\MessageBoxControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

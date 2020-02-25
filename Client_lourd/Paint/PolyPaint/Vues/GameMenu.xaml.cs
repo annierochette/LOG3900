@@ -21,7 +21,7 @@ namespace PolyPaint.Vues
             //DataContext = model;
         }
 
-        private void MessageBox_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private void MessageBoxControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
 
         }
