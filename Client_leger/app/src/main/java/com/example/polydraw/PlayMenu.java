@@ -20,7 +20,7 @@ public class PlayMenu extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_menu);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 
         backButton = (Button) findViewById(R.id.backButton);
         multiplayerButton = (Button) findViewById(R.id.multiplayerButton);

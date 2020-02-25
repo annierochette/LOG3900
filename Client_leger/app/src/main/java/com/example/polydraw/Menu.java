@@ -14,19 +14,19 @@ public class Menu extends AppCompatActivity {
     private ImageButton profileButton;
     private Button tutorialButton;
     private Button settingsButton;
-    private Button backButton;
+    private ImageButton backButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_layout);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 
         playButton = (Button) findViewById(R.id.play);
         profileButton = (ImageButton) findViewById(R.id.profile);
         tutorialButton = (Button)findViewById(R.id.tutorial);
         settingsButton = (Button) findViewById(R.id.settings);
-        backButton = (Button) findViewById(R.id.backButton);
+        backButton = (ImageButton) findViewById(R.id.logoutButton);
 
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override

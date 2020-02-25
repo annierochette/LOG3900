@@ -51,7 +51,7 @@
         </LinearLayout>
 
         <ScrollView
-            android:layout_width="383dp"
+            android:layout_width="450dp"
             android:layout_height="match_parent">
 
             <LinearLayout
@@ -80,7 +80,7 @@
         <fragment
             android:id="@+id/chat"
             android:name="com.example.polydraw.Chat"
-            android:layout_width="420dp"
+            android:layout_width="355dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true" />
 

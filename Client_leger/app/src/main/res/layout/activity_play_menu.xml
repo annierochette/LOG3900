@@ -20,8 +20,8 @@
             android:orientation="horizontal">
 
             <RelativeLayout
-                android:layout_width="604dp"
-                android:layout_height="match_parent"
+                android:layout_width="670dp"
+                android:layout_height="782dp"
                 android:background="@color/colorPrimary">
 
                 <Button
@@ -79,6 +79,8 @@
                     android:id="@+id/soloButton"
                     android:layout_width="280dp"
                     android:layout_height="85dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
                     android:layout_margin="20dp"
                     android:background="@drawable/round_button"
                     android:fontFamily="sans-serif-condensed"
@@ -86,9 +88,7 @@
                     android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display3"
                     android:textColor="@android:color/white"
-                    android:textSize="30sp"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"/>
+                    android:textSize="30sp" />
 
                 <Button
                     android:id="@+id/multiplayerButton"
@@ -112,7 +112,7 @@
             <fragment
                 android:id="@+id/chat"
                 android:name="com.example.polydraw.Chat"
-                android:layout_width="420dp"
+                android:layout_width="355dp"
                 android:layout_height="match_parent" />
 
         </LinearLayout>
