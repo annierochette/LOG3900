@@ -8,6 +8,7 @@ namespace PolyPaint.VueModeles
     {
         private ICommand _goToDrawingWindow;
         private ICommand _goToGameMenu;
+        private ICommand _goToUserProfile;
 
         public ICommand GoToDrawingWindow
         {
@@ -27,6 +28,17 @@ namespace PolyPaint.VueModeles
                 return _goToGameMenu ?? (_goToGameMenu = new RelayCommand(x =>
                 {
                     Mediator.Notify("GoToGameMenu", "");
+                }));
+            }
+        }
+
+        public ICommand GoToUserProfile
+        {
+            get
+            {
+                return _goToUserProfile ?? (_goToUserProfile = new RelayCommand(x =>
+                {
+                    Mediator.Notify("GoToUserProfile", "");
                 }));
             }
         }
