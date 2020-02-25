@@ -1,19 +1,17 @@
 ﻿
-using PolyPaint.Modeles;
 using System.Windows.Controls;
 
 
 namespace PolyPaint.Vues
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for GuessingView.xaml
     /// </summary>
-    public partial class GameMenu : UserControl
+    public partial class GuessingView : UserControl
     {
-        public GameMenu()
+        public GuessingView()
         {
             InitializeComponent();
-
         }
 
         private void MessageBoxControl_Loaded(object sender, System.Windows.RoutedEventArgs e)

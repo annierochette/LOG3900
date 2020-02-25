@@ -2,20 +2,18 @@
 using System.Windows.Controls;
 
 
-
 namespace PolyPaint.Vues
 {
-    public partial class UserProfile: UserControl
+    /// <summary>
+    /// Interaction logic for GameModeMenu.xaml
+    /// </summary>
+    public partial class GameModeMenu : UserControl
     {
-        
-        public UserProfile()
+        public GameModeMenu()
         {
             InitializeComponent();
-        }
 
-        private void Back_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-
+           
         }
 
         private void MessageBox_Loaded(object sender, System.Windows.RoutedEventArgs e)

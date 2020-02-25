@@ -61,6 +61,20 @@
     <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
     </Reference>
+    <Reference Include="EngineIoClientDotNet, Version=0.9.22.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EngineIoClientDotNet.0.9.22\lib\net45\EngineIoClientDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SocketIoClientDotNet, Version=0.9.13.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SocketIoClientDotNet.0.9.13\lib\net45\SocketIoClientDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -71,6 +85,9 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WebSocket4Net, Version=0.14.1.0, Culture=neutral, PublicKeyToken=eb4e154b696bf72a, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebSocket4Net.0.14.1\lib\net45\WebSocket4Net.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -100,7 +117,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Convertisseurs\Convertisseurs.cs" />
+    <Compile Include="CustomControls\TimerControl.xaml.cs">
+      <DependentUpon>TimerControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modeles\Editeur.cs" />
+    <Compile Include="Modeles\Message.cs" />
     <Compile Include="Utilitaires\EventArgs.cs" />
     <Compile Include="Utilitaires\EventRaiser.cs" />
     <Compile Include="Utilitaires\Mediator.cs" />
@@ -108,13 +129,22 @@
     <Compile Include="VueModeles\BaseViewModel.cs" />
     <Compile Include="VueModeles\SignInViewModel.cs" />
     <Compile Include="VueModeles\GameMenuViewModel.cs" />
+    <Compile Include="VueModeles\GameModeMenuViewModel.cs" />
+    <Compile Include="VueModeles\GuessingViewModel.cs" />
     <Compile Include="VueModeles\IPageViewModel.cs" />
     <Compile Include="VueModeles\LoginViewModel.cs" />
     <Compile Include="VueModeles\MainWindowViewModel.cs" />
+    <Compile Include="VueModeles\MessageBoxViewModel.cs" />
     <Compile Include="VueModeles\UserProfileViewModel.cs" />
-    <Compile Include="VueModeles\VueModele.cs" />
+    <Compile Include="VueModeles\DrawingWindowViewModel.cs" />
     <Compile Include="Vues\GameMenu.xaml.cs">
       <DependentUpon>GameMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vues\GameModeMenu.xaml.cs">
+      <DependentUpon>GameModeMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vues\GuessingView.xaml.cs">
+      <DependentUpon>GuessingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vues\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
@@ -124,11 +154,21 @@
     </Compile>
     <Compile Include="Vues\SignInWindow.xaml.cs">
       <DependentUpon>SignInWindow.xaml</DependentUpon>
+    <Compile Include="CustomControls\MessageBoxControl.xaml.cs">
+      <DependentUpon>MessageBoxControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vues\UserProfile.xaml.cs">
       <DependentUpon>UserProfile.xaml</DependentUpon>
     </Compile>
-    <Page Include="Vues\FenetreDessin.xaml">
+    <Page Include="CustomControls\TimerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Vues\DrawingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -136,12 +176,20 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Vues\FenetreDessin.xaml.cs">
-      <DependentUpon>FenetreDessin.xaml</DependentUpon>
+    <Compile Include="Vues\DrawingWindow.xaml.cs">
+      <DependentUpon>DrawingWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Vues\GameMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Vues\GameModeMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vues\GuessingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vues\LoginWindow.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -151,6 +199,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vues\SignInWindow.xaml">
+    <Page Include="CustomControls\MessageBoxControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

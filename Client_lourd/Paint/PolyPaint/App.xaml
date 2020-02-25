@@ -21,5 +21,15 @@
                 <view:SignInWindow />
             </DataTemplate>
     </Application.Resources>
+            <DataTemplate DataType="{x:Type viewModel:GameModeMenuViewModel}">
+                <view:GameModeMenu />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:DrawingWindowViewModel}">
+                <view:DrawingWindow />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:GuessingViewModel}">
+                <view:GuessingView />
+            </DataTemplate>
+        </Application.Resources>
   
 </Application>
