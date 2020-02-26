@@ -1,5 +1,6 @@
 package com.example.polydraw;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.net.*;
@@ -26,6 +27,7 @@ public class SignupActivity extends AppCompatActivity {
     private EditText passwordConfirmation;
 
     public String IpAddress;
+    public String url = "http://" + IpAddress + ":5050";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,57 +42,37 @@ public class SignupActivity extends AppCompatActivity {
         signup = (Button) findViewById(R.id.signup);
 
 
-        NewUser newUser = new NewUser(name.getText().toString(),surname.getText().toString(),username.getText().toString(), password.getText().toString(), passwordConfirmation.getText().toString());
+        NewUser newUser = new NewUser(name.getText().toString(),surname.getText().toString(),username.getText().toString(), password.getText().toString());
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 if(!name.getText().toString().trim().isEmpty() && !surname.getText().toString().trim().isEmpty() && !username.getText().toString().trim().isEmpty() && !password.getText().toString().trim().isEmpty() && !passwordConfirmation.getText().toString().trim().isEmpty()) {
                     if(password.getText().toString().equals(passwordConfirmation.getText().toString())) {
-
-                        JSONObject data = new JSONObject();
-
-                        try{
-
+                        String query_url = "http://localhost:5050/players";
+                        try {
+                            JSONObject data = new JSONObject();
                             data.put("name", name.getText().toString());
                             data.put("surname", surname.getText().toString());
                             data.put("username", username.getText().toString());
                             data.put("password", password.getText().toString());
-                            data.put("passwordConfirmation", passwordConfirmation.getText().toString());
+                            String json = data.toString();
+                            URL url = new URL(query_url);
+                            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                            conn.setConnectTimeout(5000);
+                            conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                            conn.setDoOutput(true);
+                            conn.setDoInput(true);
+                            conn.setRequestMethod("POST");
+                            OutputStream os = conn.getOutputStream();
+                            os.write(json.getBytes("UTF-8"));
+                            os.close();
 
-                            try{
-                                URL url = new URL("http://" + IpAddress + ":5050");
-                                HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
-                                httpCon.setRequestMethod("POST");
 
-                                httpCon.setRequestProperty("Content-Type", "application/json; utf-8");
-                                httpCon.setRequestProperty("Accept", "application/json");
-                                httpCon.setDoOutput(true);
-                                String jsonInputString = data.toString();
-
-                                try(OutputStream os = httpCon.getOutputStream()) {
-                                    byte[] input = jsonInputString.getBytes("utf-8");
-                                    os.write(input, 0, input.length);
-                                }
-
-                                try(BufferedReader br = new BufferedReader(
-                                        new InputStreamReader(httpCon.getInputStream(), "utf-8"))) {
-                                    StringBuilder response = new StringBuilder();
-                                    String responseLine = null;
-                                    while ((responseLine = br.readLine()) != null) {
-                                        response.append(responseLine.trim());
-                                    }
-                                    System.out.println(response.toString());
-                                }
-
-                            }
-                            catch(Exception e){
-                                e.printStackTrace();
-                            }
+                            conn.disconnect();
+                        } catch (Exception e) {
+                            System.out.println(e);
                         }
 
-                        catch(JSONException e){
-                            e.printStackTrace();
-                        }
                         /*Intent intent = new Intent(SignupActivity.this, Menu.class);
                         startActivity(intent);*/
                     }
@@ -98,19 +80,9 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
-    public void sendForm(String url, JSONObject userInfo){
-
-        try{
-
-
-        }
-
-        catch(Exception e){
-            e.printStackTrace();
-        }
+    public void sendForm(String url, @Nullable JSONObject userInfo){
 
 
     }
