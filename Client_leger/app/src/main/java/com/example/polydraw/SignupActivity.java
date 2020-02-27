@@ -26,8 +26,8 @@ public class SignupActivity extends AppCompatActivity {
     private EditText password;
     private EditText passwordConfirmation;
 
-    public String IpAddress = "192.168.2.109";
-    public String url = "http://192.168.2.109:5050";
+    public String IpAddress;
+    public String url = "http://" + IpAddress + ":5050";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class SignupActivity extends AppCompatActivity {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String query_url = "http://192.168.2.109:5050/players";
+                String query_url = url + "/players";
                 try {
                     JSONObject data = new JSONObject();
                     data.put("firstName", name.getText().toString());
@@ -82,14 +82,9 @@ public class SignupActivity extends AppCompatActivity {
                     conn.setRequestMethod("POST");
 
                     DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-                    System.out.println("allo4");
-
                     os.writeBytes(data.toString());
-                    System.out.println("allo5");
                     os.flush();
                     os.close();
-                    System.out.println("allo6");
-
                     conn.disconnect();
                     Intent intent = new Intent(SignupActivity.this, Menu.class);
                     startActivity(intent);
