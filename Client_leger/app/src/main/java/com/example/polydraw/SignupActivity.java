@@ -26,8 +26,8 @@ public class SignupActivity extends AppCompatActivity {
     private EditText password;
     private EditText passwordConfirmation;
 
-    public String IpAddress;
-    public String url = "http://" + IpAddress + ":5050";
+    public String IpAddress = "192.168.2.109";
+    public String url = "http://192.168.2.109:5050";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,33 +48,8 @@ public class SignupActivity extends AppCompatActivity {
             @Override public void onClick(View v) {
                 if(!name.getText().toString().trim().isEmpty() && !surname.getText().toString().trim().isEmpty() && !username.getText().toString().trim().isEmpty() && !password.getText().toString().trim().isEmpty() && !passwordConfirmation.getText().toString().trim().isEmpty()) {
                     if(password.getText().toString().equals(passwordConfirmation.getText().toString())) {
-                        String query_url = "http://localhost:5050/players";
-                        try {
-                            JSONObject data = new JSONObject();
-                            data.put("name", name.getText().toString());
-                            data.put("surname", surname.getText().toString());
-                            data.put("username", username.getText().toString());
-                            data.put("password", password.getText().toString());
-                            String json = data.toString();
-                            URL url = new URL(query_url);
-                            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                            conn.setConnectTimeout(5000);
-                            conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-                            conn.setDoOutput(true);
-                            conn.setDoInput(true);
-                            conn.setRequestMethod("POST");
-                            OutputStream os = conn.getOutputStream();
-                            os.write(json.getBytes("UTF-8"));
-                            os.close();
+                        sendForm();
 
-
-                            conn.disconnect();
-                        } catch (Exception e) {
-                            System.out.println(e);
-                        }
-
-                        /*Intent intent = new Intent(SignupActivity.this, Menu.class);
-                        startActivity(intent);*/
                     }
                 }
             }
@@ -82,9 +57,49 @@ public class SignupActivity extends AppCompatActivity {
 
     }
 
-    public void sendForm(String url, @Nullable JSONObject userInfo){
+    public void sendForm() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String query_url = "http://192.168.2.109:5050/players";
+                try {
+                    JSONObject data = new JSONObject();
+                    data.put("firstName", name.getText().toString());
+                    data.put("lastName", surname.getText().toString());
+                    data.put("username", username.getText().toString());
+                    data.put("password", password.getText().toString());
+                    String json = data.toString();
+                    System.out.println(json);
 
+                    URL url = new URL(query_url);
+                    System.out.println(url);
 
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setConnectTimeout(5000);
+                    conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                    conn.setDoOutput(true);
+                    conn.setDoInput(true);
+                    conn.setRequestMethod("POST");
+
+                    DataOutputStream os = new DataOutputStream(conn.getOutputStream());
+                    System.out.println("allo4");
+
+                    os.writeBytes(data.toString());
+                    System.out.println("allo5");
+                    os.flush();
+                    os.close();
+                    System.out.println("allo6");
+
+                    conn.disconnect();
+                    Intent intent = new Intent(SignupActivity.this, Menu.class);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            }
+        });
+
+        thread.start();
     }
 
 }
