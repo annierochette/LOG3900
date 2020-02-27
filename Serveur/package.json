@@ -30,6 +30,7 @@
         ]
     },
     "scripts": {
+        "build": "webpack",
         "start": "env-cmd -f ./.env nodemon src/server.js",
         "test": "env-cmd -f ./.env jest",
         "test:watch": "jest --watch"
