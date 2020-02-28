@@ -15,6 +15,7 @@ public class Menu extends AppCompatActivity {
     private Button tutorialButton;
     private Button settingsButton;
     private ImageButton backButton;
+    private  Chat chat;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,9 @@ public class Menu extends AppCompatActivity {
                 backToLogin();
             }
         });
+
+        /*chat = new Chat();
+        getSupportFragmentManager().beginTransaction().replace(R.id.chat, chat).commit();*/
     }
 
     public void openPlayMenuView(){
