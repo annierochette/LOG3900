@@ -7,7 +7,7 @@
         xmlns:convertisseurs="clr-namespace:PolyPaint.Convertisseurs"        
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Height="650" Width="900" Background="#CBD4E4" MinWidth="627" MinHeight="200">
+        d:DesignHeight="650" d:DesignWidth="900">
     <UserControl.Resources>
         <convertisseurs:ConvertisseurBordure x:Key="convertisseurBordure" />
         <convertisseurs:ConvertisseurCouleurFond x:Key="convertisseurCouleurFond" />
