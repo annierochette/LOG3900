@@ -40,19 +40,9 @@ namespace PolyPaint.Vues
             public string password { get; set; }
         }
 
-        public bool IsEnable
-        {
-            get { return isEnable; }
-            set
-            {
-                isEnable = value;
-                NotifyPropertyChanged();
-            }
-        }
 
         private async void UserConnect(object sender, RoutedEventArgs e)
         {
-            isEnable = false;
             string username = usernameBox.Text;
             string password = passwordBox.Password;
 
@@ -75,7 +65,7 @@ namespace PolyPaint.Vues
             }
             if (res.StatusCode.ToString() == "201")
             {
-                isEnable = true;
+                
             }
 
             Console.WriteLine(username);
