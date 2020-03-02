@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const PASSWORD_MIN_LENGTH = 7;
 
@@ -90,6 +90,6 @@ playerSchema.statics.changeAvatar = async function (req) {
     );
 };
 
-const Player = mongoose.model('Player', playerSchema)
+const Player = mongoose.model('Player', playerSchema);
 
 module.exports = Player
