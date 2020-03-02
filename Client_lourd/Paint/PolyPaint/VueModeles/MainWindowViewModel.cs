@@ -50,6 +50,13 @@ namespace PolyPaint.VueModeles
             ChangeViewModel(PageViewModels[0]);
         }
 
+
+        private void OnGoToLoginWindow(object obj)
+        {
+            ChangeViewModel(PageViewModels[2]);
+        }
+
+
         private void OnGoToUserProfile(object obj)
         {
             ChangeViewModel(PageViewModels[1]);
@@ -57,18 +64,23 @@ namespace PolyPaint.VueModeles
 
         private void OnGoToGameModeMenu(object obj)
         {
-            ChangeViewModel(PageViewModels[2]);
+            ChangeViewModel(PageViewModels[3]);
         }
 
         private void OnGoToDrawingWindow(object obj)
         {
-            ChangeViewModel(PageViewModels[3]);
+            ChangeViewModel(PageViewModels[4]);
         }
 
         private void OnGoToGuessingView(object obj)
 
         {
-            ChangeViewModel(PageViewModels[4]);
+            ChangeViewModel(PageViewModels[5]);
+        }
+
+        private void OnGoToSignInWindow(object obj)
+        {
+            ChangeViewModel(PageViewModels[6]);
         }
 
         private void OnGoToGameCreator(object obj)
@@ -82,15 +94,19 @@ namespace PolyPaint.VueModeles
             // Add available pages and set page
             PageViewModels.Add(new GameMenuViewModel());
             PageViewModels.Add(new UserProfileViewModel());
+            PageViewModels.Add(new LoginViewModel());
             PageViewModels.Add(new GameModeMenuViewModel());
             PageViewModels.Add(new DrawingWindowViewModel());
             PageViewModels.Add(new GuessingViewModel());
+            PageViewModels.Add(new SignInViewModel());
             PageViewModels.Add(new GameCreatorViewModel());
 
-            CurrentPageViewModel = PageViewModels[0];
+            CurrentPageViewModel = PageViewModels[2];
 
             Mediator.Subscribe("GoToGameMenu", OnGoToGameMenu);
             Mediator.Subscribe("GoToUserProfile", OnGoToUserProfile);
+            Mediator.Subscribe("GoToLoginWindow", OnGoToLoginWindow);
+            Mediator.Subscribe("GoToSignInWindow", OnGoToSignInWindow);
             Mediator.Subscribe("GoToGameModeMenu", OnGoToGameModeMenu);
             Mediator.Subscribe("GoToDrawingWindow", OnGoToDrawingWindow);
             Mediator.Subscribe("GoToGuessingView", OnGoToGuessingView);
