@@ -6,7 +6,6 @@ using System.Windows.Media;
 using PolyPaint.Modeles;
 using PolyPaint.Utilitaires;
 using Svg;
-using System.Windows.Ink;
 using System.Windows.Markup;
 using System.Xml.Linq;
 using System;
@@ -23,6 +22,7 @@ namespace PolyPaint.VueModeles
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private Editeur editeur = new Editeur();
+        private SvgDocument newImage = new SvgDocument();
 
         // Ensemble d'attributs qui définissent l'apparence d'un trait.
         public DrawingAttributes AttributsDessin { get; set; } = new DrawingAttributes();
@@ -130,8 +130,7 @@ namespace PolyPaint.VueModeles
                     }
                 }
             }
-            Console.WriteLine(group.GetXML());
-
+            newImage = svg;
         }
     
 

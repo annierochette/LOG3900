@@ -7,6 +7,7 @@ namespace PolyPaint.VueModeles
     {
         private ICommand _goToGameModeMenu;
 
+
         public ICommand GoToDrawingWindow
         {
             get
@@ -17,5 +18,10 @@ namespace PolyPaint.VueModeles
                 }));
             }
         }
+    }
+
+    class NewDrawingViewModel : BaseViewModel, IPageViewModel
+    {
+      
     }
 }
