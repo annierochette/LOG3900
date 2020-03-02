@@ -31,7 +31,7 @@ describe("Players Rest API", () => {
       });
       ownerToken = owner.body.player.token;
 
-      done()
+      done();
   });
 
   afterAll(async done => {
