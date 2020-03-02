@@ -53,13 +53,13 @@ namespace PolyPaint.VueModeles
 
         private void OnGoToLoginWindow(object obj)
         {
-            ChangeViewModel(PageViewModels[2]);
+            ChangeViewModel(PageViewModels[1]);
         }
 
 
         private void OnGoToUserProfile(object obj)
         {
-            ChangeViewModel(PageViewModels[1]);
+            ChangeViewModel(PageViewModels[2]);
         }
 
         private void OnGoToGameModeMenu(object obj)
@@ -85,7 +85,7 @@ namespace PolyPaint.VueModeles
 
         private void OnGoToGameCreator(object obj)
         {
-            ChangeViewModel(PageViewModels[5]);
+            ChangeViewModel(PageViewModels[7]);
         }
 
         public MainWindowViewModel()
@@ -93,15 +93,15 @@ namespace PolyPaint.VueModeles
             
             // Add available pages and set page
             PageViewModels.Add(new GameMenuViewModel());
-            PageViewModels.Add(new UserProfileViewModel());
             PageViewModels.Add(new LoginViewModel());
+            PageViewModels.Add(new UserProfileViewModel());
             PageViewModels.Add(new GameModeMenuViewModel());
             PageViewModels.Add(new DrawingWindowViewModel());
             PageViewModels.Add(new GuessingViewModel());
             PageViewModels.Add(new SignInViewModel());
             PageViewModels.Add(new GameCreatorViewModel());
 
-            CurrentPageViewModel = PageViewModels[2];
+            CurrentPageViewModel = PageViewModels[1];
 
             Mediator.Subscribe("GoToGameMenu", OnGoToGameMenu);
             Mediator.Subscribe("GoToUserProfile", OnGoToUserProfile);

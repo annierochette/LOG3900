@@ -130,7 +130,8 @@ namespace PolyPaint.VueModeles
                     }
                 }
             }
-            newImage = svg;
+            Console.WriteLine(group.GetXML());
+            //newImage = svg;
         }
     
 
