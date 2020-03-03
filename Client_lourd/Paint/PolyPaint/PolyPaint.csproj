@@ -133,6 +133,7 @@
     <Compile Include="Utilitaires\Mediator.cs" />
     <Compile Include="Utilitaires\RelayCommand.cs" />
     <Compile Include="VueModeles\BaseViewModel.cs" />
+    <Compile Include="VueModeles\FreeForAllViewModel.cs" />
     <Compile Include="VueModeles\SignInViewModel.cs" />
     <Compile Include="VueModeles\GameCreatorViewModel.cs" />
     <Compile Include="VueModeles\GameMenuViewModel.cs" />
@@ -144,6 +145,9 @@
     <Compile Include="VueModeles\MessageBoxViewModel.cs" />
     <Compile Include="VueModeles\UserProfileViewModel.cs" />
     <Compile Include="VueModeles\DrawingWindowViewModel.cs" />
+    <Compile Include="Vues\FreeForAllWindow.xaml.cs">
+      <DependentUpon>FreeForAllWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vues\GameCreator.xaml.cs">
       <DependentUpon>GameCreator.xaml</DependentUpon>
     </Compile>
@@ -164,7 +168,7 @@
     </Compile>
     <Compile Include="Vues\SignInWindow.xaml.cs">
       <DependentUpon>SignInWindow.xaml</DependentUpon>
-      </Compile>
+    </Compile>
     <Compile Include="CustomControls\MessageBoxControl.xaml.cs">
       <DependentUpon>MessageBoxControl.xaml</DependentUpon>
     </Compile>
@@ -190,6 +194,10 @@
     <Compile Include="Vues\DrawingWindow.xaml.cs">
       <DependentUpon>DrawingWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Vues\FreeForAllWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vues\GameCreator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

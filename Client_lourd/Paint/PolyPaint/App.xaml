@@ -32,6 +32,9 @@
              <DataTemplate DataType="{x:Type viewModel:SignInViewModel}">
                  <view:SignInWindow />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:FreeForAllViewModel}">
+                <view:FreeForAllWindow />
+            </DataTemplate>
     </Application.Resources>
   
 </Application>

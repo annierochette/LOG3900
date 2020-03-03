@@ -7,20 +7,45 @@
         xmlns:convertisseurs="clr-namespace:PolyPaint.Convertisseurs"        
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
         mc:Ignorable="d"
-        Height="650" Width="900" Background="#CBD4E4" MinWidth="627" MinHeight="200">
-    <Grid HorizontalAlignment="Left" Height="650" VerticalAlignment="Top" Width="900" Background="#FF4CAFE0">
-        <Button x:Name="connection" Click="UserConnect" Content="Se connecter" VerticalAlignment="Top" Command="{Binding GoToGameMenu}"  IsEnabled="{Binding IsEnable}" Margin="395,461,395,0" Background="#FFFF7F11" FontFamily="Lucida Fax" FontWeight="Bold" Height="29">
-            <Button.Effect>
-                <DropShadowEffect ShadowDepth="1" Direction="300" BlurRadius="17"/>
-            </Button.Effect>
-        </Button>
-        <Button x:Name="SignIn" Content="Créer un compte" VerticalAlignment="Top"  Command="{Binding GoToSignInWindow}" Margin="727,532,33,0" Background="#FFB3C646" FontFamily="Lucida Fax" FontWeight="Bold" Height="43"/>
+        d:DesignHeight="650" d:DesignWidth="900" Background="#CBD4E4">
+    <Grid Background="#FF4CAFE0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="5" >
+            <Button x:Name="connection" Click="UserConnect" Content="Se connecter" VerticalAlignment="Top" Command="{Binding GoToGameMenu}"  IsEnabled="{Binding IsEnable}" Height="44" Margin="100,231,100,0" Background="#FFFF7F11" FontFamily="Lucida Fax" FontWeight="Bold" />
 
-        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="346,402,0,0" VerticalAlignment="Top" Width="198" Height="41" FontSize="22"  PasswordChanged="passwordBox_PasswordChanged"/>
 
-        <TextBlock x:Name="tbpass" HorizontalAlignment="Left" Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Mot de passe" VerticalAlignment="Top" Margin="351,407,0,0" Height="30" Width="196" FontSize="18"/>
-        <Image x:Name="logo" Height="160" VerticalAlignment="Top" Width="152" Margin="369,128,369,0" Source="circle-cropped (1).png"/>
-        <TextBox x:Name="usernameBox" HorizontalAlignment="Left" Height="41" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" Margin="346,324,0,0" FontSize="22" TextChanged="usernameBox_TextChanged"/>
-        <TextBlock x:Name="tbuser" HorizontalAlignment="Left"  Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Nom d'utilisateur" VerticalAlignment="Top" Margin="351,330,0,0" Height="30" Width="205" FontSize="18"/>
+            <PasswordBox x:Name="passwordBox" Margin="28,-108,26,0" VerticalAlignment="Top" Height="41" FontSize="22"  PasswordChanged="passwordBox_PasswordChanged"/>
+
+            <TextBlock x:Name="tbpass" HorizontalAlignment="Left" Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Mot de passe" VerticalAlignment="Top" Margin="41,-108,0,30" Height="30" Width="198" FontSize="18"/>
+            <Image x:Name="logo" Height="94" VerticalAlignment="Top" Margin="89,-275,107,0" Source="circle-cropped (1).png"/>
+            <TextBox x:Name="usernameBox" Height="41" TextWrapping="Wrap" VerticalAlignment="Top" Margin="28,-167,26,0" FontSize="22" TextChanged="usernameBox_TextChanged"/>
+            <TextBlock x:Name="tbuser" HorizontalAlignment="Left"  Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Nom d'utilisateur" VerticalAlignment="Top" Height="30" Width="205" Margin="28,-166,26,0" FontSize="18"/>
+        </StackPanel>
+        <StackPanel Grid.Column="7" Grid.ColumnSpan="2" Grid.Row="9" Grid.RowSpan="2" >
+            <Button x:Name="SignIn" Content="Créer un compte" VerticalAlignment="Top"  Command="{Binding GoToSignInWindow}" Margin="26,42,20,0" Background="#FFB3C646" FontFamily="Lucida Fax" FontWeight="Bold" Height="43" Panel.ZIndex="1"/>
+        </StackPanel>
     </Grid>
 </UserControl>
