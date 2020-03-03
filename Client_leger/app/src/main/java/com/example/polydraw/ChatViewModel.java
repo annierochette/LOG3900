@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.polydraw.Socket.ChatSocket;
+
 import java.util.List;
 
 public class ChatViewModel extends ViewModel {
@@ -26,6 +28,9 @@ public class ChatViewModel extends ViewModel {
             message = (TextView) view.findViewById(R.id.message);
             timestamp = (TextView) view.findViewById(R.id.timestamp);
         }
+
+        ChatSocket chatSocket = new ChatSocket();
+
 
     }
 
