@@ -27,7 +27,7 @@ public class SignupActivity extends AppCompatActivity {
     private EditText passwordConfirmation;
 
     public String IpAddress;
-    public String url = "http://" + IpAddress + ":5050";
+    public String url = "https://fais-moi-un-dessin.herokuapp.com/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
