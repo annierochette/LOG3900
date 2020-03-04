@@ -30,7 +30,8 @@ public class DrawingCanvas extends View {
         activeStrokes = new SparseArray<Stroke>();
         setFocusable(true);
         setFocusableInTouchMode(true);
-        setBackgroundColor(Color.WHITE);
+        setBackgroundColor(Color.TRANSPARENT);
+        setLayerType(LAYER_TYPE_HARDWARE, null);
 
     }
 
@@ -57,7 +58,7 @@ public class DrawingCanvas extends View {
         switch(action) {
             case MotionEvent.ACTION_DOWN:
                 if (eraser) {
-                    findStroke((int) event.getX(), (int) event.getY(),event.getPointerId(0));
+                    eraseStroke((int) event.getX(), (int) event.getY(),event.getPointerId(0));
                 } else {
                     pointDown((int) event.getX(), (int) event.getY(), event.getPointerId(0));
                 }
@@ -78,7 +79,7 @@ public class DrawingCanvas extends View {
             case MotionEvent.ACTION_POINTER_DOWN:
                 if (eraser) {
                     for (int pc = 0; pc < pointerCount; pc++) {
-                        findStroke((int)event.getX(pc), (int)event.getY(pc),event.getPointerId(pc));
+                        eraseStroke((int)event.getX(pc), (int)event.getY(pc),event.getPointerId(pc));
                     }
                 } else {
                     for (int pc = 0; pc < pointerCount; pc++) {
@@ -125,12 +126,12 @@ public class DrawingCanvas extends View {
         }
     }
 
-    private void findStroke(int x, int y, int id) {
+    private void eraseStroke(int x, int y, int id){
         Paint paint = new Paint();
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(10);
+        paint.setStrokeWidth(25);
         paint.setAntiAlias(true);
-        paint.setColor(Color.GREEN);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
         paint.setStrokeJoin(Paint.Join.ROUND);
 
         Point pt = new Point(x,y);
@@ -138,25 +139,34 @@ public class DrawingCanvas extends View {
         stroke.addPoint(pt);
         activeStrokes.put(id, stroke);
         _allStroke.add(stroke);
-//        for (Stroke stroke: _allStroke) {
-//            for (Point pt: stroke.pointArray) {
-//               if(pt.equals(x,y)){
-//                   _allStroke.remove(stroke);
-//               }
+    }
+
+//    private void findStroke(int x, int y, int id) {
+//        Paint paint = new Paint();
+//        paint.setStyle(Paint.Style.FILL);
+//        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+//
+//        Stroke stroke = new Stroke(paint);
+//
+//        for (Stroke existingStroke: _allStroke) {
+//            for (Point pt : existingStroke.pointArray) {
+//                if (pt.equals(x, y)) {e
+//                    stroke = existingStroke;
+//                }
+//
 //            }
 //        }
+//
+//        Stroke erasedStroke = new Stroke(paint, stroke.pointArray);
+//        _allStroke.add(erasedStroke);
+//        _allStroke.remove(stroke);
+//
+//
 //        invalidate();
-    }
+//    }
 
     public void setErase(boolean isErase){
         eraser = isErase;
-//        if(eraser) {
-//            //      drawPaint.setStyle(Paint.Style.FILL);
-//            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-//        } else {
-//            paint.setStyle(Paint.Style.STROKE);
-//            paint.setColor(paintColor);
-//            paint.setXfermode(null);
-//        }
+
     }
 }

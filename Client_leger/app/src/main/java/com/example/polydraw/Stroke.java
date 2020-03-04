@@ -18,6 +18,11 @@ public class Stroke {
         _paint = paint;
     }
 
+    public Stroke(Paint paint, List<Point> existingPointArray){
+        pointArray = new ArrayList<>(existingPointArray);
+        _paint = paint;
+    }
+
     public Path getPath() {
         return _path;
     }

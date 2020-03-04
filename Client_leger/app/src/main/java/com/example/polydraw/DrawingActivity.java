@@ -19,6 +19,7 @@ public class DrawingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_canvas);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         initializeObject();
+        eventListeners();
     }
 
     private void initializeObject(){
