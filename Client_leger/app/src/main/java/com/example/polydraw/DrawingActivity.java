@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class DrawingActivity extends AppCompatActivity {
     DrawingCanvas drawingCanvas;
     Button eraseButton;
+    Button drawButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -25,6 +26,7 @@ public class DrawingActivity extends AppCompatActivity {
     private void initializeObject(){
         drawingCanvas = (DrawingCanvas) findViewById(R.id.drawing);
         eraseButton = (Button) findViewById(R.id.eraser);
+        drawButton = (Button) findViewById(R.id.paint);
     }
 
     private void eventListeners() {
@@ -32,10 +34,21 @@ public class DrawingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 drawingCanvas.setErase(true);
-                eraseButton.setBackgroundColor(Color.BLACK);
+//                drawButton.setBackgroundColor(R.drawable.round_button);
+//                eraseButton.setBackgroundColor(R.drawable.round_green_button);
 
             }
         });
+        drawButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawingCanvas.setErase(false);
+//                eraseButton.setBackgroundColor(R.drawable.round_button);
+//                drawButton.setBackgroundColor(R.drawable.round_green_button);
+            }
+        });
+
+
     }
 }
 
