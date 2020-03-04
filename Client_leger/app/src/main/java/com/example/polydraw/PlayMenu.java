@@ -12,6 +12,11 @@ import android.widget.Button;
 public class PlayMenu extends FragmentActivity {
     private Button drawingButton;
 
+    private Button backButton;
+    private Button multiplayerButton;
+    private Button soloButton;
+    private Button freeButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,15 +34,38 @@ public class PlayMenu extends FragmentActivity {
 
         if (findViewById(R.id.chat) != null) {
 
-            // However, if we're being restored from a previous state,
-            // then we don't need to do anything and should return or else
-            // we could end up with overlapping fragments.
-            if (savedInstanceState != null) {
-                return;
+        backButton = (Button) findViewById(R.id.backButton);
+        multiplayerButton = (Button) findViewById(R.id.multiplayerButton);
+        soloButton = (Button) findViewById(R.id.soloButton);
+        freeButton = (Button) findViewById(R.id.backButton);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backToMenu();
             }
+        });
 
-        }
+    }
 
+    public void backToMenu(){
+        Intent intent = new Intent(this, Menu.class);
+        startActivity(intent);
+    }
+
+    public void goToMultiplayerGameMenu(){
+        Intent intent = new Intent(this, Menu.class);
+        startActivity(intent);
+    }
+
+    public void goToSoloGameMenu(){
+        Intent intent = new Intent(this, Menu.class);
+        startActivity(intent);
+    }
+
+    public void goToFreeGameMenu(){
+        Intent intent = new Intent(this, Menu.class);
+        startActivity(intent);
     }
 
     public void openDrawingView(){

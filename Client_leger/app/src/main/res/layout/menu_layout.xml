@@ -26,8 +26,23 @@
                 android:layout_height="205dp"
                 tools:srcCompat="@tools:sample/avatars" />
 
+            <ImageButton
+
+                app:srcCompat="@android:drawable/ic_lock_power_off"
+                android:id="@+id/logoutButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@android:color/holo_red_dark"
+                android:fontFamily="sans-serif-condensed"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@android:color/white"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="370dp" />
+
         <LinearLayout
-            android:layout_width="730dp"
+            android:layout_width="668dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
@@ -95,6 +110,7 @@
             android:layout_width="292dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true" />
+
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

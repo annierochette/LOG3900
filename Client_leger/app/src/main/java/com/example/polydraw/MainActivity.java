@@ -10,15 +10,32 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.*;
+import java.io.*;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.*;
+
+
+
 public class MainActivity extends AppCompatActivity {
 
     private Button enterAppButton;
     private EditText username;
     private Button signupButton;
-//    private EditText password;
+    private EditText password;
+    private String query_url = "https://fais-moi-un-dessin.herokuapp.com/";
     public static final String USERNAME = "username";
     public static final String IP_ADDRESS = "ipAddress";
-//    public static final String PASSWORD = "password";
+    public static final String PASSWORD = "password";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 
         enterAppButton = (Button) findViewById(R.id.enterapp);
-//        password = (EditText) findViewById(R.id.password);
+        password = (EditText) findViewById(R.id.password);
         username = (EditText) findViewById(R.id.username);
         signupButton = (Button) findViewById(R.id.signup);
 
@@ -39,11 +56,47 @@ public class MainActivity extends AppCompatActivity {
 
                    Bundle extras = new Bundle();
                    extras.putString(USERNAME, username.getText().toString());
-//                   extras.putString(PASSWORD, password.getText().toString());
+                   extras.putString(PASSWORD, password.getText().toString());
 
                    i.putExtras(extras);
 
+
+                   try {
+                       JSONObject data = new JSONObject();
+                       data.put("username", username.getText().toString());
+                       data.put("password", password.getText().toString());
+                       String json = data.toString();
+                       System.out.println(json);
+
+                       URL url = new URL(query_url + "players/login");
+                       System.out.println(url);
+
+                       HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                       conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                       conn.setDoOutput(true);
+                       conn.setDoInput(true);
+                       conn.setRequestMethod("POST");
+
+                       DataOutputStream os = new DataOutputStream(conn.getOutputStream());
+                       System.out.println("allo4");
+
+                       os.writeBytes(data.toString());
+                       System.out.println("allo5");
+                       os.flush();
+                       os.close();
+                       System.out.println("allo6");
+
+                       conn.disconnect();
+
+//                       startActivity(i);
+                   } catch (Exception e) {
+                       System.out.println(e);
+                   }
+
                    startActivity(i);
+
+                   /*AsyncTask asyncHttpPost = new AsyncTask(extras, i);
+                   asyncHttpPost.execute();*/
                }
             }
         } );
@@ -52,9 +105,58 @@ public class MainActivity extends AppCompatActivity {
             @Override public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SignupActivity.class);
                 startActivity(intent);
+
             }
         });
 
+    }
+
+    private class AsyncTask extends android.os.AsyncTask <String, Void, Void>{
+        private Bundle data;
+        private Intent intent;
+
+        public AsyncTask(Bundle mData, Intent mIntent) {
+            mData = data;
+            mIntent = intent;
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            try {
+                JSONObject data = new JSONObject();
+                data.put("username", username);
+                data.put("password", password);
+                String json = data.toString();
+                System.out.println(json);
+
+                URL url = new URL(query_url + "/players/login");
+                System.out.println(url);
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                conn.setDoOutput(true);
+                conn.setDoInput(true);
+                conn.setRequestMethod("POST");
+
+                DataOutputStream os = new DataOutputStream(conn.getOutputStream());
+                System.out.println("allo4");
+
+                os.writeBytes(data.toString());
+                System.out.println("allo5");
+                os.flush();
+                os.close();
+                System.out.println("allo6");
+
+                conn.disconnect();
+
+                startActivity(intent);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+            return null;
+
+        }
     }
 
 }

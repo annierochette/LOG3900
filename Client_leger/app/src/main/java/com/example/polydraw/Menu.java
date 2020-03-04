@@ -14,6 +14,8 @@ public class Menu extends AppCompatActivity {
     private ImageButton profileButton;
     private Button tutorialButton;
     private Button settingsButton;
+    private ImageButton backButton;
+    private  Chat chat;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,7 @@ public class Menu extends AppCompatActivity {
         profileButton = (ImageButton) findViewById(R.id.profile);
         tutorialButton = (Button)findViewById(R.id.tutorial);
         settingsButton = (Button) findViewById(R.id.settings);
+        backButton = (ImageButton) findViewById(R.id.logoutButton);
 
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +55,16 @@ public class Menu extends AppCompatActivity {
                 openSettingsView();
             }
         });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backToLogin();
+            }
+        });
+
+        /*chat = new Chat();
+        getSupportFragmentManager().beginTransaction().replace(R.id.chat, chat).commit();*/
     }
 
     public void openPlayMenuView(){
@@ -71,6 +84,11 @@ public class Menu extends AppCompatActivity {
 
     public void openSettingsView(){
         Intent intent = new Intent(this, Settings.class);
+        startActivity(intent);
+    }
+
+    public void backToLogin(){
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 

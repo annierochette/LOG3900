@@ -16,47 +16,94 @@
         tools:layout_editor_absoluteY="1dp">
 
         <LinearLayout
-            android:layout_width="604dp"
+            android:layout_width="673dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="match_parent"
-                    android:layout_height="99dp"
+                    android:layout_height="100dp"
+                    android:layout_above="@+id/switch4"
+                    android:layout_marginBottom="72dp"
                     android:background="#00A21010"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="center"
                     android:text="Paramètres"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display3" />
-
-                <Switch
-                    android:id="@+id/switch2"
-                    android:layout_width="181dp"
-                    android:layout_height="59dp"
-                    android:text="Personnage virtuel 1" />
-
-                <Switch
-                    android:id="@+id/switch3"
-                    android:layout_width="178dp"
-                    android:layout_height="53dp"
-                    android:text="Personnage virtuel 2" />
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+                    android:textColor="#2364aa"
+                    android:textSize="36sp" />
 
                 <Switch
                     android:id="@+id/switch4"
-                    android:layout_width="182dp"
-                    android:layout_height="51dp"
-                    android:text="Personnage virtuel 3" />
+                    android:layout_width="400dp"
+                    android:layout_height="60dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Personnage virtuel 2"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp" />
 
-            </LinearLayout>
+                <Switch
+                    android:id="@+id/switch2"
+                    android:layout_width="400dp"
+                    android:layout_height="60dp"
+                    android:layout_above="@+id/switch4"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="11dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Personnage virtuel 1"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/backButton"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="26dp"
+                    android:layout_marginTop="26dp"
+                    android:background="@drawable/back_button"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Retour"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="@android:color/white" />
+
+                <Switch
+                    android:id="@+id/switch3"
+                    android:layout_width="400dp"
+                    android:layout_height="60dp"
+                    android:layout_above="@+id/switch4"
+                    android:layout_below="@+id/switch4"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="-137dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Personnage virtuel 3"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp" />
+            </RelativeLayout>
+
         </LinearLayout>
         <fragment
             android:id="@+id/chat"
             android:name="com.example.polydraw.Chat"
-            android:layout_width="420dp"
+            android:layout_width="355dp"
             android:layout_height="match_parent" />
     </LinearLayout>
 
