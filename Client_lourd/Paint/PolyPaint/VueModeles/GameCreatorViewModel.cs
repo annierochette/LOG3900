@@ -28,8 +28,48 @@ namespace PolyPaint.VueModeles
 
     class NewDrawingConfirmationViewModel : DrawingWindowViewModel
     {
+        private ICommand _goToGameModeMenu;
+        private ICommand _goToNewGameForm;
+
+
+        public ICommand GoToNewDrawingWindow
+        {
+            get
+            {
+                return _goToGameModeMenu ?? (_goToGameModeMenu = new RelayCommand(x =>
+                {
+                    Mediator.Notify("GoToNewDrawingWindow", "");
+                }));
+            }
+        }
+
+        public ICommand GoToNewGameForm
+        {
+            get
+            {
+                return _goToNewGameForm ?? (_goToNewGameForm = new RelayCommand(x =>
+                {
+                    Mediator.Notify("GoToNewGameForm", "");
+                }));
+            }
+        }
 
     }
 
+    class NewGameFormViewModel : DrawingWindowViewModel
+    {
+        private ICommand _goToGameCreator;
 
+
+        public ICommand GoToGameCreator
+        {
+            get
+            {
+                return _goToGameCreator ?? (_goToGameCreator = new RelayCommand(x =>
+                {
+                    Mediator.Notify("GoToGameCreator", "");
+                }));
+            }
+        }
+    }
 }

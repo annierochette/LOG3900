@@ -22,7 +22,6 @@ namespace PolyPaint.VueModeles
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private Editeur editeur = new Editeur();
-        private Dessin dessin = new Dessin();
 
         // Ensemble d'attributs qui définissent l'apparence d'un trait.
         public DrawingAttributes AttributsDessin { get; set; } = new DrawingAttributes();
@@ -79,19 +78,12 @@ namespace PolyPaint.VueModeles
             set { editeur.TailleTrait = value; }
         }
 
-        public string NouveauDessin
-        {
-            get { return dessin.NouveauDessin; }
-            set { dessin.NouveauDessin = value; }
-        }
 
         public StrokeCollection Traits { get; set; }
 
         // Commandes sur lesquels la vue pourra se connecter.
         public RelayCommand<string> ChoisirPointe { get; set; }
         public RelayCommand<string> ChoisirOutil { get; set; }
-
-        public RelayCommand<string> EtablirNouveauDessin { get; set; }
 
         /// <summary>
         /// Constructeur de VueModele
@@ -116,7 +108,6 @@ namespace PolyPaint.VueModeles
             // Donc, aucune vérification de type Peut"Action" à faire.
             ChoisirPointe = new RelayCommand<string>(editeur.ChoisirPointe);
             ChoisirOutil = new RelayCommand<string>(editeur.ChoisirOutil);
-            EtablirNouveauDessin = new RelayCommand<string>(dessin.EtablirNouveauDessin);
 
         }
 
@@ -154,12 +145,16 @@ namespace PolyPaint.VueModeles
                     }
                 }
             }
-            dessin.EtablirNouveauDessin(group.GetXML());
+        
             Mediator.Notify("GoToNewDrawingConfirmation", "");
          
             
         }
-    
+
+        public StrokeCollection getStrokeCollection()
+        {
+            return Traits;
+        }
 
         /// <summary>
         /// Appelee lorsqu'une propriété de VueModele est modifiée.

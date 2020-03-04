@@ -123,7 +123,7 @@
     <Compile Include="CustomControls\TimerControl.xaml.cs">
       <DependentUpon>TimerControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modeles\Dessin.cs" />
+    <Compile Include="Modeles\Drawing.cs" />
     <Compile Include="Modeles\Editeur.cs" />
     <Compile Include="Modeles\Message.cs" />
     <Compile Include="Utilitaires\EventArgs.cs" />
@@ -165,6 +165,9 @@
     </Compile>
     <Compile Include="Vues\NewDrawingConfirmation.xaml.cs">
       <DependentUpon>NewDrawingConfirmation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vues\NewGameForm.xaml.cs">
+      <DependentUpon>NewGameForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vues\SignInWindow.xaml.cs">
       <DependentUpon>SignInWindow.xaml</DependentUpon>
@@ -222,6 +225,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vues\NewDrawingConfirmation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Vues\NewGameForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -285,6 +292,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\circle-cropped.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\circle-cropped.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

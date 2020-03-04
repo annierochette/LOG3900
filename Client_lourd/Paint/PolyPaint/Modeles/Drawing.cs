@@ -6,16 +6,16 @@ using System.Windows.Ink;
 namespace PolyPaint.Modeles
 {
 
-    class Dessin : INotifyPropertyChanged
+    class Drawing : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public StrokeCollection traits = new StrokeCollection();
 
-        private string dessin = "";
-        public string NouveauDessin
+        private string drawing = "";
+        public string NewDrawing
         {
-            get { return dessin; }
-            set { dessin = value; ProprieteModifiee(); }
+            get { return drawing; }
+            set { drawing = value; ProprieteModifiee(); }
         }
 
         protected void ProprieteModifiee([CallerMemberName] string propertyName = null)
@@ -23,6 +23,6 @@ namespace PolyPaint.Modeles
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public void EtablirNouveauDessin(string dessin) => NouveauDessin = dessin;
+        public void DrawNewImage(string drawing) => NewDrawing = drawing;
     }
 }
