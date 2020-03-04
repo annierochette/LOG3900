@@ -17,9 +17,6 @@
             <DataTemplate DataType="{x:Type viewModel:GameModeMenuViewModel}">
                 <view:GameModeMenu />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:DrawingWindowViewModel}">
-                <view:DrawingWindow />
-            </DataTemplate>
             <DataTemplate DataType="{x:Type viewModel:GuessingViewModel}">
                 <view:GuessingView />
             </DataTemplate>
@@ -32,6 +29,12 @@
              <DataTemplate DataType="{x:Type viewModel:SignInViewModel}">
                  <view:SignInWindow />
             </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:NewDrawingViewModel}">
+            <view:NewDrawing />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:NewDrawingConfirmationViewModel}">
+            <view:NewDrawingConfirmation />
+        </DataTemplate>
     </Application.Resources>
   
 </Application>

@@ -6,7 +6,7 @@ using System.Windows.Controls.Primitives;
 using PolyPaint.VueModeles;
 using System.Windows.Controls;
 
-namespace PolyPaint.Vues
+namespace PolyPaint.CustomControls
 {
     /// <summary>
     /// Logique d'interaction pour FenetreDessin.xaml
@@ -30,12 +30,12 @@ namespace PolyPaint.Vues
         }
 
         // Pour la gestion de l'affichage de position du pointeur.
-        private void surfaceDessin_MouseLeave(object sender, MouseEventArgs e) => textBlockPosition.Text = "";
-        private void surfaceDessin_MouseMove(object sender, MouseEventArgs e)
-        {
-            Point p = e.GetPosition(surfaceDessin);
-            textBlockPosition.Text = Math.Round(p.X) + ", " + Math.Round(p.Y) + "px";
-        }
+        //private void surfaceDessin_MouseLeave(object sender, MouseEventArgs e) => textBlockPosition.Text = "";
+        //private void surfaceDessin_MouseMove(object sender, MouseEventArgs e)
+        //{
+        //    Point p = e.GetPosition(surfaceDessin);
+        //    textBlockPosition.Text = Math.Round(p.X) + ", " + Math.Round(p.Y) + "px";
+        //}
 
     }
 }

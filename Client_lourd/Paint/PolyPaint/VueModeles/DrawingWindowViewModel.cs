@@ -22,12 +22,13 @@ namespace PolyPaint.VueModeles
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private Editeur editeur = new Editeur();
-        private SvgDocument newImage = new SvgDocument();
+        private Dessin dessin = new Dessin();
 
         // Ensemble d'attributs qui définissent l'apparence d'un trait.
         public DrawingAttributes AttributsDessin { get; set; } = new DrawingAttributes();
 
         private ICommand _goToGameModeMenu;
+        private ICommand _goToNewDrawingConfirmation;
 
         public ICommand GoToGameModeMenu
         {
@@ -36,6 +37,17 @@ namespace PolyPaint.VueModeles
                 return _goToGameModeMenu ?? (_goToGameModeMenu = new RelayCommand(x =>
                 {
                     Mediator.Notify("GoToGameModeMenu", "");
+                }));
+            }
+        }
+
+        public ICommand GoToNewDrawingConfirmation
+        {
+            get
+            {
+                return _goToNewDrawingConfirmation ?? (_goToNewDrawingConfirmation = new RelayCommand(x =>
+                {
+                    Mediator.Notify("GoToNewDrawingConfirmation", "");
                 }));
             }
         }
@@ -67,11 +79,19 @@ namespace PolyPaint.VueModeles
             set { editeur.TailleTrait = value; }
         }
 
+        public string NouveauDessin
+        {
+            get { return dessin.NouveauDessin; }
+            set { dessin.NouveauDessin = value; }
+        }
+
         public StrokeCollection Traits { get; set; }
 
         // Commandes sur lesquels la vue pourra se connecter.
         public RelayCommand<string> ChoisirPointe { get; set; }
         public RelayCommand<string> ChoisirOutil { get; set; }
+
+        public RelayCommand<string> EtablirNouveauDessin { get; set; }
 
         /// <summary>
         /// Constructeur de VueModele
@@ -81,6 +101,7 @@ namespace PolyPaint.VueModeles
         public DrawingWindowViewModel()
         {
             ButtonCommand = new RelayCommand(o => ConvertDrawingToSVG("ToSVG"));
+
             // On écoute pour des changements sur le modèle. Lorsqu'il y en a, EditeurProprieteModifiee est appelée.
             editeur.PropertyChanged += new PropertyChangedEventHandler(EditeurProprieteModifiee);
 
@@ -95,8 +116,11 @@ namespace PolyPaint.VueModeles
             // Donc, aucune vérification de type Peut"Action" à faire.
             ChoisirPointe = new RelayCommand<string>(editeur.ChoisirPointe);
             ChoisirOutil = new RelayCommand<string>(editeur.ChoisirOutil);
+            EtablirNouveauDessin = new RelayCommand<string>(dessin.EtablirNouveauDessin);
 
         }
+
+       
 
         private void ConvertDrawingToSVG(object sender)
         {
@@ -130,8 +154,10 @@ namespace PolyPaint.VueModeles
                     }
                 }
             }
-            Console.WriteLine(group.GetXML());
-            //newImage = svg;
+            dessin.EtablirNouveauDessin(group.GetXML());
+            Mediator.Notify("GoToNewDrawingConfirmation", "");
+         
+            
         }
     
 

@@ -1,5 +1,4 @@
-﻿using PolyPaint.Modeles;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,17 +16,26 @@ using System.Windows.Shapes;
 namespace PolyPaint.Vues
 {
     /// <summary>
-    /// Interaction logic for NewDrawingConfirmation.xaml
+    /// Interaction logic for NewDrawing.xaml
     /// </summary>
-    public partial class NewDrawingConfirmation : UserControl
+    public partial class NewDrawing : UserControl
     {
-        public NewDrawingConfirmation()
+        public NewDrawing()
         {
             InitializeComponent();
-         
+        }
+
+        private void DrawingWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void MessageBoxControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
         {
 
         }

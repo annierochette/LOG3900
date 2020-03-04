@@ -4,8 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PolyPaint.Vues"
-             mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="900">
+             xmlns:custom="clr-namespace:PolyPaint.CustomControls"
+             mc:Ignorable="d"
+        d:DesignHeight="650" d:DesignWidth="900">
     <Grid Background="#4CAFE0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -31,5 +32,9 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <custom:MessageBoxControl Grid.Column="7"  Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="11" Loaded="MessageBoxControl_Loaded"/>
+        <Border Grid.ColumnSpan="6" Grid.RowSpan="8" Background="White">
+         
+        </Border>
     </Grid>
 </UserControl>

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="PolyPaint.Vues.DrawingWindow"
+﻿<UserControl x:Class="PolyPaint.CustomControls.DrawingWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -23,13 +23,8 @@
                         <GradientStop Color="#FFE0E0E0" Offset="1"/>
                     </LinearGradientBrush>
                 </StackPanel.Background>
-                <StackPanel Orientation="Horizontal">
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                </StackPanel>
-                <Button Content="BACK" Command="{Binding GoToGameModeMenu}"></Button>
+            
+   
                 <Button Name="crayon" Width="40" Height="40" Margin="5" 
                         BorderBrush="{Binding Path=OutilSelectionne, Converter={StaticResource convertisseurBordure}, ConverterParameter=crayon, UpdateSourceTrigger=PropertyChanged}" 
                         Background="{Binding Path=OutilSelectionne, Converter={StaticResource convertisseurCouleurFond}, ConverterParameter=crayon, UpdateSourceTrigger=PropertyChanged}" 
@@ -104,11 +99,11 @@
 
         </Border>
 
-        <Border DockPanel.Dock="Bottom" Height="25" BorderThickness="0,0.75,0,0.75" BorderBrush="#77000000">
+        <!--<Border DockPanel.Dock="Bottom" Height="25" BorderThickness="0,0.75,0,0.75" BorderBrush="#77000000">
             <StackPanel Orientation="Horizontal" Background="#FFF0F0F0">
                 <TextBlock Name="textBlockPosition" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             </StackPanel>
-        </Border>
+        </Border>-->
 
         <Grid DockPanel.Dock="Left" Margin="0,1,0,0">
             <Grid.ColumnDefinitions>
@@ -134,15 +129,13 @@
                       />
             <Border BorderThickness="5,5,0,0" Grid.ColumnSpan="3" Margin="0,0,-342.4,-237.2" Grid.RowSpan="2">
                 <InkCanvas ClipToBounds="True" Grid.Column="0" Grid.Row="0" Name="surfaceDessin" 
-                           HorizontalAlignment="Stretch" VerticalAlignment="Stretch"                           
-                           MouseLeave="surfaceDessin_MouseLeave" MouseMove="surfaceDessin_MouseMove"                                              
+                           HorizontalAlignment="Stretch" VerticalAlignment="Stretch"                                                                       
                            Strokes="{Binding Path=Traits, Mode=OneTime}" EditingMode="{Binding Path=OutilSelectionne, Converter={StaticResource convertisseurModeEdition}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                            DefaultDrawingAttributes="{Binding Path=AttributsDessin, Mode=OneTime}" Margin="0.2,0.2,0,57.2"/>
                 <Border.Effect>
                     <DropShadowEffect Opacity="0.3" BlurRadius="10"/>
                 </Border.Effect>
             </Border>
-            <Button x:Name="button" Content="SAUVEGARDER" Grid.Column="2" HorizontalAlignment="Left" Height="66" Margin="132.8,187.6,-315.4,-247.2" Grid.Row="1" VerticalAlignment="Top" Width="189" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding Path=ButtonCommand}"/>
         </Grid>
     </DockPanel>
 </UserControl>

@@ -40,9 +40,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -126,6 +123,7 @@
     <Compile Include="CustomControls\TimerControl.xaml.cs">
       <DependentUpon>TimerControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modeles\Dessin.cs" />
     <Compile Include="Modeles\Editeur.cs" />
     <Compile Include="Modeles\Message.cs" />
     <Compile Include="Utilitaires\EventArgs.cs" />
@@ -162,9 +160,15 @@
     <Compile Include="Vues\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vues\NewDrawing.xaml.cs">
+      <DependentUpon>NewDrawing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vues\NewDrawingConfirmation.xaml.cs">
+      <DependentUpon>NewDrawingConfirmation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vues\SignInWindow.xaml.cs">
       <DependentUpon>SignInWindow.xaml</DependentUpon>
-      </Compile>
+    </Compile>
     <Compile Include="CustomControls\MessageBoxControl.xaml.cs">
       <DependentUpon>MessageBoxControl.xaml</DependentUpon>
     </Compile>
@@ -179,7 +183,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Vues\DrawingWindow.xaml">
+    <Page Include="CustomControls\DrawingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -187,7 +191,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Vues\DrawingWindow.xaml.cs">
+    <Compile Include="CustomControls\DrawingWindow.xaml.cs">
       <DependentUpon>DrawingWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Vues\GameCreator.xaml">
@@ -212,6 +216,14 @@
     <Page Include="Vues\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vues\NewDrawing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vues\NewDrawingConfirmation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Vues\SignInWindow.xaml">
       <SubType>Designer</SubType>
@@ -266,17 +278,13 @@
     <Resource Include="Resources\efface_crayon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\circle-cropped %281%29.png" />
     <Resource Include="Resources\woman_avatar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Vues\circle-cropped %281%29.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\logo_transparent.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Vues\logo_transparent.png" />
+    <Resource Include="Resources\circle-cropped.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

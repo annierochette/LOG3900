@@ -67,7 +67,7 @@ namespace PolyPaint.VueModeles
             ChangeViewModel(PageViewModels[3]);
         }
 
-        private void OnGoToDrawingWindow(object obj)
+        private void OnGoToNewDrawingWindow(object obj)
         {
             ChangeViewModel(PageViewModels[4]);
         }
@@ -88,6 +88,11 @@ namespace PolyPaint.VueModeles
             ChangeViewModel(PageViewModels[7]);
         }
 
+        private void OnGoToNewDrawingConfirmation(object obj)
+        {
+            ChangeViewModel(PageViewModels[8]);
+        }
+
         public MainWindowViewModel()
         {
             
@@ -96,21 +101,23 @@ namespace PolyPaint.VueModeles
             PageViewModels.Add(new LoginViewModel());
             PageViewModels.Add(new UserProfileViewModel());
             PageViewModels.Add(new GameModeMenuViewModel());
-            PageViewModels.Add(new DrawingWindowViewModel());
+            PageViewModels.Add(new NewDrawingViewModel());
             PageViewModels.Add(new GuessingViewModel());
             PageViewModels.Add(new SignInViewModel());
             PageViewModels.Add(new GameCreatorViewModel());
+            PageViewModels.Add(new NewDrawingConfirmationViewModel());
 
-            CurrentPageViewModel = PageViewModels[1];
+            CurrentPageViewModel = PageViewModels[7];
 
             Mediator.Subscribe("GoToGameMenu", OnGoToGameMenu);
             Mediator.Subscribe("GoToUserProfile", OnGoToUserProfile);
             Mediator.Subscribe("GoToLoginWindow", OnGoToLoginWindow);
             Mediator.Subscribe("GoToSignInWindow", OnGoToSignInWindow);
             Mediator.Subscribe("GoToGameModeMenu", OnGoToGameModeMenu);
-            Mediator.Subscribe("GoToDrawingWindow", OnGoToDrawingWindow);
+            Mediator.Subscribe("GoToNewDrawingWindow", OnGoToNewDrawingWindow);
             Mediator.Subscribe("GoToGuessingView", OnGoToGuessingView);
             Mediator.Subscribe("GoToGameCreator", OnGoToGameCreator);
+            Mediator.Subscribe("GoToNewDrawingConfirmation", OnGoToNewDrawingConfirmation);
         }
     }
 }
