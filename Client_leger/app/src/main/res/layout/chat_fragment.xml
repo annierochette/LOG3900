@@ -56,12 +56,13 @@
                     android:layout_weight="3"
                     android:hint="Entrez votre message..." />
 
-                <Button
+                <ImageButton
                     android:id="@+id/send"
-                    android:layout_width="140dp"
+                    android:layout_width="78dp"
                     android:layout_height="60dp"
-                    android:backgroundTint="#009688"
-                    android:text="Envoyer"
+                    android:contentDescription="Envoyer"
+                    android:background="@color/colorGreen"
+                    android:src="@android:drawable/ic_menu_send"
                     android:textColor="#FFFFFF" />
 
             </LinearLayout>
