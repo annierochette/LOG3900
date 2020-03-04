@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText username;
     private Button signupButton;
     private EditText password;
-    private String query_url = "https://fais-moi-un-dessin.herokuapp.com/";
+//    private String query_url = "https://fais-moi-un-dessin.herokuapp.com/";
+    private String query_url = "10.200.15.185:5001";
     public static final String USERNAME = "username";
     public static final String IP_ADDRESS = "ipAddress";
     public static final String PASSWORD = "password";

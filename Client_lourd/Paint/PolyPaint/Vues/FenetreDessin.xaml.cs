@@ -4,19 +4,18 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Controls.Primitives;
 using PolyPaint.VueModeles;
-using System.Windows.Controls;
 
-namespace PolyPaint.Vues
+namespace PolyPaint
 {
     /// <summary>
     /// Logique d'interaction pour FenetreDessin.xaml
     /// </summary>
-    public partial class DrawingWindow : UserControl
+    public partial class FenetreDessin : Window
     {
-        public DrawingWindow()
+        public FenetreDessin()
         {
             InitializeComponent();
- 
+            DataContext = new VueModele();
         }
         
         // Pour gérer les points de contrôles.

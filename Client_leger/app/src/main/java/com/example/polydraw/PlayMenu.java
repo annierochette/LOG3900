@@ -46,9 +46,9 @@ public class PlayMenu extends FragmentActivity {
             }
         });
 
-    }
+    }}
 
-    public void backToMenu(){
+    public void backToMenu() {
         Intent intent = new Intent(this, Menu.class);
         startActivity(intent);
     }

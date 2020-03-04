@@ -2,36 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:PolyPaint"
-             xmlns:view="clr-namespace:PolyPaint.Vues"
-             xmlns:viewModel="clr-namespace:PolyPaint.VueModeles"
-             xmlns:utils="clr-namespace:PolyPaint.Utilitaires"
-             >
-    
-        <Application.Resources>
-            <DataTemplate DataType="{x:Type viewModel:GameMenuViewModel}">
-                <view:GameMenu/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:UserProfileViewModel}">
-                <view:UserProfile />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:GameModeMenuViewModel}">
-                <view:GameModeMenu />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:DrawingWindowViewModel}">
-                <view:DrawingWindow />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:GuessingViewModel}">
-                <view:GuessingView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:GameCreatorViewModel}">
-                <view:GameCreator />
-            </DataTemplate>
-             <DataTemplate DataType="{x:Type viewModel:LoginViewModel}">
-                 <view:LoginWindow />
-            </DataTemplate>
-             <DataTemplate DataType="{x:Type viewModel:SignInViewModel}">
-                 <view:SignInWindow />
-            </DataTemplate>
+             StartupUri="Vues/FenetreDessin.xaml">
+    <Application.Resources>
+         
     </Application.Resources>
-  
 </Application>

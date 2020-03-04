@@ -96,7 +96,7 @@ public class Chat extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        socket.connect();
+//        socket.connect();
     }
 
     @Override
@@ -141,7 +141,7 @@ public class Chat extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        socket.disconnect();
+//        socket.disconnect();
     }
 
 }
