@@ -7,9 +7,10 @@ module.exports = function(http) {
     io.on(CHAT.EVENTS.CONNECTION, function(socket){
       socket.join("General");
       console.log("User connected");
+      console.log("ScoketID: " + socket.id);
     
       socket.on(CHAT.EVENTS.MESSAGE, (username, channel, message) => {
-    
+          console.log("Message received")
           var currentDate = new Date();
           // var date = currentDate.getDate();
           // var month = currentDate.getMonth();
@@ -55,6 +56,36 @@ module.exports = function(http) {
         var dateString = " à " + hours + ":" + minutes + ":" + seconds;
         let  msg = { "message": username + " a quitté la conversation.", "username": username, "timestamp": dateString, "channel": channel };
         io.to(channel).emit(CHAT.EVENTS.MESSAGE, msg);
+      });
+
+      // Drawing
+      socket.on(CHAT.EVENTS.STROKE, (channel, startingPoint, endingPoint, status) => {
+        // Status: First, Intermediate, Last
+        console.log("Stroke received: " + startingPoint.x);
+        let strokeVector = {
+          "startingPoint": startingPoint,
+          "endingPoint": endingPoint,
+          "status": status
+        }
+        socket.to(channel).broadcast.emit(CHAT.EVENTS.STROKE, strokeVector);
+      });
+
+      socket.on(CHAT.EVENTS.DRAFTSMAN_DIMENSION, (channel, width, height) => {
+        console.log("Dimension received");
+        let dimension = {
+          "width": width,
+          "height": height
+        };
+        socket.to(channel).broadcast.emit(CHAT.EVENTS.DRAFTSMAN_DIMENSION, dimension);
+      });
+
+      socket.on(CHAT.EVENTS.MODIFY_PROPERTY, (channel, property, newValue) => {
+        console.log("Modify property: ", property);
+        let modifiedProperty = {
+          "property": property,
+          "value": newValue
+        };
+        socket.to(channel).broadcast.emit(CHAT.EVENTS.MODIFY_PROPERTY, modifiedProperty);
       });
         
       socket.on(CHAT.EVENTS.DISCONNECTION, () => {
