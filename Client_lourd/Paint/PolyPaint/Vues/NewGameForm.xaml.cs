@@ -29,106 +29,162 @@ namespace PolyPaint.Vues
         public NewGameForm()
         {
             InitializeComponent();
-            additionalTextBoxRow = 4;
         }
 
-        private void add_textBox(object sender, RoutedEventArgs e)
+        private string[] getClues()
         {
-            if (additionalTextBoxRow < 7) {
-            TextBox txtb = new TextBox();
-
-            txtb.Text = "Indice";
-
-            txtb.Height = 40;
-
-            txtb.SetValue(Grid.RowProperty, additionalTextBoxRow);
-
-            txtb.SetValue(Grid.ColumnProperty, 3);
-
-            txtb.SetValue(Grid.ColumnSpanProperty, 2);
-
-            additionalTextBoxRow++;
-
-            LayoutRoot.Children.Add(txtb);
+            string[] clues = new string[2];
+            for (int i = 0; i < ListOfClues.Items.Count; i++)
+            {
+                clues[i] = ListOfClues.Items[i].ToString();
             }
+
+            return clues;
         }
 
-
-        //void UploadStrokes(StrokeCollection strokes)
-        //{
-        //    if (strokes.Count > 0)
-        //    {
-        //        MyCustomStrokes customStrokes = new MyCustomStrokes();
-        //        customStrokes.StrokeCollection = new Point[strokes.Count][];
-
-        //        //for (int i = 0; i < strokes.Count; i++)
-        //        //{
-        //        //    customStrokes.StrokeCollection[i] =
-        //        //      new Point[this.MyInkCanvas.Strokes[i].StylusPoints.Count];
-
-        //        //    for (int j = 0; j < strokes[i].StylusPoints.Count; j++)
-        //        //    {
-        //        //        customStrokes.StrokeCollection[i][j] = new Point();
-        //        //        customStrokes.StrokeCollection[i][j].X =
-        //        //                              strokes[i].StylusPoints[j].X;
-        //        //        customStrokes.StrokeCollection[i][j].Y =
-        //        //                              strokes[i].StylusPoints[j].Y;
-        //        //    }
-        //        //}
-
-        //        //Serialize our "strokes"
-        //        MemoryStream ms = new MemoryStream();
-        //        BinaryFormatter bf = new BinaryFormatter();
-        //        bf.Serialize(ms, customStrokes);
-
-
-        //    }
-        //}
 
         private async void SendNewGame(object sender, RoutedEventArgs e)
         {
-            var HttpClient = new HttpClient();
-            var infos = new NewGame
-            {
-                Name = Word.Text,
-                Clue = Indice.Text
-            };
-            var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
-            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            string[] clues = getClues();
 
-            var res = await HttpClient.PostAsync("http://localhost:5050/game/:id", httpContent);
-            if (res.Content != null)
-            {
-                var responseContent = await res.Content.ReadAsStringAsync();
-                Console.WriteLine(responseContent);
 
+            StylusPoint segment1Start = new StylusPoint(200, 110);
+            StylusPoint segment1End = new StylusPoint(185, 150);
+            StylusPoint segment2Start = new StylusPoint(185, 150);
+            StylusPoint segment2End = new StylusPoint(135, 150);
+            StylusPoint segment3Start = new StylusPoint(135, 150);
+            StylusPoint segment3End = new StylusPoint(175, 180);
+            StylusPoint segment4Start = new StylusPoint(175, 180);
+            StylusPoint segment4End = new StylusPoint(160, 220);
+            StylusPoint segment5Start = new StylusPoint(160, 220);
+            StylusPoint segment5End = new StylusPoint(200, 195);
+            StylusPoint segment6Start = new StylusPoint(200, 195);
+            StylusPoint segment6End = new StylusPoint(240, 220);
+            StylusPoint segment7Start = new StylusPoint(240, 220);
+            StylusPoint segment7End = new StylusPoint(225, 180);
+            StylusPoint segment8Start = new StylusPoint(225, 180);
+            StylusPoint segment8End = new StylusPoint(265, 150);
+            StylusPoint segment9Start = new StylusPoint(265, 150);
+            StylusPoint segment9End = new StylusPoint(215, 150);
+            StylusPoint segment10Start = new StylusPoint(215, 150);
+            StylusPoint segment10End = new StylusPoint(200, 110);
+
+            StylusPointCollection strokePoints = new StylusPointCollection();
+
+            strokePoints.Add(segment1Start);
+            strokePoints.Add(segment1End);
+            strokePoints.Add(segment2Start);
+            strokePoints.Add(segment2End);
+            strokePoints.Add(segment3Start);
+            strokePoints.Add(segment3End);
+            strokePoints.Add(segment4Start);
+            strokePoints.Add(segment4End);
+            strokePoints.Add(segment5Start);
+            strokePoints.Add(segment5End);
+            strokePoints.Add(segment6Start);
+            strokePoints.Add(segment6End);
+            strokePoints.Add(segment7Start);
+            strokePoints.Add(segment7End);
+            strokePoints.Add(segment8Start);
+            strokePoints.Add(segment8End);
+            strokePoints.Add(segment9Start);
+            strokePoints.Add(segment9End);
+            strokePoints.Add(segment10Start);
+            strokePoints.Add(segment10End);
+
+            Stroke newStroke = new Stroke(strokePoints);
+            StrokeCollection strokes = new StrokeCollection();
+            strokes.Add(newStroke);
+
+            if (strokes.Count > 0)
+            {
+                MyCustomStrokes customStrokes = new MyCustomStrokes();
+                customStrokes.StrokeCollection = new Point[strokes.Count][];
+
+                for (int i = 0; i < strokes.Count; i++)
+                {
+                    customStrokes.StrokeCollection[i] =
+                      new Point[strokes[i].StylusPoints.Count];
+
+                    for (int j = 0; j < strokes[i].StylusPoints.Count; j++)
+                    {
+                        customStrokes.StrokeCollection[i][j] = new Point();
+                        customStrokes.StrokeCollection[i][j].X =
+                                              strokes[i].StylusPoints[j].X;
+                        customStrokes.StrokeCollection[i][j].Y =
+                                              strokes[i].StylusPoints[j].Y;
+                    }
+                }
+
+  
+                MemoryStream ms = new MemoryStream();
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(ms, customStrokes);
+              
+                try
+                {
+
+                    var HttpClient = new HttpClient();
+                    var infos = new Game
+                    {
+                        name = Word.Text,
+                        clues = new string[1] { "scintille"},
+                        data = ms.GetBuffer()
+                    };
+                    var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
+                    var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    var res = await HttpClient.PostAsync("http://localhost:5050/games", httpContent);
+                    if (res.Content != null)
+                    {
+                        var responseContent = await res.Content.ReadAsStringAsync();
+                        Console.WriteLine(responseContent);
+
+                    }
+                }
+
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
-        public class NewGame
+        public class Game
         {
 
             [JsonProperty("name")]
-            public string Name { get; set; }
+            public string name { get; set; }
 
-            [JsonProperty("clue")]
-            public string Clue { get; set; }
+            [JsonProperty("clues")]
+            public string[] clues { get; set; }
 
             [JsonProperty("drawing")]
-            public ByteArrayContent Drawing { get; set; }
+            public byte[] data{ get; set; }
+        }
+        [Serializable]
+        public sealed class MyCustomStrokes
+        {
+            public MyCustomStrokes() { }
+
+            /// <SUMMARY>
+            /// The first index is for the stroke no.
+            /// The second index is for the keep the 2D point of the Stroke.
+            /// </SUMMARY>
+            public Point[][] StrokeCollection;
         }
 
         private void MessageBox_Loaded(object sender, RoutedEventArgs e)
         {
+          
 
         }
 
-        //public sealed class MyCustomStrokes
-        //{
-        //    public MyCustomStrokes() { }
-
-        //    public Point[][] StrokeCollection;
-        //}
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            ListOfClues.Items.Add(Clue.Text);
+            Clue.Text = "";
+        }
     } 
     
 }

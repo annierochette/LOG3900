@@ -9,20 +9,12 @@ namespace PolyPaint.Modeles
     class Drawing : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public StrokeCollection traits = new StrokeCollection();
-
-        private string drawing = "";
-        public string NewDrawing
-        {
-            get { return drawing; }
-            set { drawing = value; ProprieteModifiee(); }
-        }
+     
+        public StrokeCollection StrokesCollection = new StrokeCollection();
 
         protected void ProprieteModifiee([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        public void DrawNewImage(string drawing) => NewDrawing = drawing;
     }
 }

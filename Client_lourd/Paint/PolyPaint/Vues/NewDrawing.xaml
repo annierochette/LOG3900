@@ -32,8 +32,8 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <custom:DrawingWindow  Grid.ColumnSpan="5" Grid.RowSpan="7" Loaded="DrawingWindow_Loaded" Grid.Column="1" />
-        <custom:MessageBoxControl Grid.Column="7"  Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="11" Loaded="MessageBoxControl_Loaded"/>
+        <custom:DrawingWindow  x:Name="inkCanvas" Grid.ColumnSpan="5" Grid.RowSpan="7" Loaded="DrawingWindow_Loaded" Grid.Column="1" />
+        <custom:MessageBoxControl  Grid.Column="7"  Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="11" Loaded="MessageBoxControl_Loaded"/>
         <Button x:Name="button" Content="SAUVEGARDER" Grid.Column="3" Height="66"  Grid.Row="8" Grid.RowSpan="2" Grid.ColumnSpan="3"  Width="189" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding Path=ButtonCommand}" RenderTransformOrigin="0.522,0.521" Margin="50.6,0.4,27.6,15.2" Click="button_Click"/>
     </Grid>
 </UserControl>

@@ -53,7 +53,6 @@ namespace PolyPaint.VueModeles
 
         public ICommand ButtonCommand { get; set; }
 
-
         public string OutilSelectionne
         {
             get { return editeur.OutilSelectionne; }
@@ -145,7 +144,7 @@ namespace PolyPaint.VueModeles
                     }
                 }
             }
-        
+         
             Mediator.Notify("GoToNewDrawingConfirmation", "");
          
             
@@ -153,7 +152,7 @@ namespace PolyPaint.VueModeles
 
         public StrokeCollection getStrokeCollection()
         {
-            return Traits;
+            return editeur.traits;
         }
 
         /// <summary>
