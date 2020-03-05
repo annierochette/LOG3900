@@ -33,7 +33,7 @@ namespace PolyPaint.Vues
 
         private string[] getClues()
         {
-            string[] clues = new string[2];
+            string[] clues = new string[3];
             for (int i = 0; i < ListOfClues.Items.Count; i++)
             {
                 clues[i] = ListOfClues.Items[i].ToString();
@@ -128,7 +128,7 @@ namespace PolyPaint.Vues
                     var infos = new Game
                     {
                         name = Word.Text,
-                        clues = new string[1] { "scintille"},
+                        clues = clues,
                         data = ms.GetBuffer()
                     };
                     var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
@@ -159,7 +159,7 @@ namespace PolyPaint.Vues
             [JsonProperty("clues")]
             public string[] clues { get; set; }
 
-            [JsonProperty("drawing")]
+            [JsonProperty("data")]
             public byte[] data{ get; set; }
         }
         [Serializable]
