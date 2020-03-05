@@ -47,6 +47,7 @@ exports.changeAvatar = async function(req, res) {
 
 exports.login = async function(req, res) {
     //Login a registered player
+    Console.log("login")
     try {
         const player = await Player.findByCredentials(req.body.username, req.body.password);
         
@@ -61,6 +62,7 @@ exports.login = async function(req, res) {
 
         const token = await player.generateAuthToken()
         res.status(HTTP.STATUS.OK).send({ player })
+        Console.log("login reussi")
     } catch (error) {
         res.status(HTTP.STATUS.BAD_REQUEST).send(error)
     }
