@@ -5,17 +5,15 @@ public class NewUser {
     private String surname;
     private String username;
     private String password;
-    private String passwordConfirmation;
 
     public NewUser(){
 
     }
-    public NewUser(String name, String surname, String username, String pwd, String pwdConfirmation) {
+    public NewUser(String name, String surname, String username, String pwd) {
         this.name = name;
         this.surname = surname;
         this.username = username;
         this.password = pwd;
-        this.passwordConfirmation = pwdConfirmation;
     }
 
     public String getName() {
@@ -34,8 +32,6 @@ public class NewUser {
         return password;
     }
 
-    public String getPasswordConfirmation() { return passwordConfirmation; }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -52,8 +48,5 @@ public class NewUser {
         this.password = pwd;
     }
 
-    public void setPasswordConfirmation(String pwdConfirmation) {
-        this.passwordConfirmation = pwdConfirmation;
-    }
 
 }
