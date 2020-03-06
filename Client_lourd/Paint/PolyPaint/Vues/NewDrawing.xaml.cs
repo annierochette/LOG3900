@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -35,35 +36,68 @@ namespace PolyPaint.Vues
 
         private void save_drawing(object sender, RoutedEventArgs e)
         {
-            var storyboard = new Storyboard();
-            var totalDuration = TimeSpan.FromSeconds(10);
+            //var storyboard = new Storyboard();
+            //var totalDuration = TimeSpan.FromSeconds(10);
+
 
             strokes = inkCanvas.Strokes.Clone();
 
             inkPresenter.Strokes = strokes;
+
             inkCanvas.Visibility = Visibility.Hidden;
             inkPresenterBorder.Visibility = Visibility.Visible;
+
             save_button.Visibility = Visibility.Hidden;
             confirm_button.Visibility = Visibility.Visible;
+
+            modifyDrawing_button.Visibility = Visibility.Visible;
+            cancel_button.Visibility = Visibility.Hidden;
+        }
+
+        private void modifyDrawing_button_Click(object sender, RoutedEventArgs e)
+        {
+            inkCanvas.Visibility = Visibility.Visible;
+            inkPresenterBorder.Visibility = Visibility.Hidden;
+            save_button.Visibility = Visibility.Visible;
+            confirm_button.Visibility = Visibility.Hidden;
+            modifyDrawing_button.Visibility = Visibility.Hidden;
+            cancel_button.Visibility = Visibility.Visible;
         }
 
         private void confirm_drawing(object sender, RoutedEventArgs e)
         {
             inkPresenterBorder.Visibility = Visibility.Hidden;
             save_button.Visibility = Visibility.Hidden;
-            NewDrawingForm.Visibility = Visibility.Visible;
             confirm_button.Visibility = Visibility.Hidden;
+            NewDrawingForm.Visibility = Visibility.Visible;
             confirm_data.Visibility = Visibility.Visible;
+
+            modifyDrawing_button.Visibility = Visibility.Hidden;
+            back_button.Visibility = Visibility.Visible;
         }
 
-      
-
-        private string[] getClues()
+        private void back_button_Click(object sender, RoutedEventArgs e)
         {
-            string[] clues = new string[100];
-            for (int i = 0; i < ListOfClues.Items.Count; i++)
+            inkPresenterBorder.Visibility = Visibility.Visible;
+            save_button.Visibility = Visibility.Visible;
+            confirm_button.Visibility = Visibility.Visible;
+            
+            NewDrawingForm.Visibility = Visibility.Hidden;
+            confirm_data.Visibility = Visibility.Hidden;
+
+            modifyDrawing_button.Visibility = Visibility.Visible;
+            back_button.Visibility = Visibility.Hidden;
+        }   
+
+        
+
+        private List<string> getClues()
+        {
+            List<string> clues = new List<string>() ;
+
+            foreach ( string item in ListOfClues.Items)
             {
-                clues[i] = ListOfClues.Items[i].ToString();
+                clues.Add(item);
                
             }
 
@@ -73,7 +107,7 @@ namespace PolyPaint.Vues
 
         private async void SendNewGame(object sender, RoutedEventArgs e)
         {
-            string[] clues = getClues();
+            List<string> clues = getClues();
 
             if (strokes.Count > 0)
             {
@@ -138,7 +172,7 @@ namespace PolyPaint.Vues
             public string name { get; set; }
 
             [JsonProperty("clues")]
-            public string[] clues { get; set; }
+            public List<string> clues { get; set; }
 
             [JsonProperty("data")]
             public byte[] data { get; set; }
@@ -156,6 +190,8 @@ namespace PolyPaint.Vues
             ListOfClues.Items.Add(Clue.Text);
             Clue.Text = "";
         }
+
+  
     }
 }
 

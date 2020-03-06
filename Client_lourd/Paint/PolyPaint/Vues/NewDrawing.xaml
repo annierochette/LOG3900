@@ -7,6 +7,7 @@
              xmlns:custom="clr-namespace:PolyPaint.CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
     <Grid Background="#4CAFE0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -32,13 +33,12 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <!--<custom:DrawingWindow  x:Name="inkCanvas" Grid.ColumnSpan="5" Grid.RowSpan="7" Loaded="DrawingWindow_Loaded" Grid.Column="1" />-->
         <InkCanvas  x:Name="inkCanvas" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Loaded="DrawingWindow_Loaded" Grid.Column="1"  />
         <Border x:Name="inkPresenterBorder" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Grid.Column="1" Background="White" Visibility="Hidden">
             <InkPresenter  x:Name="inkPresenter" Grid.ColumnSpan="5" Grid.RowSpan="7" Loaded="DrawingWindow_Loaded" Grid.Column="1"  />
-            
-        </Border>
 
+            </Border>
+        
         <GroupBox Name="NewDrawingForm" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Grid.Column="1"  Visibility="Hidden" >
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -76,8 +76,11 @@
         </GroupBox>
 
         <custom:MessageBoxControl  Grid.Column="7"  Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="11" Loaded="MessageBoxControl_Loaded"/>
-        <Button x:Name="save_button" Content="SAUVEGARDER" Grid.Column="3" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521" Margin="68.6,15.8,9.6,41" Click="save_drawing"/>
-        <Button x:Name="confirm_button" Content="CONFIRMER" Grid.Column="3" Height="66"  Grid.Row="8" Grid.RowSpan="2" Grid.ColumnSpan="3"  Width="189" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521" Margin="50.6,0.4,27.6,15.2" Click="confirm_drawing" Visibility="Hidden"/>
-        <Button x:Name="confirm_data" Content="BLOOP" Grid.Column="3" Height="66"  Grid.Row="8" Grid.RowSpan="2" Grid.ColumnSpan="3"  Width="189" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521" Margin="50.6,0.4,27.6,15.2" Command="{Binding GoToGameCreator}" Visibility="Hidden" Click="SendNewGame"/>
+        <Button x:Name="cancel_button" Content="ANNULER" Grid.Column="1" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="Red" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521" Command="{Binding GoToGameCreator}" />
+        <Button x:Name="modifyDrawing_button" Content="MODIFIER" Grid.Column="1" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="Red" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521" Visibility="Hidden" Click="modifyDrawing_button_Click"/>
+        <Button x:Name="back_button" Content="RETOUR" Grid.Column="1" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="Red" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521" Visibility="Hidden" Click="back_button_Click"/>
+        <Button x:Name="save_button" Content="SAUVEGARDER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521"  Click="save_drawing"/>
+        <Button x:Name="confirm_button" Content="CONFIRMER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521" Click="confirm_drawing" Visibility="Hidden"/>
+        <Button x:Name="confirm_data" Content="ENREGISTRER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521"  Command="{Binding GoToGameCreator}" Visibility="Hidden" Click="SendNewGame"/>
     </Grid>
 </UserControl>
