@@ -193,11 +193,11 @@ public class ChatBoxActivity extends AppCompatActivity {
         }
     }
 
-    @Override
+    /*@Override
     protected void onDestroy() {
         super.onDestroy();
 
         socket.disconnect();
-    }
+    }*/
 
 }

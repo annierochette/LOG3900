@@ -51,12 +51,5 @@
 
             </LinearLayout>
 
-            <fragment
-                android:id="@+id/chat"
-                android:name="com.example.polydraw.Chat"
-                android:layout_width="355dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentEnd="true" />
-
         </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

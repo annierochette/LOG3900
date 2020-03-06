@@ -9,8 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class PlayMenu extends FragmentActivity {
-    private Button drawingButton;
+public class PlayMenu extends AppCompatActivity {
 
     private Button backButton;
     private Button multiplayerButton;
@@ -23,21 +22,10 @@ public class PlayMenu extends FragmentActivity {
         setContentView(R.layout.activity_play_menu);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 
-        drawingButton = (Button) findViewById(R.id.drawing);
-
-        drawingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDrawingView();
-            }
-        });
-
-        if (findViewById(R.id.chat) != null) {
-
         backButton = (Button) findViewById(R.id.backButton);
         multiplayerButton = (Button) findViewById(R.id.multiplayerButton);
         soloButton = (Button) findViewById(R.id.soloButton);
-        freeButton = (Button) findViewById(R.id.backButton);
+        freeButton = (Button) findViewById(R.id.freeButton);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +34,29 @@ public class PlayMenu extends FragmentActivity {
             }
         });
 
-    }}
+
+        multiplayerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFreeGame();
+            }
+        });
+
+        soloButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFreeGame();
+            }
+        });
+
+        freeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFreeGame();
+            }
+        });
+
+        }
 
     public void backToMenu() {
         Intent intent = new Intent(this, Menu.class);
@@ -63,12 +73,7 @@ public class PlayMenu extends FragmentActivity {
         startActivity(intent);
     }
 
-    public void goToFreeGameMenu(){
-        Intent intent = new Intent(this, Menu.class);
-        startActivity(intent);
-    }
-
-    public void openDrawingView(){
+    public void openFreeGame(){
         Intent intent = new Intent(this, DrawingActivity.class);
         startActivity(intent);
     }

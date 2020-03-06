@@ -14,46 +14,43 @@
         tools:context="com.example.polydraw.Menu"
         android:background="@color/colorPrimary">
 
-        <LinearLayout
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@color/colorPrimary"
-            android:orientation="horizontal">
+        <Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorDarkBlue">
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/chatButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginLeft="880dp"
+                app:srcCompat="@android:drawable/sym_action_chat" />
+
+            <ImageButton
+                app:srcCompat="@android:drawable/ic_lock_power_off"
+                android:id="@+id/logoutButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/disconnect_button"
+                android:fontFamily="sans-serif-condensed"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@android:color/white"/>
+
+        </Toolbar>
+
 
         <ImageButton
             android:id="@+id/profile"
             style="?android:attr/borderlessButtonStyle"
-            android:layout_width="205dp"
-            android:layout_height="205dp"
+            android:layout_marginTop="75dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             tools:srcCompat="@tools:sample/avatars" />
 
-        <ImageButton
-
-            app:srcCompat="@android:drawable/ic_lock_power_off"
-            android:id="@+id/logoutButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@android:color/holo_red_dark"
-            android:fontFamily="sans-serif-condensed"
-            android:textAllCaps="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="@android:color/white"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="370dp" />
-
-        <ImageView
-            android:id="@+id/chatButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@android:drawable/sym_action_chat"
-            android:layout_alignParentRight="true"/>
-
         <LinearLayout
-            android:layout_width="668dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
