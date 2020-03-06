@@ -3,12 +3,17 @@ package com.example.polydraw;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,14 +51,26 @@ public class ChatBoxActivity extends AppCompatActivity {
         messageTxt = (EditText) findViewById(R.id.message);
         send = (Button) findViewById(R.id.send);
 
-        Bundle extras = getIntent().getExtras();
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+
+        // Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
+
+        // Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setTitle("Messagerie");
+
+
+
+        /*Bundle extras = getIntent().getExtras();
 
         Username = (String) extras.getString(MainActivity.USERNAME);
-        IpAddress = (String) extras.getString(MainActivity.IP_ADDRESS);
+        IpAddress = (String) extras.getString(MainActivity.IP_ADDRESS);*/
 
-        try {
+        /*try {
 
-            socket = IO.socket("http://" + IpAddress + ":5050");
+            socket = IO.socket("http://" + "192.168.2.40" + ":5050"); //https://fais-moi-un-dessin.herokuapp.com/"
 
             socket.connect();
 
@@ -62,15 +79,15 @@ public class ChatBoxActivity extends AppCompatActivity {
 
         } catch (URISyntaxException e) {
             e.printStackTrace();
-        }
+        }*/
 
-        MessageList = new ArrayList<>();
+       /* MessageList = new ArrayList<>();
         myRecyclerView = (RecyclerView) findViewById(R.id.messagelist);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         myRecyclerView.setLayoutManager(mLayoutManager);
-        myRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        myRecyclerView.setItemAnimator(new DefaultItemAnimator());*/
 
-        send.setOnClickListener(new View.OnClickListener() {
+        /*send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!messageTxt.getText().toString().trim().isEmpty() && !messageTxt.getText().toString().isEmpty()) {
@@ -147,8 +164,33 @@ public class ChatBoxActivity extends AppCompatActivity {
                     }
                 });
             }
-        });
+        });*/
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item1:
+                Toast.makeText(this, "Item 1 selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.item2:
+                Toast.makeText(this, "Item 2 selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.item3:
+                Toast.makeText(this, "Item 3 selected", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
