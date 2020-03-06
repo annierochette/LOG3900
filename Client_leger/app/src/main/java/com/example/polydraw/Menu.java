@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,7 +16,7 @@ public class Menu extends AppCompatActivity {
     private Button tutorialButton;
     private Button settingsButton;
     private ImageButton backButton;
-    private  Chat chat;
+    private ImageView chat;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class Menu extends AppCompatActivity {
         tutorialButton = (Button)findViewById(R.id.tutorial);
         settingsButton = (Button) findViewById(R.id.settings);
         backButton = (ImageButton) findViewById(R.id.logoutButton);
+        chat = (ImageView) findViewById(R.id.chatButton);
 
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,8 +65,12 @@ public class Menu extends AppCompatActivity {
             }
         });
 
-        /*chat = new Chat();
-        getSupportFragmentManager().beginTransaction().replace(R.id.chat, chat).commit();*/
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openChat();
+            }
+        });
     }
 
     public void openPlayMenuView(){
@@ -92,4 +98,10 @@ public class Menu extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openChat(){
+        Intent intent = new Intent(this, ChatBoxActivity.class);
+        startActivity(intent);
+    }
+
 }
+

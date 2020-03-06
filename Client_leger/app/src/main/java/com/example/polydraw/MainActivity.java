@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String USERNAME = "username";
     public static final String IP_ADDRESS = "ipAddress";
     public static final String PASSWORD = "password";
+    String query_url = "https://192.168.2.132:5050/players/login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

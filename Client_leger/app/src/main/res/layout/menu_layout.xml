@@ -11,35 +11,46 @@
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
         android:orientation="vertical"
-        tools:context="com.example.polydraw.Menu">
+        tools:context="com.example.polydraw.Menu"
+        android:background="@color/colorPrimary">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@color/colorPrimary"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/profile"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="205dp"
-                android:layout_height="205dp"
-                tools:srcCompat="@tools:sample/avatars" />
+        </LinearLayout>
 
-            <ImageButton
+        <ImageButton
+            android:id="@+id/profile"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="205dp"
+            android:layout_height="205dp"
+            tools:srcCompat="@tools:sample/avatars" />
 
-                app:srcCompat="@android:drawable/ic_lock_power_off"
-                android:id="@+id/logoutButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@android:color/holo_red_dark"
-                android:fontFamily="sans-serif-condensed"
-                android:textAllCaps="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="@android:color/white"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="370dp" />
+        <ImageButton
+
+            app:srcCompat="@android:drawable/ic_lock_power_off"
+            android:id="@+id/logoutButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@android:color/holo_red_dark"
+            android:fontFamily="sans-serif-condensed"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@android:color/white"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="370dp" />
+
+        <ImageView
+            android:id="@+id/chatButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@android:drawable/sym_action_chat"
+            android:layout_alignParentRight="true"/>
 
         <LinearLayout
             android:layout_width="668dp"
@@ -103,13 +114,6 @@
                 android:textSize="30sp" />
 
         </LinearLayout>
-
-        <fragment
-            android:id="@+id/chat"
-            android:name="com.example.polydraw.Chat"
-            android:layout_width="292dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true" />
 
     </RelativeLayout>
 
