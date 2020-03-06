@@ -163,12 +163,6 @@
     <Compile Include="Vues\NewDrawing.xaml.cs">
       <DependentUpon>NewDrawing.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Vues\NewDrawingConfirmation.xaml.cs">
-      <DependentUpon>NewDrawingConfirmation.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Vues\NewGameForm.xaml.cs">
-      <DependentUpon>NewGameForm.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Vues\SignInWindow.xaml.cs">
       <DependentUpon>SignInWindow.xaml</DependentUpon>
     </Compile>
@@ -223,14 +217,6 @@
     <Page Include="Vues\NewDrawing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Vues\NewDrawingConfirmation.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Vues\NewGameForm.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Vues\SignInWindow.xaml">
       <SubType>Designer</SubType>

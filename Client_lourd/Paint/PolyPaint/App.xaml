@@ -32,12 +32,7 @@
         <DataTemplate DataType="{x:Type viewModel:NewDrawingViewModel}">
             <view:NewDrawing />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModel:NewDrawingConfirmationViewModel}">
-            <view:NewDrawingConfirmation />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModel:NewGameFormViewModel}">
-            <view:NewGameForm />
-        </DataTemplate>
+  
     </Application.Resources>
   
 </Application>

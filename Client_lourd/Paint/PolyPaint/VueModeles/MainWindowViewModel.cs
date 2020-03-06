@@ -86,15 +86,6 @@ namespace PolyPaint.VueModeles
             ChangeViewModel(PageViewModels[7]);
         }
 
-        private void OnGoToNewDrawingConfirmation(object obj)
-        {
-            ChangeViewModel(PageViewModels[8]);
-        }
-
-        private void OnGoToNewGameForm(object obj)
-        {
-            ChangeViewModel(PageViewModels[9]);
-        }
 
         public MainWindowViewModel()
         {
@@ -108,8 +99,7 @@ namespace PolyPaint.VueModeles
             PageViewModels.Add(new GuessingViewModel());
             PageViewModels.Add(new SignInViewModel());
             PageViewModels.Add(new GameCreatorViewModel());
-            PageViewModels.Add(new NewDrawingConfirmationViewModel());
-            PageViewModels.Add(new NewGameFormViewModel());
+      
 
             CurrentPageViewModel = PageViewModels[7];
 
@@ -121,8 +111,7 @@ namespace PolyPaint.VueModeles
             Mediator.Subscribe("GoToNewDrawingWindow", OnGoToNewDrawingWindow);
             Mediator.Subscribe("GoToGuessingView", OnGoToGuessingView);
             Mediator.Subscribe("GoToGameCreator", OnGoToGameCreator);
-            Mediator.Subscribe("GoToNewDrawingConfirmation", OnGoToNewDrawingConfirmation);
-            Mediator.Subscribe("GoToNewGameForm", OnGoToNewGameForm);
+           
         }
     }
 }
