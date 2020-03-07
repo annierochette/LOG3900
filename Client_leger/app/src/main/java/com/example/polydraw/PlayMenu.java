@@ -30,6 +30,8 @@ public class PlayMenu extends AppCompatActivity {
         multiplayerButton = (Button) findViewById(R.id.multiplayerButton);
         soloButton = (Button) findViewById(R.id.soloButton);
         freeButton = (Button) findViewById(R.id.freeButton);
+        disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
+        chat = (ImageView) findViewById(R.id.chatButton);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,7 +39,6 @@ public class PlayMenu extends AppCompatActivity {
                 backToMenu();
             }
         });
-
 
         multiplayerButton.setOnClickListener(new View.OnClickListener() {
             @Override
