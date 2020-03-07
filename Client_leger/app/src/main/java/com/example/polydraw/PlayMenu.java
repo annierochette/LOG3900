@@ -8,6 +8,8 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 public class PlayMenu extends AppCompatActivity {
 
@@ -15,6 +17,8 @@ public class PlayMenu extends AppCompatActivity {
     private Button multiplayerButton;
     private Button soloButton;
     private Button freeButton;
+    private ImageButton disconnectButton;
+    private ImageView chat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,13 @@ public class PlayMenu extends AppCompatActivity {
             }
         });
 
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openChat();
+            }
+        });
+
         freeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +67,16 @@ public class PlayMenu extends AppCompatActivity {
             }
         });
 
+        disconnectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backToLogin();
+            }
+        });
+
         }
+
+
 
     public void backToMenu() {
         Intent intent = new Intent(this, Menu.class);
@@ -75,6 +95,16 @@ public class PlayMenu extends AppCompatActivity {
 
     public void openFreeGame(){
         Intent intent = new Intent(this, DrawingActivity.class);
+        startActivity(intent);
+    }
+
+    public void backToLogin(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void openChat(){
+        Intent intent = new Intent(this, ChatBoxActivity.class);
         startActivity(intent);
     }
 }

@@ -63,7 +63,7 @@ public class SignupActivity extends AppCompatActivity {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String query_url = "https://192.168.2.132:5050/players";
+                String query_url = "https://fais-moi-un-dessin.herokuapp.com/players";
                 try {
                     /*JSONObject data = new JSONObject();
                     data.put("firstName", name.getText().toString());
@@ -110,7 +110,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private static void sendPOST(String string) throws IOException {
-        URL obj = new URL("https://192.168.2.132:5050/players");
+        URL obj = new URL("https://fais-moi-un-dessin.herokuapp.com/players");
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("POST");
         con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");

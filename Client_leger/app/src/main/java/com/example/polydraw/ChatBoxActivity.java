@@ -36,7 +36,6 @@ public class ChatBoxActivity extends AppCompatActivity {
     public EditText messageTxt;
     public Button send;
 
-
     private Socket socket;
 
     public String Username;
@@ -47,30 +46,25 @@ public class ChatBoxActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatbox);
 
-
         messageTxt = (EditText) findViewById(R.id.message);
         send = (Button) findViewById(R.id.send);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
-
-        // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
-
-        // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setTitle("Messagerie");
 
 
 
-        /*Bundle extras = getIntent().getExtras();
+        Bundle extras = getIntent().getExtras();
 
-        Username = (String) extras.getString(MainActivity.USERNAME);
-        IpAddress = (String) extras.getString(MainActivity.IP_ADDRESS);*/
+        Username = "user1";//(String) extras.getString(MainActivity.USERNAME);
+        //IpAddress = (String) extras.getString(MainActivity.IP_ADDRESS);
 
-        /*try {
+        try {
 
-            socket = IO.socket("http://" + "192.168.2.40" + ":5050"); //https://fais-moi-un-dessin.herokuapp.com/"
+            socket = IO.socket("//https://fais-moi-un-dessin.herokuapp.com/"); //https://fais-moi-un-dessin.herokuapp.com/"
 
             socket.connect();
 
@@ -79,15 +73,15 @@ public class ChatBoxActivity extends AppCompatActivity {
 
         } catch (URISyntaxException e) {
             e.printStackTrace();
-        }*/
+        }
 
-       /* MessageList = new ArrayList<>();
+       MessageList = new ArrayList<>();
         myRecyclerView = (RecyclerView) findViewById(R.id.messagelist);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         myRecyclerView.setLayoutManager(mLayoutManager);
-        myRecyclerView.setItemAnimator(new DefaultItemAnimator());*/
+        myRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        /*send.setOnClickListener(new View.OnClickListener() {
+        send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!messageTxt.getText().toString().trim().isEmpty() && !messageTxt.getText().toString().isEmpty()) {
@@ -97,8 +91,6 @@ public class ChatBoxActivity extends AppCompatActivity {
                 }
             }
         });
-
-
 
         socket.on("disconnection", new Emitter.Listener() {
             @Override
@@ -148,7 +140,6 @@ public class ChatBoxActivity extends AppCompatActivity {
 
                             Message m = new Message(username,message,timestamp);
 
-
                             MessageList.add(m);
 
                             chatBoxAdapter = new ChatBoxAdapter(MessageList);
@@ -164,7 +155,7 @@ public class ChatBoxActivity extends AppCompatActivity {
                     }
                 });
             }
-        });*/
+        });
 
     }
 
@@ -193,11 +184,11 @@ public class ChatBoxActivity extends AppCompatActivity {
         }
     }
 
-    /*@Override
+    @Override
     protected void onDestroy() {
         super.onDestroy();
 
         socket.disconnect();
-    }*/
+    }
 
 }

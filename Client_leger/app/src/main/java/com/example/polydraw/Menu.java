@@ -15,7 +15,7 @@ public class Menu extends AppCompatActivity {
     private ImageButton profileButton;
     private Button tutorialButton;
     private Button settingsButton;
-    private ImageButton backButton;
+    private ImageButton disconnectButton;
     private ImageView chat;
 
     @Override
@@ -28,7 +28,7 @@ public class Menu extends AppCompatActivity {
         profileButton = (ImageButton) findViewById(R.id.profile);
         tutorialButton = (Button)findViewById(R.id.tutorial);
         settingsButton = (Button) findViewById(R.id.settings);
-        backButton = (ImageButton) findViewById(R.id.logoutButton);
+        disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
         chat = (ImageView) findViewById(R.id.chatButton);
 
         playButton.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +58,7 @@ public class Menu extends AppCompatActivity {
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
+        disconnectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 backToLogin();

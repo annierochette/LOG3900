@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         enterAppButton.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                String query_url = "https://192.168.2.132:5050/players/login";
+                String query_url = "https://fais-moi-un-dessin.herokuapp.com";
 
                if(!username.getText().toString().isEmpty()){
 
@@ -65,21 +65,21 @@ public class MainActivity extends AppCompatActivity {
 
                    Intent i = new Intent(MainActivity.this, Menu.class);
 
-                   /*Bundle extras = new Bundle();
+                   Bundle extras = new Bundle();
                    extras.putString(USERNAME, username.getText().toString());
                    extras.putString(PASSWORD, password.getText().toString());
 
-                   i.putExtras(extras);*/
+                   i.putExtras(extras);
 
 
-                   try {
+                   /*try {
                        JSONObject data = new JSONObject();
                        data.put("username", username.getText().toString());
                        data.put("password", password.getText().toString());
                        String json = data.toString();
                        System.out.println(json);
 
-                       URL url = new URL(query_url + "players/login");
+                       URL url = new URL(query_url + "/players/login");
                        System.out.println(url);
 
                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -99,15 +99,16 @@ public class MainActivity extends AppCompatActivity {
 
                        conn.disconnect();
 
-//                       startActivity(i);
+                       startActivity(i);
                    } catch (Exception e) {
                        System.out.println(e);
                    }
 
-                   startActivity(i);
+//                   startActivity(i);*/
 
-                   /*AsyncTask asyncHttpPost = new AsyncTask(extras, i);
-                   asyncHttpPost.execute();*/
+                   AsyncTask asyncHttpPost = new AsyncTask(extras, i);
+                   asyncHttpPost.execute();
+                   startActivity(i);
                }
             }
         } );
@@ -127,8 +128,8 @@ public class MainActivity extends AppCompatActivity {
         private Intent intent;
 
         public AsyncTask(Bundle mData, Intent mIntent) {
-            mData = data;
-            mIntent = intent;
+            data = mData;
+            intent = mIntent;
         }
 
         @Override
