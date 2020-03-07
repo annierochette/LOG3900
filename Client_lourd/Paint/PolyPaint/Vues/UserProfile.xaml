@@ -6,10 +6,9 @@
         xmlns:local="clr-namespace:PolyPaint.Vues"
              xmlns:custom="clr-namespace:PolyPaint.CustomControls"
              mc:Ignorable="d"
-        Height="650" Width="900">
+d:DesignHeight="650" d:DesignWidth="900">
     <Grid Background="#4CAFE0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -17,25 +16,28 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="Back" Height="50" Grid.ColumnSpan="3" Content="Retour au menu principal" Background="#FFFF7F11" BorderThickness="2"  FontWeight="Bold" FontSize="20" FontFamily="Ink Free" Command="{Binding GoToGameMenu}" Margin="10,54,33,10" Click="Back_Click" Grid.Row="5" />
-        <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2"  Command="{Binding GoToUserProfile}">
-            <StackPanel>
-                <Image Source="/PolyPaint;component/Resources/woman_avatar.png"  />
-            </StackPanel>
+        <Button x:Name="Back" Height="50" Grid.ColumnSpan="3" Content="Retour au menu principal" Background="#FFFF7F11" BorderThickness="2"  FontWeight="Bold" FontSize="20" FontFamily="Ink Free" Command="{Binding GoToGameMenu}" Margin="29,28.4,40,40" Click="Back_Click" Grid.Row="9" Grid.RowSpan="2" />
+        <Button Grid.Column="0" Grid.RowSpan="2"  Command="{Binding GoToUserProfile}">
+            <Image Source="/PolyPaint;component/Resources/woman_avatar.png"  />
         </Button>
-        <custom:MessageBox Grid.Column="6"  Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4"  Loaded="MessageBox_Loaded"/>
-        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Grid.RowSpan="3" Margin="0,0,10,0" >
+        <custom:MessageBoxControl Grid.Column="7" Grid.ColumnSpan="2" Grid.RowSpan="11"  Loaded="MessageBox_Loaded"/>
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Grid.RowSpan="5" Margin="10,59,0,59" >
             <TextBlock HorizontalAlignment="Left"   Text="PRÉNOM:"  FontSize="20" FontFamily="Ink Free" Foreground="White"/>
             <TextBlock HorizontalAlignment="Center"  Text="Geneviève"  FontSize="24" FontFamily="Ink Free" Foreground="Black" FontWeight="Bold"/>
             <TextBlock HorizontalAlignment="Left"  Text="NOM:" FontSize="20" FontFamily="Ink Free" Foreground="White"/>

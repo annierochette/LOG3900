@@ -20,6 +20,18 @@
             <DataTemplate DataType="{x:Type viewModel:DrawingWindowViewModel}">
                 <view:DrawingWindow />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:GuessingViewModel}">
+                <view:GuessingView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:GameCreatorViewModel}">
+                <view:GameCreator />
+            </DataTemplate>
+             <DataTemplate DataType="{x:Type viewModel:LoginViewModel}">
+                 <view:LoginWindow />
+            </DataTemplate>
+             <DataTemplate DataType="{x:Type viewModel:SignInViewModel}">
+                 <view:SignInWindow />
+            </DataTemplate>
     </Application.Resources>
   
 </Application>

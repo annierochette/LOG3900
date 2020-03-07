@@ -13,15 +13,10 @@ namespace PolyPaint.Vues
         public GameMenu()
         {
             InitializeComponent();
-            var model = new Message()
-            {
-               MessageList = "Bienvenue à la messagerie!",
-            };
 
-            //DataContext = model;
         }
 
-        private void MessageBox_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private void MessageBoxControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
 
         }

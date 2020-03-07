@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PolyPaint.Vues"
         mc:Ignorable="d"
-        Title="PolyPaint" Height="650" Width="900">
+        Title="PolyPaint" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid>
         <ContentControl Content="{Binding CurrentPageViewModel}" />
     </Grid>

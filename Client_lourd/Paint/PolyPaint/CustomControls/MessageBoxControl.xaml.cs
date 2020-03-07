@@ -11,7 +11,7 @@ using PolyPaint.Modeles;
 namespace PolyPaint.CustomControls
 {
 
-    public partial class MessageBox : UserControl, INotifyPropertyChanged
+    public partial class MessageBoxControl : UserControl, INotifyPropertyChanged
     {
         private const string SERVER_IP = "127.0.0.1";
         private const string SERVER_PORT = "5050";
@@ -21,7 +21,7 @@ namespace PolyPaint.CustomControls
         public event PropertyChangedEventHandler PropertyChanged;
         Message message = new Message();
 
-        public MessageBox()
+        public MessageBoxControl()
         {
             DataContext = this;
             InitializeComponent();
@@ -42,7 +42,7 @@ namespace PolyPaint.CustomControls
         }
 
         public static readonly DependencyProperty ValueProperty =
-        DependencyProperty.Register("Value", typeof(string), typeof(MessageBox), new PropertyMetadata(null));
+        DependencyProperty.Register("Value", typeof(string), typeof(MessageBoxControl), new PropertyMetadata(null));
 
        
         public string Value
