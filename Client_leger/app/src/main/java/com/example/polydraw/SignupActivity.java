@@ -65,15 +65,6 @@ public class SignupActivity extends AppCompatActivity {
             public void run() {
                 String query_url = "https://fais-moi-un-dessin.herokuapp.com/players";
                 try {
-                    /*JSONObject data = new JSONObject();
-                    data.put("firstName", name.getText().toString());
-                    data.put("lastName", surname.getText().toString());
-                    data.put("username", username.getText().toString());
-                    data.put("password", password.getText().toString());
-                    String json = data.toString();
-                    System.out.println(json);
-
-                    sendPOST(json);*/
 
                     Map<String, String> postData = new HashMap<>();
                     postData.put("firstName", name.getText().toString());
@@ -83,23 +74,9 @@ public class SignupActivity extends AppCompatActivity {
                     HttpPost task = new HttpPost(postData);
                     task.execute(query_url);
 
-                    /*URL url = new URL(query_url);
-                    System.out.println(url);
+                    Intent intent = new Intent(SignupActivity.this, Menu.class);
+                    startActivity(intent);
 
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setConnectTimeout(5000);
-                    conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-                    conn.setDoOutput(true);
-                    conn.setDoInput(true);
-                    conn.setRequestMethod("POST");
-
-                    DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-                    os.writeBytes(data.toString());
-                    os.flush();
-                    os.close();
-                    conn.disconnect();*/
-                    /*Intent intent = new Intent(SignupActivity.this, Menu.class);
-                    startActivity(intent);*/
                 } catch (Exception e) {
                     System.out.println(e);
                 }
@@ -108,43 +85,5 @@ public class SignupActivity extends AppCompatActivity {
 
         thread.start();
     }
-
-    private static void sendPOST(String string) throws IOException {
-        URL obj = new URL("https://fais-moi-un-dessin.herokuapp.com/players");
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-        System.out.println(string);
-
-        // For POST only - START
-        con.setDoOutput(true);
-        OutputStream os = con.getOutputStream();
-        os.write(string.getBytes());
-        System.out.println("allo");
-        os.flush();
-        os.close();
-        // For POST only - END
-
-        int responseCode = con.getResponseCode();
-        System.out.println("POST Response Code :: " + responseCode);
-
-        if (responseCode == HttpURLConnection.HTTP_OK) { //success
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                    con.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-
-            // print result
-            System.out.println(response.toString());
-        } else {
-            System.out.println("POST request not worked");
-        }
-    }
-
 
 }
