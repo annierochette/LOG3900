@@ -1,6 +1,2 @@
 .DS_Store
 
-### Serveur ###
-node_modules/
-package-lock.json
-

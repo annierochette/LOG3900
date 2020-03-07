@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PlayMenu">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorDarkBlue">
+
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:background="@drawable/back_button"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Retour"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@android:color/white"
+                style="?android:attr/borderlessButtonStyle"/>
+
+            <ImageView
+                android:id="@+id/chatButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="780dp"
+                android:layout_marginRight="25dp"
+                app:srcCompat="@android:drawable/sym_action_chat" />
+
+            <ImageButton
+                android:id="@+id/logoutButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/disconnect_button"
+                android:fontFamily="sans-serif-condensed"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@android:color/white"
+                app:srcCompat="@android:drawable/ic_lock_power_off" />
+
+        </Toolbar>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary">
+
+                    <Button
+                        android:id="@+id/freeButton"
+                        android:layout_width="280dp"
+                        android:layout_height="85dp"
+                        android:layout_below="@+id/soloButton"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/round_button"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Libre"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                        android:textColor="@android:color/white"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/multiplayerButton"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="28dp"
+                        android:fontFamily="sans-serif-black"
+                        android:gravity="center"
+                        android:text="Modes de jeu"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+                        android:textColor="#2364aa"
+                        android:textSize="36sp" />
+
+                    <Button
+                        android:id="@+id/soloButton"
+                        android:layout_width="280dp"
+                        android:layout_height="85dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="20dp"
+                        android:background="@drawable/round_button"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Solo"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                        android:textColor="@android:color/white"
+                        android:textSize="30sp" />
+
+                    <Button
+                        android:id="@+id/multiplayerButton"
+                        android:layout_width="280dp"
+                        android:layout_height="85dp"
+                        android:layout_above="@+id/soloButton"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="1dp"
+                        android:background="@drawable/round_button"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Mêlée générale"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                        android:textColor="@android:color/white"
+                        android:textSize="30sp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

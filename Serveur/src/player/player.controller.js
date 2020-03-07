@@ -1,10 +1,8 @@
-const Player = require("./player.model");
-const HTTP = require("../../common/constants/http");
-const ERR = require("../errors/messages/err");
+var Player = require("./player.model");
+var HTTP = require("../../common/constants/http");
+var ERR = require("../errors/messages/err");
 const jwt = require("jsonwebtoken");
 const LOGGER = require("../utils/logger");
-
-const GeneralStatsController = require("./general.stats.controller");
 
 exports.createPlayer = async function(req, res) {
     // Create a new player
@@ -12,8 +10,7 @@ exports.createPlayer = async function(req, res) {
         const player = new Player(req.body)
         player.token = await player.generateAuthToken();
         await player.save();
-        await GeneralStatsController.intialize(player.username);
-        res.status(HTTP.STATUS.CREATED).json({ player });
+        res.status(HTTP.STATUS.CREATED).send({ player })
     } catch (error) {
         console.log("Error ", error)
         res.status(HTTP.STATUS.BAD_REQUEST).send(error)
@@ -22,8 +19,7 @@ exports.createPlayer = async function(req, res) {
 
 exports.deletePlayer = async function(req, res) {
     try {
-        await Player.deleteOne({ username: req.params.username });
-        await GeneralStatsController.delete(req.params.username);
+        await Player.deleteOne({username: req.params.username});
         res.status(HTTP.STATUS.OK).send();
     } catch (error) {
         res.status(HTTP.STATUS.BAD_REQUEST).send();
