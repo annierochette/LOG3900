@@ -34,9 +34,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@drawable/round_green_button"
+                        android:background="@drawable/selected_button"
                         android:text="Dessin"
-                        android:textColor="#FFFFFF" />
+                        android:textColor="#FFFFFF"
+                        android:layout_margin="2dp"/>
 
                     <Button
                     android:id="@+id/eraser"
@@ -45,7 +46,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/round_button"
                     android:text="Efface"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF" android:layout_margin="2dp"/>
 
                     <Button
                         android:id="@+id/colorButton"
@@ -54,7 +55,8 @@
                         android:layout_weight="1"
                         android:background="@drawable/round_button"
                         android:text="Couleur"
-                        android:textColor="#FFFFFF"/>
+                        android:textColor="#FFFFFF"
+                        android:layout_margin="2dp"/>
 
                 </LinearLayout>
 

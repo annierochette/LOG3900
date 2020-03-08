@@ -49,7 +49,7 @@ public class DrawingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 drawingCanvas.setErase(true);
                 color.setBackground(getDrawable(R.drawable.round_button));
-                eraseButton.setBackground(getDrawable(R.drawable.round_green_button));
+                eraseButton.setBackground(getDrawable(R.drawable.selected_button));
                 drawButton.setBackground(getDrawable(R.drawable.round_button));
 
             }
@@ -60,14 +60,14 @@ public class DrawingActivity extends AppCompatActivity {
                 drawingCanvas.setErase(false);
                 color.setBackground(getDrawable(R.drawable.round_button));
                 eraseButton.setBackground(getDrawable(R.drawable.round_button));
-                drawButton.setBackground(getDrawable(R.drawable.round_green_button));
+                drawButton.setBackground(getDrawable(R.drawable.selected_button));
             }
         });
 
         color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                color.setBackground(getDrawable(R.drawable.round_green_button));
+                color.setBackground(getDrawable(R.drawable.selected_button));
                 eraseButton.setBackground(getDrawable(R.drawable.round_button));
                 drawButton.setBackground(getDrawable(R.drawable.round_button));
 
