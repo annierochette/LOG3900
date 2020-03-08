@@ -169,4 +169,8 @@ public class DrawingCanvas extends View {
         eraser = isErase;
 
     }
+
+    public void setDrawingColor(){
+
+    }
 }

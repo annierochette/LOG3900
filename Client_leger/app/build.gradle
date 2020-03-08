@@ -33,6 +33,6 @@ dependencies {
         exclude group: 'org.json', module: 'json'
     }
     implementation 'com.google.code.gson:gson:2.8.6'
-
+    implementation 'com.github.yukuku:ambilwarna:2.0.1'
 
 }

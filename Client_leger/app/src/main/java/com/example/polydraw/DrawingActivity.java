@@ -1,28 +1,24 @@
 package com.example.polydraw;
 
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
-//import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
+import yuku.ambilwarna.AmbilWarnaDialog; //https://codinginflow.com/tutorials/android/ambilwarna-color-picker-dialog
 
 public class DrawingActivity extends AppCompatActivity {
-    private int defaultColorR = 0;
-    private int defaultColorG = 0;
-    private int defaultColorB = 0;
-    public  int selectedColorR;
-    public  int selectedColorG;
-    public  int selectedColorB;
     DrawingCanvas drawingCanvas;
     Button eraseButton;
     Button drawButton;
     Button color;
-    Button okColor;
-//    final ColorPicker cp = new ColorPicker(DrawingActivity.this, defaultColorR, defaultColorG, defaultColorB); //https://github.com/Pes8/android-material-color-picker-dialog; https://stackoverflow.com/questions/6980906/android-color-picker
+
+    ConstraintLayout mLayout;
+    int mDefaultColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -32,6 +28,7 @@ public class DrawingActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         initializeObject();
         eventListeners();
+
     }
 
     private void initializeObject(){
@@ -39,7 +36,8 @@ public class DrawingActivity extends AppCompatActivity {
         eraseButton = (Button) findViewById(R.id.eraser);
         drawButton = (Button) findViewById(R.id.paint);
         color = (Button) findViewById(R.id.colorButton);
-//        okColor = (Button)cp.findViewById(R.id.okColorButton);
+        mLayout = (ConstraintLayout) findViewById(R.id.layout);
+        mDefaultColor = ContextCompat.getColor(DrawingActivity.this, R.color.colorPrimary);
 
     }
 
@@ -70,29 +68,27 @@ public class DrawingActivity extends AppCompatActivity {
                 color.setBackground(getDrawable(R.drawable.selected_button));
                 eraseButton.setBackground(getDrawable(R.drawable.round_button));
                 drawButton.setBackground(getDrawable(R.drawable.round_button));
+                openColorPicker();
 
-                /*color.setBackgroundColor(getColor(R.drawable.round_green_button));
-                eraseButton.setBackgroundColor(getColor(R.color.colorOrange));
-                drawButton.setBackgroundColor(getColor(R.color.colorOrange));*/
-
-//                cp.show();
             }
         });
+    }
 
-        /*okColor.setOnClickListener(new View.OnClickListener() {
+    public void openColorPicker() {
+        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, mDefaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
             @Override
-            public void onClick(View v) {
+            public void onCancel(AmbilWarnaDialog dialog) {
 
-                *//* You can get single channel (value 0-255) *//*
-                selectedColorR = cp.getRed();
-                selectedColorG = cp.getGreen();
-                selectedColorB = cp.getBlue();
-
-                cp.dismiss();
             }
-        });*/
 
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                mDefaultColor = color;
+                mLayout.setBackgroundColor(mDefaultColor);
 
+            }
+        });
+        colorPicker.show();
     }
 }
 
