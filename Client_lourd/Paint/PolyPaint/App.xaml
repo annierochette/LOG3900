@@ -5,7 +5,7 @@
              xmlns:view="clr-namespace:PolyPaint.Vues"
              xmlns:viewModel="clr-namespace:PolyPaint.VueModeles"
              xmlns:utils="clr-namespace:PolyPaint.Utilitaires"
-             >
+             xmlns:custom="clr-namespace:PolyPaint.CustomControls">
     
         <Application.Resources>
             <DataTemplate DataType="{x:Type viewModel:GameMenuViewModel}">
@@ -16,6 +16,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModel:GameModeMenuViewModel}">
                 <view:GameModeMenu />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:DrawingWindowViewModel}">
+                <custom:DrawingWindow />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModel:GuessingViewModel}">
                 <view:GuessingView />
@@ -29,9 +32,12 @@
              <DataTemplate DataType="{x:Type viewModel:SignInViewModel}">
                  <view:SignInWindow />
             </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModel:NewDrawingViewModel}">
-            <view:NewDrawing />
-        </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:FreeForAllViewModel}">
+                <view:FreeForAllWindow />
+            </DataTemplate>
+             <DataTemplate DataType="{x:Type viewModel:DrawingCreatorViewModel}">
+                <view:NewDrawing />
+            </DataTemplate>
   
     </Application.Resources>
   

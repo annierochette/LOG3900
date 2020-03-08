@@ -6,9 +6,10 @@ using System.Windows.Input;
 namespace PolyPaint.VueModeles
 {
    public class GameMenuViewModel : BaseViewModel, IPageViewModel { 
-   private ICommand _goToUserProfile;
-   private ICommand _goToGameModeMenu;
-   private ICommand _goToGameCreator;
+        private ICommand _goToUserProfile;
+        private ICommand _goToGameModeMenu;
+        private ICommand _goToGameCreator;
+
 
         public ICommand GoToUserProfile
         {
@@ -41,5 +42,6 @@ namespace PolyPaint.VueModeles
                 }));
             }
         }
+
     }
 }

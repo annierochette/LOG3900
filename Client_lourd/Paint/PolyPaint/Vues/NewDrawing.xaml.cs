@@ -20,7 +20,6 @@ namespace PolyPaint.Vues
 
         public NewDrawing()
         {
-         
             InitializeComponent();
         }
 
