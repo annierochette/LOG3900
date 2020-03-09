@@ -1,11 +1,18 @@
 package com.example.polydraw;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
@@ -16,6 +23,8 @@ public class DrawingActivity extends AppCompatActivity {
     Button eraseButton;
     Button drawButton;
     Button color;
+    Button capStyle;
+    Button pencilWidth;
 
     ConstraintLayout mLayout;
     int mDefaultColor;
@@ -36,6 +45,8 @@ public class DrawingActivity extends AppCompatActivity {
         eraseButton = (Button) findViewById(R.id.eraser);
         drawButton = (Button) findViewById(R.id.paint);
         color = (Button) findViewById(R.id.colorButton);
+        capStyle = (Button) findViewById(R.id.capButton);
+        pencilWidth = (Button) findViewById(R.id.widthButton);
         mLayout = (ConstraintLayout) findViewById(R.id.layout);
         mDefaultColor = ContextCompat.getColor(DrawingActivity.this, R.color.colorPrimary);
 
@@ -49,6 +60,9 @@ public class DrawingActivity extends AppCompatActivity {
                 color.setBackground(getDrawable(R.drawable.round_button));
                 eraseButton.setBackground(getDrawable(R.drawable.selected_button));
                 drawButton.setBackground(getDrawable(R.drawable.round_button));
+                capStyle.setBackground(getDrawable(R.drawable.round_button));
+                pencilWidth.setBackground(getDrawable(R.drawable.round_button));
+                openEraserOptions();
 
             }
         });
@@ -59,17 +73,48 @@ public class DrawingActivity extends AppCompatActivity {
                 color.setBackground(getDrawable(R.drawable.round_button));
                 eraseButton.setBackground(getDrawable(R.drawable.round_button));
                 drawButton.setBackground(getDrawable(R.drawable.selected_button));
+                capStyle.setBackground(getDrawable(R.drawable.round_button));
+                pencilWidth.setBackground(getDrawable(R.drawable.round_button));
             }
         });
 
         color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                drawingCanvas.setErase(false);
                 color.setBackground(getDrawable(R.drawable.selected_button));
                 eraseButton.setBackground(getDrawable(R.drawable.round_button));
                 drawButton.setBackground(getDrawable(R.drawable.round_button));
+                capStyle.setBackground(getDrawable(R.drawable.round_button));
+                pencilWidth.setBackground(getDrawable(R.drawable.round_button));
                 openColorPicker();
 
+            }
+        });
+
+        capStyle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawingCanvas.setErase(false);
+                color.setBackground(getDrawable(R.drawable.round_button));
+                eraseButton.setBackground(getDrawable(R.drawable.round_button));
+                drawButton.setBackground(getDrawable(R.drawable.round_button));
+                capStyle.setBackground(getDrawable(R.drawable.selected_button));
+                pencilWidth.setBackground(getDrawable(R.drawable.round_button));
+                openCapOptions();
+
+            }
+        });
+        pencilWidth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawingCanvas.setErase(false);
+                color.setBackground(getDrawable(R.drawable.round_button));
+                eraseButton.setBackground(getDrawable(R.drawable.round_button));
+                drawButton.setBackground(getDrawable(R.drawable.round_button));
+                capStyle.setBackground(getDrawable(R.drawable.round_button));
+                pencilWidth.setBackground(getDrawable(R.drawable.selected_button));
+                openWidthOptions();
             }
         });
     }
@@ -89,6 +134,41 @@ public class DrawingActivity extends AppCompatActivity {
             }
         });
         colorPicker.show();
+    }
+
+    //https://www.javatpoint.com/android-popup-menu-example
+    public void openCapOptions(){
+        PopupMenu popup = new PopupMenu(DrawingActivity.this, capStyle);
+        popup.getMenuInflater().inflate(R.menu.cap_menu, popup.getMenu());
+
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                Toast.makeText(DrawingActivity.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+        popup.show();
+
+    }
+
+
+    public void openWidthOptions(){
+        popupWidthWindowActivity popup = new popupWidthWindowActivity();
+        popup.show(getSupportFragmentManager(), "popup");
+
+    }
+
+    public void openEraserOptions(){
+        PopupMenu popup = new PopupMenu(DrawingActivity.this, capStyle);
+        popup.getMenuInflater().inflate(R.menu.eraser_menu, popup.getMenu());
+
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                Toast.makeText(DrawingActivity.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+        popup.show();
     }
 }
 

@@ -11,8 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".SignupActivity"/>
+        <activity android:name=".popupWidthWindowActivity"></activity>
+        <activity android:name=".SignupActivity" />
         <activity android:name=".Settings" />
         <activity android:name=".Tutorial" />
         <activity android:name=".PlayMenu" />
@@ -25,8 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ChatBoxActivity"
-            android:parentActivityName=".Menu"/>
+        <activity
+            android:name=".ChatBoxActivity"
+            android:parentActivityName=".Menu" />
         <activity android:name=".Menu" />
     </application>
 

@@ -21,8 +21,8 @@
 
                 <com.example.polydraw.DrawingCanvas
                     android:id="@+id/drawing"
-                    android:layout_width="670dp"
-                    android:layout_height="702dp"
+                    android:layout_width="700dp"
+                    android:layout_height="709dp"
                     android:background="#FFFFFFFF" />
 
                 <LinearLayout
@@ -56,6 +56,25 @@
                         android:layout_weight="1"
                         android:background="@drawable/round_button"
                         android:text="Couleur"
+                        android:textColor="#FFFFFF"
+                        android:layout_margin="2dp"/>
+                    <Button
+                        android:id="@+id/capButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_button"
+                        android:text="Pointe"
+                        android:textColor="#FFFFFF"
+                        android:layout_margin="2dp"/>
+
+                    <Button
+                        android:id="@+id/widthButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_button"
+                        android:text="Taille"
                         android:textColor="#FFFFFF"
                         android:layout_margin="2dp"/>
 

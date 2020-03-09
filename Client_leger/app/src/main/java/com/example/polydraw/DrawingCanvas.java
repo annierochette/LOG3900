@@ -107,8 +107,9 @@ public class DrawingCanvas extends View {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(5);
         paint.setAntiAlias(true);
-        paint.setColor(Color.RED);
+        paint.setColor(Color.BLACK);
         paint.setStrokeJoin(Paint.Join.ROUND);
+        paint.setStrokeCap(Paint.Cap.SQUARE);
 
         Point pt = new Point(x,y);
         Stroke stroke = new Stroke(paint);
@@ -170,7 +171,25 @@ public class DrawingCanvas extends View {
 
     }
 
-    public void setDrawingColor(){
+    public void setDrawingColor(Paint paint, int newColor){
+        paint.setColor(newColor);
+
+    }
+
+    public void setWidth(Paint paint, int width){
+        paint.setStrokeWidth(width);
+
+    }
+
+    public void setPencilTip(Paint paint){
+        Paint.Cap cap = paint.getStrokeCap();
+        if(paint.getStrokeCap() == Paint.Cap.SQUARE){
+            paint.setStrokeCap(Paint.Cap.ROUND);
+
+        }
+        else{
+            paint.setStrokeCap(Paint.Cap.SQUARE);
+        }
 
     }
 }
