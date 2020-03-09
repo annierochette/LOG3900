@@ -29,10 +29,12 @@
              <DataTemplate DataType="{x:Type viewModel:SignInViewModel}">
                  <view:SignInWindow />
             </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModel:NewDrawingViewModel}">
-            <view:NewDrawing />
-        </DataTemplate>
-  
+            <DataTemplate DataType="{x:Type viewModel:NewDrawingViewModel}">
+                <view:NewDrawing />
+             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:ImageImportViewModel}">
+                <view:ImageImportView />
+             </DataTemplate>
     </Application.Resources>
   
 </Application>

@@ -7,7 +7,7 @@ namespace PolyPaint.VueModeles
     {
         private ICommand _goToGameMenu;
         private ICommand _goToNewDrawingWindow;
-
+        private ICommand _goToImageImport;
 
         public ICommand GoToGameMenu
         {
@@ -30,6 +30,17 @@ namespace PolyPaint.VueModeles
                 }));
             }
         }
+
+        public ICommand GoToImageImport
+        {
+            get
+            {
+                return _goToImageImport ?? (_goToImageImport = new RelayCommand(x =>
+                {
+                    Mediator.Notify("GoToImageImport", "");
+                }));
+            }
+        }
     }
 
     class NewDrawingViewModel : DrawingWindowViewModel
@@ -49,5 +60,9 @@ namespace PolyPaint.VueModeles
         }
     }
 
+    class ImageImportViewModel : BaseViewModel, IPageViewModel
+    {
+
+    }
 
 }

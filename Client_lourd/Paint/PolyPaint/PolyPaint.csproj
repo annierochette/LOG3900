@@ -154,6 +154,9 @@
     <Compile Include="Vues\GuessingView.xaml.cs">
       <DependentUpon>GuessingView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vues\ImageImportView.xaml.cs">
+      <DependentUpon>ImageImportView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vues\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
@@ -204,6 +207,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vues\GuessingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vues\ImageImportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
