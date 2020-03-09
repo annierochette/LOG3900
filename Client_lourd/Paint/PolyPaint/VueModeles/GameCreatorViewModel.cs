@@ -5,15 +5,26 @@ namespace PolyPaint.VueModeles
 {
     class GameCreatorViewModel : BaseViewModel, IPageViewModel
     {
+        private ICommand _goToGameMenu;
+        private ICommand _goToNewDrawingWindow;
 
-        private ICommand _goToGameModeMenu;
 
+        public ICommand GoToGameMenu
+        {
+            get
+            {
+                return _goToGameMenu ?? (_goToGameMenu = new RelayCommand(x =>
+                {
+                    Mediator.Notify("GoToGameMenu", "");
+                }));
+            }
+        }
 
         public ICommand GoToNewDrawingWindow
         {
             get
             {
-                return _goToGameModeMenu ?? (_goToGameModeMenu = new RelayCommand(x =>
+                return _goToNewDrawingWindow ?? (_goToNewDrawingWindow = new RelayCommand(x =>
                 {
                     Mediator.Notify("GoToNewDrawingWindow", "");
                 }));
