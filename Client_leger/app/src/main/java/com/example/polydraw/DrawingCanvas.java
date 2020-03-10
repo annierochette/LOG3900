@@ -25,6 +25,7 @@ public class DrawingCanvas extends View {
     private boolean eraser = false;
     private int paintColor = Color.BLACK;
     private Paint.Cap capOption = Paint.Cap.SQUARE;
+    private int capWidth = 5;
 
     public DrawingCanvas (Context context, AttributeSet attrs){
         super(context,attrs);
@@ -107,7 +108,7 @@ public class DrawingCanvas extends View {
     private void pointDown(int x, int y, int id) {
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(5);
+        paint.setStrokeWidth(capWidth);
         paint.setAntiAlias(true);
         paint.setColor(paintColor);
         paint.setStrokeJoin(Paint.Join.ROUND);
@@ -178,8 +179,8 @@ public class DrawingCanvas extends View {
 
     }
 
-    public void setWidth(Paint paint, int width){
-        paint.setStrokeWidth(width);
+    public void setWidth(int width){
+        capWidth = width;
 
     }
 
