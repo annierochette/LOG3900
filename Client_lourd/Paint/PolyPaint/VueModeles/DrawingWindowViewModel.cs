@@ -9,6 +9,8 @@ using Svg;
 using System.Windows.Markup;
 using System.Xml.Linq;
 using System;
+using Quobject.SocketIoClientDotNet.Client;
+using Newtonsoft.Json;
 
 namespace PolyPaint.VueModeles
 {
@@ -23,6 +25,7 @@ namespace PolyPaint.VueModeles
         public event PropertyChangedEventHandler PropertyChanged;
         private Editeur editeur = new Editeur();
         private SvgDocument newImage = new SvgDocument();
+        private Socket socket = IO.Socket("http://10.200.8.135:5050");
 
         // Ensemble d'attributs qui définissent l'apparence d'un trait.
         public DrawingAttributes AttributsDessin { get; set; } = new DrawingAttributes();
@@ -96,6 +99,10 @@ namespace PolyPaint.VueModeles
             ChoisirPointe = new RelayCommand<string>(editeur.ChoisirPointe);
             ChoisirOutil = new RelayCommand<string>(editeur.ChoisirOutil);
 
+            socket.On("drawingAttributes", drawingAttributes => {
+                Console.WriteLine("drawingAttributes: " + drawingAttributes.ToString());
+                AttributsDessin = JsonConvert.DeserializeObject<DrawingAttributes>(drawingAttributes.ToString());
+            });
         }
 
         private void ConvertDrawingToSVG(object sender)
@@ -156,6 +163,7 @@ namespace PolyPaint.VueModeles
         /// Il indique quelle propriété a été modifiée dans le modèle.</param>
         private void EditeurProprieteModifiee(object sender, PropertyChangedEventArgs e)
         {
+            Console.WriteLine("Debut: " + AttributsDessin.Color.ToString());
             if (e.PropertyName == "CouleurSelectionnee")
             {
                 AttributsDessin.Color = (Color)ColorConverter.ConvertFromString(editeur.CouleurSelectionnee);
@@ -173,6 +181,9 @@ namespace PolyPaint.VueModeles
             {
                 AjusterPointe();
             }
+            Console.WriteLine("Fin: " + AttributsDessin.Color.ToString());
+            //send();
+            socket.Emit("drawingAttributes", "General ", JsonConvert.SerializeObject(AttributsDessin));
         }
 
         /// <summary>
@@ -186,6 +197,12 @@ namespace PolyPaint.VueModeles
             AttributsDessin.Width = editeur.TailleTrait;
             AttributsDessin.Height = editeur.TailleTrait;
         }
+
+        private void send()
+        {
+            socket.Emit("drawingAttributes", "General ", JsonConvert.SerializeObject(AttributsDessin));
+        }
+
     }
-    
+
 }

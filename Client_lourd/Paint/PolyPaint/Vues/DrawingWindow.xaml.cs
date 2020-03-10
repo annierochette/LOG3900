@@ -26,7 +26,7 @@ namespace PolyPaint.Vues
         public DrawingWindow()
         {
             InitializeComponent();
-            socket = IO.Socket("http://127.0.0.1:5050");
+            socket = IO.Socket("http://10.200.8.135:5050");
 
             socket.On("draw", points => {
                 Console.WriteLine("On draw: " + points);
@@ -36,7 +36,7 @@ namespace PolyPaint.Vues
                 {
                     Dispatcher.Invoke(() =>
                     {
-                        s.DrawingAttributes = surfaceDessin.DefaultDrawingAttributes.Clone();
+                        s.DrawingAttributes.Color = (Color)ColorConverter.ConvertFromString("red");
                         surfaceDessin.Strokes.Add(s);
                     });
                 }
@@ -44,6 +44,7 @@ namespace PolyPaint.Vues
                     s.DrawingAttributes = surfaceDessin.DefaultDrawingAttributes.Clone();
                     surfaceDessin.Strokes.Add(s);
                 }
+
             });
 
             socket.On("modifyProperty", drawingAttribute => {
