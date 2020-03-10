@@ -160,7 +160,7 @@ public class DrawingActivity extends AppCompatActivity {
     }
 
     public void openEraserOptions(){
-        PopupMenu popup = new PopupMenu(DrawingActivity.this, capStyle);
+        PopupMenu popup = new PopupMenu(DrawingActivity.this, eraseButton);
         popup.getMenuInflater().inflate(R.menu.eraser_menu, popup.getMenu());
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
