@@ -11,7 +11,7 @@ module.exports.EVENTS = {
     MESSAGE: "chat message",
 
     // Partie
-    STROKE: "drawStroke",
+    STROKE: "draw",
     DRAFTSMAN_DIMENSION: "draftDimension",
-    MODIFY_PROPERTY: "modifyProperty",
+    DRAWING_ATTRIBUTES: "drawingAttributes",
 };

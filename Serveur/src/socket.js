@@ -59,15 +59,8 @@ module.exports = function(http) {
       });
 
       // Drawing
-      socket.on(CHAT.EVENTS.STROKE, (channel, startingPoint, endingPoint, status) => {
-        // Status: First, Intermediate, Last
-        console.log("Stroke received: " + startingPoint.x);
-        let strokeVector = {
-          "startingPoint": startingPoint,
-          "endingPoint": endingPoint,
-          "status": status
-        }
-        socket.to(channel).broadcast.emit(CHAT.EVENTS.STROKE, strokeVector);
+      socket.on(CHAT.EVENTS.STROKE, (channel, points) => {
+        socket.to(channel).broadcast.emit(CHAT.EVENTS.STROKE, points);
       });
 
       socket.on(CHAT.EVENTS.DRAFTSMAN_DIMENSION, (channel, width, height) => {
@@ -79,13 +72,8 @@ module.exports = function(http) {
         socket.to(channel).broadcast.emit(CHAT.EVENTS.DRAFTSMAN_DIMENSION, dimension);
       });
 
-      socket.on(CHAT.EVENTS.MODIFY_PROPERTY, (channel, property, newValue) => {
-        console.log("Modify property: ", property);
-        let modifiedProperty = {
-          "property": property,
-          "value": newValue
-        };
-        socket.to(channel).broadcast.emit(CHAT.EVENTS.MODIFY_PROPERTY, modifiedProperty);
+      socket.on(CHAT.EVENTS.DRAWING_ATTRIBUTES, (channel, drawingAttributes) => {
+        socket.to(channel).broadcast.emit(CHAT.EVENTS.MODIFY_PROPERTY, drawingAttributes);
       });
         
       socket.on(CHAT.EVENTS.DISCONNECTION, () => {
