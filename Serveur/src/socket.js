@@ -60,7 +60,8 @@ module.exports = function(http) {
 
       // Drawing
       socket.on(CHAT.EVENTS.STROKE, (channel, points) => {
-        io.to(channel).emit(CHAT.EVENTS.STROKE, points);
+        io.emit(CHAT.EVENTS.STROKE, points);
+        console.log("boumshakalaka")
       });
 
       socket.on(CHAT.EVENTS.DRAFTSMAN_DIMENSION, (channel, width, height) => {
@@ -73,7 +74,8 @@ module.exports = function(http) {
       });
 
       socket.on(CHAT.EVENTS.DRAWING_ATTRIBUTES, (channel, drawingAttributes) => {
-        socket.to(channel).broadcast.emit(CHAT.EVENTS.MODIFY_PROPERTY, drawingAttributes);
+        io.emit(CHAT.EVENTS.DRAWING_ATTRIBUTES, drawingAttributes);
+        console.log("drawing attributes :" + drawingAttributes)
       });
         
       socket.on(CHAT.EVENTS.DISCONNECTION, () => {
