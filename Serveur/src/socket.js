@@ -60,7 +60,7 @@ module.exports = function(http) {
 
       // Drawing
       socket.on(CHAT.EVENTS.STROKE, (channel, points) => {
-        socket.to(channel).broadcast.emit(CHAT.EVENTS.STROKE, points);
+        io.to(channel).emit(CHAT.EVENTS.STROKE, points);
       });
 
       socket.on(CHAT.EVENTS.DRAFTSMAN_DIMENSION, (channel, width, height) => {
