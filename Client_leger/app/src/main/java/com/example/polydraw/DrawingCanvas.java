@@ -23,6 +23,8 @@ public class DrawingCanvas extends View {
     private List<Stroke> _allStroke;
     private SparseArray<Stroke> activeStrokes;
     private boolean eraser = false;
+    private int paintColor = Color.BLACK;
+    private Paint.Cap capOption = Paint.Cap.SQUARE;
 
     public DrawingCanvas (Context context, AttributeSet attrs){
         super(context,attrs);
@@ -107,9 +109,9 @@ public class DrawingCanvas extends View {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(5);
         paint.setAntiAlias(true);
-        paint.setColor(Color.BLACK);
+        paint.setColor(paintColor);
         paint.setStrokeJoin(Paint.Join.ROUND);
-        paint.setStrokeCap(Paint.Cap.SQUARE);
+        paint.setStrokeCap(capOption);
 
         Point pt = new Point(x,y);
         Stroke stroke = new Stroke(paint);
@@ -171,8 +173,8 @@ public class DrawingCanvas extends View {
 
     }
 
-    public void setDrawingColor(Paint paint, int newColor){
-        paint.setColor(newColor);
+    public void setDrawingColor(int newColor){
+        paintColor = newColor;
 
     }
 
@@ -181,14 +183,13 @@ public class DrawingCanvas extends View {
 
     }
 
-    public void setPencilTip(Paint paint){
-        Paint.Cap cap = paint.getStrokeCap();
-        if(paint.getStrokeCap() == Paint.Cap.SQUARE){
-            paint.setStrokeCap(Paint.Cap.ROUND);
+    public void setPencilTip(String cap){
+        if(cap.equals("Ronde")){
+           capOption = Paint.Cap.ROUND;
 
         }
         else{
-            paint.setStrokeCap(Paint.Cap.SQUARE);
+            capOption = Paint.Cap.SQUARE;
         }
 
     }

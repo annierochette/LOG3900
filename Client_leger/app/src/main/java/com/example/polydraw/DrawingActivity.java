@@ -129,7 +129,7 @@ public class DrawingActivity extends AppCompatActivity {
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
                 mDefaultColor = color;
-                mLayout.setBackgroundColor(mDefaultColor);
+                drawingCanvas.setDrawingColor(mDefaultColor);
 
             }
         });
@@ -144,6 +144,7 @@ public class DrawingActivity extends AppCompatActivity {
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
                 Toast.makeText(DrawingActivity.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                drawingCanvas.setPencilTip(item.getTitle().toString());
                 return true;
             }
         });
