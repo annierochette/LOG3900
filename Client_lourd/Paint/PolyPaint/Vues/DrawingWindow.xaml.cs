@@ -36,21 +36,16 @@ namespace PolyPaint.Vues
                 {
                     Dispatcher.Invoke(() =>
                     {
-                        s.DrawingAttributes.Color = (Color)ColorConverter.ConvertFromString("red");
+                        s.DrawingAttributes = ((DrawingWindowViewModel) (this.DataContext)).AttributsDessin.Clone();
                         surfaceDessin.Strokes.Add(s);
                     });
                 }
                 else {
-                    s.DrawingAttributes = surfaceDessin.DefaultDrawingAttributes.Clone();
+                        s.DrawingAttributes = ((DrawingWindowViewModel) (this.DataContext)).AttributsDessin.Clone();
                     surfaceDessin.Strokes.Add(s);
                 }
 
             });
-
-            socket.On("modifyProperty", drawingAttribute => {
-                Console.WriteLine("MODIFY PROPERTY");
-            });
-
 
         }
         

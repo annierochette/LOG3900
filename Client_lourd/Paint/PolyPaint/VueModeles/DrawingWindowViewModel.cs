@@ -102,6 +102,8 @@ namespace PolyPaint.VueModeles
             socket.On("drawingAttributes", drawingAttributes => {
                 Console.WriteLine("drawingAttributes: " + drawingAttributes.ToString());
                 AttributsDessin = JsonConvert.DeserializeObject<DrawingAttributes>(drawingAttributes.ToString());
+                Console.WriteLine("Taille: " + AttributsDessin.Width);
+                AjusterPointe();
             });
         }
 
@@ -166,19 +168,23 @@ namespace PolyPaint.VueModeles
             Console.WriteLine("Debut: " + AttributsDessin.Color.ToString());
             if (e.PropertyName == "CouleurSelectionnee")
             {
+                Console.WriteLine("Change color");
                 AttributsDessin.Color = (Color)ColorConverter.ConvertFromString(editeur.CouleurSelectionnee);
             }
             else if (e.PropertyName == "OutilSelectionne")
             {
+                Console.WriteLine("Change outil");
                 OutilSelectionne = editeur.OutilSelectionne;
             }
             else if (e.PropertyName == "PointeSelectionnee")
             {
+                Console.WriteLine("Change pointe");
                 PointeSelectionnee = editeur.PointeSelectionnee;
                 AjusterPointe();
             }
             else // e.PropertyName == "TailleTrait"
             {
+                Console.WriteLine("Change taille");
                 AjusterPointe();
             }
             Console.WriteLine("Fin: " + AttributsDessin.Color.ToString());
@@ -193,6 +199,7 @@ namespace PolyPaint.VueModeles
         /// </summary>
         private void AjusterPointe()
         {
+            Console.WriteLine("AjusterPointe");
             AttributsDessin.StylusTip = (editeur.PointeSelectionnee == "ronde") ? StylusTip.Ellipse : StylusTip.Rectangle;
             AttributsDessin.Width = editeur.TailleTrait;
             AttributsDessin.Height = editeur.TailleTrait;
