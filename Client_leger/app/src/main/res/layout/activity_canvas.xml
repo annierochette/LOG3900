@@ -10,7 +10,8 @@
             android:layout_height="match_parent"
             tools:context="com.example.polydraw.MainActivity"
             android:layout_centerVertical="true"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp">
 
             <com.example.polydraw.DrawingCanvas
                 android:id="@+id/drawing"
@@ -18,11 +19,10 @@
                 android:layout_height="692dp"
                 android:background="#FFFFFFFF" />
 
-            <LinearLayout
-                android:layout_width="622dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_alignParentBottom="true">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/paint"
@@ -64,17 +64,24 @@
                     android:text="Pointe"
                     android:textColor="#FFFFFF" />
 
-                <Button
-                    android:id="@+id/widthButton"
-                    android:layout_width="120dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/round_button"
-                    android:text="Taille"
-                    android:textColor="#FFFFFF" />
+                    <SeekBar
+                        android:id="@+id/seekBar"
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:indeterminate="false"
+                        android:max="20"
+                        android:min="1"
+                        android:progress="5" />
+
+                    <TextView
+                        android:id="@+id/sbTextView"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
             </LinearLayout>
 
         </RelativeLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,7 +24,8 @@ public class DrawingActivity extends AppCompatActivity {
     Button drawButton;
     Button color;
     Button capStyle;
-    Button pencilWidth;
+    SeekBar seekBar;
+    TextView seekBarText;
 
     ConstraintLayout mLayout;
     int mDefaultColor;
@@ -46,9 +47,10 @@ public class DrawingActivity extends AppCompatActivity {
         drawButton = (Button) findViewById(R.id.paint);
         color = (Button) findViewById(R.id.colorButton);
         capStyle = (Button) findViewById(R.id.capButton);
-        pencilWidth = (Button) findViewById(R.id.widthButton);
         mLayout = (ConstraintLayout) findViewById(R.id.layout);
         mDefaultColor = ContextCompat.getColor(DrawingActivity.this, R.color.colorPrimary);
+        seekBar = (SeekBar) findViewById(R.id.seekBar);
+        seekBarText = (TextView) findViewById(R.id.sbTextView);
 
     }
 
@@ -61,7 +63,6 @@ public class DrawingActivity extends AppCompatActivity {
                 eraseButton.setBackground(getDrawable(R.drawable.selected_button));
                 drawButton.setBackground(getDrawable(R.drawable.round_button));
                 capStyle.setBackground(getDrawable(R.drawable.round_button));
-                pencilWidth.setBackground(getDrawable(R.drawable.round_button));
                 openEraserOptions();
 
             }
@@ -74,7 +75,6 @@ public class DrawingActivity extends AppCompatActivity {
                 eraseButton.setBackground(getDrawable(R.drawable.round_button));
                 drawButton.setBackground(getDrawable(R.drawable.selected_button));
                 capStyle.setBackground(getDrawable(R.drawable.round_button));
-                pencilWidth.setBackground(getDrawable(R.drawable.round_button));
             }
         });
 
@@ -86,7 +86,6 @@ public class DrawingActivity extends AppCompatActivity {
                 eraseButton.setBackground(getDrawable(R.drawable.round_button));
                 drawButton.setBackground(getDrawable(R.drawable.round_button));
                 capStyle.setBackground(getDrawable(R.drawable.round_button));
-                pencilWidth.setBackground(getDrawable(R.drawable.round_button));
                 openColorPicker();
 
             }
@@ -100,21 +99,25 @@ public class DrawingActivity extends AppCompatActivity {
                 eraseButton.setBackground(getDrawable(R.drawable.round_button));
                 drawButton.setBackground(getDrawable(R.drawable.round_button));
                 capStyle.setBackground(getDrawable(R.drawable.selected_button));
-                pencilWidth.setBackground(getDrawable(R.drawable.round_button));
                 openCapOptions();
 
             }
         });
-        pencilWidth.setOnClickListener(new View.OnClickListener() {
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int pval = 0;
             @Override
-            public void onClick(View v) {
-                drawingCanvas.setErase(false);
-                color.setBackground(getDrawable(R.drawable.round_button));
-                eraseButton.setBackground(getDrawable(R.drawable.round_button));
-                drawButton.setBackground(getDrawable(R.drawable.round_button));
-                capStyle.setBackground(getDrawable(R.drawable.round_button));
-                pencilWidth.setBackground(getDrawable(R.drawable.selected_button));
-                openWidthOptions();
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                pval = progress;
+                drawingCanvas.setWidth(progress);
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                //write custom code to on start progress
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                seekBarText.setText(pval + "/" + seekBar.getMax());
             }
         });
     }
@@ -149,13 +152,6 @@ public class DrawingActivity extends AppCompatActivity {
             }
         });
         popup.show();
-
-    }
-
-
-    public void openWidthOptions(){
-        popupWidthWindowActivity popup = new popupWidthWindowActivity();
-        popup.show(getSupportFragmentManager(), "popup");
 
     }
 
