@@ -6,8 +6,7 @@ module.exports = function(http) {
 
     io.on(CHAT.EVENTS.CONNECTION, function(socket){
       socket.join("General");
-      console.log("User connected");
-      console.log("ScoketID: " + socket.id);
+      console.log("Users connected: " + io.engine.clientsCount);
     
       socket.on(CHAT.EVENTS.MESSAGE, (username, channel, message) => {
           console.log("Message received")

@@ -126,6 +126,7 @@
     <Compile Include="Modeles\Drawing.cs" />
     <Compile Include="Modeles\Editeur.cs" />
     <Compile Include="Modeles\Message.cs" />
+    <Compile Include="Utilitaires\AppSocket.cs" />
     <Compile Include="Utilitaires\EventArgs.cs" />
     <Compile Include="Utilitaires\EventRaiser.cs" />
     <Compile Include="Utilitaires\Mediator.cs" />
