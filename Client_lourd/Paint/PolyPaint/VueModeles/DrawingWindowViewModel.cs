@@ -26,6 +26,7 @@ namespace PolyPaint.VueModeles
         private Editeur editeur = new Editeur();
         private SvgDocument newImage = new SvgDocument();
         private Socket socket = IO.Socket("http://10.200.8.135:5050");
+        private Editeur temp = new Editeur();
 
         // Ensemble d'attributs qui définissent l'apparence d'un trait.
         public DrawingAttributes AttributsDessin { get; set; } = new DrawingAttributes();
@@ -93,6 +94,7 @@ namespace PolyPaint.VueModeles
             AjusterPointe();
 
             Traits = editeur.traits;
+            temp = editeur;
 
             // Pour les commandes suivantes, il est toujours possible des les activer.
             // Donc, aucune vérification de type Peut"Action" à faire.
@@ -103,6 +105,8 @@ namespace PolyPaint.VueModeles
                 Console.WriteLine("drawingAttributes: " + drawingAttributes.ToString());
                 AttributsDessin = JsonConvert.DeserializeObject<DrawingAttributes>(drawingAttributes.ToString());
                 Console.WriteLine("Taille: " + AttributsDessin.Width);
+                temp.TailleTrait = (int) AttributsDessin.Width;
+                temp.PointeSelectionnee = (AttributsDessin.StylusTip.Equals(StylusTip.Ellipse)) ? "ronde" : "carre";
                 AjusterPointe();
             });
         }
@@ -200,9 +204,9 @@ namespace PolyPaint.VueModeles
         private void AjusterPointe()
         {
             Console.WriteLine("AjusterPointe");
-            AttributsDessin.StylusTip = (editeur.PointeSelectionnee == "ronde") ? StylusTip.Ellipse : StylusTip.Rectangle;
-            AttributsDessin.Width = editeur.TailleTrait;
-            AttributsDessin.Height = editeur.TailleTrait;
+            AttributsDessin.StylusTip = (temp.PointeSelectionnee == "ronde") ? StylusTip.Ellipse : StylusTip.Rectangle;
+            AttributsDessin.Width = temp.TailleTrait;
+            AttributsDessin.Height = temp.TailleTrait;
         }
 
         private void send()

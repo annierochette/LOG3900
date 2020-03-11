@@ -26,7 +26,7 @@ namespace PolyPaint.Vues
         public DrawingWindow()
         {
             InitializeComponent();
-            socket = IO.Socket("http://10.200.8.135:5050");
+            socket = IO.Socket("http://192.168.211.1:5050");
 
             socket.On("draw", points => {
                 Console.WriteLine("On draw: " + points);
