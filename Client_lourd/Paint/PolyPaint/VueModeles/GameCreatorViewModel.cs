@@ -62,7 +62,19 @@ namespace PolyPaint.VueModeles
 
     class ImageImportViewModel : BaseViewModel, IPageViewModel
     {
+        private ICommand _goToGameCreator;
 
+
+        public ICommand GoToGameCreator
+        {
+            get
+            {
+                return _goToGameCreator ?? (_goToGameCreator = new RelayCommand(x =>
+                {
+                    Mediator.Notify("GoToGameCreator", "");
+                }));
+            }
+        }
     }
 
 }

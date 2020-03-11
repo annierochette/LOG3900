@@ -32,12 +32,13 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Border Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="5" Grid.RowSpan="6" Background="white">
+        <Border Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="6" Background="white">
             <Image Name="imgPhoto"
          Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="5" Grid.RowSpan="6"  />
         </Border>
-        <Button Height="23" HorizontalAlignment="Left"
-         Name="btnLoad" VerticalAlignment="Top" Grid.Row="8"
-        Width="75" Grid.Column="2" Click="btnLoad_Click" >Télécharger</Button>
+        <Button  Name="saveImage" VerticalAlignment="Top" Grid.Row="7" Grid.RowSpan="2" Grid.ColumnSpan="2"
+        Grid.Column="1" Click="btnLoad_Click" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" >Télécharger</Button>
+        <Button x:Name="cancel_button" Content="ANNULER" Grid.Column="1" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="Red" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521" Command="{Binding GoToGameCreator}" />
+        <Button x:Name="save_button" Content="SAUVEGARDER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521" Click="saveAsSVG" />
     </Grid>
 </UserControl>

@@ -33,13 +33,12 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <InkCanvas  x:Name="inkCanvas" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Loaded="DrawingWindow_Loaded" Grid.Column="1"  Visibility="Hidden"/>
+        <custom:DrawingWindow x:Name="inkCanvas" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Loaded="DrawingWindow_Loaded" Grid.Column="1" />
         <Border x:Name="inkPresenterBorder" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Grid.Column="1" Background="White" Visibility="Hidden">
             <InkPresenter  x:Name="inkPresenter" Grid.ColumnSpan="5" Grid.RowSpan="7" Loaded="DrawingWindow_Loaded" Grid.Column="1"  />
+        </Border>
 
-            </Border>
-
-        <GroupBox BorderThickness="0" Name="NewDrawingForm" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Grid.Column="1" BorderBrush="#FF004066"   >
+        <GroupBox BorderThickness="0" Name="NewDrawingForm" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Grid.Column="1" BorderBrush="#FF004066"  Visibility="Hidden" >
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="11*"/>
@@ -75,8 +74,6 @@
                     <ComboBoxItem HorizontalContentAlignment="Center">Panoramique</ComboBoxItem>
                     <ComboBoxItem HorizontalContentAlignment="Center">Centré</ComboBoxItem>
                 </ComboBox>
-
-
             </Grid>
         </GroupBox>
 

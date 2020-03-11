@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PolyPaint.VueModeles;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -36,11 +37,8 @@ namespace PolyPaint.Vues
 
         private void save_drawing(object sender, RoutedEventArgs e)
         {
-            //var storyboard = new Storyboard();
-            //var totalDuration = TimeSpan.FromSeconds(10);
-
-
-            strokes = inkCanvas.Strokes.Clone();
+           
+            strokes = ((DrawingWindowViewModel)(this.DataContext)).Traits.Clone();
 
             inkPresenter.Strokes = strokes;
 
