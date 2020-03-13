@@ -9,6 +9,7 @@ using Svg;
 using System.Windows.Markup;
 using System.Xml.Linq;
 using System;
+using System.Windows.Controls;
 
 namespace PolyPaint.VueModeles
 {
@@ -191,7 +192,7 @@ namespace PolyPaint.VueModeles
             }
             else // e.PropertyName == "TailleTrait"
             {
-                AjusterPointe();
+                AjusterPointe(); 
             }
         }
 

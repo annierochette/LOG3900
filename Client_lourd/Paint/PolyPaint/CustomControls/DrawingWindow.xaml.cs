@@ -16,7 +16,6 @@ namespace PolyPaint.CustomControls
         public DrawingWindow()
         {
             InitializeComponent();
- 
         }
         
         // Pour gérer les points de contrôles.
@@ -31,11 +30,17 @@ namespace PolyPaint.CustomControls
 
         // Pour la gestion de l'affichage de position du pointeur.
         //private void surfaceDessin_MouseLeave(object sender, MouseEventArgs e) => textBlockPosition.Text = "";
-        //private void surfaceDessin_MouseMove(object sender, MouseEventArgs e)
-        //{
-        //    Point p = e.GetPosition(surfaceDessin);
-        //    textBlockPosition.Text = Math.Round(p.X) + ", " + Math.Round(p.Y) + "px";
-        //}
+        private void surfaceDessin_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point p = e.GetPosition(surfaceDessin);
+            //textBlockPosition.Text = Math.Round(p.X) + ", " + Math.Round(p.Y) + "px";
+            surfaceDessin.StrokeCollected += DrawStrokeEventHandler;
+        }
+
+        private void DrawStrokeEventHandler(object sender, InkCanvasStrokeCollectedEventArgs e) 
+        {
+            Console.WriteLine("PLZ");
+        }
 
     }
 }

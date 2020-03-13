@@ -36,7 +36,7 @@
         <InkCanvas  x:Name="inkCanvas" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Loaded="DrawingWindow_Loaded" Grid.Column="1"  />
         <Border x:Name="inkPresenterBorder" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Grid.Column="1" Background="White" Visibility="Hidden">
             <InkPresenter  x:Name="inkPresenter" Grid.ColumnSpan="5" Grid.RowSpan="7" Loaded="DrawingWindow_Loaded" Grid.Column="1"  />
-            </Border>
+        </Border>
         
         <GroupBox Name="NewDrawingForm" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Grid.Column="1"  Visibility="Hidden" >
             <Grid>
