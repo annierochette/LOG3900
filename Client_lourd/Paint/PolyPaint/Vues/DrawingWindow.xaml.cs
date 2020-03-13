@@ -28,20 +28,26 @@ namespace PolyPaint.Vues
             InitializeComponent();
             socket = IO.Socket("http://192.168.211.1:5050");
 
-            socket.On("draw", points => {
+            socket.On("draw", (data) =>
+            {
+                Newtonsoft.Json.Linq.JObject obj = (Newtonsoft.Json.Linq.JObject)data;
+                Newtonsoft.Json.Linq.JToken points = obj.GetValue("points");
+                Newtonsoft.Json.Linq.JToken attributs = obj.GetValue("attributs");
                 Console.WriteLine("On draw: " + points);
+                DrawingAttributes AttributsDessin = JsonConvert.DeserializeObject<DrawingAttributes>(attributs.ToString());
+                //((DrawingWindowViewModel)(this.DataContext)).AttributsDessin = AttributsDessin;
                 StylusPointCollection scp = JsonConvert.DeserializeObject<StylusPointCollection>(points.ToString());
                 Stroke s = new Stroke(scp);
                 if (!Dispatcher.CheckAccess())
                 {
                     Dispatcher.Invoke(() =>
                     {
-                        s.DrawingAttributes = ((DrawingWindowViewModel) (this.DataContext)).AttributsDessin.Clone();
+                        s.DrawingAttributes =AttributsDessin;
                         surfaceDessin.Strokes.Add(s);
                     });
                 }
                 else {
-                        s.DrawingAttributes = ((DrawingWindowViewModel) (this.DataContext)).AttributsDessin.Clone();
+                        s.DrawingAttributes = AttributsDessin;
                     surfaceDessin.Strokes.Add(s);
                 }
 
@@ -84,7 +90,8 @@ namespace PolyPaint.Vues
         private void uploadPoints()
         {
             string points = JsonConvert.SerializeObject(pointBucket, new PointConverter());
-            socket.Emit("draw", "General", points);
+            DrawingAttributes attributs = surfaceDessin.DefaultDrawingAttributes.Clone();
+            socket.Emit("draw", "General", points, JsonConvert.SerializeObject(attributs));
             pointBucket.Clear();
         }
 

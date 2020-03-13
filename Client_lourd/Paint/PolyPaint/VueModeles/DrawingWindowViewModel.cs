@@ -204,9 +204,9 @@ namespace PolyPaint.VueModeles
         private void AjusterPointe()
         {
             Console.WriteLine("AjusterPointe");
-            AttributsDessin.StylusTip = (temp.PointeSelectionnee == "ronde") ? StylusTip.Ellipse : StylusTip.Rectangle;
-            AttributsDessin.Width = temp.TailleTrait;
-            AttributsDessin.Height = temp.TailleTrait;
+            AttributsDessin.StylusTip = (editeur.PointeSelectionnee == "ronde") ? StylusTip.Ellipse : StylusTip.Rectangle;
+            AttributsDessin.Width = editeur.TailleTrait;
+            AttributsDessin.Height = editeur.TailleTrait;
         }
 
         private void send()

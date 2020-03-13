@@ -59,8 +59,9 @@ module.exports = function(http) {
       });
 
       // Drawing
-      socket.on(CHAT.EVENTS.STROKE, (channel, points) => {
-        io.emit(CHAT.EVENTS.STROKE, points);
+      socket.on(CHAT.EVENTS.STROKE, (channel, points, attributs) => {
+        let  infos = {"points": points, "attributs": attributs}
+        io.emit(CHAT.EVENTS.STROKE, infos);
         console.log("boumshakalaka")
       });
 
