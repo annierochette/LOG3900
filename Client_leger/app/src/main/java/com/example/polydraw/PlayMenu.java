@@ -43,7 +43,7 @@ public class PlayMenu extends AppCompatActivity {
         multiplayerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFreeGame();
+                goToMultiplayerGameMenu();
             }
         });
 
@@ -85,12 +85,12 @@ public class PlayMenu extends AppCompatActivity {
     }
 
     public void goToMultiplayerGameMenu(){
-        Intent intent = new Intent(this, Menu.class);
+        Intent intent = new Intent(this, meleegeneraleActivity.class);
         startActivity(intent);
     }
 
     public void goToSoloGameMenu(){
-        Intent intent = new Intent(this, Menu.class);
+        Intent intent = new Intent(this, meleegeneraleActivity.class);
         startActivity(intent);
     }
 

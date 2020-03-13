@@ -2,24 +2,25 @@ package com.example.polydraw;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import yuku.ambilwarna.AmbilWarnaDialog; //https://codinginflow.com/tutorials/android/ambilwarna-color-picker-dialog
-//seekbar https://www.tutlane.com/tutorial/android/android-seekbar-with-examples
 
-public class DrawingActivity extends AppCompatActivity {
+public class meleegeneraleActivity extends AppCompatActivity {
     DrawingCanvas drawingCanvas;
     Button eraseButton;
     Button drawButton;
@@ -27,6 +28,12 @@ public class DrawingActivity extends AppCompatActivity {
     Button capStyle;
     SeekBar seekBar;
     TextView seekBarText;
+    Button toggle;
+
+    Boolean guessingView = false;
+
+    LinearLayout layoutDrawingView;
+    LinearLayout layoutGuessingView;
 
     ConstraintLayout mLayout;
     int mDefaultColor;
@@ -35,7 +42,7 @@ public class DrawingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         drawingCanvas = new DrawingCanvas(this,null);
-        setContentView(R.layout.activity_canvas);
+        setContentView(R.layout.activity_meleegenerale);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         initializeObject();
         eventListeners();
@@ -49,9 +56,13 @@ public class DrawingActivity extends AppCompatActivity {
         color = (Button) findViewById(R.id.colorButton);
         capStyle = (Button) findViewById(R.id.capButton);
         mLayout = (ConstraintLayout) findViewById(R.id.layout);
-        mDefaultColor = ContextCompat.getColor(DrawingActivity.this, R.color.colorPrimary);
+        mDefaultColor = ContextCompat.getColor(meleegeneraleActivity.this, R.color.colorPrimary);
         seekBar = (SeekBar) findViewById(R.id.seekBar);
         seekBarText = (TextView) findViewById(R.id.sbTextView);
+        toggle = (Button) findViewById(R.id.toggleButton);
+        layoutDrawingView = (LinearLayout) findViewById(R.id.drawingToolbox);
+        layoutGuessingView = (LinearLayout) findViewById(R.id.guessingToolbox);
+
 
     }
 
@@ -105,6 +116,13 @@ public class DrawingActivity extends AppCompatActivity {
             }
         });
 
+        toggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { setToggle();
+
+            }
+        });
+
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int pval = 0;
             @Override
@@ -121,6 +139,7 @@ public class DrawingActivity extends AppCompatActivity {
                 seekBarText.setText(pval + "/" + seekBar.getMax());
             }
         });
+
     }
 
     public void openColorPicker() {
@@ -142,12 +161,12 @@ public class DrawingActivity extends AppCompatActivity {
 
     //https://www.javatpoint.com/android-popup-menu-example
     public void openCapOptions(){
-        PopupMenu popup = new PopupMenu(DrawingActivity.this, capStyle);
+        PopupMenu popup = new PopupMenu(meleegeneraleActivity.this, capStyle);
         popup.getMenuInflater().inflate(R.menu.cap_menu, popup.getMenu());
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
-                Toast.makeText(DrawingActivity.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(meleegeneraleActivity.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
                 drawingCanvas.setPencilTip(item.getTitle().toString());
                 return true;
             }
@@ -157,16 +176,29 @@ public class DrawingActivity extends AppCompatActivity {
     }
 
     public void openEraserOptions(){
-        PopupMenu popup = new PopupMenu(DrawingActivity.this, capStyle);
+        PopupMenu popup = new PopupMenu(meleegeneraleActivity.this, capStyle);
         popup.getMenuInflater().inflate(R.menu.eraser_menu, popup.getMenu());
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
-                Toast.makeText(DrawingActivity.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(meleegeneraleActivity.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
         popup.show();
     }
-}
 
+    public void setToggle(){
+        if(!guessingView){
+            guessingView = true;
+            layoutGuessingView.setVisibility(View.VISIBLE);
+            layoutDrawingView.setVisibility(View.INVISIBLE);
+        }
+        else{
+            guessingView = false;
+            layoutGuessingView.setVisibility(View.INVISIBLE);
+            layoutDrawingView.setVisibility(View.VISIBLE);
+
+        }
+    }
+}
