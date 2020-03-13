@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -26,12 +27,16 @@ namespace PolyPaint.Modeles
             //this.StylusPlugIns.Insert(index, new DraftsmanPlugIn());
             //this.StylusPlugIns.RemoveAt(0);
             //Console.WriteLine("Index: " + index + ", #plugIns: " + this.StylusPlugIns.Count);
-            socket.On("draw", (geometry) =>
+            socket.On("draw", (points) =>
             {
                 Dispatcher.Invoke(() =>
                 {
-                    StylusPointCollection spc = new StylusPointCollection();
-                    spc.Add((JsonConvert.DeserializeObject<StylusPoint>(geometry.ToString())));
+
+                    Console.WriteLine("SPC: " + points.ToString());
+                    StylusPointCollection spc = JsonConvert.DeserializeObject<StylusPointCollection>(points.ToString());
+                    
+                    //Console.WriteLine("DES: " + JsonConvert.DeserializeObject<StylusPointCollection>(geometry.ToString()));
+                    //spc.Add((JsonConvert.DeserializeObject<StylusPointCollection>(points.ToString())));
                     Strokes.Add(new Stroke(spc));
                     //   Console.WriteLine("Geometry received: " + geometry);
                     //   Console.WriteLine("Children: " + Children.Count);            
@@ -59,6 +64,7 @@ namespace PolyPaint.Modeles
         {
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
             {
+
                 var point = (StylusPoint)value;
 
                 serializer.Serialize(

@@ -11,7 +11,7 @@ namespace PolyPaint.Utilitaires
     {
         private Socket socket;
 
-        private static readonly string URL = "http://127.0.0.1";
+        private static readonly string URL = "http://10.200.12.227";
         private static readonly string PORT = ":5050";
 
         public static AppSocket Instance { get; } = new AppSocket();

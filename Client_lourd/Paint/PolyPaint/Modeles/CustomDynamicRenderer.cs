@@ -18,7 +18,8 @@ namespace PolyPaint.Modeles
     {
 
         private static AppSocket socket = AppSocket.Instance;
-        private StylusPointCollection collectedPoints = new StylusPointCollection();
+
+        private List<StylusPoint> collectedPoints = new List<StylusPoint>();
         
 
         public CustomDynamicRenderer(): base()
@@ -40,10 +41,11 @@ namespace PolyPaint.Modeles
                                    StylusPointCollection stylusPoints,
                                    Geometry geometry, Brush fillBrush)
         {
-            collectedPoints.Add(stylusPoints.Reformat(collectedPoints.Description));
+
+            collectedPoints.Add(stylusPoints.ElementAt(0));
             if (collectedPoints.Count >= 25)
             {
-                socket.Emit("draw", "General", JsonConvert.SerializeObject(collectedPoints.ElementAt(0), new StylusPointConverter()));
+                socket.Emit("draw", "General", JsonConvert.SerializeObject(collectedPoints, new StylusPointConverter()));
                 collectedPoints.Clear();
             }
             base.OnDraw(drawingContext, stylusPoints, geometry,fillBrush);
@@ -62,7 +64,7 @@ namespace PolyPaint.Modeles
                 var point = (StylusPoint)value;
 
                 serializer.Serialize(
-                    writer, new JObject { { "X", point.X }, { "Y", point.Y },  });
+                    writer, new JObject { { "X", point.X }, { "Y", point.Y } });
             }
 
             public override object ReadJson(
