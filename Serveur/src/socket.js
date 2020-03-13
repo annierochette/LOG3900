@@ -58,8 +58,8 @@ module.exports = function(http) {
       });
 
       // Drawing
-      socket.on(CHAT.EVENTS.STROKE, (channel, geometry) => {
-        io.emit(CHAT.EVENTS.STROKE, geometry);
+      socket.on(CHAT.EVENTS.STROKE, (channel, points) => {
+        io.emit(CHAT.EVENTS.STROKE, points);
         console.log("Received");
       });
 

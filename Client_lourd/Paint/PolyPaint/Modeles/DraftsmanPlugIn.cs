@@ -13,65 +13,28 @@ namespace PolyPaint.Modeles
         // EventArgs for the StrokeRendered event.
         public class StrokeRenderedEventArgs : EventArgs
         {
-            StylusPointCollection strokePoints;
-
             public StrokeRenderedEventArgs(StylusPointCollection points)
             {
-                strokePoints = points;
+                StrokePoints = points;
             }
 
-            public StylusPointCollection StrokePoints
-            {
-                get
-                {
-                    return strokePoints;
-                }
-            }
+            public StylusPointCollection StrokePoints { get; }
         }
 
         // EventHandler for the StrokeRendered event.
         public delegate void StrokeRenderedEventHandler(object sender, StrokeRenderedEventArgs e);
+        
         StylusPointCollection collectedPoints;
-        int currentStylus = -1;
         public event StrokeRenderedEventHandler StrokeRendered;
-
-        protected override void OnStylusDown(RawStylusInput rawStylusInput)
-        {
-            // Run the base class before modifying the data
-            base.OnStylusDown(rawStylusInput);
-
-            if (currentStylus == -1)
-            {
-                StylusPointCollection pointsFromEvent = rawStylusInput.GetStylusPoints();
-
-                // Create an emtpy StylusPointCollection to contain the filtered
-                // points.
-                collectedPoints = new StylusPointCollection(pointsFromEvent.Description);
-
-                // Restrict the stylus input and add the filtered 
-                // points to collectedPoints. 
-                StylusPointCollection points = FilterPackets(pointsFromEvent);
-                rawStylusInput.SetStylusPoints(points);
-                collectedPoints.Add(points);
-
-                currentStylus = rawStylusInput.StylusDeviceId;
-            }
-        }
 
         protected override void OnStylusMove(RawStylusInput rawStylusInput)
         {
             // Run the base class before modifying the data
             base.OnStylusMove(rawStylusInput);
 
-            if (currentStylus == rawStylusInput.StylusDeviceId)
+            if (rawStylusInput.GetStylusPoints().Count >= 25)
             {
-                StylusPointCollection pointsFromEvent = rawStylusInput.GetStylusPoints();
-
-                // Restrict the stylus input and add the filtered 
-                // points to collectedPoints. 
-                StylusPointCollection points = FilterPackets(pointsFromEvent);
-                rawStylusInput.SetStylusPoints(points);
-                collectedPoints.Add(points);
+                rawStylusInput.NotifyWhenProcessed(rawStylusInput.GetStylusPoints());
             }
         }
 
@@ -80,21 +43,15 @@ namespace PolyPaint.Modeles
             // Run the base class before modifying the data
             base.OnStylusUp(rawStylusInput);
 
-            if (currentStylus == rawStylusInput.StylusDeviceId)
-            {
-                StylusPointCollection pointsFromEvent = rawStylusInput.GetStylusPoints();
+            StylusPointCollection pointsFromEvent = rawStylusInput.GetStylusPoints();
 
                 // Restrict the stylus input and add the filtered 
                 // points to collectedPoints. 
-                StylusPointCollection points = FilterPackets(pointsFromEvent);
-                rawStylusInput.SetStylusPoints(points);
-                collectedPoints.Add(points);
+             
 
                 // Subscribe to the OnStylusUpProcessed method.
                 rawStylusInput.NotifyWhenProcessed(collectedPoints);
 
-                currentStylus = -1;
-            }
         }
 
         private StylusPointCollection FilterPackets(StylusPointCollection stylusPoints)
