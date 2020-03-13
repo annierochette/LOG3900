@@ -1,4 +1,6 @@
-﻿using PolyPaint.Utilitaires;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using PolyPaint.Utilitaires;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,10 +30,9 @@ namespace PolyPaint.Modeles
             {
                 Dispatcher.Invoke(() =>
                 {
-                    Path path = new Path();
-                    path.Data = Geometry.Parse((string)geometry);
-                    Console.WriteLine("Path data: " + path.Data);
-                    Children.Add(path);
+                    StylusPointCollection spc = new StylusPointCollection();
+                    spc.Add((JsonConvert.DeserializeObject<StylusPoint>(geometry.ToString())));
+                    Strokes.Add(new Stroke(spc));
                     //   Console.WriteLine("Geometry received: " + geometry);
                     //   Console.WriteLine("Children: " + Children.Count);            
                 });
@@ -52,6 +53,32 @@ namespace PolyPaint.Modeles
             }
 
             return spc;
+        }
+
+        private class StylusPointConverter : JsonConverter
+        {
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                var point = (StylusPoint)value;
+
+                serializer.Serialize(
+                    writer, new JObject { { "X", point.X }, { "Y", point.Y }, });
+            }
+
+            public override object ReadJson(
+                JsonReader reader, Type objectType, object existingValue,
+                JsonSerializer serializer)
+            {
+                var jObject = serializer.Deserialize<JObject>(reader);
+
+                return new StylusPoint((double)jObject["X"], (double)jObject["Y"]);
+            }
+
+            public override bool CanConvert(Type objectType)
+            {
+                return objectType == typeof(StylusPoint);
+            }
+
         }
 
     }
