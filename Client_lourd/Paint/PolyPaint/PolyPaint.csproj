@@ -123,6 +123,9 @@
     <Compile Include="CustomControls\TimerControl.xaml.cs">
       <DependentUpon>TimerControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modeles\CustomDynamicRenderer.cs" />
+    <Compile Include="Modeles\CustomInkCanvas.cs" />
+    <Compile Include="Modeles\DraftsmanPlugIn.cs" />
     <Compile Include="Modeles\Drawing.cs" />
     <Compile Include="Modeles\Editeur.cs" />
     <Compile Include="Modeles\Message.cs" />
