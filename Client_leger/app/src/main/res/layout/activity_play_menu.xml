@@ -79,6 +79,19 @@
                 android:textSize="30sp" />
 
             <Button
+                android:id="@+id/soloButton"
+                android:layout_width="280dp"
+                android:layout_height="85dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/round_button"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Solo"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                android:textColor="@android:color/white"
+                android:textSize="30sp" />
+
+            <Button
                 android:id="@+id/freeButton"
                 android:layout_width="280dp"
                 android:layout_height="85dp"
@@ -87,19 +100,6 @@
                 android:background="@drawable/round_button"
                 android:fontFamily="sans-serif-condensed"
                 android:text="Libre"
-                android:textAllCaps="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-                android:textColor="@android:color/white"
-                android:textSize="30sp" />
-
-            <Button
-                android:id="@+id/soloButton"
-                android:layout_width="280dp"
-                android:layout_height="85dp"
-                android:layout_margin="20dp"
-                android:background="@drawable/round_button"
-                android:fontFamily="sans-serif-condensed"
-                android:text="Solo"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display3"
                 android:textColor="@android:color/white"
