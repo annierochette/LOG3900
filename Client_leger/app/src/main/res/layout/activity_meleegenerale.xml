@@ -15,6 +15,58 @@
         android:orientation="vertical"
         android:layout_marginBottom="10dp">
 
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="420dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Résultats"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            android:textFontWeight="800"/>
+
+        <TextView
+            android:id="@+id/player1"
+            android:layout_width="420dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/score"
+            android:layout_alignParentRight="true"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Player 1"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/player2"
+            android:layout_width="420dp"
+            android:layout_height="30dp"
+            android:layout_below="@id/player1"
+            android:layout_alignParentRight="true"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Player 2"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/player3"
+            android:layout_width="420dp"
+            android:layout_height="30dp"
+            android:layout_below="@id/player2"
+            android:layout_alignParentRight="true"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Player 3"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
         <Button
             android:id="@+id/toggleButton"
             android:layout_width="100dp"
@@ -48,7 +100,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Indices" />
+                android:text="Indices"
+                android:fontFamily="sans-serif-condensed"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:layout_marginLeft="10dp"/>
 
             <EditText
                 android:id="@+id/answer"
@@ -62,7 +120,7 @@
             <ImageButton
                 android:id="@+id/sendAnswer"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
                 android:layout_weight="1"
                 app:srcCompat="@android:drawable/checkbox_on_background"
                 android:background="@color/colorGreen"
