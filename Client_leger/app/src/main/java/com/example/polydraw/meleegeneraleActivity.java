@@ -8,6 +8,8 @@ import android.text.Layout;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -29,6 +31,9 @@ public class meleegeneraleActivity extends AppCompatActivity {
     SeekBar seekBar;
     TextView seekBarText;
     Button toggle;
+    ImageButton sendAnswer;
+    TextView hints;
+    EditText answer;
 
     Boolean guessingView = false;
 
@@ -62,6 +67,10 @@ public class meleegeneraleActivity extends AppCompatActivity {
         toggle = (Button) findViewById(R.id.toggleButton);
         layoutDrawingView = (LinearLayout) findViewById(R.id.drawingToolbox);
         layoutGuessingView = (LinearLayout) findViewById(R.id.guessingToolbox);
+        drawingCanvas = (DrawingCanvas) findViewById(R.id.drawing);
+        sendAnswer = (ImageButton) findViewById(R.id.sendAnswer);
+        hints = (TextView) findViewById(R.id.hints);
+        answer = (EditText) findViewById(R.id.answer);
 
 
     }
@@ -140,6 +149,14 @@ public class meleegeneraleActivity extends AppCompatActivity {
             }
         });
 
+        sendAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
+
     }
 
     public void openColorPicker() {
@@ -193,6 +210,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
             guessingView = true;
             layoutGuessingView.setVisibility(View.VISIBLE);
             layoutDrawingView.setVisibility(View.INVISIBLE);
+
 
         }
         else{
