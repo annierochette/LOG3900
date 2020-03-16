@@ -193,7 +193,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
     }
 
     public void openEraserOptions(){
-        PopupMenu popup = new PopupMenu(meleegeneraleActivity.this, capStyle);
+        PopupMenu popup = new PopupMenu(meleegeneraleActivity.this, eraseButton);
         popup.getMenuInflater().inflate(R.menu.eraser_menu, popup.getMenu());
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
