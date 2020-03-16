@@ -18,7 +18,7 @@
         <TextView
             android:id="@+id/score"
             android:layout_width="420dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:fontFamily="sans-serif-condensed"
             android:text="Résultats"
@@ -31,7 +31,7 @@
         <TextView
             android:id="@+id/player1"
             android:layout_width="420dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/score"
             android:layout_alignParentRight="true"
             android:fontFamily="sans-serif-condensed"
@@ -44,7 +44,7 @@
         <TextView
             android:id="@+id/player2"
             android:layout_width="420dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_below="@id/player1"
             android:layout_alignParentRight="true"
             android:fontFamily="sans-serif-condensed"
@@ -57,7 +57,7 @@
         <TextView
             android:id="@+id/player3"
             android:layout_width="420dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_below="@id/player2"
             android:layout_alignParentRight="true"
             android:fontFamily="sans-serif-condensed"
@@ -84,8 +84,9 @@
         <!--<fragment
             android:name="com.example.polydraw.Chat"
             android:layout_width="420dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"/>-->
+            android:layout_height="640dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"/>-->
 
         <LinearLayout
             android:layout_width="610dp"
