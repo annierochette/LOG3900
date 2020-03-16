@@ -40,7 +40,8 @@
             android:layout_height="51dp"
             android:orientation="horizontal"
             android:layout_alignParentBottom="true"
-            android:id="@+id/guessingToolbox">
+            android:id="@+id/guessingToolbox"
+            android:visibility="invisible">
 
                 <TextView
                     android:id="@+id/textView8"

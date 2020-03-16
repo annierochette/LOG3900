@@ -193,6 +193,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
             guessingView = true;
             layoutGuessingView.setVisibility(View.VISIBLE);
             layoutDrawingView.setVisibility(View.INVISIBLE);
+
         }
         else{
             guessingView = false;
