@@ -16,7 +16,6 @@ public class Menu extends AppCompatActivity {
     private Button tutorialButton;
     private Button settingsButton;
     private ImageButton disconnectButton;
-    private ImageView chat;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,7 +28,6 @@ public class Menu extends AppCompatActivity {
         tutorialButton = (Button)findViewById(R.id.tutorial);
         settingsButton = (Button) findViewById(R.id.settings);
         disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
-        chat = (ImageView) findViewById(R.id.chatButton);
 
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,13 +62,6 @@ public class Menu extends AppCompatActivity {
                 backToLogin();
             }
         });
-
-        chat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openChat();
-            }
-        });
     }
 
     public void openPlayMenuView(){
@@ -95,11 +86,6 @@ public class Menu extends AppCompatActivity {
 
     public void backToLogin(){
         Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    public void openChat(){
-        Intent intent = new Intent(this, ChatBoxActivity.class);
         startActivity(intent);
     }
 

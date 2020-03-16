@@ -7,128 +7,103 @@
     android:background="#4cafe0"
     tools:context=".Settings">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorDarkBlue">
+        <fragment
+            android:name="com.example.polydraw.Chat"
+            android:id="@+id/chatFragment"
+            android:layout_width="365dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"/>
 
-            <Button
-                android:id="@+id/backButton"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:background="@drawable/back_button"
-                android:fontFamily="sans-serif-condensed"
-                android:text="Retour"
-                android:textAllCaps="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="@android:color/white"
-                style="?android:attr/borderlessButtonStyle"/>
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/back_button"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Retour"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@android:color/white"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="15dp"/>
 
-            <ImageView
-                android:id="@+id/chatButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="780dp"
-                android:layout_marginRight="25dp"
-                app:srcCompat="@android:drawable/sym_action_chat" />
 
-            <ImageButton
-                android:id="@+id/logoutButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/disconnect_button"
-                android:fontFamily="sans-serif-condensed"
-                android:textAllCaps="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="@android:color/white"
-                app:srcCompat="@android:drawable/ic_lock_power_off" />
-
-        </Toolbar>
+        <ImageButton
+            android:id="@+id/logoutButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/disconnect_button"
+            android:fontFamily="sans-serif-condensed"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@android:color/white"
+            app:srcCompat="@android:drawable/ic_lock_power_off"
+            android:layout_toLeftOf="@id/chatFragment"
+            android:layout_margin="15dp"/>
 
         <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
+            android:layout_width="650dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/textView2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="100dp"
+                android:background="#00A21010"
+                android:fontFamily="sans-serif-black"
+                android:gravity="center"
+                android:text="Paramètres"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+                android:textColor="#2364aa"
+                android:textSize="36sp"
+                android:layout_marginTop="150dp"/>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+            <Switch
+                android:id="@+id/switch2"
+                android:layout_width="400dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="11dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Personnage virtuel 1"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                android:textColor="@android:color/white"
+                android:textSize="30sp" />
 
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:layout_above="@+id/switch4"
-                        android:layout_marginBottom="72dp"
-                        android:background="#00A21010"
-                        android:fontFamily="sans-serif-black"
-                        android:gravity="center"
-                        android:text="Paramètres"
-                        android:textAllCaps="true"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Display4"
-                        android:textColor="#2364aa"
-                        android:textSize="36sp" />
+            <Switch
+                android:id="@+id/switch4"
+                android:layout_width="400dp"
+                android:layout_height="60dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Personnage virtuel 2"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                android:textColor="@android:color/white"
+                android:textSize="30sp" />
 
-                    <Switch
-                        android:id="@+id/switch4"
-                        android:layout_width="400dp"
-                        android:layout_height="60dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:fontFamily="sans-serif-condensed"
-                        android:text="Personnage virtuel 2"
-                        android:textAllCaps="true"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-                        android:textColor="@android:color/white"
-                        android:textSize="30sp" />
-
-                    <Switch
-                        android:id="@+id/switch2"
-                        android:layout_width="400dp"
-                        android:layout_height="60dp"
-                        android:layout_above="@+id/switch4"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="11dp"
-                        android:fontFamily="sans-serif-condensed"
-                        android:text="Personnage virtuel 1"
-                        android:textAllCaps="true"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-                        android:textColor="@android:color/white"
-                        android:textSize="30sp" />
-
-                    <Switch
-                        android:id="@+id/switch3"
-                        android:layout_width="400dp"
-                        android:layout_height="60dp"
-                        android:layout_above="@+id/switch4"
-                        android:layout_below="@+id/switch4"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginBottom="-137dp"
-                        android:fontFamily="sans-serif-condensed"
-                        android:text="Personnage virtuel 3"
-                        android:textAllCaps="true"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-                        android:textColor="@android:color/white"
-                        android:textSize="30sp" />
-                </RelativeLayout>
-
-            </LinearLayout>
-
+            <Switch
+                android:id="@+id/switch3"
+                android:layout_width="400dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="-137dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Personnage virtuel 3"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                android:textColor="@android:color/white"
+                android:textSize="30sp" />
         </LinearLayout>
-    </LinearLayout>
+
+    </RelativeLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

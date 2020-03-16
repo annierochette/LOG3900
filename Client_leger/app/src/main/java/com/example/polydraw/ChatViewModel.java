@@ -8,8 +8,6 @@ import android.widget.TextView;
 import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.polydraw.Socket.ChatSocket;
-
 import java.util.List;
 
 public class ChatViewModel extends ViewModel {
@@ -29,29 +27,22 @@ public class ChatViewModel extends ViewModel {
             timestamp = (TextView) view.findViewById(R.id.timestamp);
         }
 
-        ChatSocket chatSocket = new ChatSocket();
-
-
     }
 
-    public ChatViewModel(List<Message> MessagesList) {
+    /*public ChatBoxAdapter(List<Message> MessagesList) {
         this.MessageList = MessagesList;
     }
-
-    public int getItemCount() {
+    @Override public int getItemCount() {
         return MessageList.size();
     }
-
-    public ChatViewModel.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @Override public ChatBoxAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
-
-        return new ChatViewModel.MyViewHolder(itemView);
+        return new ChatBoxAdapter.MyViewHolder(itemView);
     }
-
-    public void onBindViewHolder(final ChatBoxAdapter.MyViewHolder holder, final int position){
+    @Override public void onBindViewHolder(final ChatBoxAdapter.MyViewHolder holder, final int position){
         final Message m = MessageList.get(position);
         holder.username.setText(m.getUsername());
         holder.timestamp.setText(m.getTimestamp());
         holder.message.setText(m.getMessage());
-    }
+    }*/
 }
