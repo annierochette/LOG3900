@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Input.StylusPlugIns;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace PolyPaint.Modeles
 {
@@ -24,7 +25,8 @@ namespace PolyPaint.Modeles
 
         public CustomDynamicRenderer(): base()
         {
-
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(0, 0, 1);
         }
 
         protected override void OnStylusDown(RawStylusInput rawStylusInput)
