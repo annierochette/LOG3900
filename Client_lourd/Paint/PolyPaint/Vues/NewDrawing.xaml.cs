@@ -10,19 +10,23 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
+using System.Windows.Input;
+using System.Windows.Interactivity;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace PolyPaint.Vues
 {
-  
+
     public partial class NewDrawing : UserControl
     {
         StrokeCollection strokes = new StrokeCollection();
 
         public NewDrawing()
         {
-         
+
             InitializeComponent();
         }
 
@@ -38,13 +42,6 @@ namespace PolyPaint.Vues
 
         private void save_form(object sender, RoutedEventArgs e)
         {
-
-            
-            //PathGeometry geometry;
-            //foreach (Stroke stroke in strokes)
-            //{
-            //    geometry = stroke.GetGeometry(stroke.DrawingAttributes).GetOutlinedPath‌​Geometry();
-            //}
 
             inkCanvas.Visibility = Visibility.Visible;
             NewDrawingForm.Visibility = Visibility.Hidden;
@@ -70,7 +67,33 @@ namespace PolyPaint.Vues
 
         private void confirm_drawing(object sender, RoutedEventArgs e)
         {
+            //((DrawingWindowViewModel)(this.DataContext)).AfficherTraitsClassique();
             strokes = ((DrawingWindowViewModel)(this.DataContext)).Traits.Clone();
+            StylusPointCollection points = new StylusPointCollection();
+
+            foreach (Stroke stroke in strokes)
+            {
+                points.Add(stroke.StylusPoints);
+
+                StylusPointCollection first = new StylusPointCollection();
+                first.Add(points[0]);
+                Stroke newStrokes = new Stroke(first);
+                DispatcherTimer timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromMilliseconds(10);
+                timer.Start();
+                int index = 1;
+                timer.Tick += (s, a) =>
+                {
+                    newStrokes.StylusPoints.Insert(index, points[index]);
+                    if (!inkPresenter.Strokes.Contains(newStrokes))
+                        inkPresenter.Strokes.Add(newStrokes);
+                    index++;
+
+                    if (index >= points.Count) timer.Stop();
+                };
+
+            };
+
             inkPresenterBorder.Visibility = Visibility.Visible;
             inkCanvas.Visibility = Visibility.Hidden;
 
@@ -81,9 +104,8 @@ namespace PolyPaint.Vues
             back_button.Visibility = Visibility.Hidden;
         }
 
-     
 
-        private void modifyDrawing_button_Click(object sender, RoutedEventArgs e)
+    private void modifyDrawing_button_Click(object sender, RoutedEventArgs e)
         {
             inkPresenterBorder.Visibility = Visibility.Hidden;
             inkCanvas.Visibility = Visibility.Visible;
@@ -112,10 +134,10 @@ namespace PolyPaint.Vues
         private async void SendNewGame(object sender, RoutedEventArgs e)
         {
             List<string> clues = getClues();
-            Console.WriteLine(strokes.Count);
+           
             if (strokes.Count > 0)
             {
-                Console.WriteLine(strokes.Count);
+               
           
                 MyCustomStrokes customStrokes = new MyCustomStrokes();
                 customStrokes.StrokeCollection = new Point[strokes.Count][];

@@ -35,7 +35,8 @@
         </Grid.RowDefinitions>
         <InkCanvas x:Name="inkCanvas" Strokes="{Binding Traits}" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Loaded="DrawingWindow_Loaded" Grid.Column="1" Visibility="Hidden" />
         <Border x:Name="inkPresenterBorder" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Grid.Column="1" Background="White" Visibility="Hidden">
-            <InkPresenter  x:Name="inkPresenter" Strokes="{Binding Traits}" Grid.ColumnSpan="5" Grid.RowSpan="7" Loaded="DrawingWindow_Loaded" Grid.Column="1" Storyboard.TargetProperty="Strokes"  />
+            <InkPresenter  x:Name="inkPresenter" Strokes="{Binding NouveauxTraits}"  Grid.ColumnSpan="5" Grid.RowSpan="7" Loaded="DrawingWindow_Loaded" Grid.Column="1" >
+            </InkPresenter>
         </Border>
 
         <GroupBox BorderThickness="0" Name="NewDrawingForm" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Grid.Column="1" BorderBrush="#FF004066"  >
