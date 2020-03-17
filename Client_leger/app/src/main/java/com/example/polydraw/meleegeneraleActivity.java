@@ -35,6 +35,8 @@ public class meleegeneraleActivity extends AppCompatActivity {
     TextView hints;
     EditText answer;
 
+    Chat chat;
+
     Boolean guessingView = false;
 
     LinearLayout layoutDrawingView;
@@ -47,6 +49,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         drawingCanvas = new DrawingCanvas(this,null);
+        chat = new Chat();
         setContentView(R.layout.activity_meleegenerale);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         initializeObject();

@@ -27,6 +27,7 @@ public class DrawingActivity extends AppCompatActivity {
     Button capStyle;
     SeekBar seekBar;
     TextView seekBarText;
+    Chat chat;
 
     ConstraintLayout mLayout;
     int mDefaultColor;
@@ -35,6 +36,7 @@ public class DrawingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         drawingCanvas = new DrawingCanvas(this,null);
+        chat = new Chat();
         setContentView(R.layout.activity_canvas);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         initializeObject();

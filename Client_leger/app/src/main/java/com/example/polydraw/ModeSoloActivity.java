@@ -27,11 +27,13 @@ public class ModeSoloActivity extends AppCompatActivity {
     ImageButton sendAnswer;
     TextView hints;
     EditText answer;
+    Chat chat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         drawingCanvas = new DrawingCanvas(this,null);
+        chat = new Chat();
         setContentView(R.layout.activity_mode_solo);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         initializeObject();

@@ -81,12 +81,13 @@
             android:background="#FFFFFFFF"
             android:layout_alignParentTop="true"/>
 
-        <!--<fragment
+        <fragment
+            android:id="@+id/chat"
             android:name="com.example.polydraw.Chat"
             android:layout_width="420dp"
             android:layout_height="640dp"
             android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"/>-->
+            android:layout_alignParentBottom="true"/>
 
         <LinearLayout
             android:layout_width="610dp"
