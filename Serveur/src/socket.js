@@ -6,7 +6,8 @@ module.exports = function(http) {
 
     io.on(CHAT.EVENTS.CONNECTION, function(socket){
       socket.join("General");
-      console.log("Users connected: " + io.engine.clientsCount);
+      console.log("User connected");
+      console.log("ScoketID: " + socket.id);
     
       socket.on(CHAT.EVENTS.MESSAGE, (username, channel, message) => {
           console.log("Message received")
@@ -59,8 +60,7 @@ module.exports = function(http) {
 
       // Drawing
       socket.on(CHAT.EVENTS.STROKE, (channel, points) => {
-        io.emit(CHAT.EVENTS.STROKE, points);
-        console.log("Received");
+        socket.to(channel).broadcast.emit(CHAT.EVENTS.STROKE, points);
       });
 
       socket.on(CHAT.EVENTS.DRAFTSMAN_DIMENSION, (channel, width, height) => {
