@@ -79,6 +79,16 @@ module.exports = function(http) {
           socket.disconnect();
           console.log("User disconnected.");
       });
+
+      // Draft
+      socket.on(CHAT.EVENTS.STROKE_DRAWING, (channel, points) => {
+        io.emit(CHAT.EVENTS.STROKE_DRAWING, points);
+      });
+
+      socket.on(CHAT.EVENTS.STROKE_COLLECTED, (channel, points) => {
+        //console.log("Stroke: " + stroke);
+        io.emit(CHAT.EVENTS.STROKE_COLLECTED, points);
+      });
     
     });
 }

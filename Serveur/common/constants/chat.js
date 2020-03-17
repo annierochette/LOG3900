@@ -14,4 +14,6 @@ module.exports.EVENTS = {
     STROKE: "draw",
     DRAFTSMAN_DIMENSION: "draftDimension",
     DRAWING_ATTRIBUTES: "drawingAttributes",
+    STROKE_COLLECTED: "StrokeCollected",
+    STROKE_DRAWING: "StrokeDrawing",
 };
