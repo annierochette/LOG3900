@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ModeSoloActivity"></activity>
         <activity android:name=".meleegeneraleActivity" />
-        <activity android:name=".popupWidthWindowActivity" />
+<!--        <activity android:name=".popupWidthWindowActivity" />-->
         <activity android:name=".SignupActivity" />
         <activity android:name=".Settings" />
         <activity android:name=".Tutorial" />

@@ -1,10 +1,7 @@
 package com.example.polydraw;
 
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -20,28 +17,35 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
+
+import java.net.URISyntaxException;
+
 import yuku.ambilwarna.AmbilWarnaDialog; //https://codinginflow.com/tutorials/android/ambilwarna-color-picker-dialog
 
 public class meleegeneraleActivity extends AppCompatActivity {
-    DrawingCanvas drawingCanvas;
-    Button eraseButton;
-    Button drawButton;
-    Button color;
-    Button capStyle;
-    SeekBar seekBar;
-    TextView seekBarText;
-    Button toggle;
-    ImageButton sendAnswer;
-    TextView hints;
-    EditText answer;
+    public DrawingCanvas drawingCanvas;
+    public GuessingCanvas guessingCanvas;
 
-    Boolean guessingView = false;
+    public Button eraseButton;
+    public Button drawButton;
+    public Button color;
+    public Button capStyle;
+    public SeekBar seekBar;
+    public TextView seekBarText;
+    public Button toggle;
+    public ImageButton sendAnswer;
+    public TextView hints;
+    public EditText answer;
 
-    LinearLayout layoutDrawingView;
-    LinearLayout layoutGuessingView;
+    public Boolean guessingView = false;
 
-    ConstraintLayout mLayout;
-    int mDefaultColor;
+    public LinearLayout layoutDrawingView;
+    public LinearLayout layoutGuessingView;
+
+    public ConstraintLayout mLayout;
+    public int mDefaultColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -52,10 +56,12 @@ public class meleegeneraleActivity extends AppCompatActivity {
         initializeObject();
         eventListeners();
 
+
     }
 
     private void initializeObject(){
         drawingCanvas = (DrawingCanvas) findViewById(R.id.drawing);
+        guessingCanvas = (GuessingCanvas) findViewById(R.id.guessing);
         eraseButton = (Button) findViewById(R.id.eraser);
         drawButton = (Button) findViewById(R.id.paint);
         color = (Button) findViewById(R.id.colorButton);
@@ -71,7 +77,6 @@ public class meleegeneraleActivity extends AppCompatActivity {
         sendAnswer = (ImageButton) findViewById(R.id.sendAnswer);
         hints = (TextView) findViewById(R.id.hints);
         answer = (EditText) findViewById(R.id.answer);
-
 
     }
 
@@ -210,14 +215,15 @@ public class meleegeneraleActivity extends AppCompatActivity {
             guessingView = true;
             layoutGuessingView.setVisibility(View.VISIBLE);
             layoutDrawingView.setVisibility(View.INVISIBLE);
-
-
+            guessingCanvas.setVisibility(View.VISIBLE);
+            drawingCanvas.setVisibility(View.INVISIBLE);
         }
         else{
             guessingView = false;
             layoutGuessingView.setVisibility(View.INVISIBLE);
             layoutDrawingView.setVisibility(View.VISIBLE);
-
+            guessingCanvas.setVisibility(View.INVISIBLE);
+            drawingCanvas.setVisibility(View.VISIBLE);
         }
     }
 }

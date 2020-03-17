@@ -60,6 +60,7 @@ module.exports = function(http) {
 
       // Drawing
       socket.on(CHAT.EVENTS.STROKE, (channel, points) => {
+        console.log("stroke");
         socket.to(channel).broadcast.emit(CHAT.EVENTS.STROKE, points);
       });
 

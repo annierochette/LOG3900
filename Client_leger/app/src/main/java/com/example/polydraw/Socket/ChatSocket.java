@@ -31,6 +31,7 @@ public class ChatSocket {
             try{
                 socket = IO.socket("https://fais-moi-un-dessin.herokuapp.com/");
                 socket = socket.connect();
+                socket.emit("connection");
             }
             catch(URISyntaxException e){
                 e.printStackTrace();

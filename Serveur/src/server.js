@@ -12,5 +12,7 @@ app.use(morgan("combined", {
 }));
 
 http.listen(PORT, () => {
+  console.log(http);
+  console.log(http.address())
   console.log('listening on *:', PORT);
 });

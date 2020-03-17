@@ -13,8 +13,6 @@ import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 
@@ -22,24 +20,23 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DrawingCanvas extends View {
+public class GuessingCanvas extends View {
 
     private List<Stroke> _allStroke;
     private SparseArray<Stroke> activeStrokes;
-    private ArrayList<Point> _allPoints;
     private boolean eraser = false;
     private int paintColor = Color.BLACK;
     private Paint.Cap capOption = Paint.Cap.SQUARE;
     private int capWidth = 5;
 
+
     private Socket socket;
     private String http = "http://192.168.2.194:5050";
 
-    public DrawingCanvas (Context context, AttributeSet attrs){
+    public GuessingCanvas (Context context, AttributeSet attrs){
         super(context,attrs);
         _allStroke = new ArrayList<Stroke>();
         activeStrokes = new SparseArray<Stroke>();
-        _allPoints = new ArrayList<Point>();
         setFocusable(true);
         setFocusableInTouchMode(true);
         setBackgroundColor(Color.TRANSPARENT);
@@ -88,7 +85,7 @@ public class DrawingCanvas extends View {
             case MotionEvent.ACTION_MOVE:
                 if (eraser) {
                     for (int pc = 0; pc < pointerCount; pc++) {
-                       pointMove((int) event.getX(pc), (int) event.getY(pc),event.getPointerId(pc));
+                        pointMove((int) event.getX(pc), (int) event.getY(pc),event.getPointerId(pc));
                     }
                 } else {
                     for (int pc = 0; pc < pointerCount; pc++) {
@@ -133,13 +130,6 @@ public class DrawingCanvas extends View {
         paint.setStrokeCap(capOption);
 
         Point pt = new Point(x,y);
-        _allPoints.add(pt);
-
-        if(_allPoints.size() == 100){
-            socket.emit("draw", "General", _allPoints);
-            _allPoints = new ArrayList<Point>();
-        }
-
         Stroke stroke = new Stroke(paint);
         stroke.addPoint(pt);
         activeStrokes.put(id, stroke);
@@ -152,11 +142,6 @@ public class DrawingCanvas extends View {
         if (stroke != null) {
             Point pt = new Point(x, y);
             stroke.addPoint(pt);
-
-            if(_allPoints.size() == 100){
-                socket.emit("draw", "General", _allPoints);
-                _allPoints = new ArrayList<Point>();
-            }
         }
     }
 
@@ -174,8 +159,6 @@ public class DrawingCanvas extends View {
         activeStrokes.put(id, stroke);
         _allStroke.add(stroke);
     }
-
-    //Essaie pour l'efface de traits//
 
 //    private void findStroke(int x, int y, int id) {
 //        Paint paint = new Paint();
@@ -218,7 +201,7 @@ public class DrawingCanvas extends View {
 
     public void setPencilTip(String cap){
         if(cap.equals("Ronde")){
-           capOption = Paint.Cap.ROUND;
+            capOption = Paint.Cap.ROUND;
 
         }
         else{
@@ -227,3 +210,4 @@ public class DrawingCanvas extends View {
 
     }
 }
+
