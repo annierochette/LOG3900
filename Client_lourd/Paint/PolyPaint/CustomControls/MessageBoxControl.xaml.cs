@@ -7,16 +7,14 @@ using Newtonsoft.Json;
 using System.Runtime.CompilerServices;
 using System;
 using PolyPaint.Modeles;
+using PolyPaint.Utilitaires;
 
 namespace PolyPaint.CustomControls
 {
 
     public partial class MessageBoxControl : UserControl, INotifyPropertyChanged
     {
-        private const string SERVER_IP = "127.0.0.1";
-        private const string SERVER_PORT = "5050";
-        private Socket socket;
-        private string _serverIP;
+        private AppSocket socket;
         private string _username;
         public event PropertyChangedEventHandler PropertyChanged;
         Message message = new Message();
@@ -25,9 +23,8 @@ namespace PolyPaint.CustomControls
         {
             DataContext = this;
             InitializeComponent();
-            _serverIP = SERVER_IP;
             _username = "Genevieve";
-            socket = IO.Socket("http://" + _serverIP + ":" + SERVER_PORT);
+            socket = AppSocket.Instance;
             
             socket.On("chat message", (data) =>
             {
@@ -69,7 +66,7 @@ namespace PolyPaint.CustomControls
         {
             if (!string.IsNullOrWhiteSpace(MessageTextBox.Text))
             {
-                socket.Emit("chat message", _username, MessageTextBox.Text);
+                socket.Emit("chat message", _username, "General", MessageTextBox.Text);
             }
             MessageTextBox.Text = string.Empty;
             MessageTextBox.Focus();

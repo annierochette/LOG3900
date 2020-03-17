@@ -16,7 +16,7 @@ exports.createPlayer = async function(req, res) {
         res.status(HTTP.STATUS.CREATED).json({ player });
     } catch (error) {
         console.log("Error ", error)
-        res.status(HTTP.STATUS.BAD_REQUEST).send(error)
+        res.status(HTTP.STATUS.CONFLICT).send(error)
     }
 };
 

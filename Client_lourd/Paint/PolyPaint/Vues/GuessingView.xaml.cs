@@ -18,5 +18,10 @@ namespace PolyPaint.Vues
         {
 
         }
+
+        private void TimerControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
     }
 }

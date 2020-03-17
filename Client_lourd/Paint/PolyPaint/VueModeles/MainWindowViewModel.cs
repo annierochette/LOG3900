@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PolyPaint.VueModeles
 {
@@ -65,7 +67,7 @@ namespace PolyPaint.VueModeles
             ChangeViewModel(PageViewModels[3]);
         }
 
-        private void OnGoToNewDrawingWindow(object obj)
+        private void OnGoToDrawingWindow(object obj)
         {
             ChangeViewModel(PageViewModels[4]);
         }
@@ -85,39 +87,52 @@ namespace PolyPaint.VueModeles
         {
             ChangeViewModel(PageViewModels[7]);
         }
-        private void OnGoToImageImport(object obj)
+
+        private void OnGoToFreeForAll(object obj)
         {
             ChangeViewModel(PageViewModels[8]);
         }
 
 
+        private void OnGoToNewDrawingWindow(object obj)
+        {
+            ChangeViewModel(PageViewModels[9]);
+        }
+
+        private void OnGoToImageImport(object obj)
+        {
+            ChangeViewModel(PageViewModels[10]);
+        }
+
         public MainWindowViewModel()
         {
             
             // Add available pages and set page
-            PageViewModels.Add(new GameMenuViewModel());
-            PageViewModels.Add(new LoginViewModel());
-            PageViewModels.Add(new UserProfileViewModel());
-            PageViewModels.Add(new GameModeMenuViewModel());
-            PageViewModels.Add(new NewDrawingViewModel());
-            PageViewModels.Add(new GuessingViewModel());
-            PageViewModels.Add(new SignInViewModel());
-            PageViewModels.Add(new GameCreatorViewModel());
-            PageViewModels.Add(new ImageImportViewModel());
+            PageViewModels.Add(new GameMenuViewModel());      //0
+            PageViewModels.Add(new LoginViewModel());         //1
+            PageViewModels.Add(new UserProfileViewModel());   //2
+            PageViewModels.Add(new GameModeMenuViewModel());  //3
+            PageViewModels.Add(new DrawingWindowViewModel()); //4
+            PageViewModels.Add(new GuessingViewModel());      //5
+            PageViewModels.Add(new SignInViewModel());        //6
+            PageViewModels.Add(new GameCreatorViewModel());   //7
+            PageViewModels.Add(new FreeForAllViewModel());    //8
+            PageViewModels.Add(new NewDrawingViewModel());    //9
+            PageViewModels.Add(new ImageImportViewModel());   //10
 
-
-            CurrentPageViewModel = PageViewModels[7];
+            CurrentPageViewModel = PageViewModels[1];
 
             Mediator.Subscribe("GoToGameMenu", OnGoToGameMenu);
             Mediator.Subscribe("GoToUserProfile", OnGoToUserProfile);
             Mediator.Subscribe("GoToLoginWindow", OnGoToLoginWindow);
             Mediator.Subscribe("GoToSignInWindow", OnGoToSignInWindow);
             Mediator.Subscribe("GoToGameModeMenu", OnGoToGameModeMenu);
-            Mediator.Subscribe("GoToNewDrawingWindow", OnGoToNewDrawingWindow);
+            Mediator.Subscribe("GoToDrawingWindow", OnGoToDrawingWindow);
             Mediator.Subscribe("GoToGuessingView", OnGoToGuessingView);
             Mediator.Subscribe("GoToGameCreator", OnGoToGameCreator);
+            Mediator.Subscribe("GoToFreeForAll", OnGoToFreeForAll);
             Mediator.Subscribe("GoToImageImport", OnGoToImageImport);
-
+            Mediator.Subscribe("GoToNewDrawingWindow", OnGoToNewDrawingWindow);
         }
     }
 }
