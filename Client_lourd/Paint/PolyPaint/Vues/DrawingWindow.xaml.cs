@@ -26,7 +26,7 @@ namespace PolyPaint.Vues
         public DrawingWindow()
         {
             InitializeComponent();
-            socket = IO.Socket("http://192.168.211.1:5050");
+            socket = IO.Socket("http://10.200.20.186:5050");
 
             socket.On("draw", (data) =>
             {
@@ -92,7 +92,13 @@ namespace PolyPaint.Vues
             string points = JsonConvert.SerializeObject(pointBucket, new PointConverter());
             DrawingAttributes attributs = surfaceDessin.DefaultDrawingAttributes.Clone();
             socket.Emit("draw", "General", points, JsonConvert.SerializeObject(attributs));
-            pointBucket.Clear();
+            if (pointBucket.Count < 25)
+            {
+                pointBucket.RemoveRange(0, pointBucket.Count);
+            }
+            else {
+                pointBucket.RemoveRange(0, 25);
+            }
         }
 
         private class PointConverter : JsonConverter
