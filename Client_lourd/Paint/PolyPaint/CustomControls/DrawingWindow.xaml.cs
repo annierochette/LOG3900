@@ -34,9 +34,9 @@ namespace PolyPaint.CustomControls
             drawingAttributes.Color = (Color)ColorConverter.ConvertFromString("#000000");
             drawingAttributes.Height = 10;
             drawingAttributes.Width = 10;
+            drawingAttributes.StylusTip = StylusTip.Ellipse;
 
             socket.On(SocketEvents.STROKE_DRAWING, (points) => {
-                Console.WriteLine("ACtually drawing");
                 Dispatcher.Invoke(() => {
 
                     Stroke newStroke = new Stroke(JsonConvert.DeserializeObject<StylusPointCollection>(points.ToString()));
@@ -44,6 +44,7 @@ namespace PolyPaint.CustomControls
                     newStroke.DrawingAttributes.Color = drawingAttributes.Color;
                     newStroke.DrawingAttributes.Width = drawingAttributes.Width;
                     newStroke.DrawingAttributes.Height = drawingAttributes.Height;
+                    newStroke.DrawingAttributes.StylusTip = drawingAttributes.StylusTip;
                     surfaceDessin.Strokes.Add(newStroke);
                     ongoingStrokeIndex.Add(newStroke);
                 });
