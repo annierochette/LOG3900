@@ -9,6 +9,7 @@ using Svg;
 using System.Windows.Markup;
 using System.Xml.Linq;
 using System;
+using System.Windows.Threading;
 
 namespace PolyPaint.VueModeles
 {
@@ -108,6 +109,14 @@ namespace PolyPaint.VueModeles
             ChoisirPointe = new RelayCommand<string>(editeur.ChoisirPointe);
             ChoisirOutil = new RelayCommand<string>(editeur.ChoisirOutil);
 
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Tick += timer_tick;
+        }
+
+        private void timer_tick(object sender, EventArgs e)
+        {
+            Console.WriteLine("EDITEUR COULEUR: " + editeur.CouleurSelectionnee);
         }
 
        
@@ -164,6 +173,7 @@ namespace PolyPaint.VueModeles
         /// <param name="propertyName">Nom de la propriété modifiée.</param>
         protected virtual void ProprieteModifiee([CallerMemberName] string propertyName = null)
         {
+            Console.WriteLine("SAD");
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 

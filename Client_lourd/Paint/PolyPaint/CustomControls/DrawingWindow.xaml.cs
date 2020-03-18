@@ -24,35 +24,38 @@ namespace PolyPaint.CustomControls
         private string MATCH_CHANNEL = "General";
         private StrokeCollection ongoingStrokeIndex = new StrokeCollection();
         private DrawingAttributes drawingAttributes;
+        private string OutilSelectionne = "ronde";
 
         public DrawingWindow()
         {
             InitializeComponent();
+
             drawingAttributes = surfaceDessin.DefaultDrawingAttributes;
             drawingAttributes.Color = (Color)ColorConverter.ConvertFromString("#000000");
             drawingAttributes.Height = 10;
             drawingAttributes.Width = 10;
 
             socket.On(SocketEvents.STROKE_DRAWING, (points) => {
+                Console.WriteLine("ACtually drawing");
                 Dispatcher.Invoke(() => {
 
                     Stroke newStroke = new Stroke(JsonConvert.DeserializeObject<StylusPointCollection>(points.ToString()));
                     newStroke.DrawingAttributes = drawingAttributes;
+                    newStroke.DrawingAttributes.Color = drawingAttributes.Color;
+                    newStroke.DrawingAttributes.Width = drawingAttributes.Width;
+                    newStroke.DrawingAttributes.Height = drawingAttributes.Height;
                     surfaceDessin.Strokes.Add(newStroke);
                     ongoingStrokeIndex.Add(newStroke);
-                    Console.WriteLine("COUNT AFTER ONGOING: " + surfaceDessin.Strokes.Count);
                 });
             });
 
             socket.On(SocketEvents.STROKE_COLLECTED, (points) => {
                 Dispatcher.Invoke(() => {
-                    Console.WriteLine("COUNT BEFORE: " + surfaceDessin.Strokes.Count);
-
-                    //Console.WriteLine("ON STROKE COLLECTED: " + points.ToString());
                     Stroke newStroke = new Stroke(JsonConvert.DeserializeObject<StylusPointCollection>(points.ToString()));
                     newStroke.DrawingAttributes.Color = drawingAttributes.Color;
                     newStroke.DrawingAttributes.Width = drawingAttributes.Width;
                     newStroke.DrawingAttributes.Height = drawingAttributes.Height;
+
                     surfaceDessin.Strokes.Add(newStroke);
                     
                     foreach (Stroke strokeToDelete in ongoingStrokeIndex)
@@ -62,8 +65,39 @@ namespace PolyPaint.CustomControls
 
                     ongoingStrokeIndex.Clear();
 
-                    Console.WriteLine("COUNT AFTER: " + surfaceDessin.Strokes.Count);
+                });
+            });
 
+            socket.On(SocketEvents.STROKE_COLOR, (color) =>
+            {
+                Console.WriteLine("Color: " + color.ToString());
+                Dispatcher.Invoke(() => { 
+                    drawingAttributes.Color = (Color)ColorConverter.ConvertFromString(color.ToString());
+                });
+            });
+
+            socket.On(SocketEvents.STROKE_SIZE, (size) =>
+            {
+                Console.WriteLine("Size: " + size.ToString());
+                Dispatcher.Invoke(() => {
+                    drawingAttributes.Height = Convert.ToInt32(size.ToString());
+                    drawingAttributes.Width = Convert.ToInt32(size.ToString());
+                });
+            });
+
+            socket.On(SocketEvents.STROKE_TIP, (tip) =>
+            {
+                Console.WriteLine("Tip: " + tip);
+                Dispatcher.Invoke(() => {
+                    drawingAttributes.StylusTip = ((string) tip == "ronde") ? StylusTip.Ellipse : StylusTip.Rectangle;
+                });
+            });
+
+            socket.On(SocketEvents.STROKE_TOOL, (tool) =>
+            {
+                Console.WriteLine("Tool: " + tool.ToString());
+                Dispatcher.Invoke(() => {
+                    OutilSelectionne = (string) tool;
                 });
             });
         }
@@ -89,9 +123,6 @@ namespace PolyPaint.CustomControls
                 {
                     uploadPoints();
                 }
-            } else if (pointsBucket.Count > 0)
-            {
-                uploadPoints();
             }
 
         }
@@ -108,6 +139,7 @@ namespace PolyPaint.CustomControls
         private void surfaceDessin_StrokeCollected(object sender, InkCanvasStrokeCollectedEventArgs e)
         {
             Console.WriteLine("StrokeCollected");
+            pointsBucket.Clear();
             socket.Emit(SocketEvents.STROKE_COLLECTED, MATCH_CHANNEL, JsonConvert.SerializeObject(e.Stroke.StylusPoints, new StylusPointConverter()));
         }
     }

@@ -89,6 +89,22 @@ module.exports = function(http) {
         //console.log("Stroke: " + stroke);
         io.emit(CHAT.EVENTS.STROKE_COLLECTED, points);
       });
+
+      socket.on(CHAT.EVENTS.STROKE_COLOR, (channel, color) => {
+        io.emit(CHAT.EVENTS.STROKE_COLOR, color);
+      });
+
+      socket.on(CHAT.EVENTS.STROKE_SIZE, (channel, size) => {
+        io.emit(CHAT.EVENTS.STROKE_SIZE, size);
+      });
+
+      socket.on(CHAT.EVENTS.STROKE_TIP, (channel, tip) => {
+        io.emit(CHAT.EVENTS.STROKE_TIP, tip);
+      });
+
+      socket.on(CHAT.EVENTS.STROKE_TOOL, (channel, tool) => {
+        io.emit(CHAT.EVENTS.STROKE_TOOL, tool);
+      });
     
     });
 }

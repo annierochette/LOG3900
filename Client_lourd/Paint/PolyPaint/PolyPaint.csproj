@@ -120,7 +120,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Convertisseurs\Convertisseurs.cs" />
-    <Compile Include="Convertisseurs\StrokeConverter.cs" />
     <Compile Include="Convertisseurs\StylusPointConverter.cs" />
     <Compile Include="CustomControls\TimerControl.xaml.cs">
       <DependentUpon>TimerControl.xaml</DependentUpon>
@@ -134,7 +133,6 @@
     <Compile Include="Utilitaires\Mediator.cs" />
     <Compile Include="Utilitaires\RelayCommand.cs" />
     <Compile Include="Utilitaires\SocketEvents.cs" />
-    <Compile Include="Utilitaires\StrokeJson.cs" />
     <Compile Include="VueModeles\BaseViewModel.cs" />
     <Compile Include="VueModeles\FreeForAllViewModel.cs" />
     <Compile Include="VueModeles\SignInViewModel.cs" />
