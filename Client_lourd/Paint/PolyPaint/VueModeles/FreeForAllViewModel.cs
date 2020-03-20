@@ -96,7 +96,6 @@ namespace PolyPaint.VueModeles
             // Donc, aucune vérification de type Peut"Action" à faire.
             ChoisirPointe = new RelayCommand<string>(editeur.ChoisirPointe);
             ChoisirOutil = new RelayCommand<string>(editeur.ChoisirOutil);
-            editeur.TailleTrait = 10;
         }
 
         private void ConvertDrawingToSVG(object sender)

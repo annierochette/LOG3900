@@ -69,9 +69,24 @@ namespace PolyPaint.CustomControls
                 });
             });
 
+            socket.On(SocketEvents.STROKE_ERASED, (points) => {
+                Dispatcher.Invoke(() => {
+                    List<StylusPoint> pointsToCheck = (JsonConvert.DeserializeObject<List<StylusPoint>>(points.ToString()));
+
+                    pointsToCheck.ForEach((point) => {
+                        Console.WriteLine("SIZE BEFORE: " + surfaceDessin.Strokes.Count);
+                        StrokeCollection strokesToBeErased = surfaceDessin.Strokes.HitTest(new Point(point.X, point.Y));
+                        Console.WriteLine("SIZE BEFORE: " + surfaceDessin.Strokes.Count + " - " + strokesToBeErased.Count);
+                        surfaceDessin.Strokes.Remove(strokesToBeErased);
+                        Console.WriteLine("SIZE AFTER: " + surfaceDessin.Strokes.Count);
+
+                    });
+
+                });
+            });
+
             socket.On(SocketEvents.STROKE_COLOR, (color) =>
             {
-                Console.WriteLine("Color: " + color.ToString());
                 Dispatcher.Invoke(() => { 
                     drawingAttributes.Color = (Color)ColorConverter.ConvertFromString(color.ToString());
                 });
@@ -79,7 +94,6 @@ namespace PolyPaint.CustomControls
 
             socket.On(SocketEvents.STROKE_SIZE, (size) =>
             {
-                Console.WriteLine("Size: " + size.ToString());
                 Dispatcher.Invoke(() => {
                     drawingAttributes.Height = Convert.ToInt32(size.ToString());
                     drawingAttributes.Width = Convert.ToInt32(size.ToString());
@@ -88,7 +102,6 @@ namespace PolyPaint.CustomControls
 
             socket.On(SocketEvents.STROKE_TIP, (tip) =>
             {
-                Console.WriteLine("Tip: " + tip);
                 Dispatcher.Invoke(() => {
                     drawingAttributes.StylusTip = ((string) tip == "ronde") ? StylusTip.Ellipse : StylusTip.Rectangle;
                 });
@@ -96,7 +109,6 @@ namespace PolyPaint.CustomControls
 
             socket.On(SocketEvents.STROKE_TOOL, (tool) =>
             {
-                Console.WriteLine("Tool: " + tool.ToString());
                 Dispatcher.Invoke(() => {
                     OutilSelectionne = (string) tool;
                 });
@@ -132,8 +144,16 @@ namespace PolyPaint.CustomControls
         {
             if (pointsBucket.Count > 0)
             {
-                socket.Emit(SocketEvents.STROKE_DRAWING, MATCH_CHANNEL, JsonConvert.SerializeObject(pointsBucket, new StylusPointConverter()));
-                pointsBucket.Clear();
+                if (OutilSelectionne == "crayon")
+                {
+                    socket.Emit(SocketEvents.STROKE_DRAWING, MATCH_CHANNEL, JsonConvert.SerializeObject(pointsBucket, new StylusPointConverter()));
+                    pointsBucket.Clear();
+                }
+                else if (OutilSelectionne == "efface_segment")
+                {
+                    socket.Emit(SocketEvents.STROKE_ERASED, MATCH_CHANNEL, JsonConvert.SerializeObject(pointsBucket, new StylusPointConverter()));
+                    pointsBucket.Clear();
+                }
             }
         }
 
@@ -142,6 +162,13 @@ namespace PolyPaint.CustomControls
             Console.WriteLine("StrokeCollected");
             pointsBucket.Clear();
             socket.Emit(SocketEvents.STROKE_COLLECTED, MATCH_CHANNEL, JsonConvert.SerializeObject(e.Stroke.StylusPoints, new StylusPointConverter()));
+        }
+
+        private void surfaceDessin_StrokeErased(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("StrokeErased");
+            socket.Emit(SocketEvents.STROKE_ERASED, MATCH_CHANNEL, JsonConvert.SerializeObject(pointsBucket, new StylusPointConverter()));
+            pointsBucket.Clear();
         }
     }
 }

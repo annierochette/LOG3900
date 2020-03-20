@@ -107,19 +107,8 @@ namespace PolyPaint.VueModeles
             // Pour les commandes suivantes, il est toujours possible des les activer.
             // Donc, aucune vérification de type Peut"Action" à faire.
             ChoisirPointe = new RelayCommand<string>(editeur.ChoisirPointe);
-            ChoisirOutil = new RelayCommand<string>(editeur.ChoisirOutil);
-
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = new TimeSpan(0, 0, 1);
-            timer.Tick += timer_tick;
+            ChoisirOutil = new RelayCommand<string>(editeur.ChoisirOutil);;
         }
-
-        private void timer_tick(object sender, EventArgs e)
-        {
-            Console.WriteLine("EDITEUR COULEUR: " + editeur.CouleurSelectionnee);
-        }
-
-       
 
         private void ConvertDrawingToSVG(object sender)
         {
@@ -173,7 +162,6 @@ namespace PolyPaint.VueModeles
         /// <param name="propertyName">Nom de la propriété modifiée.</param>
         protected virtual void ProprieteModifiee([CallerMemberName] string propertyName = null)
         {
-            Console.WriteLine("SAD");
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 

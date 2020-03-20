@@ -11,6 +11,9 @@ namespace PolyPaint.Utilitaires
     {
         public static readonly string STROKE_COLLECTED = "StrokeCollected";
         public static readonly string STROKE_DRAWING = "StrokeDrawing";
+        public static readonly string STROKE_ERASED = "StrokeErased";
+        public static readonly string STROKE_ERASING = "StrokeErasing";
+
         public static readonly string STROKE_COLOR = "CouleurSelectionnee";
         public static readonly string STROKE_TIP = "PointeSelectionnee";
         public static readonly string STROKE_TOOL = "OutilSelectionne";

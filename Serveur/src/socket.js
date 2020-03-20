@@ -90,6 +90,11 @@ module.exports = function(http) {
         io.emit(CHAT.EVENTS.STROKE_COLLECTED, points);
       });
 
+      socket.on(CHAT.EVENTS.STROKE_ERASED, (channel, points) => {
+        console.log("StrokeErased")
+        io.emit(CHAT.EVENTS.STROKE_ERASED, points);
+      });
+
       socket.on(CHAT.EVENTS.STROKE_COLOR, (channel, color) => {
         io.emit(CHAT.EVENTS.STROKE_COLOR, color);
       });

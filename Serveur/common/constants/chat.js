@@ -15,6 +15,7 @@ module.exports.EVENTS = {
     DRAFTSMAN_DIMENSION: "draftDimension",
     DRAWING_ATTRIBUTES: "drawingAttributes",
     STROKE_COLLECTED: "StrokeCollected",
+    STROKE_ERASED: "StrokeErased",
     STROKE_COLOR: "CouleurSelectionnee",
     STROKE_DRAWING: "StrokeDrawing",
     STROKE_SIZE: "TailleTrait",

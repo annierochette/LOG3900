@@ -131,6 +131,7 @@
                 <InkCanvas ClipToBounds="True" Grid.Column="0" Grid.Row="0" Name="surfaceDessin" 
                            MouseMove="surfaceDessin_MouseMove"
                            StrokeCollected="surfaceDessin_StrokeCollected"
+                           StrokeErased="surfaceDessin_StrokeErased"
                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"                                                                       
                            Strokes="{Binding Path=Traits, Mode=OneTime}" EditingMode="{Binding Path=OutilSelectionne, Converter={StaticResource convertisseurModeEdition}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                            DefaultDrawingAttributes="{Binding Path=AttributsDessin, Mode=OneTime}"/>
