@@ -2,18 +2,12 @@ package com.example.polydraw;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,6 +29,7 @@ public class ChatBoxActivity extends AppCompatActivity {
     public ChatBoxAdapter chatBoxAdapter;
     public EditText messageTxt;
     public Button send;
+    public Button disconnect;
 
     private Socket socket;
 
@@ -48,23 +43,16 @@ public class ChatBoxActivity extends AppCompatActivity {
 
         messageTxt = (EditText) findViewById(R.id.message);
         send = (Button) findViewById(R.id.send);
-
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(myToolbar);
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
-        ab.setTitle("Messagerie");
-
-
+        disconnect = (Button) findViewById(R.id.disconnect);
 
         Bundle extras = getIntent().getExtras();
 
-        Username = "user1";//(String) extras.getString(MainActivity.USERNAME);
-        //IpAddress = (String) extras.getString(MainActivity.IP_ADDRESS);
+        Username = (String) extras.getString(MainActivity.USERNAME);
+        IpAddress = (String) extras.getString(MainActivity.IP_ADDRESS);
 
         try {
 
-            socket = IO.socket("//https://fais-moi-un-dessin.herokuapp.com/"); //https://fais-moi-un-dessin.herokuapp.com/"
+            socket = IO.socket("http://" + IpAddress + ":5050");
 
             socket.connect();
 
@@ -75,7 +63,7 @@ public class ChatBoxActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-       MessageList = new ArrayList<>();
+        MessageList = new ArrayList<>();
         myRecyclerView = (RecyclerView) findViewById(R.id.messagelist);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         myRecyclerView.setLayoutManager(mLayoutManager);
@@ -140,6 +128,7 @@ public class ChatBoxActivity extends AppCompatActivity {
 
                             Message m = new Message(username,message,timestamp);
 
+
                             MessageList.add(m);
 
                             chatBoxAdapter = new ChatBoxAdapter(MessageList);
@@ -157,38 +146,22 @@ public class ChatBoxActivity extends AppCompatActivity {
             }
         });
 
+        disconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                socket.emit("disconnection");
+                startActivity(new Intent(ChatBoxActivity.this, MainActivity.class));
+                socket.disconnect();
+            }
+        });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.toolbar_menu, menu);
-        return true;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.item1:
-                Toast.makeText(this, "Item 1 selected", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.item2:
-                Toast.makeText(this, "Item 2 selected", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.item3:
-                Toast.makeText(this, "Item 3 selected", Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
         socket.disconnect();
-    }
 
+    }
 }

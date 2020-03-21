@@ -80,6 +80,7 @@ namespace PolyPaint.VueModeles
 
 
         public StrokeCollection Traits { get; set; }
+        public StrokeCollection NouveauxTraits { get; set; }
 
         // Commandes sur lesquels la vue pourra se connecter.
         public RelayCommand<string> ChoisirPointe { get; set; }
@@ -103,12 +104,45 @@ namespace PolyPaint.VueModeles
             AjusterPointe();
 
             Traits = editeur.traits;
+            NouveauxTraits = editeur.nouveauxTraits;
 
             // Pour les commandes suivantes, il est toujours possible des les activer.
             // Donc, aucune vérification de type Peut"Action" à faire.
             ChoisirPointe = new RelayCommand<string>(editeur.ChoisirPointe);
-            ChoisirOutil = new RelayCommand<string>(editeur.ChoisirOutil);;
+            ChoisirOutil = new RelayCommand<string>(editeur.ChoisirOutil);
+           
         }
+
+        //public void AfficherTraitsClassique()
+        //{
+        //    StrokeCollection strokeCollections = Traits.Clone();
+        //    StylusPointCollection points = new StylusPointCollection();
+
+
+        //    foreach (Stroke stroke in strokeCollections)
+        //    {
+        //        points.Add(stroke.StylusPoints);
+        //        StylusPointCollection first = new StylusPointCollection();
+        //        first.Add(points[0]);
+        //        Stroke newStroke = new Stroke(first);
+        //        DispatcherTimer timer = new DispatcherTimer();
+        //        timer.Interval = TimeSpan.FromMilliseconds(10);
+        //        timer.Start();
+        //        int index = 0;
+        //        timer.Tick += (s, a) =>
+        //        {
+        //            newStroke.StylusPoints.Insert(index, points[index]);
+        //            if (!NouveauxTraits.Contains(newStroke))
+        //            {
+        //                NouveauxTraits.Add(newStroke);
+        //            }
+        //            index++;
+        //            if (index >= points.Count) timer.Stop();
+        //        };
+        //    };
+      
+
+        //}
 
         private void ConvertDrawingToSVG(object sender)
         {
@@ -148,11 +182,7 @@ namespace PolyPaint.VueModeles
             
         }
 
-        public StrokeCollection getStrokeCollection()
-        {
-            return editeur.traits;
-        }
-
+       
         /// <summary>
         /// Appelee lorsqu'une propriété de VueModele est modifiée.
         /// Un évènement indiquant qu'une propriété a été modifiée est alors émis à partir de VueModèle.

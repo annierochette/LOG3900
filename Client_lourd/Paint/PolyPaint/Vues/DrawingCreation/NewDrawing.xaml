@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:PolyPaint.Vues"
              xmlns:custom="clr-namespace:PolyPaint.CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="900">
+             d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid Background="#4CAFE0">
         <Grid.ColumnDefinitions>
@@ -33,12 +33,13 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <InkCanvas  x:Name="inkCanvas" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Loaded="DrawingWindow_Loaded" Grid.Column="1"  />
+        <InkCanvas x:Name="inkCanvas" Strokes="{Binding Traits}" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Loaded="DrawingWindow_Loaded" Grid.Column="1" Visibility="Hidden" />
         <Border x:Name="inkPresenterBorder" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Grid.Column="1" Background="White" Visibility="Hidden">
-            <InkPresenter  x:Name="inkPresenter" Grid.ColumnSpan="5" Grid.RowSpan="7" Loaded="DrawingWindow_Loaded" Grid.Column="1"  />
-            </Border>
-        
-        <GroupBox Name="NewDrawingForm" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Grid.Column="1"  Visibility="Hidden" >
+            <InkPresenter  x:Name="inkPresenter" Strokes="{Binding NouveauxTraits}"  Grid.ColumnSpan="5" Grid.RowSpan="7" Loaded="DrawingWindow_Loaded" Grid.Column="1" >
+            </InkPresenter>
+        </Border>
+
+        <GroupBox BorderThickness="0" Name="NewDrawingForm" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Grid.Column="1" BorderBrush="#FF004066"  >
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="11*"/>
@@ -62,12 +63,19 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Content="Mot à deviner: " Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="1" Margin="9.8,0.4,28.8,0.2" Grid.Column="1"/>
-                <TextBox x:Name="Word" Text="" Grid.Column="3"  Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="1" />
-                <Label  Content="Indices: " Grid.Row="3" Grid.ColumnSpan="2"  Grid.RowSpan="2" Margin="29.8,0.2,9.8,24.6" Grid.Column="1"  />
-                <ListBox x:Name="ListOfClues" Grid.Row="5" Grid.RowSpan="3" Grid.Column="3" Grid.ColumnSpan="3" Margin="0.2,0.4,71.8,0.2"/>
-                <TextBox x:Name="Clue"  Text="" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="1"  />
-                <Button Content="AJOUTER" Grid.ColumnSpan="1" Grid.Column="5"  Grid.Row="3" Grid.RowSpan="1" Click="add_clue"/>
+                <Label Content="Mot à deviner: " Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="1" HorizontalAlignment="Right" Grid.Column="1" FontWeight="Bold" FontFamily="Ink Free" FontSize="16"/>
+                <TextBox x:Name="Word" Text="" Grid.Column="3"  Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="1" TextAlignment="Left" VerticalContentAlignment="Center"/>
+                <Label  Content="Indices: " Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Right" Grid.RowSpan="2"  Grid.Column="1" FontWeight="Bold" FontFamily="Ink Free" FontSize="16"  />
+                <ListBox x:Name="ListOfClues" Grid.Row="5" Grid.RowSpan="3" Grid.Column="3" Grid.ColumnSpan="3"/>
+                <TextBox x:Name="Clue"  Text="" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="1" TextAlignment="Left" VerticalContentAlignment="Center" />
+                <Button Content="Ajouter" Grid.ColumnSpan="1" Grid.Column="5"  Grid.Row="3" Grid.RowSpan="1" Click="add_clue" FontWeight="Bold" FontFamily="Ink Free" FontSize="16"/>
+                <!--<Label Content="Mode de dessin: " Grid.ColumnSpan="2" Grid.Row="9" Grid.RowSpan="1" HorizontalAlignment="Right" Grid.Column="1" FontWeight="Bold" FontFamily="Ink Free" FontSize="16"/>
+                <ComboBox x:Name="Mode" Text="" Grid.Column="3"  Grid.ColumnSpan="1" Grid.Row="9" Grid.RowSpan="1"  VerticalContentAlignment="Center">
+                    <ComboBoxItem HorizontalContentAlignment="Center">Classique</ComboBoxItem>
+                    <ComboBoxItem HorizontalContentAlignment="Center">Aléatoire</ComboBoxItem>
+                    <ComboBoxItem HorizontalContentAlignment="Center">Panoramique</ComboBoxItem>
+                    <ComboBoxItem HorizontalContentAlignment="Center">Centré</ComboBoxItem>
+                </ComboBox>-->
             </Grid>
         </GroupBox>
 
@@ -75,8 +83,9 @@
         <Button x:Name="cancel_button" Content="ANNULER" Grid.Column="1" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="Red" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521" Command="{Binding GoToGameCreator}" />
         <Button x:Name="modifyDrawing_button" Content="MODIFIER" Grid.Column="1" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="Red" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521" Visibility="Hidden" Click="modifyDrawing_button_Click"/>
         <Button x:Name="back_button" Content="RETOUR" Grid.Column="1" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="Red" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521" Visibility="Hidden" Click="back_button_Click"/>
-        <Button x:Name="save_button" Content="SAUVEGARDER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521"  Click="save_drawing"/>
-        <Button x:Name="confirm_button" Content="CONFIRMER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521" Click="confirm_drawing" Visibility="Hidden"/>
-        <Button x:Name="confirm_data" Content="ENREGISTRER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521"  Command="{Binding GoToGameCreator}" Visibility="Hidden" Click="SendNewGame"/>
+       
+        <Button x:Name="save" Content="DESSINER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521"  Click="save_form"/>
+        <Button x:Name="confirm" Content="CONFIRMER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521" Click="confirm_drawing" Visibility="Hidden"/>
+        <Button x:Name="send" Content="ENREGISTRER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521"  Command="{Binding GoToGameCreator}" Visibility="Hidden" Click="SendNewGame"/>
     </Grid>
 </UserControl>

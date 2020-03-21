@@ -23,9 +23,15 @@ namespace PolyPaint.Vues
         public GameCreator()
         {
             InitializeComponent();
+       
         }
 
         private void MessageBoxControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
 
         }

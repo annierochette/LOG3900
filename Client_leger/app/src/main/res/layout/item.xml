@@ -19,8 +19,7 @@
         android:layout_height="wrap_content"
         android:text="Timestamp"
         android:textSize="20dp"
-        android:textStyle="bold"
-        android:fontFamily="sans-serif-condensed"/>
+        android:textStyle="bold" />
     </LinearLayout>
 
     <TextView
@@ -28,9 +27,6 @@
         android:textSize="17dp"
         android:text=" message "
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/message_holder"
-        android:textColor="#FFFFFF"
-        android:fontFamily="sans-serif-condensed"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -83,7 +83,7 @@ namespace PolyPaint.VueModeles
             ChangeViewModel(PageViewModels[6]);
         }
 
-        private void OnGoToGameCreator(object obj)
+        private void OnGoToGameCreatorControl(object obj)
         {
             ChangeViewModel(PageViewModels[7]);
         }
@@ -93,15 +93,12 @@ namespace PolyPaint.VueModeles
             ChangeViewModel(PageViewModels[8]);
         }
 
-        private void OnGoToDrawingCreator(object obj)
-        {
-            ChangeViewModel(PageViewModels[9]);
-        }
+
+     
 
         public MainWindowViewModel()
         {
-            
-            // Add available pages and set page
+           
             PageViewModels.Add(new GameMenuViewModel());      //0
             PageViewModels.Add(new LoginViewModel());         //1
             PageViewModels.Add(new UserProfileViewModel());   //2
@@ -109,9 +106,9 @@ namespace PolyPaint.VueModeles
             PageViewModels.Add(new DrawingWindowViewModel()); //4
             PageViewModels.Add(new GuessingViewModel());      //5
             PageViewModels.Add(new SignInViewModel());        //6
-            PageViewModels.Add(new GameCreatorViewModel());   //7
+            PageViewModels.Add(new GameCreatorControlViewModel());   //7
             PageViewModels.Add(new FreeForAllViewModel());    //8
-            PageViewModels.Add(new DrawingCreatorViewModel());    //9
+                  
 
             CurrentPageViewModel = PageViewModels[1];
 
@@ -122,10 +119,10 @@ namespace PolyPaint.VueModeles
             Mediator.Subscribe("GoToGameModeMenu", OnGoToGameModeMenu);
             Mediator.Subscribe("GoToDrawingWindow", OnGoToDrawingWindow);
             Mediator.Subscribe("GoToGuessingView", OnGoToGuessingView);
-            Mediator.Subscribe("GoToGameCreator", OnGoToGameCreator);
+            Mediator.Subscribe("GoToGameCreatorControl", OnGoToGameCreatorControl); ;
             Mediator.Subscribe("GoToFreeForAll", OnGoToFreeForAll);
-            Mediator.Subscribe("GoToDrawingCreator", OnGoToDrawingCreator);
-
+      
         }
     }
+    
 }

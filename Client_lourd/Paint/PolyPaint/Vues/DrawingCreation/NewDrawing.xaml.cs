@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PolyPaint.VueModeles;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,17 +10,23 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
+using System.Windows.Input;
+using System.Windows.Interactivity;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace PolyPaint.Vues
 {
-  
+
     public partial class NewDrawing : UserControl
     {
         StrokeCollection strokes = new StrokeCollection();
 
         public NewDrawing()
         {
+
             InitializeComponent();
         }
 
@@ -33,62 +40,82 @@ namespace PolyPaint.Vues
 
         }
 
-        private void save_drawing(object sender, RoutedEventArgs e)
+        private void save_form(object sender, RoutedEventArgs e)
         {
-            //var storyboard = new Storyboard();
-            //var totalDuration = TimeSpan.FromSeconds(10);
 
-
-            strokes = inkCanvas.Strokes.Clone();
-
-            inkPresenter.Strokes = strokes;
-
-            inkCanvas.Visibility = Visibility.Hidden;
-            inkPresenterBorder.Visibility = Visibility.Visible;
-
-            save_button.Visibility = Visibility.Hidden;
-            confirm_button.Visibility = Visibility.Visible;
-
-            modifyDrawing_button.Visibility = Visibility.Visible;
-            cancel_button.Visibility = Visibility.Hidden;
-        }
-
-        private void modifyDrawing_button_Click(object sender, RoutedEventArgs e)
-        {
             inkCanvas.Visibility = Visibility.Visible;
-            inkPresenterBorder.Visibility = Visibility.Hidden;
-            save_button.Visibility = Visibility.Visible;
-            confirm_button.Visibility = Visibility.Hidden;
-            modifyDrawing_button.Visibility = Visibility.Hidden;
-            cancel_button.Visibility = Visibility.Visible;
-        }
+            NewDrawingForm.Visibility = Visibility.Hidden;
 
-        private void confirm_drawing(object sender, RoutedEventArgs e)
-        {
-            inkPresenterBorder.Visibility = Visibility.Hidden;
-            save_button.Visibility = Visibility.Hidden;
-            confirm_button.Visibility = Visibility.Hidden;
-            NewDrawingForm.Visibility = Visibility.Visible;
-            confirm_data.Visibility = Visibility.Visible;
+            save.Visibility = Visibility.Hidden;
+            confirm.Visibility = Visibility.Visible;
 
-            modifyDrawing_button.Visibility = Visibility.Hidden;
+            cancel_button.Visibility = Visibility.Hidden;
             back_button.Visibility = Visibility.Visible;
         }
 
         private void back_button_Click(object sender, RoutedEventArgs e)
         {
+            inkCanvas.Visibility = Visibility.Hidden;
+            NewDrawingForm.Visibility = Visibility.Visible;
+
+            save.Visibility = Visibility.Visible;
+            confirm.Visibility = Visibility.Hidden;
+
+            cancel_button.Visibility = Visibility.Visible;
+            back_button.Visibility = Visibility.Hidden;
+        }
+
+        private void confirm_drawing(object sender, RoutedEventArgs e)
+        {
+            //((DrawingWindowViewModel)(this.DataContext)).AfficherTraitsClassique();
+            strokes = ((DrawingWindowViewModel)(this.DataContext)).Traits.Clone();
+            StylusPointCollection points = new StylusPointCollection();
+
+            foreach (Stroke stroke in strokes)
+            {
+                points.Add(stroke.StylusPoints);
+
+                StylusPointCollection first = new StylusPointCollection();
+                first.Add(points[0]);
+                Stroke newStrokes = new Stroke(first);
+                DispatcherTimer timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromMilliseconds(10);
+                timer.Start();
+                int index = 1;
+                timer.Tick += (s, a) =>
+                {
+                    newStrokes.StylusPoints.Insert(index, points[index]);
+                    if (!inkPresenter.Strokes.Contains(newStrokes))
+                        inkPresenter.Strokes.Add(newStrokes);
+                    index++;
+
+                    if (index >= points.Count) timer.Stop();
+                };
+
+            };
+
             inkPresenterBorder.Visibility = Visibility.Visible;
-            save_button.Visibility = Visibility.Visible;
-            confirm_button.Visibility = Visibility.Visible;
-            
-            NewDrawingForm.Visibility = Visibility.Hidden;
-            confirm_data.Visibility = Visibility.Hidden;
+            inkCanvas.Visibility = Visibility.Hidden;
+
+            send.Visibility = Visibility.Visible;
+            confirm.Visibility = Visibility.Hidden;
 
             modifyDrawing_button.Visibility = Visibility.Visible;
             back_button.Visibility = Visibility.Hidden;
-        }   
+        }
 
-        
+
+    private void modifyDrawing_button_Click(object sender, RoutedEventArgs e)
+        {
+            inkPresenterBorder.Visibility = Visibility.Hidden;
+            inkCanvas.Visibility = Visibility.Visible;
+
+            send.Visibility = Visibility.Hidden;
+            confirm.Visibility = Visibility.Visible;
+
+            modifyDrawing_button.Visibility = Visibility.Hidden;
+            back_button.Visibility = Visibility.Visible;
+        }
 
         private List<string> getClues()
         {
@@ -107,10 +134,10 @@ namespace PolyPaint.Vues
         private async void SendNewGame(object sender, RoutedEventArgs e)
         {
             List<string> clues = getClues();
-
+           
             if (strokes.Count > 0)
             {
-                Console.WriteLine(strokes.Count);
+               
           
                 MyCustomStrokes customStrokes = new MyCustomStrokes();
                 customStrokes.StrokeCollection = new Point[strokes.Count][];
