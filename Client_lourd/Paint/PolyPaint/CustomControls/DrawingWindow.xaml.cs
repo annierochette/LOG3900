@@ -57,14 +57,13 @@ namespace PolyPaint.CustomControls
                     newStroke.DrawingAttributes.Width = drawingAttributes.Width;
                     newStroke.DrawingAttributes.Height = drawingAttributes.Height;
                     newStroke.DrawingAttributes.StylusTip = drawingAttributes.StylusTip;
-
-                    surfaceDessin.Strokes.Add(newStroke);
                     
                     foreach (Stroke strokeToDelete in ongoingStrokeIndex)
                     {
                         surfaceDessin.Strokes.Remove(strokeToDelete);
                     }
 
+                    surfaceDessin.Strokes.Add(newStroke);
                     ongoingStrokeIndex.Clear();
 
                 });
@@ -200,7 +199,7 @@ namespace PolyPaint.CustomControls
             }
             else if (OutilSelectionne == Tool.SEGMENT_ERASER)
             {
-                socket.Emit(SocketEvents.STROKE_ERASING, MATCH_CHANNEL, JsonConvert.SerializeObject(pointsBucket, new StylusPointConverter()));
+                socket.Emit(SocketEvents.STROKE_SEGMENT_ERASING, MATCH_CHANNEL, JsonConvert.SerializeObject(pointsBucket, new StylusPointConverter()));
             }
 
             pointsBucket.Clear();
