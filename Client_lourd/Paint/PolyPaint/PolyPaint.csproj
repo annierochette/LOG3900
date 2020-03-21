@@ -133,6 +133,7 @@
     <Compile Include="Utilitaires\Mediator.cs" />
     <Compile Include="Utilitaires\RelayCommand.cs" />
     <Compile Include="Utilitaires\SocketEvents.cs" />
+    <Compile Include="Utilitaires\Tool.cs" />
     <Compile Include="VueModeles\BaseViewModel.cs" />
     <Compile Include="VueModeles\FreeForAllViewModel.cs" />
     <Compile Include="VueModeles\SignInViewModel.cs" />

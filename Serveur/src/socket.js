@@ -90,9 +90,14 @@ module.exports = function(http) {
         io.emit(CHAT.EVENTS.STROKE_COLLECTED, points);
       });
 
-      socket.on(CHAT.EVENTS.STROKE_ERASED, (channel, points) => {
-        console.log("StrokeErased")
-        io.emit(CHAT.EVENTS.STROKE_ERASED, points);
+      socket.on(CHAT.EVENTS.STROKE_ERASING, (channel, points) => {
+        console.log("StrokeErasing")
+        io.emit(CHAT.EVENTS.STROKE_ERASING, points);
+      });
+
+      socket.on(CHAT.EVENTS.STROKE_SEGMENT_ERASING, (channel, points) => {
+        console.log("StrokeErasing")
+        io.emit(CHAT.EVENTS.STROKE_SEGMENT_ERASING, points);
       });
 
       socket.on(CHAT.EVENTS.STROKE_COLOR, (channel, color) => {
