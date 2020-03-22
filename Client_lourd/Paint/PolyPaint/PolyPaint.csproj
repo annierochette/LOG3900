@@ -151,6 +151,9 @@
     <Compile Include="VueModeles\UserProfileViewModel.cs" />
     <Compile Include="VueModeles\DrawingWindowViewModel.cs" />
     <Compile Include="VueModeles\VueModele.cs" />
+    <Compile Include="Vues\DrawingCreation\NewGameForm.xaml.cs">
+      <DependentUpon>NewGameForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vues\FenetreDessin.xaml.cs">
       <DependentUpon>FenetreDessin.xaml</DependentUpon>
     </Compile>
@@ -212,6 +215,10 @@
     <Compile Include="CustomControls\DrawingWindow.xaml.cs">
       <DependentUpon>DrawingWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Vues\DrawingCreation\NewGameForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
     <Page Include="Vues\FenetreDessin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

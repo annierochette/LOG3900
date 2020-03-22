@@ -213,7 +213,9 @@ namespace PolyPaint.Vues
 
         private void add_clue(object sender, RoutedEventArgs e)
         {
+            if (!string.IsNullOrWhiteSpace(Clue.Text)) { 
             ListOfClues.Items.Add(Clue.Text);
+            }
             Clue.Text = "";
         }
 
