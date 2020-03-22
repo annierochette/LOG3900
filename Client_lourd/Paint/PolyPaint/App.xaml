@@ -2,8 +2,43 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:PolyPaint"
-             StartupUri="Vues/FenetreDessin.xaml">
-    <Application.Resources>
-         
+             xmlns:view="clr-namespace:PolyPaint.Vues"
+             xmlns:viewModel="clr-namespace:PolyPaint.VueModeles"
+             xmlns:utils="clr-namespace:PolyPaint.Utilitaires"
+             xmlns:custom="clr-namespace:PolyPaint.CustomControls">
+    
+        <Application.Resources>
+            <DataTemplate DataType="{x:Type viewModel:GameMenuViewModel}">
+                <view:GameMenu/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:UserProfileViewModel}">
+                <view:UserProfile />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:GameModeMenuViewModel}">
+                <view:GameModeMenu />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:DrawingWindowViewModel}">
+                <custom:DrawingWindow />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:GuessingViewModel}">
+                <view:GuessingView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:GameCreatorViewModel}">
+                <view:GameCreator />
+            </DataTemplate>
+             <DataTemplate DataType="{x:Type viewModel:LoginViewModel}">
+                 <view:LoginWindow />
+            </DataTemplate>
+             <DataTemplate DataType="{x:Type viewModel:SignInViewModel}">
+                 <view:SignInWindow />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:FreeForAllViewModel}">
+                <view:FreeForAllWindow />
+            </DataTemplate>
+             <DataTemplate DataType="{x:Type viewModel:DrawingCreatorViewModel}">
+                <view:NewDrawing />
+            </DataTemplate>
+  
     </Application.Resources>
+  
 </Application>
