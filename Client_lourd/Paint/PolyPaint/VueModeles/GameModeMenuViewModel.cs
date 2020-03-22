@@ -10,7 +10,7 @@ namespace PolyPaint.VueModeles
         private ICommand _goToGameMenu;
         private ICommand _goToUserProfile;
         private ICommand _goToGuessingView;
-        private ICommand _goToFreeForAll;
+        private ICommand _goToGameChoice;
 
         public ICommand GoToDrawingWindow
         {
@@ -56,13 +56,13 @@ namespace PolyPaint.VueModeles
             }
         }
 
-        public ICommand GoToFreeForAll
+        public ICommand GoToGameChoice
         {
             get
             {
-                return _goToFreeForAll ?? (_goToFreeForAll = new RelayCommand(x =>
+                return _goToGameChoice ?? (_goToGameChoice = new RelayCommand(x =>
                 {
-                    Mediator.Notify("GoToFreeForAll", "");
+                    Mediator.Notify("GoToGameChoice", "");
                 }));
             }
         }

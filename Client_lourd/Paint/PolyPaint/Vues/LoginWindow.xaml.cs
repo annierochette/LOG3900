@@ -56,17 +56,17 @@ namespace PolyPaint.Vues
             var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var res = await HttpClient.PostAsync("http://localhost:5050/players/login", httpContent);
-            if (res.Content != null)
-            {
-                var responseContent = await res.Content.ReadAsStringAsync();
-                Console.WriteLine(responseContent);
+            //var res = await HttpClient.PostAsync("http://localhost:5050/players/login", httpContent);
+            //if (res.Content != null)
+            //{
+            //    var responseContent = await res.Content.ReadAsStringAsync();
+            //    Console.WriteLine(responseContent);
 
-            }
-            if (res.StatusCode.ToString() == "201")
-            {
+            //}
+            //if (res.StatusCode.ToString() == "201")
+            //{
                 
-            }
+            //}
 
             Console.WriteLine(username);
             Console.WriteLine(password);
