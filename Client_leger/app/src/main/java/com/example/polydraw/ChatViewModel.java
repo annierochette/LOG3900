@@ -30,7 +30,7 @@ public class ChatViewModel extends ViewModel {
 
     }
 
-    /*public ChatViewModel(List<Message> MessagesList) {
+    public ChatViewModel(List<Message> MessagesList) {
         this.messageList = MessagesList;
     }
     public int getItemCount() {
@@ -45,5 +45,5 @@ public class ChatViewModel extends ViewModel {
         holder.username.setText(m.getUsername());
         holder.timestamp.setText(m.getTimestamp());
         holder.message.setText(m.getMessage());
-    }*/
+    }
 }

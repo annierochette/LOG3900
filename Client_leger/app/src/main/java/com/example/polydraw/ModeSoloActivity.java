@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -27,13 +28,13 @@ public class ModeSoloActivity extends AppCompatActivity {
     ImageButton sendAnswer;
     TextView hints;
     EditText answer;
-    Chat chat;
+    private ImageView chatButton;
+    private ImageButton disconnectButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         drawingCanvas = new DrawingCanvas(this,null);
-        chat = new Chat();
         setContentView(R.layout.activity_mode_solo);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         initializeObject();
@@ -46,6 +47,8 @@ public class ModeSoloActivity extends AppCompatActivity {
         sendAnswer = (ImageButton) findViewById(R.id.sendAnswer);
         hints = (TextView) findViewById(R.id.hints);
         answer = (EditText) findViewById(R.id.answer);
+        chatButton = (ImageView) findViewById(R.id.chatButton);
+        disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
 
     }
 
@@ -58,5 +61,29 @@ public class ModeSoloActivity extends AppCompatActivity {
             }
         });
 
+        disconnectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backToLogin();
+            }
+        });
+
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openChat();
+            }
+        });
+
+    }
+
+    public void backToLogin(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void openChat(){
+        Intent intent = new Intent(this, ChatBoxActivity.class);
+        startActivity(intent);
     }
 }

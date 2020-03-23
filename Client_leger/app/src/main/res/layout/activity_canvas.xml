@@ -15,32 +15,65 @@
         tools:layout_editor_absoluteX="2dp"
         tools:layout_editor_absoluteY="1dp">
 
+        <Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:background="@drawable/back_button"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Retour"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@android:color/white"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="15dp"/>
+
+            <ImageView
+                android:id="@+id/chatButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="740dp"
+                android:layout_marginRight="15dp"
+                app:srcCompat="@android:drawable/sym_action_chat" />
+
+            <ImageButton
+                android:id="@+id/logoutButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/disconnect_button"
+                app:srcCompat="@android:drawable/ic_lock_power_off"
+                android:layout_margin="15dp" />
+
+        </Toolbar>
+
         <com.example.polydraw.DrawingCanvas
         android:id="@+id/drawing"
-        android:layout_width="610dp"
-        android:layout_height="700dp"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
         android:background="#FFFFFFFF"
-        android:layout_alignParentTop="true"/>
+        android:layout_above="@+id/drawingToolbox"/>
 
-        <fragment
+        <!--<fragment
             android:id="@+id/chatFragment"
             android:name="com.example.polydraw.Chat"
             android:layout_width="420dp"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"/>
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/stat_sys_download"
-            android:layout_toLeftOf="@+id/chatFragment"/>
+            android:layout_alignParentRight="true"/>-->
 
         <LinearLayout
-            android:layout_width="610dp"
+            android:id="@+id/drawingToolbox"
+            android:layout_width="match_parent"
             android:layout_height="51dp"
             android:orientation="horizontal"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:paddingRight="10dp">
 
             <Button
                 android:id="@+id/paint"
@@ -97,6 +130,13 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/stat_sys_download"
+                android:padding="15dp"/>
 
         </LinearLayout>
     </RelativeLayout>

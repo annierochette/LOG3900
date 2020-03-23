@@ -9,13 +9,10 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-
 import yuku.ambilwarna.AmbilWarnaDialog; //https://codinginflow.com/tutorials/android/ambilwarna-color-picker-dialog
 //seekbar https://www.tutlane.com/tutorial/android/android-seekbar-with-examples
 
@@ -27,7 +24,7 @@ public class DrawingActivity extends AppCompatActivity {
     Button capStyle;
     SeekBar seekBar;
     TextView seekBarText;
-    Chat chat;
+    private Button backButton;
 
     ConstraintLayout mLayout;
     int mDefaultColor;
@@ -36,7 +33,6 @@ public class DrawingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         drawingCanvas = new DrawingCanvas(this,null);
-        chat = new Chat();
         setContentView(R.layout.activity_canvas);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         initializeObject();
@@ -54,6 +50,7 @@ public class DrawingActivity extends AppCompatActivity {
         mDefaultColor = ContextCompat.getColor(DrawingActivity.this, R.color.colorPrimary);
         seekBar = (SeekBar) findViewById(R.id.seekBar);
         seekBarText = (TextView) findViewById(R.id.sbTextView);
+        backButton = (Button) findViewById(R.id.backButton);
 
     }
 
@@ -123,6 +120,13 @@ public class DrawingActivity extends AppCompatActivity {
                 seekBarText.setText(pval + "/" + seekBar.getMax());
             }
         });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backToMenu();
+            }
+        });
     }
 
     public void openColorPicker() {
@@ -169,6 +173,11 @@ public class DrawingActivity extends AppCompatActivity {
             }
         });
         popup.show();
+    }
+
+    public void backToMenu() {
+        Intent intent = new Intent(this, Menu.class);
+        startActivity(intent);
     }
 }
 

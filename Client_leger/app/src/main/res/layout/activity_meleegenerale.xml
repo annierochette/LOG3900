@@ -15,9 +15,33 @@
         android:orientation="vertical"
         android:layout_marginBottom="10dp">
 
+        <Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:id="@+id/chatButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="875dp"
+                android:layout_marginRight="15dp"
+                app:srcCompat="@android:drawable/sym_action_chat" />
+
+            <ImageButton
+                android:id="@+id/logoutButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/disconnect_button"
+                app:srcCompat="@android:drawable/ic_lock_power_off"
+                android:layout_margin="15dp" />
+
+        </Toolbar>
+
         <TextView
             android:id="@+id/score"
-            android:layout_width="420dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:fontFamily="sans-serif-condensed"
@@ -26,11 +50,12 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="@android:color/black"
             android:textSize="30sp"
-            android:textFontWeight="800"/>
+            android:textFontWeight="800"
+            android:layout_below="@+id/toolbar"/>
 
         <TextView
             android:id="@+id/player1"
-            android:layout_width="420dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/score"
             android:layout_alignParentRight="true"
@@ -43,7 +68,7 @@
 
         <TextView
             android:id="@+id/player2"
-            android:layout_width="420dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/player1"
             android:layout_alignParentRight="true"
@@ -56,7 +81,7 @@
 
         <TextView
             android:id="@+id/player3"
-            android:layout_width="420dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/player2"
             android:layout_alignParentRight="true"
@@ -71,23 +96,25 @@
             android:id="@+id/toggleButton"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:layout_margin="2dp"
-            android:text="toggle" />
+            android:text="toggle"
+            android:layout_below="@+id/player3"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"/>
 
-        <com.example.polydraw.DrawingCanvas
-            android:id="@+id/drawing"
-            android:layout_width="610dp"
-            android:layout_height="700dp"
-            android:background="#FFFFFFFF"
-            android:layout_alignParentTop="true"/>
-
-        <fragment
+        <!--<fragment
             android:id="@+id/chat"
             android:name="com.example.polydraw.Chat"
             android:layout_width="420dp"
             android:layout_height="640dp"
             android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true"/>-->
+
+        <com.example.polydraw.DrawingCanvas
+            android:id="@+id/drawing"
+            android:layout_width="808dp"
+            android:layout_height="625dp"
+            android:layout_above="@+id/drawingToolbox"
+            android:background="#FFFFFFFF" />
 
         <LinearLayout
             android:layout_width="610dp"
@@ -132,7 +159,7 @@
 
             <LinearLayout
                 android:id="@+id/drawingToolbox"
-                android:layout_width="610dp"
+                android:layout_width="800dp"
                 android:layout_height="51dp"
                 android:orientation="horizontal"
                 android:visibility="visible"

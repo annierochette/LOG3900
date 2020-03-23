@@ -38,8 +38,9 @@ public class ChatBoxActivity extends AppCompatActivity {
 
     private Socket socket;
 
-    public String Username;
-    public String IpAddress;
+    public String Username = MainActivity.USERNAME;
+    public String IpAddress = "192.168.0.232";
+    public String channel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +54,12 @@ public class ChatBoxActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
-        Username = "user1";//(String) extras.getString(MainActivity.USERNAME);
-        //IpAddress = (String) extras.getString(MainActivity.IP_ADDRESS);
+//        Username = (String) extras.getString(MainActivity.USERNAME);
+//        IpAddress = (String) extras.getString(MainActivity.IP_ADDRESS);
 
         try {
 
-            socket = IO.socket("//https://fais-moi-un-dessin.herokuapp.com/"); //https://fais-moi-un-dessin.herokuapp.com/"
+            socket = IO.socket("http://"+IpAddress+":5050"); //https://fais-moi-un-dessin.herokuapp.com/"
 
             socket.connect();
 
@@ -80,7 +81,7 @@ public class ChatBoxActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!messageTxt.getText().toString().trim().isEmpty() && !messageTxt.getText().toString().isEmpty()) {
 
-                    socket.emit("chat message", Username, messageTxt.getText().toString());
+                    socket.emit("chat message", Username, "General", messageTxt.getText().toString());
                     messageTxt.setText(" ");
                 }
             }
