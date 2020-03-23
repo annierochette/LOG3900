@@ -79,6 +79,42 @@ module.exports = function(http) {
           socket.disconnect();
           console.log("User disconnected.");
       });
+
+      // Draft
+      socket.on(CHAT.EVENTS.STROKE_DRAWING, (channel, points) => {
+        io.emit(CHAT.EVENTS.STROKE_DRAWING, points);
+      });
+
+      socket.on(CHAT.EVENTS.STROKE_COLLECTED, (channel, points) => {
+        //console.log("Stroke: " + stroke);
+        io.emit(CHAT.EVENTS.STROKE_COLLECTED, points);
+      });
+
+      socket.on(CHAT.EVENTS.STROKE_ERASING, (channel, points) => {
+        console.log("StrokeErasing")
+        io.emit(CHAT.EVENTS.STROKE_ERASING, points);
+      });
+
+      socket.on(CHAT.EVENTS.STROKE_SEGMENT_ERASING, (channel, points) => {
+        console.log("StrokeErasing")
+        io.emit(CHAT.EVENTS.STROKE_SEGMENT_ERASING, points);
+      });
+
+      socket.on(CHAT.EVENTS.STROKE_COLOR, (channel, color) => {
+        io.emit(CHAT.EVENTS.STROKE_COLOR, color);
+      });
+
+      socket.on(CHAT.EVENTS.STROKE_SIZE, (channel, size) => {
+        io.emit(CHAT.EVENTS.STROKE_SIZE, size);
+      });
+
+      socket.on(CHAT.EVENTS.STROKE_TIP, (channel, tip) => {
+        io.emit(CHAT.EVENTS.STROKE_TIP, tip);
+      });
+
+      socket.on(CHAT.EVENTS.STROKE_TOOL, (channel, tool) => {
+        io.emit(CHAT.EVENTS.STROKE_TOOL, tool);
+      });
     
     });
 }

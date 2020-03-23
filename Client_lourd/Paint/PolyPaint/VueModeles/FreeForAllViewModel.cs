@@ -23,6 +23,7 @@ namespace PolyPaint.VueModeles
         public event PropertyChangedEventHandler PropertyChanged;
         private Editeur editeur = new Editeur();
         private SvgDocument newImage = new SvgDocument();
+        private AppSocket socket = AppSocket.Instance;
 
         // Ensemble d'attributs qui définissent l'apparence d'un trait.
         public DrawingAttributes AttributsDessin { get; set; } = new DrawingAttributes();
@@ -95,7 +96,6 @@ namespace PolyPaint.VueModeles
             // Donc, aucune vérification de type Peut"Action" à faire.
             ChoisirPointe = new RelayCommand<string>(editeur.ChoisirPointe);
             ChoisirOutil = new RelayCommand<string>(editeur.ChoisirOutil);
-
         }
 
         private void ConvertDrawingToSVG(object sender)
@@ -158,19 +158,23 @@ namespace PolyPaint.VueModeles
         {
             if (e.PropertyName == "CouleurSelectionnee")
             {
+                socket.Emit(SocketEvents.STROKE_COLOR, "General", editeur.CouleurSelectionnee);
                 AttributsDessin.Color = (Color)ColorConverter.ConvertFromString(editeur.CouleurSelectionnee);
             }
             else if (e.PropertyName == "OutilSelectionne")
             {
+                socket.Emit(SocketEvents.STROKE_TOOL, "General", editeur.OutilSelectionne);
                 OutilSelectionne = editeur.OutilSelectionne;
             }
             else if (e.PropertyName == "PointeSelectionnee")
             {
+                socket.Emit(SocketEvents.STROKE_TIP, "General", editeur.PointeSelectionnee);
                 PointeSelectionnee = editeur.PointeSelectionnee;
                 AjusterPointe();
             }
             else // e.PropertyName == "TailleTrait"
             {
+                socket.Emit(SocketEvents.STROKE_SIZE, "General", editeur.TailleTrait);
                 AjusterPointe();
             }
         }

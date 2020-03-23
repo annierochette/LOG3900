@@ -42,26 +42,26 @@ namespace PolyPaint.Vues
 
         private void StrokeColl(object sender, EventArgs e)
         {
-            Point s = z.GetPosition(surfaceDessin);
-            StrokeCollection strokesList = surfaceDessin.Strokes;
-            foreach (var singleStroke in strokesList)
-            {
-                foreach (StylusPoint sp in singleStroke.StylusPoints)
-                {
-                    double X = sp.X;
-                    double Y = sp.Y;
+            //Point s = z.GetPosition(surfaceDessin);
+            //StrokeCollection strokesList = surfaceDessin.Strokes;
+            //foreach (var singleStroke in strokesList)
+            //{
+            //    foreach (StylusPoint sp in singleStroke.StylusPoints)
+            //    {
+            //        double X = sp.X;
+            //        double Y = sp.Y;
 
-                    Console.WriteLine(X + ", " + Y);
-                }
-            }
+            //        //Console.WriteLine(X + ", " + Y);
+            //    }
+            //}
 
         }
 
         private void surfaceDessin_MouseMove(object sender, MouseEventArgs e)
         {
-            Point p = e.GetPosition(surfaceDessin);
-            z = e;
-            surfaceDessin.Strokes.StrokesChanged += StrokeColl;
+            //Point p = e.GetPosition(surfaceDessin);
+            //z = e;
+            //surfaceDessin.Strokes.StrokesChanged += StrokeColl;
 
 
         }
