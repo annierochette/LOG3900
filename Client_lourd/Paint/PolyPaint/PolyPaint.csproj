@@ -139,7 +139,6 @@
     <Compile Include="Utilitaires\RelayCommand.cs" />
     <Compile Include="VueModeles\BaseViewModel.cs" />
     <Compile Include="VueModeles\FreeForAllViewModel.cs" />
-    <Compile Include="VueModeles\SignInViewModel.cs" />
     <Compile Include="VueModeles\GameCreatorViewModel.cs" />
     <Compile Include="VueModeles\GameMenuViewModel.cs" />
     <Compile Include="VueModeles\GameModeMenuViewModel.cs" />
@@ -150,7 +149,6 @@
     <Compile Include="VueModeles\MessageBoxViewModel.cs" />
     <Compile Include="VueModeles\UserProfileViewModel.cs" />
     <Compile Include="VueModeles\DrawingWindowViewModel.cs" />
-    <Compile Include="VueModeles\VueModele.cs" />
     <Compile Include="Vues\DrawingCreation\NewGameForm.xaml.cs">
       <DependentUpon>NewGameForm.xaml</DependentUpon>
     </Compile>
@@ -177,6 +175,9 @@
     </Compile>
     <Compile Include="Vues\DrawingCreation\ImageImportView.xaml.cs">
       <DependentUpon>ImageImportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vues\Login\LoginControlWindow.xaml.cs">
+      <DependentUpon>LoginControlWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vues\Login\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
@@ -248,6 +249,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vues\DrawingCreation\ImageImportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vues\Login\LoginControlWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
