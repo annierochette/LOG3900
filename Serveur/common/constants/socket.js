@@ -1,4 +1,4 @@
-module.exports.EVENTS = {
+module.exports.CHAT = {
     // Connexion
     CONNECTION: "connection",
     DISCONNECTION: "disconnection",
@@ -9,11 +9,10 @@ module.exports.EVENTS = {
 
     // Message
     MESSAGE: "chat message",
+}
 
-    // Partie
-    STROKE: "draw",
+module.exports.DRAFT = {
     DRAFTSMAN_DIMENSION: "draftDimension",
-    DRAWING_ATTRIBUTES: "drawingAttributes",
     STROKE_COLLECTED: "StrokeCollected",
     STROKE_ERASING: "StrokeErasing",
     STROKE_SEGMENT_ERASING: "SegmentErasing",
@@ -22,4 +21,4 @@ module.exports.EVENTS = {
     STROKE_SIZE: "TailleTrait",
     STROKE_TIP: "PointeSelectionnee",
     STROKE_TOOL: "OutilSelectionne",
-};
+}
