@@ -32,24 +32,16 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textColor="@android:color/white"
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_alignParentLeft="true"
+                android:layout_gravity="start"
                 android:layout_margin="15dp"/>
 
             <ImageView
                 android:id="@+id/chatButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="740dp"
-                android:layout_marginRight="15dp"
-                app:srcCompat="@android:drawable/sym_action_chat" />
-
-            <ImageButton
-                android:id="@+id/logoutButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/disconnect_button"
-                app:srcCompat="@android:drawable/ic_lock_power_off"
-                android:layout_margin="15dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-7dp"
+                android:background="@drawable/chat_foreground"
+                android:layout_gravity="end" />
 
         </Toolbar>
 

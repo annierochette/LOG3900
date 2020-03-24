@@ -36,7 +36,6 @@ public class meleegeneraleActivity extends AppCompatActivity {
     TextView hints;
     EditText answer;
     private ImageView chatButton;
-    private ImageButton disconnectButton;
 
     Boolean guessingView = false;
 
@@ -75,7 +74,6 @@ public class meleegeneraleActivity extends AppCompatActivity {
         hints = (TextView) findViewById(R.id.hints);
         answer = (EditText) findViewById(R.id.answer);
         chatButton = (ImageView) findViewById(R.id.chatButton);
-        disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
 
 
     }
@@ -162,13 +160,6 @@ public class meleegeneraleActivity extends AppCompatActivity {
             }
         });
 
-        disconnectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backToLogin();
-            }
-        });
-
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -238,11 +229,6 @@ public class meleegeneraleActivity extends AppCompatActivity {
             layoutDrawingView.setVisibility(View.VISIBLE);
 
         }
-    }
-
-    public void backToLogin(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 
     public void openChat(){

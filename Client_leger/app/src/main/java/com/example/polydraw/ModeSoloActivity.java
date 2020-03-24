@@ -29,7 +29,6 @@ public class ModeSoloActivity extends AppCompatActivity {
     TextView hints;
     EditText answer;
     private ImageView chatButton;
-    private ImageButton disconnectButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -48,7 +47,6 @@ public class ModeSoloActivity extends AppCompatActivity {
         hints = (TextView) findViewById(R.id.hints);
         answer = (EditText) findViewById(R.id.answer);
         chatButton = (ImageView) findViewById(R.id.chatButton);
-        disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
 
     }
 
@@ -61,13 +59,6 @@ public class ModeSoloActivity extends AppCompatActivity {
             }
         });
 
-        disconnectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backToLogin();
-            }
-        });
-
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,11 +66,6 @@ public class ModeSoloActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    public void backToLogin(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 
     public void openChat(){

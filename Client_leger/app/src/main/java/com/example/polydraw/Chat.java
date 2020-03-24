@@ -92,9 +92,6 @@ public class Chat extends Fragment {
             case R.id.item2:
                 Toast.makeText(getActivity(), "Item 2 selected", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.item3:
-                Toast.makeText(getActivity(), "Item 3 selected", Toast.LENGTH_SHORT).show();
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
