@@ -42,7 +42,7 @@
         <ImageButton
             android:id="@+id/profile"
             style="?android:attr/borderlessButtonStyle"
-            android:layout_marginTop="75dp"
+            android:layout_margin="75dp"
             android:layout_width="150dp"
             android:layout_height="150dp"
             tools:srcCompat="@tools:sample/avatars" />
