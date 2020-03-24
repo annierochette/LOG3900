@@ -113,36 +113,36 @@ namespace PolyPaint.VueModeles
            
         }
 
-        //public void AfficherTraitsClassique()
-        //{
-        //    StrokeCollection strokeCollections = Traits.Clone();
-        //    StylusPointCollection points = new StylusPointCollection();
+        public void AfficherTraitsClassique()
+        {
+            StrokeCollection strokeCollections = Traits.Clone();
+            StylusPointCollection points = new StylusPointCollection();
 
 
-        //    foreach (Stroke stroke in strokeCollections)
-        //    {
-        //        points.Add(stroke.StylusPoints);
-        //        StylusPointCollection first = new StylusPointCollection();
-        //        first.Add(points[0]);
-        //        Stroke newStroke = new Stroke(first);
-        //        DispatcherTimer timer = new DispatcherTimer();
-        //        timer.Interval = TimeSpan.FromMilliseconds(10);
-        //        timer.Start();
-        //        int index = 0;
-        //        timer.Tick += (s, a) =>
-        //        {
-        //            newStroke.StylusPoints.Insert(index, points[index]);
-        //            if (!NouveauxTraits.Contains(newStroke))
-        //            {
-        //                NouveauxTraits.Add(newStroke);
-        //            }
-        //            index++;
-        //            if (index >= points.Count) timer.Stop();
-        //        };
-        //    };
-      
+            foreach (Stroke stroke in strokeCollections)
+            {
+                points.Add(stroke.StylusPoints);
+                StylusPointCollection first = new StylusPointCollection();
+                first.Add(points[0]);
+                Stroke newStroke = new Stroke(first); // je ne veux pas avoir à luis passer first mais ça me force à lui passer qqch -.-
+                DispatcherTimer timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromMilliseconds(10);
+                timer.Start();
+                int index = 0;
+                timer.Tick += (s, a) =>
+                {
+                    newStroke.StylusPoints.Insert(index, points[index]);
+                    if (!NouveauxTraits.Contains(newStroke))
+                    {
+                        NouveauxTraits.Add(newStroke);
+                    }
+                    index++;
+                    if (index >= points.Count) timer.Stop();
+                };
+            };
 
-        //}
+
+        }
 
         private void ConvertDrawingToSVG(object sender)
         {

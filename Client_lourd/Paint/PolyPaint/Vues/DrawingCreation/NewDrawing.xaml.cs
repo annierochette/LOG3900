@@ -28,6 +28,7 @@ namespace PolyPaint.Vues
         {
 
             InitializeComponent();
+
         }
 
         private void DrawingWindow_Loaded(object sender, RoutedEventArgs e)
@@ -67,32 +68,32 @@ namespace PolyPaint.Vues
 
         private void confirm_drawing(object sender, RoutedEventArgs e)
         {
-            //((DrawingWindowViewModel)(this.DataContext)).AfficherTraitsClassique();
-            strokes = ((DrawingWindowViewModel)(this.DataContext)).Traits.Clone();
-            StylusPointCollection points = new StylusPointCollection();
+            ((DrawingWindowViewModel)(this.DataContext)).AfficherTraitsClassique();
+            //strokes = ((DrawingWindowViewModel)(this.DataContext)).Traits.Clone();
+            //StylusPointCollection points = new StylusPointCollection();
 
-            foreach (Stroke stroke in strokes)
-            {
-                points.Add(stroke.StylusPoints);
+            //foreach (Stroke stroke in strokes)
+            //{
+            //    points.Add(stroke.StylusPoints);
 
-                StylusPointCollection first = new StylusPointCollection();
-                first.Add(points[0]);
-                Stroke newStrokes = new Stroke(first);
-                DispatcherTimer timer = new DispatcherTimer();
-                timer.Interval = TimeSpan.FromMilliseconds(10);
-                timer.Start();
-                int index = 1;
-                timer.Tick += (s, a) =>
-                {
-                    newStrokes.StylusPoints.Insert(index, points[index]);
-                    if (!inkPresenter.Strokes.Contains(newStrokes))
-                        inkPresenter.Strokes.Add(newStrokes);
-                    index++;
+            //    StylusPointCollection first = new StylusPointCollection();
+            //    first.Add(points[0]);
+            //    Stroke newStrokes = new Stroke(first);
+            //    DispatcherTimer timer = new DispatcherTimer();
+            //    timer.Interval = TimeSpan.FromMilliseconds(10);
+            //    timer.Start();
+            //    int index = 1;
+            //    timer.Tick += (s, a) =>
+            //    {
+            //        newStrokes.StylusPoints.Insert(index, points[index]);
+            //        if (!inkPresenter.Strokes.Contains(newStrokes))
+            //            inkPresenter.Strokes.Add(newStrokes);
+            //        index++;
 
-                    if (index >= points.Count) timer.Stop();
-                };
+            //        if (index >= points.Count) timer.Stop();
+            //    };
 
-            };
+            //};
 
             inkPresenterBorder.Visibility = Visibility.Visible;
             inkCanvas.Visibility = Visibility.Hidden;
@@ -115,6 +116,12 @@ namespace PolyPaint.Vues
 
             modifyDrawing_button.Visibility = Visibility.Hidden;
             back_button.Visibility = Visibility.Visible;
+
+            if (((DrawingWindowViewModel)(DataContext)).Traits.Count != 0)
+                ((DrawingWindowViewModel)(DataContext)).Traits.Clear();
+            if (((DrawingWindowViewModel)(DataContext)).NouveauxTraits.Count != 0)
+                ((DrawingWindowViewModel)(DataContext)).NouveauxTraits.Clear();
+            strokes.Clear();
         }
 
         private List<string> getClues()
@@ -188,7 +195,10 @@ namespace PolyPaint.Vues
                 {
                     MessageBox.Show(ex.Message);
                 }
+
+                strokes.Clear();
             }
+        
         }
 
         public class Game
