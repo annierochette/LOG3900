@@ -14,36 +14,41 @@
         tools:context="com.example.polydraw.Menu"
         android:background="@color/colorPrimary">
 
-        <fragment
+            <ImageView
+                android:id="@+id/chatButton"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:background="@drawable/chat_foreground"
+                android:layout_toLeftOf="@id/logoutButton" />
+
+            <ImageButton
+                android:id="@+id/logoutButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@mipmap/logout_round"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"/>
+
+        <!--<fragment
             android:name="com.example.polydraw.Chat"
             android:id="@+id/chatFragment"
             android:layout_width="420dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"/>
+            android:layout_height="700dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"/>-->
 
-        <ImageButton
-            android:id="@+id/logoutButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/disconnect_button"
-            android:fontFamily="sans-serif-condensed"
-            android:textAllCaps="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="@android:color/white"
-            app:srcCompat="@android:drawable/ic_lock_power_off"
-            android:layout_toLeftOf="@id/chatFragment"
-            android:layout_margin="15dp"/>
 
         <ImageButton
             android:id="@+id/profile"
             style="?android:attr/borderlessButtonStyle"
-            android:layout_marginTop="75dp"
+            android:layout_margin="75dp"
             android:layout_width="150dp"
             android:layout_height="150dp"
             tools:srcCompat="@tools:sample/avatars" />
 
         <LinearLayout
-            android:layout_width="610dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">

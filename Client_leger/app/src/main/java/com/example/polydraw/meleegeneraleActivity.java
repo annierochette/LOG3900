@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
     ImageButton sendAnswer;
     TextView hints;
     EditText answer;
+    private ImageView chatButton;
 
     Boolean guessingView = false;
 
@@ -71,6 +73,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
         sendAnswer = (ImageButton) findViewById(R.id.sendAnswer);
         hints = (TextView) findViewById(R.id.hints);
         answer = (EditText) findViewById(R.id.answer);
+        chatButton = (ImageView) findViewById(R.id.chatButton);
 
 
     }
@@ -157,6 +160,13 @@ public class meleegeneraleActivity extends AppCompatActivity {
             }
         });
 
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openChat();
+            }
+        });
+
     }
 
     public void openColorPicker() {
@@ -219,5 +229,10 @@ public class meleegeneraleActivity extends AppCompatActivity {
             layoutDrawingView.setVisibility(View.VISIBLE);
 
         }
+    }
+
+    public void openChat(){
+        Intent intent = new Intent(this, ChatBoxActivity.class);
+        startActivity(intent);
     }
 }

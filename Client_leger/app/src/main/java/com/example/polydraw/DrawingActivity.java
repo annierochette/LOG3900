@@ -13,12 +13,10 @@ import android.os.Environment;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -42,6 +40,8 @@ public class DrawingActivity extends AppCompatActivity {
     SeekBar seekBar;
     TextView seekBarText;
     ImageButton download;
+    private Button backButton;
+    private ImageView chatButton;
 
     ConstraintLayout mLayout;
     int mDefaultColor;
@@ -67,6 +67,8 @@ public class DrawingActivity extends AppCompatActivity {
         seekBar = (SeekBar) findViewById(R.id.seekBar);
         seekBarText = (TextView) findViewById(R.id.sbTextView);
         download = (ImageButton) findViewById(R.id.download);
+        backButton = (Button) findViewById(R.id.backButton);
+        chatButton = (ImageView) findViewById(R.id.chatButton);
 
     }
 
@@ -250,6 +252,16 @@ public class DrawingActivity extends AppCompatActivity {
             }
         });
         popup.show();
+    }
+
+    public void backToMenu() {
+        Intent intent = new Intent(this, Menu.class);
+        startActivity(intent);
+    }
+
+    public void openChat(){
+        Intent intent = new Intent(this, ChatBoxActivity.class);
+        startActivity(intent);
     }
 }
 
