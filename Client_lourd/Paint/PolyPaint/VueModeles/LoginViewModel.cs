@@ -15,6 +15,7 @@ namespace PolyPaint.VueModeles
 
         private ICommand _goToLoginWindow;
         private ICommand _goToSignInWindow;
+        private ICommand _goToMainWindow;
 
         public LoginControlViewModel()
         {
@@ -85,7 +86,7 @@ namespace PolyPaint.VueModeles
             {
                 return _goToLoginWindow ?? (_goToLoginWindow = new RelayCommand(x =>
                 {
-                    Mediator.Notify("GoToSignInWindow", "");
+                    Mediator.Notify("GoToLoginWindow", "");
                 }));
             }
 
@@ -103,7 +104,6 @@ namespace PolyPaint.VueModeles
 
         }
 
-        private ICommand _goToMainWindow;
 
         public ICommand GoToMainWindow
         {
@@ -123,15 +123,15 @@ namespace PolyPaint.VueModeles
 
     public class SignInViewModel : BaseViewModel, IPageViewModel
     {
-        private ICommand _goToMainWindow;
+        private ICommand _goToLoginWindow;
 
-        public ICommand GoToMainWindow
+        public ICommand GoToLoginWindow
         {
             get
             {
-                return _goToMainWindow ?? (_goToMainWindow = new RelayCommand(x =>
+                return _goToLoginWindow ?? (_goToLoginWindow = new RelayCommand(x =>
                 {
-                    Mediator.Notify("GoToMainWindow", "");
+                    Mediator.Notify("GoToLoginWindow", "");
                 }));
             }
         }

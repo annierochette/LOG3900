@@ -114,8 +114,8 @@ namespace PolyPaint.VueModeles
 
             Mediator.Subscribe("GoToGameMenu", OnGoToGameMenu);
             Mediator.Subscribe("GoToUserProfile", OnGoToUserProfile);
-            Mediator.Subscribe("GoToLoginWindow", OnGoToLoginWindow);
-            Mediator.Subscribe("GoToSignInWindow", OnGoToSignInWindow);
+            Mediator.Subscribe("GoToLogin", OnGoToLoginWindow);
+            Mediator.Subscribe("GoToSignIn", OnGoToSignInWindow);
             Mediator.Subscribe("GoToGameModeMenu", OnGoToGameModeMenu);
             Mediator.Subscribe("GoToDrawingWindow", OnGoToDrawingWindow);
             Mediator.Subscribe("GoToGuessingView", OnGoToGuessingView);

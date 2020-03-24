@@ -31,7 +31,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="6" >
+        <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="7" Height="355" Margin="0,0.4,0,0" VerticalAlignment="Top" >
             <TextBlock Margin="0,3,0,9" TextWrapping="Wrap" VerticalAlignment="Top" Height="49" FontSize="30" FontWeight="Bold" Foreground="#FF35457C"><Run Text="      "/><Run Text="INSCRIPTION"/></TextBlock>
             <TextBox x:Name="surnameBox" Height="38" Margin="45,-3,45,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="surnameBox_TextChanged" FontSize="18" BorderThickness="0,1,1,1" RenderTransformOrigin="0.5,0.5"/>
             <TextBox x:Name="nameBox" Height="36" Margin="45,13,45,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="nameBox_TextChanged" FontSize="18" RenderTransformOrigin="0.5,0.5"/>
@@ -40,7 +40,7 @@
 
             <PasswordBox x:Name="passBox" Margin="45,13,45,0" VerticalAlignment="Top" Height="36"  PasswordChanged="passBox_PasswordChanged" FontSize="18"/>
             <PasswordBox x:Name="rePassBox" Margin="45,16,45,0" VerticalAlignment="Top" Height="36"  PasswordChanged="rePassBox_PasswordChanged" FontSize="18"/>
-            <Button x:Name="connection" Content="S'enregistrer" Click="UserSign" VerticalAlignment="Top" Command="{Binding GoToMainWindow}" Margin="90,7,90,0" Background="#FFFF7F11" FontFamily="Lucida Fax" FontWeight="Bold" Height="35"  />
+            <Button x:Name="connection" Content="S'enregistrer" Click="UserSign" VerticalAlignment="Top" Command="{Binding GoToLoginWindow}" Margin="90,7,90,0" Background="#FFFF7F11" FontFamily="Lucida Fax" FontWeight="Bold" Height="35"  />
             <TextBlock x:Name="tbsurname" HorizontalAlignment="Left"  Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Prénom" VerticalAlignment="Top" Margin="50,-280,0,0" Height="35" Width="205" FontSize="18"/>
             <TextBlock x:Name="tbname" HorizontalAlignment="Left"  Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Nom" VerticalAlignment="Top" Margin="49,-231,0,0" Height="30" Width="205" FontSize="18"/>
             <TextBlock x:Name="tbusername" HorizontalAlignment="Left"  Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Nom d'utilisateur" VerticalAlignment="Top" Margin="49,-177,0,0" Height="30" Width="205" FontSize="18"/>
