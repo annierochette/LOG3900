@@ -27,7 +27,8 @@
             android:hint="Nom d'utilisateur"
             android:includeFontPadding="false"
             android:paddingStart="5dp"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:textColor="@android:color/black"/>
 
         <EditText
             android:id="@+id/password"
@@ -39,7 +40,8 @@
             android:hint="Mot de passe"
             android:paddingStart="5dp"
             android:inputType="textPassword"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:textColor="@android:color/black"/>
 
         <Button
             android:id="@+id/enterapp"

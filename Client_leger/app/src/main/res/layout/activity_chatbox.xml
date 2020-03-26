@@ -11,15 +11,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
+        <Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorDarkBlue"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            android:text="Nom du chat"
-            app:titleTextColor="@android:color/white"/>
+            android:background="@color/colorPrimary"
+            android:title="Nom du canal"
+            android:titleTextColor="@android:color/white"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2">
+
+            <Button
+                android:id="@+id/channels"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:background="@drawable/back_button"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Canaux"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@android:color/white"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_gravity="end"
+                android:layout_margin="15dp" />
+
+        </Toolbar>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_weight="3"
@@ -48,7 +64,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:hint="Entrez votre message..." />
+                android:hint="Entrez votre message..."
+                android:textColor="@android:color/black"/>
 
             <Button
                 android:id="@+id/send"

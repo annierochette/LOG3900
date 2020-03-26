@@ -1,5 +1,6 @@
 package com.example.polydraw;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -31,11 +33,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChatBoxActivity extends AppCompatActivity {
+
     public RecyclerView myRecyclerView;
     public List<Message> MessageList;
     public ChatBoxAdapter chatBoxAdapter;
     public EditText messageTxt;
     public Button send;
+    Button channelsList;
 
     private Socket socket;
 
@@ -50,12 +54,7 @@ public class ChatBoxActivity extends AppCompatActivity {
 
         messageTxt = (EditText) findViewById(R.id.message);
         send = (Button) findViewById(R.id.send);
-
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(myToolbar);
-
-
-
+        channelsList = (Button) findViewById(R.id.channels);
 
         Bundle extras = getIntent().getExtras();
 
@@ -157,27 +156,13 @@ public class ChatBoxActivity extends AppCompatActivity {
             }
         });
 
-    }
+        channelsList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+        });
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.toolbar_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.item1:
-                Toast.makeText(this, "Canaux de discussion", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.item2:
-                Toast.makeText(this, "Liste d'amis", Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     @Override
@@ -185,6 +170,11 @@ public class ChatBoxActivity extends AppCompatActivity {
         super.onDestroy();
 
         socket.disconnect();
+    }
+
+    public void openDialog() {
+        ChatChannelsList exampleDialog = new ChatChannelsList();
+        exampleDialog.show(getSupportFragmentManager(), "example dialog");
     }
 
 }
