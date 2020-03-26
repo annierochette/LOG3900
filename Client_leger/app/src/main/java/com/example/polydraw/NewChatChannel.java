@@ -17,6 +17,7 @@ public class NewChatChannel extends AppCompatDialogFragment {
 
 
     private EditText editChannel;
+    String newChannelName;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class NewChatChannel extends AppCompatDialogFragment {
                 .setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String channel = editChannel.getText().toString();
+                        newChannelName = editChannel.getText().toString();
                     }
                 });
 

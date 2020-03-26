@@ -9,9 +9,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -40,7 +42,9 @@ public class ChatBoxActivity extends AppCompatActivity {
     public ChatBoxAdapter chatBoxAdapter;
     public EditText messageTxt;
     public Button send;
-    ImageButton channelsList;
+    ImageButton addChannel;
+    List<Message> channelsList;
+    public ListView channelsRecyclerView;
 
     private Socket socket;
 
@@ -55,7 +59,7 @@ public class ChatBoxActivity extends AppCompatActivity {
 
         messageTxt = (EditText) findViewById(R.id.message);
         send = (Button) findViewById(R.id.send);
-        channelsList = (ImageButton) findViewById(R.id.channels);
+        addChannel = (ImageButton) findViewById(R.id.addChannel);
 
         Bundle extras = getIntent().getExtras();
 
@@ -75,11 +79,17 @@ public class ChatBoxActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-       MessageList = new ArrayList<>();
+        MessageList = new ArrayList<>();
         myRecyclerView = (RecyclerView) findViewById(R.id.messagelist);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         myRecyclerView.setLayoutManager(mLayoutManager);
         myRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        String[] availableChannels = {"Général"};
+        channelsList = new ArrayList<>();
+        channelsRecyclerView = (ListView) findViewById(R.id.channelsList);
+        ArrayAdapter<String> adapter;
+
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,10 +167,10 @@ public class ChatBoxActivity extends AppCompatActivity {
             }
         });
 
-        channelsList.setOnClickListener(new View.OnClickListener() {
+        addChannel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog();
+                openAddChannelDialog();
             }
         });
 
@@ -173,7 +183,7 @@ public class ChatBoxActivity extends AppCompatActivity {
         socket.disconnect();
     }
 
-    public void openDialog() {
+    public void openAddChannelDialog() {
         NewChatChannel newChatChannelDialog = new NewChatChannel();
         newChatChannelDialog.show(getSupportFragmentManager(), "example dialog");
     }
