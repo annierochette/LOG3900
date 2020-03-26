@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -39,7 +40,7 @@ public class ChatBoxActivity extends AppCompatActivity {
     public ChatBoxAdapter chatBoxAdapter;
     public EditText messageTxt;
     public Button send;
-    Button channelsList;
+    ImageButton channelsList;
 
     private Socket socket;
 
@@ -54,7 +55,7 @@ public class ChatBoxActivity extends AppCompatActivity {
 
         messageTxt = (EditText) findViewById(R.id.message);
         send = (Button) findViewById(R.id.send);
-        channelsList = (Button) findViewById(R.id.channels);
+        channelsList = (ImageButton) findViewById(R.id.channels);
 
         Bundle extras = getIntent().getExtras();
 
@@ -173,8 +174,8 @@ public class ChatBoxActivity extends AppCompatActivity {
     }
 
     public void openDialog() {
-        ChatChannelsList exampleDialog = new ChatChannelsList();
-        exampleDialog.show(getSupportFragmentManager(), "example dialog");
+        NewChatChannel newChatChannelDialog = new NewChatChannel();
+        newChatChannelDialog.show(getSupportFragmentManager(), "example dialog");
     }
 
 }
