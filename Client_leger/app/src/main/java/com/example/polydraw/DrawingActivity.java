@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ public class DrawingActivity extends AppCompatActivity {
     TextView seekBarText;
     private Button backButton;
     private ImageView chatButton;
+    ImageButton download;
 
     ConstraintLayout mLayout;
     int mDefaultColor;
@@ -52,8 +54,6 @@ public class DrawingActivity extends AppCompatActivity {
         mDefaultColor = ContextCompat.getColor(DrawingActivity.this, R.color.colorPrimary);
         seekBar = (SeekBar) findViewById(R.id.seekBar);
         seekBarText = (TextView) findViewById(R.id.sbTextView);
-        backButton = (Button) findViewById(R.id.backButton);
-        chatButton = (ImageView) findViewById(R.id.chatButton);
 
     }
 
@@ -135,6 +135,13 @@ public class DrawingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openChat();
+            }
+        });
+
+        download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
