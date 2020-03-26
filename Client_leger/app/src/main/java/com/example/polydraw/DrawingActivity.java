@@ -127,7 +127,7 @@ public class DrawingActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                backToMenu();
+                backToPlayMenu();
             }
         });
 
@@ -185,8 +185,8 @@ public class DrawingActivity extends AppCompatActivity {
         popup.show();
     }
 
-    public void backToMenu() {
-        Intent intent = new Intent(this, Menu.class);
+    public void backToPlayMenu() {
+        Intent intent = new Intent(this, PlayMenu.class);
         startActivity(intent);
     }
 

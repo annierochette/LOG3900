@@ -50,7 +50,7 @@ public class PlayMenu extends AppCompatActivity {
         soloButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToSoloGameMenu();
+                playSoloGame();
             }
         });
 
@@ -89,8 +89,8 @@ public class PlayMenu extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void goToSoloGameMenu(){
-        Intent intent = new Intent(this, ModeSoloMenu.class);
+    public void playSoloGame(){
+        Intent intent = new Intent(this, ModeSoloActivity.class);
         startActivity(intent);
     }
 
