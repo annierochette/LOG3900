@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -146,7 +147,7 @@ public class DrawingActivity extends AppCompatActivity {
                 File folder = getDir(Environment.DIRECTORY_PICTURES, Context.MODE_PRIVATE);
                 boolean success = false;
 
-                if(!folder.exists()){
+                if (!folder.exists()) {
                     success = folder.mkdirs();
                 }
 
@@ -155,11 +156,12 @@ public class DrawingActivity extends AppCompatActivity {
                 Random random = new Random();
                 int randomInteger = random.nextInt();
 
-                File file = new File(folder,"drawing" + randomInteger + ".txt");
+                File file = new File(folder, "drawing" + randomInteger + ".txt");
 
-                if(!file.exists()){
-                    try {success = file.createNewFile();
-                    } catch(IOException e) {
+                if (!file.exists()) {
+                    try {
+                        success = file.createNewFile();
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
@@ -192,20 +194,38 @@ public class DrawingActivity extends AppCompatActivity {
 //
 //                    save.compress(Bitmap.CompressFormat.PNG, 100, ostream);
 
-                } catch(NullPointerException e){
+                } catch (NullPointerException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "Null error", Toast.LENGTH_SHORT).show();
-                } catch(FileNotFoundException e){
+                } catch (FileNotFoundException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "File error", Toast.LENGTH_SHORT).show();
-                }
-                catch(IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "IO error", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backToPlayMenu();
+            }
+        });
+
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openChat();
+            }
+        });
+
+        download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
             }
-
         });
     }
 
@@ -255,8 +275,8 @@ public class DrawingActivity extends AppCompatActivity {
         popup.show();
     }
 
-    public void backToMenu() {
-        Intent intent = new Intent(this, Menu.class);
+    public void backToPlayMenu() {
+        Intent intent = new Intent(this, PlayMenu.class);
         startActivity(intent);
     }
 
