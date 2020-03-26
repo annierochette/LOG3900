@@ -334,5 +334,11 @@
   <ItemGroup>
     <Resource Include="Vues\Login\circle-cropped.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\DrawingCreation\up-chevron.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\DrawingCreation\chevron-down.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
