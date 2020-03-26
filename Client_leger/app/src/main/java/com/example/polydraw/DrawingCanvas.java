@@ -1,6 +1,7 @@
 package com.example.polydraw;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -34,6 +35,9 @@ public class DrawingCanvas extends View {
 
     private Socket socket;
     private String http = "http://192.168.2.194:5050";
+    public Canvas mCanvas;
+    public Bitmap mBitmap;
+    private Paint mBitmapPaint;
 
     public DrawingCanvas (Context context, AttributeSet attrs){
         super(context,attrs);
@@ -44,6 +48,9 @@ public class DrawingCanvas extends View {
         setFocusableInTouchMode(true);
         setBackgroundColor(Color.TRANSPARENT);
         setLayerType(LAYER_TYPE_HARDWARE, null);
+        mBitmapPaint = new Paint(Paint.DITHER_FLAG);
+
+    }
 
         try{
             socket = IO.socket(http);
@@ -54,6 +61,11 @@ public class DrawingCanvas extends View {
             e.printStackTrace();
         }
 
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        mBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        mCanvas = new Canvas(mBitmap);
     }
 
     @Override
@@ -64,6 +76,7 @@ public class DrawingCanvas extends View {
                     Path path = stroke.getPath();
                     Paint painter = stroke.getPaint();
                     if ((path != null) && (painter != null)) {
+                        canvas.drawBitmap(mBitmap, 0,0, mBitmapPaint);
                         canvas.drawPath(path, painter);
                     }
                 }
@@ -225,5 +238,15 @@ public class DrawingCanvas extends View {
             capOption = Paint.Cap.SQUARE;
         }
 
+    }
+
+    public Bitmap getBitmap(){
+
+        this.setDrawingCacheEnabled(true);
+        this.buildDrawingCache();
+        Bitmap bmp = Bitmap.createBitmap(this.getDrawingCache());
+        this.setDrawingCacheEnabled(false);
+
+        return bmp;
     }
 }

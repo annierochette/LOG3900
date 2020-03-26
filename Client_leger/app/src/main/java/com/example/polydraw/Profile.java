@@ -14,6 +14,7 @@ public class Profile extends AppCompatActivity {
 
     private Button backButton;
     private ImageButton disconnectButton;
+    private ImageView chatButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,13 @@ public class Profile extends AppCompatActivity {
                 backToLogin();
             }
         });
+
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openChat();
+            }
+        });
     }
 
     public void backToMenu(){
@@ -46,6 +54,11 @@ public class Profile extends AppCompatActivity {
 
     public void backToLogin(){
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void openChat(){
+        Intent intent = new Intent(this, ChatBoxActivity.class);
         startActivity(intent);
     }
 }

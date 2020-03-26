@@ -1,6 +1,7 @@
 package com.example.polydraw;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import android.view.Menu;
@@ -38,8 +39,9 @@ public class ChatBoxActivity extends AppCompatActivity {
 
     private Socket socket;
 
-    public String Username;
-    public String IpAddress;
+    public String Username = MainActivity.USERNAME;
+    public String IpAddress = "192.168.0.232";
+    public String channel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,20 +53,18 @@ public class ChatBoxActivity extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
-        ab.setTitle("Messagerie");
+
 
 
 
         Bundle extras = getIntent().getExtras();
 
-        Username = "user1";//(String) extras.getString(MainActivity.USERNAME);
-        //IpAddress = (String) extras.getString(MainActivity.IP_ADDRESS);
+//        Username = (String) extras.getString(MainActivity.USERNAME);
+//        IpAddress = (String) extras.getString(MainActivity.IP_ADDRESS);
 
         try {
 
-            socket = IO.socket("//https://fais-moi-un-dessin.herokuapp.com/"); //https://fais-moi-un-dessin.herokuapp.com/"
+            socket = IO.socket("http://"+IpAddress+":5050"); //https://fais-moi-un-dessin.herokuapp.com/"
 
             socket.connect();
 
@@ -86,7 +86,7 @@ public class ChatBoxActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!messageTxt.getText().toString().trim().isEmpty() && !messageTxt.getText().toString().isEmpty()) {
 
-                    socket.emit("chat message", Username, messageTxt.getText().toString());
+                    socket.emit("chat message", Username, "General", messageTxt.getText().toString());
                     messageTxt.setText(" ");
                 }
             }
@@ -166,18 +166,14 @@ public class ChatBoxActivity extends AppCompatActivity {
         return true;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item1:
-                Toast.makeText(this, "Item 1 selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Canaux de discussion", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.item2:
-                Toast.makeText(this, "Item 2 selected", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.item3:
-                Toast.makeText(this, "Item 3 selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Liste d'amis", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

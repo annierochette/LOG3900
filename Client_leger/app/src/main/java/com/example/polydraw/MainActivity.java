@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText username;
     private Button signupButton;
     private EditText password;
+    private String finalUsername;
     public static final String USERNAME = "username";
     public static final String IP_ADDRESS = "ipAddress";
     public static final String PASSWORD = "password";

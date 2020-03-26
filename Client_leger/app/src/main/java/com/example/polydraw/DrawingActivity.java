@@ -1,20 +1,33 @@
 package com.example.polydraw;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Random;
 
 import yuku.ambilwarna.AmbilWarnaDialog; //https://codinginflow.com/tutorials/android/ambilwarna-color-picker-dialog
 //seekbar https://www.tutlane.com/tutorial/android/android-seekbar-with-examples
@@ -27,6 +40,9 @@ public class DrawingActivity extends AppCompatActivity {
     Button capStyle;
     SeekBar seekBar;
     TextView seekBarText;
+    ImageButton download;
+    private Button backButton;
+    private ImageView chatButton;
 
     ConstraintLayout mLayout;
     int mDefaultColor;
@@ -39,7 +55,6 @@ public class DrawingActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         initializeObject();
         eventListeners();
-
     }
 
     private void initializeObject(){
@@ -52,6 +67,9 @@ public class DrawingActivity extends AppCompatActivity {
         mDefaultColor = ContextCompat.getColor(DrawingActivity.this, R.color.colorPrimary);
         seekBar = (SeekBar) findViewById(R.id.seekBar);
         seekBarText = (TextView) findViewById(R.id.sbTextView);
+        download = (ImageButton) findViewById(R.id.download);
+        backButton = (Button) findViewById(R.id.backButton);
+        chatButton = (ImageView) findViewById(R.id.chatButton);
 
     }
 
@@ -121,6 +139,93 @@ public class DrawingActivity extends AppCompatActivity {
                 seekBarText.setText(pval + "/" + seekBar.getMax());
             }
         });
+
+        download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                File folder = getDir(Environment.DIRECTORY_PICTURES, Context.MODE_PRIVATE);
+                boolean success = false;
+
+                if (!folder.exists()) {
+                    success = folder.mkdirs();
+                }
+
+                System.out.println(success + " folder");
+
+                Random random = new Random();
+                int randomInteger = random.nextInt();
+
+                File file = new File(folder, "drawing" + randomInteger + ".txt");
+
+                if (!file.exists()) {
+                    try {
+                        success = file.createNewFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println(success + " file");
+
+                FileOutputStream ostream = null;
+                String content = "Content of the file";
+
+                try {
+                    ostream = new FileOutputStream(file);
+
+                    byte[] contentBytes = content.getBytes();
+
+                    ostream.write(contentBytes);
+                    ostream.flush();
+                    ostream.close();
+
+//                    System.out.println(ostream);
+//                    View targetView = drawingCanvas;
+//
+//                    Bitmap well = drawingCanvas.getBitmap();
+//                    Bitmap save = Bitmap.createBitmap(320, 480, Bitmap.Config.ARGB_8888);
+//
+//                    Paint paint = new Paint();
+//                    paint.setColor(Color.WHITE);
+//
+//                    Canvas now = new Canvas(save);
+//                    now.drawRect(new Rect(0, 0, 320, 480), paint);
+//                    now.drawBitmap(well, new Rect(0, 0, well.getWidth(), well.getHeight()), new Rect(0, 0, 320, 480), null);
+//
+//                    save.compress(Bitmap.CompressFormat.PNG, 100, ostream);
+
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Null error", Toast.LENGTH_SHORT).show();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "File error", Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "IO error", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backToPlayMenu();
+            }
+        });
+
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openChat();
+            }
+        });
+
+        download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     public void openColorPicker() {
@@ -167,6 +272,16 @@ public class DrawingActivity extends AppCompatActivity {
             }
         });
         popup.show();
+    }
+
+    public void backToPlayMenu() {
+        Intent intent = new Intent(this, PlayMenu.class);
+        startActivity(intent);
+    }
+
+    public void openChat(){
+        Intent intent = new Intent(this, ChatBoxActivity.class);
+        startActivity(intent);
     }
 }
 

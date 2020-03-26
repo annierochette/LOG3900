@@ -16,6 +16,7 @@ public class PlayMenu extends AppCompatActivity {
     private Button soloButton;
     private Button freeButton;
     private ImageButton disconnectButton;
+    private ImageView chatButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class PlayMenu extends AppCompatActivity {
         soloButton = (Button) findViewById(R.id.soloButton);
         freeButton = (Button) findViewById(R.id.freeButton);
         disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
+        chatButton = (ImageView) findViewById(R.id.chatButton);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +48,7 @@ public class PlayMenu extends AppCompatActivity {
         soloButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToSoloGameMenu();
+                playSoloGame();
             }
         });
 
@@ -64,6 +66,13 @@ public class PlayMenu extends AppCompatActivity {
             }
         });
 
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openChat();
+            }
+        });
+
         }
 
 
@@ -74,11 +83,11 @@ public class PlayMenu extends AppCompatActivity {
     }
 
     public void goToMultiplayerGameMenu(){
-        Intent intent = new Intent(this, meleegeneraleActivity.class);
+        Intent intent = new Intent(this, MeleeGeneraleMenuActivity.class);
         startActivity(intent);
     }
 
-    public void goToSoloGameMenu(){
+    public void playSoloGame(){
         Intent intent = new Intent(this, ModeSoloActivity.class);
         startActivity(intent);
     }
@@ -90,6 +99,11 @@ public class PlayMenu extends AppCompatActivity {
 
     public void backToLogin(){
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void openChat(){
+        Intent intent = new Intent(this, ChatBoxActivity.class);
         startActivity(intent);
     }
 }

@@ -12,12 +12,12 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimary">
 
-        <fragment
+        <!--<fragment
             android:name="com.example.polydraw.Chat"
             android:id="@+id/chatFragment"
             android:layout_width="420dp"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"/>-->
 
         <Button
             android:id="@+id/backButton"
@@ -33,21 +33,24 @@
             android:layout_alignParentLeft="true"
             android:layout_margin="15dp"/>
 
+        <ImageView
+            android:id="@+id/chatButton"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:background="@drawable/chat_foreground"
+            android:layout_toLeftOf="@id/logoutButton" />
+
         <ImageButton
             android:id="@+id/logoutButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/disconnect_button"
-            android:fontFamily="sans-serif-condensed"
-            android:textAllCaps="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="@android:color/white"
-            app:srcCompat="@android:drawable/ic_lock_power_off"
-            android:layout_toLeftOf="@id/chatFragment"
-            android:layout_margin="15dp"/>
+            android:background="@mipmap/logout_round"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"/>
 
         <LinearLayout
-            android:layout_width="610dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center">
