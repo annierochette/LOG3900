@@ -194,7 +194,7 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
                             String result = newChannelName.getText().toString();
                             availableChannels.add(result);
                             arrayAdapter.notifyDataSetChanged();
-                            Toast.makeText(ChatBoxActivity.this, "Le canal a été créé", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ChatBoxActivity.this, "Le canal '"+ result +"' a été créé", Toast.LENGTH_SHORT).show();
                             //dismiss dialog once item is added successfully
                             dialog.dismiss();
                         }
@@ -207,38 +207,11 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
                 cancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog.cancel();
+                        dialog.dismiss();
                     }
                 });
             }
         });
-
-        /*AlertDialog.Builder mBuilder = new AlertDialog.Builder(ChatBoxActivity.this);
-        View mView = getLayoutInflater().inflate(R.layout.new_channel_dialog,null);
-        final EditText mUser = (EditText) mView.findViewById(R.id.new_channel);
-
-        Button mAdd = (Button) mView.findViewById(R.id.addButton);
-        mBuilder.setView(mView);
-        //create dialog instance here, so that it can be dismissed from within the OnClickListener callback
-        final AlertDialog dialog = mBuilder.create();
-
-        mAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!mUser.getText().toString().isEmpty()) {
-                    // Instead of et.getText(), call mUser.getText()
-                    String result = mUser.getText().toString();
-                    availableChannels.add(result);
-                    arrayAdapter.notifyDataSetChanged();
-                    Toast.makeText(ChatBoxActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                    //dismiss dialog once item is added successfully
-                    dialog.dismiss();
-                } else {
-                    Toast.makeText(ChatBoxActivity.this, "Error pls Write", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });*/
-
     }
 
     @Override
