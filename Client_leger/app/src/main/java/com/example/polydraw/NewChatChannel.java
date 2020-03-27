@@ -35,26 +35,8 @@ public class NewChatChannel extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.new_channel_dialog, null);
 
         builder.setView(view)
-                .setTitle("Nouveau canal de discussion")
-                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                .setTitle("Nouveau canal de discussion");
 
-                    }
-                })
-                .setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if(!editChannel.getText().toString().isEmpty()){
-                            newChannelName = editChannel.getText().toString();
-                            listener.addChannel(newChannelName);
-                            Toast.makeText(getContext(), "Le canal '" + newChannelName + "' a été créé", Toast.LENGTH_LONG).show();
-                        }
-                        else{
-                            Toast.makeText(getContext(), "Veuillez écrire un nom de canal", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
 
         editChannel = view.findViewById(R.id.new_channel);
 

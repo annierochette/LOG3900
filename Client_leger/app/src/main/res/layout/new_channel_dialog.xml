@@ -10,5 +10,28 @@
         android:layout_height="wrap_content"
         android:hint="Nom du canal" />
 
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/new_channel"
+        android:layout_marginTop="4dp"
+        android:background="@color/colorGreen"
+        android:text="Ajouter"
+        android:textColor="@android:color/white"
+        android:layout_alignParentRight="true"/>
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/new_channel"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/holo_red_light"
+        android:text="Annuler"
+        android:textColor="@android:color/white"
+        android:layout_toLeftOf="@id/addButton"
+        android:layout_marginRight="10dp"/>
+
 
 </RelativeLayout>
