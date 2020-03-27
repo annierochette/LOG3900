@@ -33,9 +33,10 @@ import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class ChatBoxActivity extends AppCompatActivity {
+public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel.NewChatChannelListener {
 
     public RecyclerView myRecyclerView;
     public List<Message> MessageList;
@@ -43,14 +44,14 @@ public class ChatBoxActivity extends AppCompatActivity {
     public EditText messageTxt;
     public Button send;
     ImageButton addChannel;
-    List<Message> channelsList;
     public ListView channelsRecyclerView;
 
     private Socket socket;
 
     public String Username = MainActivity.USERNAME;
     public String IpAddress = "192.168.0.232";
-    public String channel;
+    public String channelName;
+    String[] channels = {"Général"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class ChatBoxActivity extends AppCompatActivity {
         messageTxt = (EditText) findViewById(R.id.message);
         send = (Button) findViewById(R.id.send);
         addChannel = (ImageButton) findViewById(R.id.addChannel);
+        ListView lv = (ListView) findViewById(R.id.channelsList);
 
         Bundle extras = getIntent().getExtras();
 
@@ -85,10 +87,12 @@ public class ChatBoxActivity extends AppCompatActivity {
         myRecyclerView.setLayoutManager(mLayoutManager);
         myRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        String[] availableChannels = {"Général"};
-        channelsList = new ArrayList<>();
+//        String[] channels = {"Général"};
         channelsRecyclerView = (ListView) findViewById(R.id.channelsList);
-        ArrayAdapter<String> adapter;
+        final List<String> availableChannels = new ArrayList<String>(Arrays.asList(channels));
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, availableChannels);
+
+        lv.setAdapter(arrayAdapter);
 
 
         send.setOnClickListener(new View.OnClickListener() {
@@ -188,4 +192,10 @@ public class ChatBoxActivity extends AppCompatActivity {
         newChatChannelDialog.show(getSupportFragmentManager(), "example dialog");
     }
 
+    @Override
+    public void addChannel(String channel) {
+        messageTxt.setText(channel);
+        //code pour ajouter nouveau canal a la liste
+
+    }
 }
