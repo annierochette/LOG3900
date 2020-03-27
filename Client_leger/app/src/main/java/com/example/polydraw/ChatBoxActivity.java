@@ -47,6 +47,7 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
     public Button send;
     ImageButton addChannel;
     public ListView channelsRecyclerView;
+    public ChatChannelAdapter chatChannelAdapter;
 
     private Socket socket;
 
