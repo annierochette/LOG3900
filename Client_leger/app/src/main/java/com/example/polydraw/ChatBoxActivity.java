@@ -179,11 +179,9 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(ChatBoxActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.new_channel_dialog,null);
                 final EditText newChannelName = (EditText) mView.findViewById(R.id.new_channel);
-
                 Button addButton = (Button) mView.findViewById(R.id.addButton);
                 Button cancelButton = (Button) mView.findViewById(R.id.cancelButton);
                 mBuilder.setView(mView);
-                //create dialog instance here, so that it can be dismissed from within the OnClickListener callback
                 final AlertDialog dialog = mBuilder.create();
                 dialog.show();
 
@@ -221,15 +219,9 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         socket.disconnect();
     }
 
-    public void openAddChannelDialog() {
-        NewChatChannel newChatChannelDialog = new NewChatChannel();
-        newChatChannelDialog.show(getSupportFragmentManager(), "example dialog");
-    }
-
     @Override
     public void addChannel(String channel) {
         messageTxt.setText(channel);
-        //code pour ajouter nouveau canal a la liste
 
     }
 }
