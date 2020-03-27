@@ -35,7 +35,13 @@
             <DataTemplate DataType="{x:Type viewModel:FreeForAllViewModel}">
                 <view:FreeForAllWindow />
             </DataTemplate>
-           
+            <DataTemplate DataType="{x:Type viewModel:GameChoiceViewModel}">
+                <view:GameChoiceWindow />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:WaitingRoomViewModel}">
+                <view:WaitingRoomWindow />
+            </DataTemplate>
+
 
     </Application.Resources>
   

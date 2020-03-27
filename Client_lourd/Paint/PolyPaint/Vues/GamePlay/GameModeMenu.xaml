@@ -34,7 +34,7 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="5" >
             <Button Height="50" Width="220" Margin="20" Content="SPRINT SOLO" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToGuessingView}"/>
-            <Button Height="50" Width="220" Margin="20"  Content="MELEE GENERALE" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToFreeForAll}"/>
+            <Button Height="50" Width="220" Margin="20"  Content="MELEE GENERALE" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToGameChoice}"/>
             <Button Height="50" Width="220" Margin="20" Content="CHALLENGE" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToDrawingWindow}"/>
         </StackPanel>
         <Button x:Name="button" Content="RETOUR"  Width="75" Height="40" Command="{Binding GoToGameMenu}" RenderTransformOrigin="0.475,0.45" Grid.Row="10" Margin="25,0.2,0,0"/>

@@ -142,6 +142,8 @@
     <Compile Include="Utilitaires\Tool.cs" />
     <Compile Include="VueModeles\BaseViewModel.cs" />
     <Compile Include="VueModeles\FreeForAllViewModel.cs" />
+    <Compile Include="VueModeles\GameChoiceViewModel.cs" />
+    <Compile Include="VueModeles\WaitingRoomViewModel.cs" />
     <Compile Include="VueModeles\SignInViewModel.cs" />
     <Compile Include="VueModeles\GameCreatorViewModel.cs" />
     <Compile Include="VueModeles\GameMenuViewModel.cs" />
@@ -169,8 +171,14 @@
     <Compile Include="Vues\GameMenu.xaml.cs">
       <DependentUpon>GameMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vues\GamePlay\GameChoiceWindow.xaml.cs">
+      <DependentUpon>GameChoiceWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vues\GamePlay\GameModeMenu.xaml.cs">
       <DependentUpon>GameModeMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vues\GamePlay\WaitingRoomWindow.xaml.cs">
+      <DependentUpon>WaitingRoomWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vues\GamePlay\GuessingView.xaml.cs">
       <DependentUpon>GuessingView.xaml</DependentUpon>
@@ -235,7 +243,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Vues\GamePlay\GameChoiceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vues\GamePlay\GameModeMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vues\GamePlay\WaitingRoomWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
