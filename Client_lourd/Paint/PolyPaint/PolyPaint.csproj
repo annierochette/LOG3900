@@ -130,7 +130,7 @@
     <Compile Include="CustomControls\TimerControl.xaml.cs">
       <DependentUpon>TimerControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modeles\Drawing.cs" />
+    <Compile Include="Modeles\Word.cs" />
     <Compile Include="Modeles\Editeur.cs" />
     <Compile Include="Modeles\Message.cs" />
     <Compile Include="Utilitaires\AppSocket.cs" />
@@ -154,6 +154,9 @@
     <Compile Include="VueModeles\DrawingWindowViewModel.cs" />
     <Compile Include="Vues\DrawingCreation\NewGameForm.xaml.cs">
       <DependentUpon>NewGameForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vues\DrawingCreation\QuickDrawSuggestion.xaml.cs">
+      <DependentUpon>QuickDrawSuggestion.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vues\FenetreDessin.xaml.cs">
       <DependentUpon>FenetreDessin.xaml</DependentUpon>
@@ -222,6 +225,10 @@
     <Page Include="Vues\DrawingCreation\NewGameForm.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="Vues\DrawingCreation\QuickDrawSuggestion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vues\FenetreDessin.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -335,10 +342,10 @@
     <Resource Include="Vues\Login\circle-cropped.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Vues\DrawingCreation\up-chevron.png" />
+    <Resource Include="Vues\DrawingCreation\right-arrow.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Vues\DrawingCreation\chevron-down.png" />
+    <Resource Include="Vues\DrawingCreation\arrow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
