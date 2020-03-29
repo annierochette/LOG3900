@@ -112,8 +112,7 @@
             android:id="@+id/drawing"
             android:layout_width="808dp"
             android:layout_height="625dp"
-            android:layout_above="@+id/drawingToolbox"
-            android:background="#FFFFFFFF" />
+            android:layout_above="@+id/drawingToolbox"/>
 
         <LinearLayout
             android:layout_width="610dp"

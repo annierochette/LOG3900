@@ -30,9 +30,6 @@ public class GuessingCanvas extends View {
     private int capWidth = 5;
 
 
-    private Socket socket;
-    private String http = "http://192.168.2.194:5050";
-
     public GuessingCanvas (Context context, AttributeSet attrs){
         super(context,attrs);
         _allStroke = new ArrayList<Stroke>();
@@ -42,14 +39,6 @@ public class GuessingCanvas extends View {
         setBackgroundColor(Color.TRANSPARENT);
         setLayerType(LAYER_TYPE_HARDWARE, null);
 
-        try{
-            socket = IO.socket(http);
-            socket.connect();
-            socket.emit("connection");
-
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
 
     }
 

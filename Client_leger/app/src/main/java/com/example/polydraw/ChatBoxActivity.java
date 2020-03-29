@@ -40,7 +40,7 @@ public class ChatBoxActivity extends AppCompatActivity {
     private Socket socket;
 
     public String Username = MainActivity.USERNAME;
-    public String IpAddress = "192.168.0.232";
+    public String IpAddress = "192.168.0.233";
     public String channel;
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.polydraw;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -39,6 +40,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
     public ImageButton sendAnswer;
     public TextView hints;
     public EditText answer;
+    public ImageView chatButton;
 
     public Boolean guessingView = false;
 
@@ -51,12 +53,12 @@ public class meleegeneraleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
         drawingCanvas = new DrawingCanvas(this,null);
         setContentView(R.layout.activity_meleegenerale);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         initializeObject();
         eventListeners();
-
 
     }
 

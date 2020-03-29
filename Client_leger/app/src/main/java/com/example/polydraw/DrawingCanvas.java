@@ -16,6 +16,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.polydraw.Socket.SocketIO;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 
@@ -33,8 +34,8 @@ public class DrawingCanvas extends View {
     private Paint.Cap capOption = Paint.Cap.SQUARE;
     private int capWidth = 5;
 
-    private Socket socket;
-    private String http = "http://192.168.2.194:5050";
+    private SocketIO socket;
+
     public Canvas mCanvas;
     public Bitmap mBitmap;
     private Paint mBitmapPaint;
@@ -44,22 +45,17 @@ public class DrawingCanvas extends View {
         _allStroke = new ArrayList<Stroke>();
         activeStrokes = new SparseArray<Stroke>();
         _allPoints = new ArrayList<Point>();
+        socket = new SocketIO();
+        socket.initInstance("1234");
+
         setFocusable(true);
         setFocusableInTouchMode(true);
         setBackgroundColor(Color.TRANSPARENT);
         setLayerType(LAYER_TYPE_HARDWARE, null);
         mBitmapPaint = new Paint(Paint.DITHER_FLAG);
 
+
     }
-
-        try{
-            socket = IO.socket(http);
-            socket.connect();
-            socket.emit("connection");
-
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -149,7 +145,7 @@ public class DrawingCanvas extends View {
         _allPoints.add(pt);
 
         if(_allPoints.size() == 100){
-            socket.emit("draw", "General", _allPoints);
+            socket.getSocket().emit("draw", "General", _allPoints);
             _allPoints = new ArrayList<Point>();
         }
 
@@ -165,9 +161,10 @@ public class DrawingCanvas extends View {
         if (stroke != null) {
             Point pt = new Point(x, y);
             stroke.addPoint(pt);
+            _allPoints.add(pt);
 
             if(_allPoints.size() == 100){
-                socket.emit("draw", "General", _allPoints);
+                socket.getSocket().emit("draw", "General", _allPoints);
                 _allPoints = new ArrayList<Point>();
             }
         }
