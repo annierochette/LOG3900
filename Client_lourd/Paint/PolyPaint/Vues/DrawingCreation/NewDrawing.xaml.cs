@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
@@ -13,10 +14,6 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Ink;
 using System.Windows.Input;
-using System.Windows.Interactivity;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace PolyPaint.Vues
@@ -89,29 +86,8 @@ namespace PolyPaint.Vues
         private void confirm_drawing(object sender, RoutedEventArgs e)
         {
             //((DrawingWindowViewModel)(this.DataContext)).AfficherTraitsClassique();
-            strokes = ((DrawingWindowViewModel)(DataContext)).Traits;
-            StylusPointCollection points = new StylusPointCollection();
-            
-            for (int i = 0; i < strokes.Count; i++)
-            {
-                points.Add(strokes[i].StylusPoints);
-                StylusPointCollection first = new StylusPointCollection();
-                first.Add(points[0]);
-                Stroke newStroke = new Stroke(first);
-                inkPresenter.Strokes.Add(newStroke);
-                DispatcherTimer timer = new DispatcherTimer();
-                timer.Interval = TimeSpan.FromMilliseconds(10);
-                timer.Start();
-                int index = 0;
-                timer.Tick += (s, a) =>
-                {
-                    StylusPoint point = points[index];
-                    inkPresenter.Strokes[i-1].StylusPoints.Add(point);
-                    index++;
-                    if (index >= points.Count) timer.Stop();
-                };
-                
-            };
+            afficherTraitsClassique();
+            //afficherTraitsAléatoire();
 
             inkPresenterBorder.Visibility = Visibility.Visible;
             inkCanvas.Visibility = Visibility.Hidden;
@@ -123,8 +99,84 @@ namespace PolyPaint.Vues
             back_button.Visibility = Visibility.Hidden;
         }
 
+        private void afficherTraitsClassique()
+        {
+            
+            strokes = ((DrawingWindowViewModel)(DataContext)).Traits;
+            var tasks = new List<Task<(int Index, bool IsDone)>>();
 
-    private void modifyDrawing_button_Click(object sender, RoutedEventArgs e)
+     
+            foreach (Stroke stroke in strokes)
+                 {
+                
+            
+                StylusPointCollection points = new StylusPointCollection();
+                Timer timer = new Timer();
+                timer.Interval = 10;
+                timer.Start();
+
+                int index = 0;
+
+                    timer.Tick += (s, a) =>
+                    {
+
+                        StylusPoint point = stroke.StylusPoints[index];
+                        var x = (float)point.X;
+                        var y = (float)point.Y;
+
+                        points.Add(new StylusPoint(x, y));
+
+                        inkPresenter.Strokes.Add(new Stroke(points));
+
+                        index++;
+                        if (index >= stroke.StylusPoints.Count)
+                        {
+                            timer.Stop();
+                           
+                        }
+                    };
+                
+                    
+                }
+            
+        }
+            
+        
+
+        //private void afficherTraitsAléatoire()
+        //{
+        //    Random r = new Random();
+        //    strokes = ((DrawingWindowViewModel)(DataContext)).Traits;
+        //    StylusPointCollection points = new StylusPointCollection();
+        //    for (int i = 0; i < strokes.Count; i++)
+        //    {
+        //        points.Add(strokes[i].StylusPoints);
+        //    }
+        //    StylusPointCollection first = new StylusPointCollection();
+        //    first.Add(points[0]);
+        //    Stroke newStroke = new Stroke(first);
+        //    inkPresenter.Strokes.Add(newStroke);
+        //    DispatcherTimer timer = new DispatcherTimer();
+        //    timer.Interval = TimeSpan.FromMilliseconds(10);
+          
+        //    foreach (int i in Enumerable.Range(0, points.Count).OrderBy(x => r.Next()))
+        //        {
+        //        timer.Start();
+        //        int index = 0;
+        //        timer.Tick += (s, a) =>
+        //        {
+        //            StylusPoint point = points[i];
+        //            inkPresenter.Strokes[0].StylusPoints.Add(point);
+        //            index++;
+        //            if (index >= points.Count) timer.Stop();
+        //        };
+
+        //    };
+        //}
+
+
+
+        private void modifyDrawing_button_Click(object sender, RoutedEventArgs e)
         {
             inkPresenterBorder.Visibility = Visibility.Hidden;
             inkCanvas.Visibility = Visibility.Visible;
