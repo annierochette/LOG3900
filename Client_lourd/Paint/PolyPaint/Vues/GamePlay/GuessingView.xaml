@@ -31,18 +31,20 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Column="0" Grid.ColumnSpan="9" Grid.Row="0" Grid.RowSpan="10" >
-            <InkCanvas ClipToBounds="True" Name="surfaceDessin" 
+        <Button x:Name="back" Background="Transparent" Command="{Binding GoToGameModeMenu}">
+            <Image Source="back.png" Stretch="Uniform"></Image></Button>
+        <StackPanel Grid.Column="1" Grid.ColumnSpan="7" Grid.Row="2" Grid.RowSpan="7" Background="#FFFDF9F9">
+            <InkPresenter ClipToBounds="True" Name="surfaceDessin" 
                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"                           
                                                                         
-                           Strokes="{Binding Path=Traits, Mode=OneTime}" Margin="0,-5,0,41" Background="#FFFDF9F9" Height="605">
+                           Strokes="{Binding Path=Traits, Mode=OneTime}" Margin="0,-5,0,41"  Height="605">
 
-            </InkCanvas>
+            </InkPresenter>
         </StackPanel>
         <StackPanel Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="10" Grid.RowSpan="1" >
-            <TextBox x:Name="answerTextBox" Height="50" TextWrapping="Wrap" Text="TextBox" Margin="142,0,276,0" FontSize="36"/>
-            <Button x:Name="BtnSend" Content="Envoyer" Height="50" Margin="451,-51,95,0" RenderTransformOrigin="0.5,0.5" Background="#FFFF7F11"/>
+            <TextBox x:Name="answerTextBox" Height="50" TextWrapping="Wrap" Margin="142,0,276,0" FontSize="36"/>
+            <Button x:Name="BtnSend" Content="Deviner" Height="50" Margin="451,-51,95,0" RenderTransformOrigin="0.5,0.5" FontSize="24" FontFamily="Ink Free" Foreground="White" Background="#FFFF7F11"/>
         </StackPanel>
-        <custom:TimerControl Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="60,10,10,9" Loaded="TimerControl_Loaded" />
+        <custom:TimerControl Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="2" Loaded="TimerControl_Loaded" VerticalAlignment="Top" />
     </Grid>
 </UserControl>

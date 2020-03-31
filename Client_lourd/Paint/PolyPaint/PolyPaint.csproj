@@ -344,5 +344,8 @@
   <ItemGroup>
     <Resource Include="Vues\DrawingCreation\arrow.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\GamePlay\back.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
