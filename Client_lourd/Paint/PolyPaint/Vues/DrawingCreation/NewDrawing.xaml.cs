@@ -2,43 +2,60 @@
 using PolyPaint.VueModeles;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Ink;
 using System.Windows.Input;
-using System.Windows.Interactivity;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace PolyPaint.Vues
 {
 
-    public partial class NewDrawing : UserControl
+    public partial class NewDrawing : System.Windows.Controls.UserControl
     {
         StrokeCollection strokes = new StrokeCollection();
+       
 
         public NewDrawing()
         {
-
             InitializeComponent();
+            IsWordWritten = false;
+
         }
+
+        public bool IsWordWritten { get; set; }
+        public bool HasAtleastOneClue { get; set; }
 
         private void DrawingWindow_Loaded(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void MessageBoxControl_Loaded(object sender, RoutedEventArgs e)
+        private void textChangedEventHandler(object sender, TextChangedEventArgs args)
         {
-
+            if (!string.IsNullOrWhiteSpace(Word.Text))
+            {
+                IsWordWritten = true;
+                if (HasAtleastOneClue)
+                {
+                    save.IsEnabled = true;
+                }
+            }
+            else
+            {
+                IsWordWritten = false;
+                save.IsEnabled = false;
+            }
         }
+
 
         private void save_form(object sender, RoutedEventArgs e)
         {
@@ -65,34 +82,12 @@ namespace PolyPaint.Vues
             back_button.Visibility = Visibility.Hidden;
         }
 
+        
         private void confirm_drawing(object sender, RoutedEventArgs e)
         {
             //((DrawingWindowViewModel)(this.DataContext)).AfficherTraitsClassique();
-            strokes = ((DrawingWindowViewModel)(this.DataContext)).Traits.Clone();
-            StylusPointCollection points = new StylusPointCollection();
-
-            foreach (Stroke stroke in strokes)
-            {
-                points.Add(stroke.StylusPoints);
-
-                StylusPointCollection first = new StylusPointCollection();
-                first.Add(points[0]);
-                Stroke newStrokes = new Stroke(first);
-                DispatcherTimer timer = new DispatcherTimer();
-                timer.Interval = TimeSpan.FromMilliseconds(10);
-                timer.Start();
-                int index = 1;
-                timer.Tick += (s, a) =>
-                {
-                    newStrokes.StylusPoints.Insert(index, points[index]);
-                    if (!inkPresenter.Strokes.Contains(newStrokes))
-                        inkPresenter.Strokes.Add(newStrokes);
-                    index++;
-
-                    if (index >= points.Count) timer.Stop();
-                };
-
-            };
+            afficherTraitsClassique();
+            //afficherTraitsAléatoire();
 
             inkPresenterBorder.Visibility = Visibility.Visible;
             inkCanvas.Visibility = Visibility.Hidden;
@@ -104,8 +99,84 @@ namespace PolyPaint.Vues
             back_button.Visibility = Visibility.Hidden;
         }
 
+        private void afficherTraitsClassique()
+        {
+            
+            strokes = ((DrawingWindowViewModel)(DataContext)).Traits;
+            var tasks = new List<Task<(int Index, bool IsDone)>>();
 
-    private void modifyDrawing_button_Click(object sender, RoutedEventArgs e)
+     
+            foreach (Stroke stroke in strokes)
+                 {
+                
+            
+                StylusPointCollection points = new StylusPointCollection();
+                Timer timer = new Timer();
+                timer.Interval = 10;
+                timer.Start();
+
+                int index = 0;
+
+                    timer.Tick += (s, a) =>
+                    {
+
+                        StylusPoint point = stroke.StylusPoints[index];
+                        var x = (float)point.X;
+                        var y = (float)point.Y;
+
+                        points.Add(new StylusPoint(x, y));
+
+                        inkPresenter.Strokes.Add(new Stroke(points));
+
+                        index++;
+                        if (index >= stroke.StylusPoints.Count)
+                        {
+                            timer.Stop();
+                           
+                        }
+                    };
+                
+                    
+                }
+            
+        }
+            
+        
+
+        //private void afficherTraitsAléatoire()
+        //{
+        //    Random r = new Random();
+        //    strokes = ((DrawingWindowViewModel)(DataContext)).Traits;
+        //    StylusPointCollection points = new StylusPointCollection();
+        //    for (int i = 0; i < strokes.Count; i++)
+        //    {
+        //        points.Add(strokes[i].StylusPoints);
+        //    }
+        //    StylusPointCollection first = new StylusPointCollection();
+        //    first.Add(points[0]);
+        //    Stroke newStroke = new Stroke(first);
+        //    inkPresenter.Strokes.Add(newStroke);
+        //    DispatcherTimer timer = new DispatcherTimer();
+        //    timer.Interval = TimeSpan.FromMilliseconds(10);
+          
+        //    foreach (int i in Enumerable.Range(0, points.Count).OrderBy(x => r.Next()))
+        //        {
+        //        timer.Start();
+        //        int index = 0;
+        //        timer.Tick += (s, a) =>
+        //        {
+        //            StylusPoint point = points[i];
+        //            inkPresenter.Strokes[0].StylusPoints.Add(point);
+        //            index++;
+        //            if (index >= points.Count) timer.Stop();
+        //        };
+
+        //    };
+        //}
+
+
+
+        private void modifyDrawing_button_Click(object sender, RoutedEventArgs e)
         {
             inkPresenterBorder.Visibility = Visibility.Hidden;
             inkCanvas.Visibility = Visibility.Visible;
@@ -115,6 +186,14 @@ namespace PolyPaint.Vues
 
             modifyDrawing_button.Visibility = Visibility.Hidden;
             back_button.Visibility = Visibility.Visible;
+
+            if (((DrawingWindowViewModel)(DataContext)).Traits.Count != 0)
+                ((DrawingWindowViewModel)(DataContext)).Traits.Clear();
+            if (((DrawingWindowViewModel)(DataContext)).NouveauxTraits.Count != 0)
+                ((DrawingWindowViewModel)(DataContext)).NouveauxTraits.Clear();
+            strokes.Clear();
+
+            confirm.IsEnabled = false;
         }
 
         private List<string> getClues()
@@ -124,7 +203,6 @@ namespace PolyPaint.Vues
             foreach ( string item in ListOfClues.Items)
             {
                 clues.Add(item);
-               
             }
 
             return clues;
@@ -180,15 +258,19 @@ namespace PolyPaint.Vues
                     {
                         var responseContent = await res.Content.ReadAsStringAsync();
                         Console.WriteLine(responseContent);
-
+                        System.Windows.Forms.MessageBox.Show( "Image bien sauvegardée!", "Caption", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
                     }
                 }
 
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    System.Windows.Forms.MessageBox.Show(ex.Message);
                 }
+
+                strokes.Clear();
             }
+        
         }
 
         public class Game
@@ -211,15 +293,53 @@ namespace PolyPaint.Vues
         }
 
 
-        private void add_clue(object sender, RoutedEventArgs e)
+        private void Add_clue(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(Clue.Text)) { 
             ListOfClues.Items.Add(Clue.Text);
+                HasAtleastOneClue = true;
+                DeleteClue.IsEnabled = true;
+                if (IsWordWritten)
+                    save.IsEnabled = true;
             }
             Clue.Text = "";
         }
 
-  
+      
+        private void Delete_clue(object sender, EventArgs e)
+        {
+
+            if (ListOfClues.SelectedItems.Count != 0)
+            {
+                while (ListOfClues.SelectedIndex != -1)
+                {
+                    ListOfClues.Items.RemoveAt(ListOfClues.SelectedIndex);
+                }
+            }
+            if (!ListOfClues.HasItems) { 
+                DeleteClue.IsEnabled = false;
+                 save.IsEnabled = false;
+            }
+
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
+        protected void OnPropertyChanged(string property)
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(property));
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void inkCanvas_StrokeCollected(object sender, InkCanvasStrokeCollectedEventArgs e)
+        {
+            confirm.IsEnabled = true;
+        }
     }
 }
 
