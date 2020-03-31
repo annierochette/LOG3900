@@ -43,8 +43,8 @@
             android:id="@+id/profile"
             style="?android:attr/borderlessButtonStyle"
             android:layout_margin="75dp"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:background="@color/colorYellow"  />
 
         <LinearLayout
