@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name = "URL">https://fais-moi-un-dessin.herokuapp.com/</string>
+    <string name = "GENERAL_CHANNEL">GÉNÉRAL</string>
 </resources>

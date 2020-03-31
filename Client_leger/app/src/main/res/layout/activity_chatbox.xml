@@ -13,7 +13,7 @@
         android:background="@color/colorPrimary"
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:title="Nom du canal"
+        android:title="@string/GENERAL_CHANNEL"
         android:titleTextColor="@android:color/white">
 
         <ImageButton

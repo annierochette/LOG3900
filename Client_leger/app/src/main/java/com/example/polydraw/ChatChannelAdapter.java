@@ -15,17 +15,13 @@ public class ChatChannelAdapter extends RecyclerView.Adapter<ChatChannelAdapter.
     private List<ChatChannel> ChatChannelList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView username;
-        public ImageButton add;
-        public ImageButton delete;
+        public TextView channelName;
 
 
         public MyViewHolder(View view) {
             super(view);
 
-            username = (TextView) view.findViewById(R.id.username);
-            add = (ImageButton) view.findViewById(R.id.add_channel);
-            delete = (ImageButton) view.findViewById(R.id.delete_channel);
+            channelName = (TextView) view.findViewById(R.id.username);
         }
 
     }
@@ -46,6 +42,6 @@ public class ChatChannelAdapter extends RecyclerView.Adapter<ChatChannelAdapter.
 
     @Override public void onBindViewHolder(final ChatChannelAdapter.MyViewHolder holder, final int position){
         final ChatChannel channel = ChatChannelList.get(position);
-        holder.username.setText(channel.getChannelName());
+        holder.channelName.setText(channel.getChannelName());
     }
 }

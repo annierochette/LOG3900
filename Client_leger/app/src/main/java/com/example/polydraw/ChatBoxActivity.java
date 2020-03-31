@@ -225,4 +225,9 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         messageTxt.setText(channel);
 
     }
+
+    public void chatToolbarName(){
+        //code pour choisir nom du channel selectionne
+
+    }
 }
