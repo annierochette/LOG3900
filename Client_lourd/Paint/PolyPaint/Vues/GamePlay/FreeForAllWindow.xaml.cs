@@ -16,7 +16,7 @@ namespace PolyPaint.Vues
     public partial class FreeForAllWindow : UserControl
     {
 
-        private MouseEventArgs z;
+        //private MouseEventArgs z;
         public FreeForAllWindow()
         {
             InitializeComponent();
