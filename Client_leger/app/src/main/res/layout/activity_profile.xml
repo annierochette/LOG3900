@@ -62,7 +62,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:background="@color/colorYellow" />
 
                 <TextView
                     android:id="@+id/textView3"

@@ -45,7 +45,7 @@
             android:layout_margin="75dp"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:background="@color/colorYellow"  />
 
         <LinearLayout
             android:layout_width="match_parent"
