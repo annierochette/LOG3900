@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.post("/games", CONTROLLER.createGame);
 router.delete("/games/:name", CONTROLLER.deleteGame);
+router.get("/games/random", authentification, CONTROLLER.getRandomGame);
 router.get("/games/:name", authentification, CONTROLLER.getGame);
 
 module.exports = router;
