@@ -20,6 +20,8 @@ import com.example.polydraw.Socket.SocketIO;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,7 @@ public class DrawingCanvas extends View {
 
     private List<Stroke> _allStroke;
     private SparseArray<Stroke> activeStrokes;
-    private ArrayList<Point> _allPoints;
+    private List<Point> _allPoints;
     private boolean eraser = false;
     private int paintColor = Color.BLACK;
     private Paint.Cap capOption = Paint.Cap.SQUARE;
@@ -146,6 +148,7 @@ public class DrawingCanvas extends View {
 
         if(_allPoints.size() == 100){
             socket.getSocket().emit("draw", "General", _allPoints);
+            _allPoints.clear();
             _allPoints = new ArrayList<Point>();
         }
 
@@ -164,7 +167,9 @@ public class DrawingCanvas extends View {
             _allPoints.add(pt);
 
             if(_allPoints.size() == 100){
+                System.out.println(_allPoints);
                 socket.getSocket().emit("draw", "General", _allPoints);
+                _allPoints.clear();
                 _allPoints = new ArrayList<Point>();
             }
         }
@@ -246,4 +251,14 @@ public class DrawingCanvas extends View {
 
         return bmp;
     }
+
+//    public void sendPoints(ArrayList<Point> points){
+//
+//        try {
+//            ObjectOutputStream oos = new ObjectOutputStream(socket.getSocket());
+//            oos.writeObject(points);
+//        } catch (IOException e){
+//            e.printStackTrace();
+//        }
+//    }
 }

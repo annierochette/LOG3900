@@ -71,10 +71,9 @@ module.exports = function(http) {
       // Drawing
       socket.on(CHAT.EVENTS.STROKE, (channel, points) => {
         console.log("stroke");
-        for(point in points){
-          console.log(point)
-        }
-        socket.to(channel).broadcast.emit(CHAT.EVENTS.STROKE, points);
+        let pointArray = {"point": points};
+        console.log(pointArray)
+        socket.to(channel).broadcast.emit(CHAT.EVENTS.STROKE, pointArray);
       });
 
       socket.on(CHAT.EVENTS.DRAFTSMAN_DIMENSION, (channel, width, height) => {
