@@ -132,6 +132,7 @@
     </Compile>
     <Compile Include="Modeles\Editeur.cs" />
     <Compile Include="Modeles\Message.cs" />
+    <Compile Include="Modeles\User.cs" />
     <Compile Include="Modeles\Word.cs" />
     <Compile Include="Utilitaires\AppSocket.cs" />
     <Compile Include="Utilitaires\EventArgs.cs" />
@@ -356,6 +357,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Vues\Login\circle-cropped.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\GamePlay\back.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

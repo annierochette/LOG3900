@@ -1,4 +1,5 @@
-﻿using PolyPaint.Utilitaires;
+﻿using PolyPaint.Modeles;
+using PolyPaint.Utilitaires;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
@@ -141,6 +142,15 @@ namespace PolyPaint.VueModeles
 
     public class LoginViewModel : BaseViewModel, IPageViewModel
     {
+        private User user = new User();
+        public string Username
+        {
+            
+            get { return user.Username; }
+            set { user.Username = value; }
+        }
+
+
         private ICommand _goToMainWindow;
         private ICommand _goToSignInWindow;
 
