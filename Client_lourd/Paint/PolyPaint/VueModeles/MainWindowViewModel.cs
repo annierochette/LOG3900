@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PolyPaint.VueModeles
 {
-    public class MainWindowViewModel : BaseViewModel
+    public class MainWindowViewModel : BaseViewModel, IPageViewModel
     {
         private IPageViewModel _currentPageViewModel;
         private List<IPageViewModel> _pageViewModels;
@@ -118,12 +118,12 @@ namespace PolyPaint.VueModeles
             PageViewModels.Add(new WaitingRoomViewModel());   //10
                   
 
-            CurrentPageViewModel = PageViewModels[1];
+            CurrentPageViewModel = PageViewModels[0];
 
             Mediator.Subscribe("GoToGameMenu", OnGoToGameMenu);
             Mediator.Subscribe("GoToUserProfile", OnGoToUserProfile);
-            Mediator.Subscribe("GoToLoginWindow", OnGoToLoginWindow);
-            Mediator.Subscribe("GoToSignInWindow", OnGoToSignInWindow);
+            Mediator.Subscribe("GoToLogin", OnGoToLoginWindow);
+            Mediator.Subscribe("GoToSignIn", OnGoToSignInWindow);
             Mediator.Subscribe("GoToGameModeMenu", OnGoToGameModeMenu);
             Mediator.Subscribe("GoToDrawingWindow", OnGoToDrawingWindow);
             Mediator.Subscribe("GoToGuessingView", OnGoToGuessingView);

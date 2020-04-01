@@ -26,6 +26,7 @@ namespace PolyPaint.Vues
         public ImageImportView()
         {
             InitializeComponent();
+            save_button.IsEnabled = false;
         }
 
         private void btnLoad_Click(object sender, RoutedEventArgs e)
@@ -42,6 +43,7 @@ namespace PolyPaint.Vues
             if (op.ShowDialog() == true)
             {
                 imgPhoto.Source = new BitmapImage(new Uri(op.FileName));
+                save_button.IsEnabled = true;
             }
             ListOfCurveArray = null;
             if (Bitmap != null) Bitmap.Dispose();
@@ -121,6 +123,11 @@ namespace PolyPaint.Vues
                 FS.Write(s);
                 FS.Close();
             }
+
+        }
+
+        private void save_button_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }
