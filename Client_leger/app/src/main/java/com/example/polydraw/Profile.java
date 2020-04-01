@@ -24,6 +24,7 @@ public class Profile extends AppCompatActivity {
 
         backButton = (Button) findViewById(R.id.backButton);
         disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
+        chatButton = (ImageView) findViewById(R.id.chatButton);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -11,13 +11,6 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimary">
 
-        <!--<fragment
-            android:name="com.example.polydraw.Chat"
-            android:id="@+id/chatFragment"
-            android:layout_width="420dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"/>-->
-
         <Button
             android:id="@+id/backButton"
             android:layout_width="100dp"
@@ -42,35 +35,44 @@
             android:id="@+id/logoutButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@mipmap/logout_round"
+            android:background="@mipmap/disconnect_round"
             android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"
             android:layout_marginTop="15dp"/>
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@id/backButton">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center"
-                android:layout_marginTop="100dp">
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:background="@color/colorYellow" />
 
                 <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="158dp"
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:text="Nom"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
                     android:layout_height="42dp"
                     android:gravity="center"
                     android:text="Pseudonyme"
@@ -80,37 +82,153 @@
                     android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/name"
-                    android:layout_width="158dp"
-                    android:layout_height="42dp"
-                    android:gravity="center"
-                    android:text="Nom"
-                    android:textAllCaps="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-                    android:textColor="@android:color/white"
-                    android:textSize="24sp"
-                    android:layout_marginBottom="25dp"/>
-
-                <TextView
                     android:id="@+id/textView4"
                     android:layout_width="610dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="25dp"
                     android:gravity="center"
                     android:text="Stats"
                     android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/nbPlayedGames"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:gravity="center"
+                    android:text="Nombre de parties jouées"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display2"
                     android:textColor="@android:color/white"
-                    android:layout_marginBottom="25dp"/>
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/nbGamesWon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:gravity="center"
+                    android:text="Pourcentage de parties gagnées"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/gameTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:gravity="center"
+                    android:text="Temps moyen d'une partie"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:gravity="center"
+                    android:text="Temps total à jouer"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="610dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="25dp"
                     android:gravity="center"
                     android:text="Badges"
                     android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display2"
                     android:textColor="@android:color/white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    tools:srcCompat="@tools:sample/avatars"
+                    android:background="@color/colorYellow"
+                    android:layout_margin="10dp"/>
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    tools:srcCompat="@tools:sample/avatars"
+                    android:background="@color/colorYellow"
+                    android:layout_margin="10dp"/>
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    tools:srcCompat="@tools:sample/avatars"
+                    android:background="@color/colorYellow"
+                    android:layout_margin="10dp"/>
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    tools:srcCompat="@tools:sample/avatars"
+                    android:background="@color/colorYellow"
+                    android:layout_margin="10dp"/>
+
+            </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        tools:srcCompat="@tools:sample/avatars"
+                        android:background="@color/colorYellow"
+                        android:layout_margin="10dp"/>
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        tools:srcCompat="@tools:sample/avatars"
+                        android:background="@color/colorYellow"
+                        android:layout_margin="10dp"/>
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        tools:srcCompat="@tools:sample/avatars"
+                        android:background="@color/colorYellow"
+                        android:layout_margin="10dp"/>
+
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        tools:srcCompat="@tools:sample/avatars"
+                        android:background="@color/colorYellow"
+                        android:layout_margin="10dp"/>
+
+                </LinearLayout>
+
             </LinearLayout>
         </ScrollView>
 

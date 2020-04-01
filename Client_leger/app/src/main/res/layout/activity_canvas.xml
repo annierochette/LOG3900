@@ -46,26 +46,12 @@
         </Toolbar>
 
         <com.example.polydraw.DrawingCanvas
-        android:id="@+id/drawing"
-        android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:background="#FFFFFFFF"
-        android:layout_above="@+id/drawingToolbox"/>
-
-        <!--<fragment
-            android:id="@+id/chatFragment"
-            android:name="com.example.polydraw.Chat"
-            android:layout_width="420dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"/>-->
-
-        <ImageButton
-            android:id="@+id/download"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/stat_sys_download"
-            android:layout_marginLeft="550dp"/>
-        <!--                android:layout_toLeftOf="@+id/chatFragment" quand ajout fragment sera ok, enlever marginLeft-->
+            android:id="@+id/drawing"
+            android:layout_width="match_parent"
+            android:layout_height="570dp"
+            android:layout_below="@id/toolbar"
+            android:layout_margin="10dp"
+            android:background="#FFFFFFFF" />
 
         <LinearLayout
             android:id="@+id/drawingToolbox"
@@ -132,7 +118,7 @@
                 android:textStyle="bold" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/download"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@android:drawable/stat_sys_download"
