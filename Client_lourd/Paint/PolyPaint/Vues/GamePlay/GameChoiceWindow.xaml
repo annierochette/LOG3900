@@ -33,7 +33,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="5" >
-            <Button Height="50" Width="220" Margin="20" Content="CRÉER JEU" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToWaitingRoom}"/>
+            <Button Height="50" Width="220" Margin="20" Content="CRÉER JEU" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Click="testing" Command="{Binding GoToWaitingRoom}"/>
             <Button Height="50" Width="220" Margin="20" Content="JOINDRE JEU" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToGameCreator}"/>
         </StackPanel>
     </Grid>

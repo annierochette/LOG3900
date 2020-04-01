@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Quobject.SocketIoClientDotNet.Client;
 
 namespace PolyPaint.Vues
 {
@@ -20,14 +21,36 @@ namespace PolyPaint.Vues
     /// </summary>
     public partial class WaitingRoomWindow : UserControl
     {
+        private Socket socket;
         public WaitingRoomWindow()
         {
             InitializeComponent();
+            socket = IO.Socket("http://localhost:5050");
+            socket.Emit("joinGame", "0");
+            socket.On("joinGame", (data) =>
+            {
+                Newtonsoft.Json.Linq.JObject obj = (Newtonsoft.Json.Linq.JObject)data;
+                Newtonsoft.Json.Linq.JToken un = obj.GetValue("nbPlayers");
+                Console.WriteLine(un);
+                nbConnect.Text = (string)un;
+
+            });
+
         }
 
         private void MessageBoxControl_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void voir(object sender, RoutedEventArgs e) {
+            Console.WriteLine("Voici le mot:");
+            string prop = (string)App.Current.Properties["gameName"];
+            Console.WriteLine(prop);
+            App.Current.Properties["gameName"] = "partie2";
+             prop = (string)App.Current.Properties["gameName"];
+            Console.WriteLine(prop);
+            
         }
     }
 }

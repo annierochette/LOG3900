@@ -115,6 +115,11 @@ module.exports = function(http) {
       socket.on(SOCKET.DRAFT.STROKE_TOOL, (channel, tool) => {
         io.emit(SOCKET.CHAT.STROKE_TOOL, tool);
       });
+      socket.on("joinGame", (channel, nbPlayers) => {
+        console.log("joining game");
+        let  nbPlay = { "nbPlayers": "1" };
+        io.emit("joinGame", nbPlay);
+      });
     
     });
 }

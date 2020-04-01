@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace PolyPaint.Vues
 {
@@ -25,20 +27,47 @@ namespace PolyPaint.Vues
             InitializeComponent();
         }
 
+        public class gameCreated
+        {
+
+            [JsonProperty("username")]
+            public string username { get; set; }
+
+            [JsonProperty("password")]
+            public string password { get; set; }
+        }
+
         private void MessageBoxControl_Loaded(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void testing(object sender, RoutedEventArgs e) {
-        //    Window window = new Window
-        //    {
-        //        Title = "My User Control Dialog",
-        //        Content = new LoginWindow(),
-        //        SizeToContent = SizeToContent.WidthAndHeight,
-        //        ResizeMode = ResizeMode.NoResize
-        //    };
-        //    window.ShowDialog();
+        private async void testing(object sender, RoutedEventArgs e) {
+            //var HttpClient = new HttpClient();
+            //var infos = new gameCreated
+            //{
+            //    username = username,
+            //    password = password
+            //};
+
+            //var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
+            //var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            //  var res = await HttpClient.PostAsync("http://localhost:5050/players/login", httpContent);
+            //if (res.Content != null)
+            //{
+            //    var responseContent = await res.Content.ReadAsStringAsync();
+            //    Console.WriteLine(responseContent);
+
+            //}
+            //if (res.StatusCode.ToString() == "201")
+            //{
+
+            //}
+
+            
+ 
+        App.Current.Properties["gameName"] = "game1";        
         }
     }
 }
