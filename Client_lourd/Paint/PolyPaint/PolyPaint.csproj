@@ -361,5 +361,8 @@
   <ItemGroup>
     <Resource Include="Vues\GamePlay\back.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\back.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -12,6 +12,7 @@ namespace PolyPaint.VueModeles
     {
         private ICommand _goToGameMenu;
         private ICommand _goToSignInWindow;
+        private ICommand _goToGameChoice;
 
         public ICommand GoToGameMenu
         {
@@ -37,6 +38,17 @@ namespace PolyPaint.VueModeles
             }
 
 
+        }
+
+        public ICommand GoToGameChoice
+        {
+            get
+            {
+                return _goToGameChoice ?? (_goToGameChoice = new RelayCommand(x =>
+                {
+                    Mediator.Notify("GoToGameChoice", "");
+                }));
+            }
         }
 
     }

@@ -23,6 +23,18 @@ namespace PolyPaint.VueModeles
             }
         }
 
+        private ICommand _goToGameModeMenu;
+        public ICommand GoToGameModeMenu
+        {
+            get
+            {
+                return _goToGameModeMenu ?? (_goToGameModeMenu = new RelayCommand(x =>
+                {
+                    Mediator.Notify("GoToGameModeMenu", "");
+                }));
+            }
+        }
+
     }
 }
 
