@@ -31,7 +31,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <custom:MessageBoxControl Grid.Column="7"  Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="11" Loaded="MessageBoxControl_Loaded"/>
 
         <StackPanel Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="5" >
             <Button Height="50" Width="220" IsEnabled="False" Margin="42,130,38,22" Content="DÉMARRER" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToGameCreator}"/>
