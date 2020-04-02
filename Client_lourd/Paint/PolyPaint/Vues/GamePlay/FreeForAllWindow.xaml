@@ -54,7 +54,7 @@
         <StackPanel Grid.Column="0" Grid.ColumnSpan="9" Grid.Row="0" Grid.RowSpan="11" >
             <custom:DrawingWindow ClipToBounds="True" x:Name="draftsman" 
                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"                           
-                           Margin="0,-5,10,41" Background="#FFFDF9F9" Height="555"/>
+                           Background="#FFFDF9F9" Height="555"/>
         </StackPanel>
         <custom:TimerControl Grid.Column="4" Grid.ColumnSpan="4" Grid.RowSpan="2" Margin="66,0,49,10" Loaded="TimerControl_Loaded" />
         <StackPanel Grid.Column="0"  Grid.Row="11" Grid.ColumnSpan="9" Orientation="Horizontal" Margin="0,0,0,1">
@@ -65,7 +65,9 @@
                     <GradientStop Color="#FF5D3737" Offset="1"/>
                 </LinearGradientBrush>
             </StackPanel.Background>
-            <Button Content="BACK" Command="{Binding GoToGameModeMenu}"/>
+            <Button Command="{Binding GoToGameModeMenu}">
+                <Image Source="back.png"></Image>
+            </Button>
             <Button x:Name="crayon" Width="40" Height="40" Margin="5" 
                         BorderBrush="{Binding OutilSelectionne, ConverterParameter=crayon, Converter={StaticResource convertisseurBordure}, UpdateSourceTrigger=PropertyChanged}" 
                         Background="{Binding OutilSelectionne, ConverterParameter=crayon, Converter={StaticResource convertisseurCouleurFond}, UpdateSourceTrigger=PropertyChanged}" 

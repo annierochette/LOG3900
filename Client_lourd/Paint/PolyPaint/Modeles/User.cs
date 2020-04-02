@@ -8,8 +8,26 @@ using System.Threading.Tasks;
 
 namespace PolyPaint.Modeles
 {
-    class User : INotifyPropertyChanged
+    public sealed class User : INotifyPropertyChanged
     {
+        public static User instance = null;
+        private static readonly object padlock = new object();
+
+        public static User Instance
+        {
+            get
+            {
+                lock (padlock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new User();
+                    }
+                    return instance;
+                }
+            }
+        }
+
         private string username;
 
         public string Username
@@ -18,6 +36,30 @@ namespace PolyPaint.Modeles
             set
             {
                 username = value;
+                ChangeProperty();
+            }
+        }
+
+        private string firstname;
+
+        public string Firstname
+        {
+            get { return firstname; }
+            set
+            {
+                firstname = value;
+                ChangeProperty();
+            }
+        }
+
+        private string lastname;
+
+        public string Lastname
+        {
+            get { return lastname; }
+            set
+            {
+                lastname = value;
                 ChangeProperty();
             }
         }

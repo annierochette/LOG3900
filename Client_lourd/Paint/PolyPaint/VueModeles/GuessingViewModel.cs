@@ -5,6 +5,16 @@ namespace PolyPaint.VueModeles
 {
     class GuessingViewModel : BaseViewModel, IPageViewModel
     {
+        public void assignDrawingView()
+        {
+            Mediator.Notify("GoToFreeForAll", "");
+        }
+
+        public override string GetCurrentViewModelName()
+        {
+            return "GuessingViewModel";
+        }
+
         private ICommand _goToGameModeMenu;
         public ICommand GoToGameModeMenu
         {

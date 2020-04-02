@@ -14,6 +14,21 @@ namespace PolyPaint.VueModeles
         private ICommand _goToSignInWindow;
         private ICommand _goToGameChoice;
 
+        public override string GetCurrentViewModelName()
+        {
+            return "WaitingRoomViewModel";
+        }
+
+        public void assignGuessingView()
+        {
+            Mediator.Notify("GoToGuessingView", "");
+        }
+
+        public void assignDrawingView()
+        {
+            Mediator.Notify("GoToFreeForAll", "");
+        }
+
         public ICommand GoToGameMenu
         {
             get

@@ -10,6 +10,13 @@ namespace PolyPaint.VueModeles
 {
     public class GameChoiceViewModel : BaseViewModel, IPageViewModel
     {
+
+        public override string GetCurrentViewModelName()
+        {
+            return "GameChoiceViewModel";
+        }
+
+
         private ICommand _goToWaitingRoom;
 
         public ICommand GoToWaitingRoom

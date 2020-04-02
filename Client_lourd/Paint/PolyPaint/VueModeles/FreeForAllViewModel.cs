@@ -18,7 +18,7 @@ namespace PolyPaint.VueModeles
     /// Expose des commandes et propriétés connectées au modèle aux des éléments de la vue peuvent se lier.
     /// Reçoit des avis de changement du modèle et envoie des avis de changements à la vue.
     /// </summary>
-    class FreeForAllViewModel : INotifyPropertyChanged, IPageViewModel
+    class FreeForAllViewModel : BaseViewModel, INotifyPropertyChanged, IPageViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private Editeur editeur = new Editeur();
@@ -27,6 +27,16 @@ namespace PolyPaint.VueModeles
 
         // Ensemble d'attributs qui définissent l'apparence d'un trait.
         public DrawingAttributes AttributsDessin { get; set; } = new DrawingAttributes();
+
+        public override string GetCurrentViewModelName()
+        {
+            return "FreeForAllViewModel";
+        }
+
+        public void assignGuessingView()
+        {
+            Mediator.Notify("GoToGuessingView", "");
+        }
 
         private ICommand _goToGameModeMenu;
 
