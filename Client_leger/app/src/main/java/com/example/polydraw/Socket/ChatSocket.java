@@ -29,7 +29,7 @@ public class ChatSocket {
     public void init(){
         if(socket == null){
             try{
-                socket = IO.socket("https://fais-moi-un-dessin.herokuapp.com/");
+                socket = IO.socket("http://192.168.2.132:5050");
                 socket = socket.connect();
                 socket.emit("connection");
             }

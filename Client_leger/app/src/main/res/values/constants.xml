@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name = "URL">https://fais-moi-un-dessin.herokuapp.com/</string>
+    <string name="SERVER">"http://192.168.2.132:5050</string>
     <string name = "GENERAL_CHANNEL">GÉNÉRAL</string>
 </resources>

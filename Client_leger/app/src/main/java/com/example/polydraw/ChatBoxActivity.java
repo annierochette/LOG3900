@@ -49,10 +49,10 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
     public ListView channelsRecyclerView;
     public ChatChannelAdapter chatChannelAdapter;
 
-    private Socket socket;
+    private Socket chatsocket;
 
     public String Username = MainActivity.USERNAME;
-    public String IpAddress = "192.168.0.232";
+    public String IpAddress = "192.168.2.132";
     public String channelName;
     String[] channels = {"Général"};
 
@@ -73,12 +73,12 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
 
         try {
 
-            socket = IO.socket("http://"+IpAddress+":5050"); //https://fais-moi-un-dessin.herokuapp.com/"
+            chatsocket = IO.socket("http://"+IpAddress+":5050"); //https://fais-moi-un-dessin.herokuapp.com/"
 
-            socket.connect();
+            chatsocket.connect();
 
-            socket.emit("connection");
-            socket.emit("changeUsername", Username);
+            chatsocket.emit("connection");
+            chatsocket.emit("changeUsername", Username);
 
         } catch (URISyntaxException e) {
             e.printStackTrace();
@@ -103,13 +103,13 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
             public void onClick(View v) {
                 if (!messageTxt.getText().toString().trim().isEmpty() && !messageTxt.getText().toString().isEmpty()) {
 
-                    socket.emit("chat message", Username, "General", messageTxt.getText().toString());
+                    chatsocket.emit("chat message", Username, "General", messageTxt.getText().toString());
                     messageTxt.setText(" ");
                 }
             }
         });
 
-        socket.on("disconnection", new Emitter.Listener() {
+        chatsocket.on("disconnection", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 runOnUiThread(new Runnable() {
@@ -122,7 +122,7 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
             }
         });
 
-        socket.on("changeUsername", new Emitter.Listener() {
+        chatsocket.on("changeUsername", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 runOnUiThread(new Runnable() {
@@ -131,9 +131,9 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
                         Boolean data = (Boolean) args[0];
                         if(!data){
                             Toast.makeText(ChatBoxActivity.this, "Nom déjà utilisé", Toast.LENGTH_SHORT).show();
-                            socket.emit("disconnection");
+                            chatsocket.emit("disconnection");
                             startActivity(new Intent(ChatBoxActivity.this, MainActivity.class));
-                            socket.disconnect();
+                            chatsocket.disconnect();
                         }
 
                     }
@@ -141,7 +141,7 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
             }
         });
 
-        socket.on("chat message", new Emitter.Listener() {
+        chatsocket.on("chat message", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 runOnUiThread(new Runnable() {
@@ -217,7 +217,7 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
     protected void onDestroy() {
         super.onDestroy();
 
-        socket.disconnect();
+        chatsocket.disconnect();
     }
 
     @Override

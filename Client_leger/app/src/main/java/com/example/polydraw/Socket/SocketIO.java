@@ -15,7 +15,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.net.ssl.SSLContext;
 
 public class SocketIO {
-    private static final String serverUrl = "http://192.168.2.194:5050";
+    private static final String serverUrl = "http://192.168.2.132:5050";
     private static Socket socket;
     private static SocketIO instance;
     private static Activity act;

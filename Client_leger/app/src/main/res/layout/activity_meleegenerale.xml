@@ -132,9 +132,10 @@
 
         <com.example.polydraw.GuessingCanvas
             android:id="@+id/guessing"
-            android:layout_width="661dp"
-            android:layout_height="696dp"
-            android:layout_alignParentTop="true"/>
+            android:layout_width="1050dp"
+            android:layout_height="570dp"
+            android:layout_below="@id/toolbar"
+            android:layout_margin="10dp"/>
             
         <com.example.polydraw.DrawingCanvas
             android:id="@+id/drawing"

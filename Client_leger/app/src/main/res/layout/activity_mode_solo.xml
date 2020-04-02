@@ -74,20 +74,19 @@
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
-        <com.example.polydraw.DrawingCanvas
-            android:id="@+id/drawing"
+        <com.example.polydraw.GuessingCanvas
+            android:id="@+id/guessing"
             android:layout_width="1050dp"
             android:layout_height="570dp"
             android:layout_below="@id/toolbar"
-            android:layout_margin="10dp"
-            android:background="#FFFFFFFF" />
+            android:layout_margin="10dp"/>
 
         <View
             android:id="@+id/separatorResults"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="@android:color/darker_gray"
-            android:layout_toRightOf="@id/drawing"
+            android:layout_toRightOf="@id/guessing"
             android:layout_below="@id/toolbar"/>
 
         <LinearLayout

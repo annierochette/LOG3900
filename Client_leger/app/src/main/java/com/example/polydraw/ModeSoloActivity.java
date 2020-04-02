@@ -25,6 +25,7 @@ import yuku.ambilwarna.AmbilWarnaDialog; //https://codinginflow.com/tutorials/an
 
 public class ModeSoloActivity extends AppCompatActivity {
     DrawingCanvas drawingCanvas;
+    public GuessingCanvas guessingCanvas;
     ImageButton sendAnswer;
     TextView hints;
     EditText answer;
@@ -33,7 +34,7 @@ public class ModeSoloActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        drawingCanvas = new DrawingCanvas(this,null);
+        guessingCanvas = new GuessingCanvas(this,null);
         setContentView(R.layout.activity_mode_solo);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         initializeObject();
@@ -42,7 +43,7 @@ public class ModeSoloActivity extends AppCompatActivity {
     }
 
     private void initializeObject(){
-        drawingCanvas = (DrawingCanvas) findViewById(R.id.drawing);
+        guessingCanvas = (GuessingCanvas) findViewById(R.id.guessing);
         sendAnswer = (ImageButton) findViewById(R.id.sendAnswer);
         hints = (TextView) findViewById(R.id.hints);
         answer = (EditText) findViewById(R.id.answer);

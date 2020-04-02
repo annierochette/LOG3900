@@ -63,7 +63,7 @@ public class SignupActivity extends AppCompatActivity {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String query_url = "https://fais-moi-un-dessin.herokuapp.com/players";
+                String query_url = "http://192.168.2.132:5050";
                 try {
 
                     Map<String, String> postData = new HashMap<>();
