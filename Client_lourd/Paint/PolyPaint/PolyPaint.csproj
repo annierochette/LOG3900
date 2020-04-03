@@ -46,6 +46,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
@@ -130,9 +131,10 @@
     <Compile Include="CustomControls\TimerControl.xaml.cs">
       <DependentUpon>TimerControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modeles\Word.cs" />
     <Compile Include="Modeles\Editeur.cs" />
     <Compile Include="Modeles\Message.cs" />
+    <Compile Include="Modeles\User.cs" />
+    <Compile Include="Modeles\Word.cs" />
     <Compile Include="Utilitaires\AppSocket.cs" />
     <Compile Include="Utilitaires\EventArgs.cs" />
     <Compile Include="Utilitaires\EventRaiser.cs" />
@@ -142,6 +144,8 @@
     <Compile Include="Utilitaires\Tool.cs" />
     <Compile Include="VueModeles\BaseViewModel.cs" />
     <Compile Include="VueModeles\FreeForAllViewModel.cs" />
+    <Compile Include="VueModeles\GameChoiceViewModel.cs" />
+    <Compile Include="VueModeles\WaitingRoomViewModel.cs" />
     <Compile Include="VueModeles\GameCreatorViewModel.cs" />
     <Compile Include="VueModeles\GameMenuViewModel.cs" />
     <Compile Include="VueModeles\GameModeMenuViewModel.cs" />
@@ -173,8 +177,14 @@
     <Compile Include="Vues\GameMenu.xaml.cs">
       <DependentUpon>GameMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vues\GamePlay\GameChoiceWindow.xaml.cs">
+      <DependentUpon>GameChoiceWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vues\GamePlay\GameModeMenu.xaml.cs">
       <DependentUpon>GameModeMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vues\GamePlay\WaitingRoomWindow.xaml.cs">
+      <DependentUpon>WaitingRoomWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vues\GamePlay\GuessingView.xaml.cs">
       <DependentUpon>GuessingView.xaml</DependentUpon>
@@ -223,12 +233,12 @@
       <DependentUpon>DrawingWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Vues\DrawingCreation\NewGameForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Vues\DrawingCreation\QuickDrawSuggestion.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Vues\FenetreDessin.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -250,7 +260,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Vues\GamePlay\GameChoiceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vues\GamePlay\GameModeMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vues\GamePlay\WaitingRoomWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -263,8 +281,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vues\Login\LoginControlWindow.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Vues\Login\LoginWindow.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -342,7 +360,10 @@
     <Resource Include="Vues\Login\circle-cropped.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Vues\DrawingCreation\arrow.png" />
+    <Resource Include="Vues\GamePlay\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\back.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

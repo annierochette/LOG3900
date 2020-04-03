@@ -10,6 +10,10 @@ namespace PolyPaint.VueModeles
         private ICommand _goToGameModeMenu;
         private ICommand _goToGameCreatorControl;
 
+        public override string GetCurrentViewModelName()
+        {
+            return "GetMenuViewModel";
+        }
 
         public ICommand GoToUserProfile
         {
