@@ -16,7 +16,7 @@ namespace PolyPaint.Vues
         public FenetreDessin()
         {
             InitializeComponent();
-            DataContext = new VueModele();
+            DataContext = new DrawingWindowViewModel();
         }
         
         // Pour gérer les points de contrôles.

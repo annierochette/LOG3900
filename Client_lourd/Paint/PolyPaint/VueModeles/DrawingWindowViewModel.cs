@@ -131,6 +131,7 @@ namespace PolyPaint.VueModeles
         //        int index = 0;
         //        timer.Tick += (s, a) =>
         //        {
+                    
         //            newStroke.StylusPoints.Insert(index, points[index]);
         //            if (!NouveauxTraits.Contains(newStroke))
         //            {
@@ -140,7 +141,7 @@ namespace PolyPaint.VueModeles
         //            if (index >= points.Count) timer.Stop();
         //        };
         //    };
-      
+
 
         //}
 

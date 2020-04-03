@@ -31,12 +31,11 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <custom:MessageBoxControl Grid.Column="7"  Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="11" Loaded="MessageBoxControl_Loaded"/>
 
         <StackPanel Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="5" >
             <Button Height="50" Width="220" Click="voir" IsEnabled="false" Margin="42,130,38,22" Content="DÉMARRER" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToGameCreator}"/>
         </StackPanel>
-        <StackPanel Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="3" Height="177" VerticalAlignment="Top" >
+        <StackPanel Grid.Column="1" Grid.ColumnSpan="6" Grid.RowSpan="4" Height="177" VerticalAlignment="Top" Margin="91,55,9,0" >
             <TextBlock  TextWrapping="Wrap" Text="Salle d'attente" FontSize="36" FontWeight="Bold" Foreground="White" TextAlignment="Center" />
             <TextBlock  TextWrapping="Wrap" FontSize="16" FontWeight="Bold" Foreground="White" TextAlignment="Center" ><Run Text="Vous pouvez communiquer "/><Run Text="avec les autres joueurs de la salle"/></TextBlock>
             <TextBlock  TextWrapping="Wrap" FontSize="16" FontWeight="Bold" Foreground="White" TextAlignment="Center" Text="Nombre de joueurs dans la salle:" Margin="0,23,0,0" />
@@ -44,5 +43,8 @@
             <TextBlock x:Name="nbConnect"  TextWrapping="Wrap" FontSize="16" FontWeight="Bold" Foreground="White" TextAlignment="Center" Text="{Binding TextBoxData}" Margin="0,3,0,0" />
 
         </StackPanel>
+        <Button x:Name="button" Width="75" Height="40" Command="{Binding GoToGameChoice}" Grid.Row="10" >
+            <Image Source="back.png"></Image>
+        </Button>
     </Grid>
 </UserControl>

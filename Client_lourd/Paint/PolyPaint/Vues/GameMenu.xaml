@@ -31,7 +31,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <custom:MessageBoxControl Grid.Column="7"  Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="11" Loaded="MessageBoxControl_Loaded"/>
         <Button Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="2"  Command="{Binding GoToUserProfile}">
             <Image Source="/PolyPaint;component/Resources/woman_avatar.png"  />
         </Button>

@@ -33,3 +33,18 @@ exports.getGame = async function(req, res) {
         res.status(HTTP.STATUS.BAD_REQUEST).send(error);
     }
 };
+
+exports.getRandomGame = async function(req, res) {
+    try {
+        console.log("DSDFSF")
+        const filter = req.body.words;
+        console.log("Filter " + filter)
+        let words = await Game.find({ name: { $nin: filter} }).select("name -_id");
+        console.log("Words: " + words)
+        let word = words[Math.floor(Math.random() * words.length)].name;
+        let game = await Game.findOne({ name: word });
+        res.status(HTTP.STATUS.OK).send({ game });
+    } catch (error) {
+        res.status(HTTP.STATUS.BAD_REQUEST).send(error);
+    }
+};

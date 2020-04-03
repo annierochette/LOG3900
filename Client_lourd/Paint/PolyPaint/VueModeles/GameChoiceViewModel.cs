@@ -24,13 +24,14 @@ namespace PolyPaint.VueModeles
             }
         }
 
-        public ICommand GoToFreeForAll
+        private ICommand _goToGameModeMenu;
+        public ICommand GoToGameModeMenu
         {
             get
             {
-                return _goToFreeForAll ?? (_goToFreeForAll = new RelayCommand(x =>
+                return _goToGameModeMenu ?? (_goToGameModeMenu = new RelayCommand(x =>
                 {
-                    Mediator.Notify("GoToFreeForAll", "");
+                    Mediator.Notify("GoToGameModeMenu", "");
                 }));
             }
         }
