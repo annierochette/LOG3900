@@ -24,7 +24,7 @@ public class Menu extends AppCompatActivity {
     private ImageView chatButton;
 
     private Socket socket;
-    private String http = "http://192.168.0.233:5050";
+    private String http = "http://192.168.2.109:5050";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,6 +80,7 @@ public class Menu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 backToLogin();
+                socket.disconnect();
             }
         });
 
@@ -114,6 +115,7 @@ public class Menu extends AppCompatActivity {
     public void backToLogin(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        socket.disconnect();
     }
 
     public void openChat(){
@@ -121,9 +123,13 @@ public class Menu extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     public Socket getSocket() {
         return socket;
+    }
+
+    @Override
+    public void onBackPressed() {
+        backToLogin();
     }
 
 }

@@ -107,4 +107,7 @@ public class PlayMenu extends AppCompatActivity {
         Intent intent = new Intent(this, ChatBoxActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onBackPressed() { }
 }

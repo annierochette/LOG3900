@@ -308,6 +308,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
     public void openDialog() {
         postMultiplayerGameDialog postMultiplayerGameDialog = new postMultiplayerGameDialog();
         postMultiplayerGameDialog.show(getSupportFragmentManager(), "postMultiplayerGameDialog");
+        postMultiplayerGameDialog.setCancelable(false);
     }
 
     public void updatePoints(){
@@ -357,4 +358,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    @Override
+    public void onBackPressed() { }
 }

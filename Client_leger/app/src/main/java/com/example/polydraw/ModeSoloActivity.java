@@ -155,5 +155,9 @@ public class ModeSoloActivity extends AppCompatActivity {
     public void openDialog() {
         postSoloGameDialog postSoloGameDialogDialog = new postSoloGameDialog();
         postSoloGameDialogDialog.show(getSupportFragmentManager(), "postSoloGameDialogDialog");
+        postSoloGameDialogDialog.setCancelable(false);
     }
+
+    @Override
+    public void onBackPressed() { }
 }

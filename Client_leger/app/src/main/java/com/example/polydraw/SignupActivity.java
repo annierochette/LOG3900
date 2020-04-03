@@ -27,6 +27,8 @@ public class SignupActivity extends AppCompatActivity {
     private EditText username;
     private EditText password;
     private EditText passwordConfirmation;
+    private Button backButton;
+
 
     public String IpAddress;
     public String url = "https://fais-moi-un-dessin.herokuapp.com"; //"https://fais-moi-un-dessin.herokuapp.com/"
@@ -42,6 +44,7 @@ public class SignupActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         passwordConfirmation = (EditText) findViewById(R.id.passwordConfirmation);
         signup = (Button) findViewById(R.id.signup);
+        backButton = (Button) findViewById(R.id.backButton);
 
 
         NewUser newUser = new NewUser(name.getText().toString(),surname.getText().toString(),username.getText().toString(), password.getText().toString());
@@ -57,13 +60,20 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backToLogin();
+            }
+        });
+
     }
 
     public void sendForm() {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String query_url = "http://192.168.2.132:5050";
+                String query_url = url;
                 try {
 
                     Map<String, String> postData = new HashMap<>();
@@ -85,5 +95,13 @@ public class SignupActivity extends AppCompatActivity {
 
         thread.start();
     }
+
+    public void backToLogin(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() { }
 
 }

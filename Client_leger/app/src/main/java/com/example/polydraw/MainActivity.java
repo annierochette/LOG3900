@@ -82,4 +82,7 @@ public class MainActivity extends AppCompatActivity {
         thread.start();
     }
 
+    @Override
+    public void onBackPressed() { }
+
 }

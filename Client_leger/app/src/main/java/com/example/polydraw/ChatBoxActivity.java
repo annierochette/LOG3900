@@ -52,7 +52,7 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
     private Socket chatsocket;
 
     public String Username = MainActivity.USERNAME;
-    public String IpAddress = "192.168.2.132";
+    public String IpAddress = "192.168.2.109";
     public String channelName;
     String[] channels = {"Général"};
 
