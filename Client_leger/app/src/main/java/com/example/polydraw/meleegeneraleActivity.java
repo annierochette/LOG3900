@@ -3,6 +3,7 @@ package com.example.polydraw;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -50,6 +51,10 @@ public class meleegeneraleActivity extends AppCompatActivity {
     public ConstraintLayout mLayout;
     public int mDefaultColor;
 
+    private CountDownTimer timer;
+    private long remainingTime = 60000; //1 minute
+    private TextView  chrono;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -59,6 +64,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         initializeObject();
         eventListeners();
+        startTimer();
 
     }
 
@@ -81,6 +87,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
         hints = (TextView) findViewById(R.id.hints);
         answer = (EditText) findViewById(R.id.answer);
         chatButton = (ImageView) findViewById(R.id.chatButton);
+        chrono = (TextView) findViewById(R.id.chronometer);
 
     }
 
@@ -241,5 +248,37 @@ public class meleegeneraleActivity extends AppCompatActivity {
     public void openChat(){
         Intent intent = new Intent(this, ChatBoxActivity.class);
         startActivity(intent);
+    }
+
+    //https://www.youtube.com/watch?v=zmjfAcnosS0
+    public void startTimer(){
+        timer = new CountDownTimer(remainingTime, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                remainingTime = millisUntilFinished;
+                updateTimer();
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
+
+    }
+
+    public void updateTimer(){
+        int minutes = (int) remainingTime / 60000;
+        int seconds = (int) remainingTime %60000/1000;
+        String timeLeft;
+        timeLeft = "" + minutes;
+        timeLeft += ":";
+        if(seconds < 10){
+            timeLeft += "0";
+        }
+        timeLeft += seconds;
+
+        chrono.setText(timeLeft);
     }
 }
