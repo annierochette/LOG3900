@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PolyPaint.Modeles
 {
-    public sealed class User : INotifyPropertyChanged
+    public sealed class User 
     {
         public static User instance = null;
         private static readonly object padlock = new object();
@@ -36,7 +36,7 @@ namespace PolyPaint.Modeles
             set
             {
                 username = value;
-                ChangeProperty();
+                //ChangeProperty();
             }
         }
 
@@ -48,7 +48,7 @@ namespace PolyPaint.Modeles
             set
             {
                 firstname = value;
-                ChangeProperty();
+                //ChangeProperty();
             }
         }
 
@@ -60,17 +60,17 @@ namespace PolyPaint.Modeles
             set
             {
                 lastname = value;
-                ChangeProperty();
+                //ChangeProperty();
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        //public event PropertyChangedEventHandler PropertyChanged;
 
 
-        protected void ChangeProperty([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        //protected void ChangeProperty([CallerMemberName] string propertyName = null)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //}
     }
 
 }
