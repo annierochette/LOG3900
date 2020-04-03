@@ -1,4 +1,5 @@
 ﻿using System;
+using PolyPaint.Utilitaires;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ using System.Windows.Shapes;
 using PolyPaint.VueModeles;
 using Quobject.SocketIoClientDotNet.Client;
 
+
 namespace PolyPaint.Vues
 {
     /// <summary>
@@ -22,20 +24,14 @@ namespace PolyPaint.Vues
     /// </summary>
     public partial class WaitingRoomWindow : UserControl
     {
-        private Socket socket;
+        
+        private AppSocket socket = AppSocket.Instance;
         public WaitingRoomWindow()
         {
             InitializeComponent();
-            socket = IO.Socket("http://localhost:5050");
-            socket.Emit("joinGame", "0");
-            socket.On("joinGame", (data) =>
-            {
-                Newtonsoft.Json.Linq.JObject obj = (Newtonsoft.Json.Linq.JObject)data;
-                Newtonsoft.Json.Linq.JToken un = obj.GetValue("nbPlayers");
-                Console.WriteLine(un);
-                nbConnect.Text = (string)un;
-
-            });
+            string gameName = (string)App.Current.Properties["gameName"];
+            socket.Emit("joinGame", gameName);
+            
 
         }
 

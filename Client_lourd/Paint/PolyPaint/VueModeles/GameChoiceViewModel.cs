@@ -18,6 +18,7 @@ namespace PolyPaint.VueModeles
 
 
         private ICommand _goToWaitingRoom;
+        private ICommand _goToFreeForAll;
 
         public ICommand GoToWaitingRoom
         {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace PolyPaint.VueModeles
 {
@@ -12,7 +13,10 @@ namespace PolyPaint.VueModeles
     {
         private ICommand _goToGameMenu;
         private ICommand _goToSignInWindow;
-        private ICommand _goToGameChoice;
+        public string _textBoxData;
+        AppSocket socket = AppSocket.Instance;
+        public ObservableCollection<string> SomeCollection { get; set; }
+        public ICommand TestCommand { get; private set; }
 
         public override string GetCurrentViewModelName()
         {
@@ -55,16 +59,35 @@ namespace PolyPaint.VueModeles
 
         }
 
-        public ICommand GoToGameChoice
+        public string TextBoxData
         {
             get
             {
-                return _goToGameChoice ?? (_goToGameChoice = new RelayCommand(x =>
-                {
-                    Mediator.Notify("GoToGameChoice", "");
-                }));
+                return _textBoxData;
+            }
+            set
+            {
+                _textBoxData = value;
+               
             }
         }
+
+        public WaitingRoomViewModel()
+        {
+
+            socket.On("joinGame", (data) =>
+            {
+                Newtonsoft.Json.Linq.JObject obj = (Newtonsoft.Json.Linq.JObject)data;
+                Newtonsoft.Json.Linq.JToken un = obj.GetValue("nbPlayers");
+
+                string test = (string)un;
+                //Console.WriteLine("le nombre: " + test);
+                Console.WriteLine(test);
+                TextBoxData = test;
+
+            });
+        }
+
 
     }
 }
