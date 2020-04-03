@@ -34,6 +34,8 @@ public class ModeSoloActivity extends AppCompatActivity {
     private long remainingTime = 60000; //1 minute
     private TextView  chrono;
     private Button button;
+    private TextView points;
+    private int score = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -55,6 +57,7 @@ public class ModeSoloActivity extends AppCompatActivity {
         chatButton = (ImageView) findViewById(R.id.chatButton);
         chrono = (TextView) findViewById(R.id.chronometer);
         button = (Button) findViewById(R.id.button);
+        points = (TextView) findViewById(R.id.points);
 
     }
 
@@ -78,6 +81,7 @@ public class ModeSoloActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addTime();
+                updatePoints();
             }
         });
 
@@ -87,6 +91,7 @@ public class ModeSoloActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ChatBoxActivity.class);
         startActivity(intent);
     }
+
     //https://www.youtube.com/watch?v=zmjfAcnosS0
     public void startTimer(){
         timer = new CountDownTimer(remainingTime, 1000) {
@@ -139,6 +144,12 @@ public class ModeSoloActivity extends AppCompatActivity {
             }
         }.start();
 
+    }
+
+    public void updatePoints(){
+        score+=1;
+        System.out.println(score);
+        points.setText(score +" pts");
     }
 
     public void openDialog() {

@@ -55,6 +55,18 @@ public class meleegeneraleActivity extends AppCompatActivity {
     private long remainingTime = 60000; //1 minute
     private TextView  chrono;
 
+    private int score;
+
+    private int nbPlayers = 2;
+    public TextView player1;
+    public TextView player2;
+    public TextView player3;
+    public TextView player4;
+    public TextView score1;
+    public TextView score2;
+    public TextView score3;
+    public TextView score4;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -65,6 +77,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
         initializeObject();
         eventListeners();
         startTimer();
+        showNbPlayers();
 
     }
 
@@ -88,6 +101,15 @@ public class meleegeneraleActivity extends AppCompatActivity {
         answer = (EditText) findViewById(R.id.answer);
         chatButton = (ImageView) findViewById(R.id.chatButton);
         chrono = (TextView) findViewById(R.id.chronometer);
+
+        player1 = (TextView) findViewById(R.id.player1);
+        player2 = (TextView) findViewById(R.id.player2);
+        player3 = (TextView) findViewById(R.id.player3);
+        player4 = (TextView) findViewById(R.id.player4);
+        score1 = (TextView) findViewById(R.id.points1);
+        score2 = (TextView) findViewById(R.id.points2);
+        score3 = (TextView) findViewById(R.id.points3);
+        score4 = (TextView) findViewById(R.id.points4);
 
     }
 
@@ -271,7 +293,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
 
     public void updateTimer(){
         int minutes = (int) remainingTime / 60000;
-        int seconds = (int) remainingTime %60000/1000;
+        int seconds = (int) remainingTime % 60000 / 1000;
         String timeLeft;
         timeLeft = "" + minutes;
         timeLeft += ":";
@@ -286,5 +308,53 @@ public class meleegeneraleActivity extends AppCompatActivity {
     public void openDialog() {
         postMultiplayerGameDialog postMultiplayerGameDialog = new postMultiplayerGameDialog();
         postMultiplayerGameDialog.show(getSupportFragmentManager(), "postMultiplayerGameDialog");
+    }
+
+    public void updatePoints(){
+        score+=1;
+        System.out.println(score);
+//        points.setText(score +" pts");
+    }
+
+    public void setNbPlayers(){
+        //selon nb de personnes connectees sur socket du jeu
+        // au moins 2 joueurs reels
+    }
+
+    public void showNbPlayers(){
+        switch (nbPlayers){
+            case 1:
+                System.out.println(1);
+                player1.setVisibility(View.VISIBLE);
+                score1.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                System.out.println(2);
+                player1.setVisibility(View.VISIBLE);
+                score1.setVisibility(View.VISIBLE);
+                player2.setVisibility(View.VISIBLE);
+                score2.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                System.out.println(3);
+                player1.setVisibility(View.VISIBLE);
+                score1.setVisibility(View.VISIBLE);
+                player2.setVisibility(View.VISIBLE);
+                score2.setVisibility(View.VISIBLE);
+                player3.setVisibility(View.VISIBLE);
+                score3.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                System.out.println(4);
+                player1.setVisibility(View.VISIBLE);
+                score1.setVisibility(View.VISIBLE);
+                player2.setVisibility(View.VISIBLE);
+                score2.setVisibility(View.VISIBLE);
+                player3.setVisibility(View.VISIBLE);
+                score3.setVisibility(View.VISIBLE);
+                player4.setVisibility(View.VISIBLE);
+                score4.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 }
