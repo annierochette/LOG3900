@@ -11,6 +11,7 @@ namespace PolyPaint.VueModeles
     public class GameChoiceViewModel : BaseViewModel, IPageViewModel
     {
         private ICommand _goToWaitingRoom;
+        private ICommand _goToFreeForAll;
 
         public ICommand GoToWaitingRoom
         {
@@ -19,6 +20,17 @@ namespace PolyPaint.VueModeles
                 return _goToWaitingRoom ?? (_goToWaitingRoom = new RelayCommand(x =>
                 {
                     Mediator.Notify("GoToWaitingRoom", "");
+                }));
+            }
+        }
+
+        public ICommand GoToFreeForAll
+        {
+            get
+            {
+                return _goToFreeForAll ?? (_goToFreeForAll = new RelayCommand(x =>
+                {
+                    Mediator.Notify("GoToFreeForAll", "");
                 }));
             }
         }
