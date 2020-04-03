@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Layout;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,12 +25,15 @@ import androidx.core.content.ContextCompat;
 import yuku.ambilwarna.AmbilWarnaDialog; //https://codinginflow.com/tutorials/android/ambilwarna-color-picker-dialog
 
 public class ModeSoloActivity extends AppCompatActivity {
-    DrawingCanvas drawingCanvas;
     public GuessingCanvas guessingCanvas;
     ImageButton sendAnswer;
     TextView hints;
     EditText answer;
     private ImageView chatButton;
+    private CountDownTimer timer;
+    private long remainingTime = 60000; //1 minute
+    private TextView  chrono;
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -39,6 +43,7 @@ public class ModeSoloActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         initializeObject();
         eventListeners();
+        startTimer();
 
     }
 
@@ -48,6 +53,8 @@ public class ModeSoloActivity extends AppCompatActivity {
         hints = (TextView) findViewById(R.id.hints);
         answer = (EditText) findViewById(R.id.answer);
         chatButton = (ImageView) findViewById(R.id.chatButton);
+        chrono = (TextView) findViewById(R.id.chronometer);
+        button = (Button) findViewById(R.id.button);
 
     }
 
@@ -67,10 +74,68 @@ public class ModeSoloActivity extends AppCompatActivity {
             }
         });
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addTime();
+            }
+        });
+
     }
 
     public void openChat(){
         Intent intent = new Intent(this, ChatBoxActivity.class);
         startActivity(intent);
+    }
+    //https://www.youtube.com/watch?v=zmjfAcnosS0
+    public void startTimer(){
+        timer = new CountDownTimer(remainingTime, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                remainingTime = millisUntilFinished;
+                updateTimer();
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
+
+    }
+
+    public void updateTimer(){
+        int minutes = (int) remainingTime / 60000;
+        int seconds = (int) remainingTime %60000/1000;
+        String timeLeft;
+        timeLeft = "" + minutes;
+        timeLeft += ":";
+        if(seconds < 10){
+            timeLeft += "0";
+        }
+        timeLeft += seconds;
+
+        chrono.setText(timeLeft);
+    }
+
+    public void addTime(){
+        timer.cancel();
+        remainingTime += 5000;
+
+        timer = new CountDownTimer(remainingTime, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                remainingTime = millisUntilFinished;
+                updateTimer();
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
+
     }
 }

@@ -39,7 +39,7 @@
             android:layout_below="@+id/toolbar"
             android:layout_alignParentRight="true"
             android:fontFamily="sans-serif-condensed"
-            android:text="0:00"
+            android:text="1:00"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Display3"
             android:textColor="@android:color/black"
@@ -73,6 +73,15 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            android:layout_below="@id/player1"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"/>
 
         <com.example.polydraw.GuessingCanvas
             android:id="@+id/guessing"
