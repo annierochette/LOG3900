@@ -99,6 +99,7 @@ public class ModeSoloActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+                openDialog();
 
             }
         }.start();
@@ -133,9 +134,15 @@ public class ModeSoloActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+                openDialog();
 
             }
         }.start();
 
+    }
+
+    public void openDialog() {
+        postSoloGameDialog postSoloGameDialogDialog = new postSoloGameDialog();
+        postSoloGameDialogDialog.show(getSupportFragmentManager(), "postSoloGameDialogDialog");
     }
 }

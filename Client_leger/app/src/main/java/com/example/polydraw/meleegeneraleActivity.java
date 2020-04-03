@@ -262,6 +262,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+                openDialog();
 
             }
         }.start();
@@ -280,5 +281,10 @@ public class meleegeneraleActivity extends AppCompatActivity {
         timeLeft += seconds;
 
         chrono.setText(timeLeft);
+    }
+
+    public void openDialog() {
+        postMultiplayerGameDialog postMultiplayerGameDialog = new postMultiplayerGameDialog();
+        postMultiplayerGameDialog.show(getSupportFragmentManager(), "postMultiplayerGameDialog");
     }
 }
