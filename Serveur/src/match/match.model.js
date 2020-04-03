@@ -22,6 +22,12 @@ const matchSchema = mongoose.Schema({
             default: 0
         },
     }],
+    status: {
+        type: String,
+        enum: ["Unstarted", "Started", "Completed"],
+        required: true,
+        default: "Unstarted"
+    },
     type: {
         type: String,
         enum: ["FreeForAll", "SoloSprint"],

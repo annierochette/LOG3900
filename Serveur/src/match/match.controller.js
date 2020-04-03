@@ -42,3 +42,51 @@ exports.updateScore = async function(req, res) {
         res.status(HTTP.STATUS.CONFLICT).send(error);
     }
 }
+
+exports.addGame = async function(req, res) {
+    try {
+        await Match.findOneAndUpdate(
+            { name: req.params.name },
+            { $push: { games: req.body.game } }
+        );
+
+        res.status(HTTP.STATUS.OK).end();
+    } catch (error) {
+        LOGGER.info(error);
+        res.status(HTTP.STATUS.CONFLICT).send(error);
+    }
+}
+
+exports.getMatch = async function(req, res) {
+    try{
+        const match = await Match.findOne({ name: req.params.name });
+        res.status(HTTP.STATUS.OK).json(match);
+    } catch (error) {
+        LOGGER.info(error);
+        res.status(HTTP.STATUS.BAD_REQUEST).send(error);
+    }
+}
+
+exports.getUnstartedMatch = async function(req, res) {
+    try{
+        let matches = await Match.find({ status: "Unstarted" });
+        res.status(HTTP.STATUS.OK).send(matches);
+    } catch (error) {
+        LOGGER.info(error);
+        res.status(HTTP.STATUS.BAD_REQUEST).send(error);
+    }
+}
+
+exports.updateStatus = async function(req, res) {
+    try {
+        await Match.findOneAndUpdate(
+            { name: req.params.name },
+            { status: req.body.status }
+        );
+
+        res.status(HTTP.STATUS.OK).end();
+    } catch (error) {
+        LOGGER.info(error);
+        res.status(HTTP.STATUS.CONFLICT).send(error);
+    }
+}
