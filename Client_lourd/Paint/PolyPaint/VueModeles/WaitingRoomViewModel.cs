@@ -18,6 +18,21 @@ namespace PolyPaint.VueModeles
         public ObservableCollection<string> SomeCollection { get; set; }
         public ICommand TestCommand { get; private set; }
 
+        public override string GetCurrentViewModelName()
+        {
+            return "WaitingRoomViewModel";
+        }
+
+        public void assignGuessingView()
+        {
+            Mediator.Notify("GoToGuessingView", "");
+        }
+
+        public void assignDrawingView()
+        {
+            Mediator.Notify("GoToFreeForAll", "");
+        }
+
         public ICommand GoToGameMenu
         {
             get

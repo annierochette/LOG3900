@@ -6,6 +6,12 @@ namespace PolyPaint.VueModeles
 {
     public class GameModeMenuViewModel : BaseViewModel, IPageViewModel
     {
+
+        public override string GetCurrentViewModelName()
+        {
+            return "GameModeMenuViewModel";
+        }
+
         private ICommand _goToDrawingWindow;
         private ICommand _goToGameMenu;
         private ICommand _goToUserProfile;

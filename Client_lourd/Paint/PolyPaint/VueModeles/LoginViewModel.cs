@@ -10,6 +10,10 @@ namespace PolyPaint.VueModeles
     public class LoginControlViewModel : BaseViewModel, IPageViewModel
     {
 
+        public override string GetCurrentViewModelName()
+        {
+            return "LoginControlViewModel";
+        }
 
         private IPageViewModel _currentLoginViewModel;
         private List<IPageViewModel> _pageViewModels;
@@ -124,6 +128,12 @@ namespace PolyPaint.VueModeles
 
     public class SignInViewModel : BaseViewModel, IPageViewModel
     {
+
+        public override string GetCurrentViewModelName()
+        {
+            return "SignInViewModel";
+        }
+
         private ICommand _goToLoginWindow;
 
         public ICommand GoToLoginWindow
@@ -150,6 +160,10 @@ namespace PolyPaint.VueModeles
             set { user.Username = value; }
         }
 
+        public override string GetCurrentViewModelName()
+        {
+            return "LoginViewModel";
+        }
 
         private ICommand _goToMainWindow;
         private ICommand _goToSignInWindow;

@@ -13,7 +13,10 @@ namespace PolyPaint.VueModeles
         private IPageViewModel _currentCreatorViewModel;
         private List<IPageViewModel> _pageViewModels;
 
-
+        public override string GetCurrentViewModelName()
+        {
+            return "GameCreatorControlViewModel";
+        }
 
         public GameCreatorControlViewModel()
         {
@@ -103,6 +106,11 @@ namespace PolyPaint.VueModeles
         private ICommand _goToImageImport;
         private ICommand _goToQuickdrawSuggestion;
 
+        public override string GetCurrentViewModelName()
+        {
+            return "GameCreatorViewModel";
+        }
+
         public ICommand GoToGameMenu
         {
             get
@@ -184,7 +192,10 @@ namespace PolyPaint.VueModeles
         private ICommand _goToGameCreator;
         private ICommand _goToNewGameForm;
 
-
+        public override string GetCurrentViewModelName()
+        {
+            return "ImageImportViewModel";
+        }
         public ICommand GoToGameCreator
         {
             get
@@ -212,6 +223,11 @@ namespace PolyPaint.VueModeles
     {
         private ICommand _goToImageImport;
         private ICommand _goToGameCreator;
+
+        public override string GetCurrentViewModelName()
+        {
+            return "NewGameFormViewModel";
+        }
 
         public ICommand GoToImageImport
         {
@@ -242,6 +258,11 @@ namespace PolyPaint.VueModeles
         private ICommand _goToGameCreator;
         private Word word = new Word();
         public string SuggestedWord { get; set; }
+
+        public override string GetCurrentViewModelName()
+        {
+            return "QuickDrawSuggestionViewModel";
+        }
 
         public QuickDrawSuggestionViewModel()
         {

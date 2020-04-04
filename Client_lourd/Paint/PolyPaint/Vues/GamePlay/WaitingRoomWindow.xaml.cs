@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PolyPaint.VueModeles;
 using Quobject.SocketIoClientDotNet.Client;
 
 
@@ -34,10 +35,6 @@ namespace PolyPaint.Vues
 
         }
 
-        private void MessageBoxControl_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void voir(object sender, RoutedEventArgs e) {
             Console.WriteLine("Voici le mot:");
@@ -48,5 +45,15 @@ namespace PolyPaint.Vues
             Console.WriteLine(prop);
             
         }
+
+        private void assignView(object sender, System.EventArgs e)
+        {
+
+            ((WaitingRoomViewModel)(DataContext)).assignGuessingView();
+            //((WaitingRoomViewModel)(DataContext)).assignDrawingView();
+        }
+
+
+
     }
 }

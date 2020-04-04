@@ -16,7 +16,7 @@
 
 
 
-    <Grid DockPanel.Dock="Left" >
+    <Grid Background="#4CAFE0" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Name="colonne" Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -40,9 +40,9 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Thumb Name="horizontal" Grid.Row="4" Grid.Column="2" Background="White" DragDelta="GlisserMouvementRecu" 
+        <!--<Thumb Name="horizontal" Grid.Row="4" Grid.Column="2" Background="White" DragDelta="GlisserMouvementRecu" 
                       DragStarted="GlisserCommence" DragCompleted="GlisserTermine" Margin="47,4,47,36"
                       />
         <Thumb Name="diagonal" Grid.Row="2" Grid.Column="2" Background="White" DragDelta="GlisserMouvementRecu" 
@@ -58,6 +58,16 @@
         </StackPanel>
         <custom:TimerControl Grid.Column="4" Grid.ColumnSpan="4" Grid.RowSpan="2" Margin="66,0,49,10" Loaded="TimerControl_Loaded" />
        
+                      />-->
+   
+            <custom:DrawingWindow ClipToBounds="True" x:Name="draftsman" Grid.Column="0" Grid.ColumnSpan="9" Grid.Row="2" Grid.RowSpan="10"
+                           HorizontalAlignment="Stretch" VerticalAlignment="Stretch"                           
+                           Background="#FFFDF9F9"/>
+ 
+        <custom:TimerControl Grid.Column="4" Grid.ColumnSpan="4" Grid.RowSpan="2" Margin="66,0,49,10" Loaded="TimerControl_Loaded" />
+        <Button x:Name="button" Width="75" Height="40" Command="{Binding GoToGameModeMenu}" >
+            <Image Source="back.png"></Image>
+        </Button> 
 
     </Grid>
 

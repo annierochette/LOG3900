@@ -12,6 +12,11 @@ namespace PolyPaint.VueModeles
         private IPageViewModel _currentPageViewModel;
         private List<IPageViewModel> _pageViewModels;
 
+        public override string GetCurrentViewModelName()
+        {
+            return "MainWindowViewModel";
+        }
+
         public List<IPageViewModel> PageViewModels
         {
             get
@@ -36,7 +41,7 @@ namespace PolyPaint.VueModeles
             }
         }
 
-        private void ChangeViewModel(IPageViewModel viewModel)
+        public void ChangeViewModel(IPageViewModel viewModel)
         {
             if (!PageViewModels.Contains(viewModel))
                 PageViewModels.Add(viewModel);

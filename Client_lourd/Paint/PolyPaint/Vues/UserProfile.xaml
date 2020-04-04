@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PolyPaint.Vues"
-             xmlns:custom="clr-namespace:PolyPaint.CustomControls"
+        xmlns:local="clr-namespace:PolyPaint.VueModeles"
              mc:Ignorable="d"
-d:DesignHeight="650" d:DesignWidth="900">
+d:DesignHeight="650" d:DesignWidth="900"
+             >
     <Grid Background="#4CAFE0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -40,11 +40,11 @@ d:DesignHeight="650" d:DesignWidth="900">
         </Button>
         <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Grid.RowSpan="5" Margin="10,59,0,59" >
             <TextBlock HorizontalAlignment="Left"   Text="PRÉNOM:"  FontSize="20" FontFamily="Ink Free" Foreground="White"/>
-            <TextBlock HorizontalAlignment="Center"  Text=""  FontSize="24" FontFamily="Ink Free" Foreground="Black" FontWeight="Bold"/>
+            <TextBlock HorizontalAlignment="Center"    FontSize="24" Text="" FontFamily="Ink Free" Foreground="Black" FontWeight="Bold"/>
             <TextBlock HorizontalAlignment="Left"  Text="NOM:" FontSize="20" FontFamily="Ink Free" Foreground="White"/>
             <TextBlock HorizontalAlignment="Center"  Text="" FontSize="24" FontFamily="Ink Free" Foreground="Black" FontWeight="Bold"/>
             <TextBlock HorizontalAlignment="Left"   Text="PSEUDONYME:" FontSize="20" FontFamily="Ink Free" Foreground="White"/>
-            <TextBlock HorizontalAlignment="Center"  Text="" FontSize="24" FontFamily="Ink Free" Foreground="Black" FontWeight="Bold"/>
+            <TextBlock HorizontalAlignment="Center"  Text="{Binding Username}" FontSize="24" FontFamily="Ink Free" Foreground="Black" FontWeight="Bold"/>
         </StackPanel>
     </Grid>
 </UserControl>
