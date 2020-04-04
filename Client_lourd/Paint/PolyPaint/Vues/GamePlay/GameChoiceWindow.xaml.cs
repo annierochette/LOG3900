@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net.Http;
 using Newtonsoft.Json;
+using PolyPaint.Utilitaires;
 
 namespace PolyPaint.Vues
 {
@@ -22,6 +23,7 @@ namespace PolyPaint.Vues
     /// </summary>
     public partial class GameChoiceWindow : UserControl
     {
+        private AppSocket socket = AppSocket.Instance;
         public GameChoiceWindow()
         {
             InitializeComponent();
@@ -67,7 +69,8 @@ namespace PolyPaint.Vues
 
             
  
-        App.Current.Properties["gameName"] = "game1";        
+        App.Current.Properties["gameName"] = "game1";
+        socket.Emit("joinGame", "0");
         }
     }
 }

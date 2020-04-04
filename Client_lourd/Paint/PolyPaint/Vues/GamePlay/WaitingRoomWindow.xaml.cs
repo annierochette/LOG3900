@@ -29,7 +29,7 @@ namespace PolyPaint.Vues
         {
             InitializeComponent();
             string gameName = (string)App.Current.Properties["gameName"];
-            socket.Emit("joinGame", gameName);
+
             
 
         }
