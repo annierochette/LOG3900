@@ -56,6 +56,7 @@
                     android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:layout_marginBottom="10dp"
+                    app:srcCompat="@drawable/ic_avatar"
                     android:background="@color/colorYellow" />
 
                 <TextView
@@ -87,6 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
                     android:layout_marginBottom="25dp"
+                    android:background="#B3C646"
                     android:gravity="center"
                     android:text="Stats"
                     android:textAllCaps="true"
@@ -143,6 +145,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
                     android:layout_marginBottom="25dp"
+                    android:background="#B3C646"
                     android:gravity="center"
                     android:text="Badges"
                     android:textAllCaps="true"
@@ -159,33 +162,29 @@
                     android:id="@+id/imageView7"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
-                    tools:srcCompat="@tools:sample/avatars"
-                    android:background="@color/colorYellow"
-                    android:layout_margin="10dp"/>
+                    android:layout_margin="10dp"
+                    tools:srcCompat="@drawable/ic_badge_allmodes" />
 
                 <ImageView
                     android:id="@+id/imageView8"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
-                    tools:srcCompat="@tools:sample/avatars"
-                    android:background="@color/colorYellow"
-                    android:layout_margin="10dp"/>
+                    android:layout_margin="10dp"
+                    tools:srcCompat="@drawable/ic_badge_10sologames" />
 
                 <ImageView
                     android:id="@+id/imageView1"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
-                    tools:srcCompat="@tools:sample/avatars"
-                    android:background="@color/colorYellow"
-                    android:layout_margin="10dp"/>
+                    android:layout_margin="10dp"
+                    tools:srcCompat="@drawable/ic_badge_nightowl" />
 
                 <ImageView
                     android:id="@+id/imageView2"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
-                    tools:srcCompat="@tools:sample/avatars"
-                    android:background="@color/colorYellow"
-                    android:layout_margin="10dp"/>
+                    android:layout_margin="10dp"
+                    tools:srcCompat="@drawable/ic_badge_5losses" />
 
             </LinearLayout>
 
@@ -199,33 +198,29 @@
                         android:id="@+id/imageView3"
                         android:layout_width="200dp"
                         android:layout_height="200dp"
-                        tools:srcCompat="@tools:sample/avatars"
-                        android:background="@color/colorYellow"
-                        android:layout_margin="10dp"/>
+                        android:layout_margin="10dp"
+                        tools:srcCompat="@drawable/ic_badge_5wins" />
 
                     <ImageView
                         android:id="@+id/imageView4"
                         android:layout_width="200dp"
                         android:layout_height="200dp"
-                        tools:srcCompat="@tools:sample/avatars"
-                        android:background="@color/colorYellow"
-                        android:layout_margin="10dp"/>
+                        android:layout_margin="10dp"
+                        tools:srcCompat="@drawable/ic_badge_7days" />
 
                     <ImageView
                         android:id="@+id/imageView5"
                         android:layout_width="200dp"
                         android:layout_height="200dp"
-                        tools:srcCompat="@tools:sample/avatars"
-                        android:background="@color/colorYellow"
-                        android:layout_margin="10dp"/>
+                        android:layout_margin="10dp"
+                        tools:srcCompat="@drawable/ic_badge_25wins" />
 
                     <ImageView
                         android:id="@+id/imageView6"
                         android:layout_width="200dp"
                         android:layout_height="200dp"
-                        tools:srcCompat="@tools:sample/avatars"
-                        android:background="@color/colorYellow"
-                        android:layout_margin="10dp"/>
+                        android:layout_margin="10dp"
+                        tools:srcCompat="@drawable/ic_badge_allbadges" />
 
                 </LinearLayout>
 

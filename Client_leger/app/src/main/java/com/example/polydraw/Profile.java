@@ -9,12 +9,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class Profile extends AppCompatActivity {
 
     private Button backButton;
     private ImageButton disconnectButton;
     private ImageView chatButton;
+//    private TextView usernameText;
+//    public String username = getIntent().getStringExtra("username");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,9 @@ public class Profile extends AppCompatActivity {
         backButton = (Button) findViewById(R.id.backButton);
         disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
         chatButton = (ImageView) findViewById(R.id.chatButton);
+//        usernameText = (TextView) findViewById(R.id.username);
+//
+//        usernameText.setText(username);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

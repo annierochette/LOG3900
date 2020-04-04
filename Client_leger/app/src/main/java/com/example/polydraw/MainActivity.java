@@ -2,6 +2,7 @@ package com.example.polydraw;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Application;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -26,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String USERNAME = "username";
     public static final String IP_ADDRESS = "ipAddress";
     public static final String PASSWORD = "password";
+
+    public Application app;
+
     String query_url = "https://fais-moi-un-dessin.herokuapp.com/players/login";
 
     @Override
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     task.execute(query_url);
 
                     Intent intent = new Intent(MainActivity.this, Menu.class);
+//                    intent.putExtra("username", username.getText().toString());
                     startActivity(intent);
 
                 } catch (Exception e) {
