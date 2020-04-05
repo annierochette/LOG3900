@@ -22,6 +22,7 @@ public class Menu extends AppCompatActivity {
     private Button settingsButton;
     private ImageButton disconnectButton;
     private ImageView chatButton;
+//    public String username = getIntent().getStringExtra("username");
 
     private Socket socket;
     private String http = "http://192.168.2.109:5050";
@@ -98,6 +99,7 @@ public class Menu extends AppCompatActivity {
 
     public void openProfileView(){
         Intent intent = new Intent(this, Profile.class);
+//        intent.putExtra("username", username);
         startActivity(intent);
     }
 

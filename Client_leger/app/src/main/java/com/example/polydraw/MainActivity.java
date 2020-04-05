@@ -2,6 +2,7 @@ package com.example.polydraw;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Application;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -22,9 +23,12 @@ public class MainActivity extends AppCompatActivity {
     private EditText username;
     private Button signupButton;
     private EditText password;
-    /*public static final String USERNAME = "username";
+    public static final String USERNAME = "username";
     public static final String IP_ADDRESS = "ipAddress";
-    public static final String PASSWORD = "password";*/
+    public static final String PASSWORD = "password";
+
+    public Application app;
+
     String query_url = "https://fais-moi-un-dessin.herokuapp.com/players/login";
 
     public static String editTextString;
@@ -75,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     editTextString=str;
 
                     Intent intent = new Intent(MainActivity.this, Menu.class);
+//                    intent.putExtra("username", username.getText().toString());
                     startActivity(intent);
 
                 } catch (Exception e) {

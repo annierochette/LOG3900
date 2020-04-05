@@ -45,6 +45,7 @@
             android:layout_margin="75dp"
             android:layout_width="200dp"
             android:layout_height="200dp"
+            app:srcCompat="@drawable/ic_avatar"
             android:background="@color/colorYellow"  />
 
         <LinearLayout
