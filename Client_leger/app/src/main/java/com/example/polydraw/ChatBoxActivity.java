@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,8 +50,8 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
 
     private Socket chatsocket;
 
-    public String Username = MainActivity.USERNAME;
-    public String IpAddress = "192.168.2.109";
+    String Username = MainActivity.editTextString;
+    public String IpAddress = "192.168.2.132";
     public String channelName;
     String[] channels = {"Général"};
 
@@ -65,11 +64,6 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         send = (Button) findViewById(R.id.send);
         addChannel = (ImageButton) findViewById(R.id.addChannel);
         ListView lv = (ListView) findViewById(R.id.channelsList);
-
-        Bundle extras = getIntent().getExtras();
-
-//        Username = (String) extras.getString(MainActivity.USERNAME);
-//        IpAddress = (String) extras.getString(MainActivity.IP_ADDRESS);
 
         try {
 

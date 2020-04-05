@@ -46,6 +46,7 @@ public class Profile extends AppCompatActivity {
                 openChat();
             }
         });
+
     }
 
     public void backToMenu(){

@@ -20,6 +20,8 @@ import com.example.polydraw.Socket.SocketIO;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.URISyntaxException;
@@ -41,6 +43,8 @@ public class DrawingCanvas extends View {
     public Canvas mCanvas;
     public Bitmap mBitmap;
     private Paint mBitmapPaint;
+
+    private JSONObject jsonObject = new JSONObject();
 
     public DrawingCanvas (Context context, AttributeSet attrs){
         super(context,attrs);

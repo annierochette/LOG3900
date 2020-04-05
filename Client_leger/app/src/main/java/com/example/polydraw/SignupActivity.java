@@ -31,7 +31,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
     public String IpAddress;
-    public String url = "https://fais-moi-un-dessin.herokuapp.com"; //"https://fais-moi-un-dessin.herokuapp.com/"
+    public String url = "http://192.168.2.132:5050"; //"https://fais-moi-un-dessin.herokuapp.com/"
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

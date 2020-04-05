@@ -39,7 +39,6 @@ public class Menu extends AppCompatActivity {
         disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
         chatButton = (ImageView) findViewById(R.id.chatButton);
 
-
         try{
             socket = IO.socket(http); //https://fais-moi-un-dessin.herokuapp.com/"
             socket.connect();

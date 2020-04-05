@@ -126,6 +126,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
 
             }
         });
+
         drawButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

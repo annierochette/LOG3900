@@ -9,6 +9,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class postSoloGameDialog extends AppCompatDialogFragment {
+    private String username;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -18,6 +20,7 @@ public class postSoloGameDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent intent = new Intent(getActivity(), PlayMenu.class);
+                        intent.putExtra("USERNAME", username);
                         startActivity(intent);
 
                     }
