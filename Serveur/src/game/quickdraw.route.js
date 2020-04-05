@@ -4,7 +4,7 @@ const authentification = require("../services/authentification");
 
 const router = express.Router();
 
-router.get("/games/quickdraw", authentification, CONTROLLER.getRandomDrawings);
-router.get("/games/quickdraw/:category", authentification, CONTROLLER.getCategory)
+router.get("/quickdraw", authentification, CONTROLLER.getRandomDrawings);
+router.get("/quickdraw/:category", authentification, CONTROLLER.getCategory)
 
 module.exports = router;
