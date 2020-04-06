@@ -171,7 +171,7 @@ public class DrawingCanvas extends View {
             stroke.addPoint(pt);
             _allPoints.add(pt);
 
-            if(_allPoints.size() == 100){
+            if(_allPoints.size() == 50){
                 System.out.println(_allPoints);
                 socket.getSocket().emit("draw", "General", _allPoints.toString());
                 String json = new Gson().toJson(_allPoints);
