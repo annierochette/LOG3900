@@ -2,9 +2,8 @@ package com.example.polydraw;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Layout;
+import android.os.CountDownTimer;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -21,43 +20,70 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
+
+import java.net.URISyntaxException;
+
 import yuku.ambilwarna.AmbilWarnaDialog; //https://codinginflow.com/tutorials/android/ambilwarna-color-picker-dialog
 
 public class meleegeneraleActivity extends AppCompatActivity {
-    DrawingCanvas drawingCanvas;
-    Button eraseButton;
-    Button drawButton;
-    Button color;
-    Button capStyle;
-    SeekBar seekBar;
-    TextView seekBarText;
-    Button toggle;
-    ImageButton sendAnswer;
-    TextView hints;
-    EditText answer;
-    private ImageView chatButton;
+    public DrawingCanvas drawingCanvas;
+    public GuessingCanvas guessingCanvas;
 
-    Boolean guessingView = false;
+    public Button eraseButton;
+    public Button drawButton;
+    public Button color;
+    public Button capStyle;
+    public SeekBar seekBar;
+    public TextView seekBarText;
+    public Button toggle;
+    public ImageButton sendAnswer;
+    public TextView hints;
+    public EditText answer;
+    public ImageView chatButton;
 
-    LinearLayout layoutDrawingView;
-    LinearLayout layoutGuessingView;
+    public Boolean guessingView = false;
 
-    ConstraintLayout mLayout;
-    int mDefaultColor;
+    public LinearLayout layoutDrawingView;
+    public LinearLayout layoutGuessingView;
+
+    public ConstraintLayout mLayout;
+    public int mDefaultColor;
+
+    private CountDownTimer timer;
+    private long remainingTime = 60000; //1 minute
+    private TextView  chrono;
+
+    private int score;
+
+    private int nbPlayers = 2;
+    public TextView player1;
+    public TextView player2;
+    public TextView player3;
+    public TextView player4;
+    public TextView score1;
+    public TextView score2;
+    public TextView score3;
+    public TextView score4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
         drawingCanvas = new DrawingCanvas(this,null);
         setContentView(R.layout.activity_meleegenerale);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         initializeObject();
         eventListeners();
+        startTimer();
+        showNbPlayers();
 
     }
 
     private void initializeObject(){
         drawingCanvas = (DrawingCanvas) findViewById(R.id.drawing);
+        guessingCanvas = (GuessingCanvas) findViewById(R.id.guessing);
         eraseButton = (Button) findViewById(R.id.eraser);
         drawButton = (Button) findViewById(R.id.paint);
         color = (Button) findViewById(R.id.colorButton);
@@ -74,7 +100,16 @@ public class meleegeneraleActivity extends AppCompatActivity {
         hints = (TextView) findViewById(R.id.hints);
         answer = (EditText) findViewById(R.id.answer);
         chatButton = (ImageView) findViewById(R.id.chatButton);
+        chrono = (TextView) findViewById(R.id.chronometer);
 
+        player1 = (TextView) findViewById(R.id.player1);
+        player2 = (TextView) findViewById(R.id.player2);
+        player3 = (TextView) findViewById(R.id.player3);
+        player4 = (TextView) findViewById(R.id.player4);
+        score1 = (TextView) findViewById(R.id.points1);
+        score2 = (TextView) findViewById(R.id.points2);
+        score3 = (TextView) findViewById(R.id.points3);
+        score4 = (TextView) findViewById(R.id.points4);
 
     }
 
@@ -91,6 +126,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
 
             }
         });
+
         drawButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -220,14 +256,15 @@ public class meleegeneraleActivity extends AppCompatActivity {
             guessingView = true;
             layoutGuessingView.setVisibility(View.VISIBLE);
             layoutDrawingView.setVisibility(View.INVISIBLE);
-
-
+            guessingCanvas.setVisibility(View.VISIBLE);
+            drawingCanvas.setVisibility(View.INVISIBLE);
         }
         else{
             guessingView = false;
             layoutGuessingView.setVisibility(View.INVISIBLE);
             layoutDrawingView.setVisibility(View.VISIBLE);
-
+            guessingCanvas.setVisibility(View.INVISIBLE);
+            drawingCanvas.setVisibility(View.VISIBLE);
         }
     }
 
@@ -235,4 +272,94 @@ public class meleegeneraleActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ChatBoxActivity.class);
         startActivity(intent);
     }
+
+    //https://www.youtube.com/watch?v=zmjfAcnosS0
+    public void startTimer(){
+        timer = new CountDownTimer(remainingTime, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                remainingTime = millisUntilFinished;
+                updateTimer();
+
+            }
+
+            @Override
+            public void onFinish() {
+                openDialog();
+
+            }
+        }.start();
+
+    }
+
+    public void updateTimer(){
+        int minutes = (int) remainingTime / 60000;
+        int seconds = (int) remainingTime % 60000 / 1000;
+        String timeLeft;
+        timeLeft = "" + minutes;
+        timeLeft += ":";
+        if(seconds < 10){
+            timeLeft += "0";
+        }
+        timeLeft += seconds;
+
+        chrono.setText(timeLeft);
+    }
+
+    public void openDialog() {
+        postMultiplayerGameDialog postMultiplayerGameDialog = new postMultiplayerGameDialog();
+        postMultiplayerGameDialog.show(getSupportFragmentManager(), "postMultiplayerGameDialog");
+        postMultiplayerGameDialog.setCancelable(false);
+    }
+
+    public void updatePoints(){
+        score+=1;
+        System.out.println(score);
+//        points.setText(score +" pts");
+    }
+
+    public void setNbPlayers(){
+        //selon nb de personnes connectees sur socket du jeu
+        // au moins 2 joueurs reels
+    }
+
+    public void showNbPlayers(){
+        switch (nbPlayers){
+            case 1:
+                System.out.println(1);
+                player1.setVisibility(View.VISIBLE);
+                score1.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                System.out.println(2);
+                player1.setVisibility(View.VISIBLE);
+                score1.setVisibility(View.VISIBLE);
+                player2.setVisibility(View.VISIBLE);
+                score2.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                System.out.println(3);
+                player1.setVisibility(View.VISIBLE);
+                score1.setVisibility(View.VISIBLE);
+                player2.setVisibility(View.VISIBLE);
+                score2.setVisibility(View.VISIBLE);
+                player3.setVisibility(View.VISIBLE);
+                score3.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                System.out.println(4);
+                player1.setVisibility(View.VISIBLE);
+                score1.setVisibility(View.VISIBLE);
+                player2.setVisibility(View.VISIBLE);
+                score2.setVisibility(View.VISIBLE);
+                player3.setVisibility(View.VISIBLE);
+                score3.setVisibility(View.VISIBLE);
+                player4.setVisibility(View.VISIBLE);
+                score4.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() { }
 }

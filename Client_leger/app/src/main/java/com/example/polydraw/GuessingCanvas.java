@@ -1,7 +1,6 @@
 package com.example.polydraw;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -14,27 +13,21 @@ import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.polydraw.Socket.SocketIO;
+import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
-import com.google.gson.Gson;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DrawingCanvas extends View {
+public class GuessingCanvas extends View {
 
     private List<Stroke> _allStroke;
     private SparseArray<Stroke> activeStrokes;
-    private List<Point> _allPoints;
     private boolean eraser = false;
     private int paintColor = Color.BLACK;
     private Paint.Cap capOption = Paint.Cap.SQUARE;
@@ -42,16 +35,11 @@ public class DrawingCanvas extends View {
 
     private SocketIO socket;
 
-    public Canvas mCanvas;
-    public Bitmap mBitmap;
-    private Paint mBitmapPaint;
-
-
-    public DrawingCanvas (Context context, AttributeSet attrs){
+    public GuessingCanvas (Context context, AttributeSet attrs){
         super(context,attrs);
         _allStroke = new ArrayList<Stroke>();
         activeStrokes = new SparseArray<Stroke>();
-        _allPoints = new ArrayList<Point>();
+
         socket = new SocketIO();
         socket.initInstance("1234");
 
@@ -59,16 +47,10 @@ public class DrawingCanvas extends View {
         setFocusableInTouchMode(true);
         setBackgroundColor(Color.TRANSPARENT);
         setLayerType(LAYER_TYPE_HARDWARE, null);
-        mBitmapPaint = new Paint(Paint.DITHER_FLAG);
 
+        socket.getSocket().on("draw", onDrawing);
+        socket.getSocket().on("eraser", onEraserToggle);
 
-    }
-
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        mBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        mCanvas = new Canvas(mBitmap);
     }
 
     @Override
@@ -79,7 +61,6 @@ public class DrawingCanvas extends View {
                     Path path = stroke.getPath();
                     Paint painter = stroke.getPaint();
                     if ((path != null) && (painter != null)) {
-                        canvas.drawBitmap(mBitmap, 0,0, mBitmapPaint);
                         canvas.drawPath(path, painter);
                     }
                 }
@@ -89,53 +70,53 @@ public class DrawingCanvas extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event){
-        final int action = event.getActionMasked();
-        final int pointerCount = event.getPointerCount();
-
-        switch(action) {
-            case MotionEvent.ACTION_DOWN:
-                if (eraser) {
-                    eraseStroke((int) event.getX(), (int) event.getY(),event.getPointerId(0));
-                } else {
-                    pointDown((int) event.getX(), (int) event.getY(), event.getPointerId(0));
-                }
-                break;
-
-            case MotionEvent.ACTION_MOVE:
-                if (eraser) {
-                    for (int pc = 0; pc < pointerCount; pc++) {
-                       pointMove((int) event.getX(pc), (int) event.getY(pc),event.getPointerId(pc));
-                    }
-                } else {
-                    for (int pc = 0; pc < pointerCount; pc++) {
-                        pointMove((int) event.getX(pc), (int) event.getY(pc), event.getPointerId(pc));
-                    }
-                }
-                break;
-
-            case MotionEvent.ACTION_POINTER_DOWN:
-                if (eraser) {
-                    for (int pc = 0; pc < pointerCount; pc++) {
-                        eraseStroke((int)event.getX(pc), (int)event.getY(pc),event.getPointerId(pc));
-                    }
-                } else {
-                    for (int pc = 0; pc < pointerCount; pc++) {
-                        pointDown((int)event.getX(pc), (int)event.getY(pc), event.getPointerId(pc));
-                    }
-                }
-                break;
-
-            case MotionEvent.ACTION_UP:
-                break;
-
-            case MotionEvent.ACTION_POINTER_UP:
-                break;
-
-            default:
-                return false;
-        }
-
-        invalidate();
+//        final int action = event.getActionMasked();
+//        final int pointerCount = event.getPointerCount();
+//
+//        switch(action) {
+//            case MotionEvent.ACTION_DOWN:
+//                if (eraser) {
+//                    eraseStroke((int) event.getX(), (int) event.getY(),event.getPointerId(0));
+//                } else {
+//                    pointDown((int) event.getX(), (int) event.getY(), event.getPointerId(0));
+//                }
+//                break;
+//
+//            case MotionEvent.ACTION_MOVE:
+//                if (eraser) {
+//                    for (int pc = 0; pc < pointerCount; pc++) {
+//                        pointMove((int) event.getX(pc), (int) event.getY(pc),event.getPointerId(pc));
+//                    }
+//                } else {
+//                    for (int pc = 0; pc < pointerCount; pc++) {
+//                        pointMove((int) event.getX(pc), (int) event.getY(pc), event.getPointerId(pc));
+//                    }
+//                }
+//                break;
+//
+//            case MotionEvent.ACTION_POINTER_DOWN:
+//                if (eraser) {
+//                    for (int pc = 0; pc < pointerCount; pc++) {
+//                        eraseStroke((int)event.getX(pc), (int)event.getY(pc),event.getPointerId(pc));
+//                    }
+//                } else {
+//                    for (int pc = 0; pc < pointerCount; pc++) {
+//                        pointDown((int)event.getX(pc), (int)event.getY(pc), event.getPointerId(pc));
+//                    }
+//                }
+//                break;
+//
+//            case MotionEvent.ACTION_UP:
+//                break;
+//
+//            case MotionEvent.ACTION_POINTER_UP:
+//                break;
+//
+//            default:
+//                return false;
+//        }
+//
+//        invalidate();
         return true;
     }
 
@@ -149,14 +130,6 @@ public class DrawingCanvas extends View {
         paint.setStrokeCap(capOption);
 
         Point pt = new Point(x,y);
-        _allPoints.add(pt);
-
-        if(_allPoints.size() == 100){
-            socket.getSocket().emit("draw", "General", _allPoints);
-            _allPoints.clear();
-            _allPoints = new ArrayList<Point>();
-        }
-
         Stroke stroke = new Stroke(paint);
         stroke.addPoint(pt);
         activeStrokes.put(id, stroke);
@@ -169,16 +142,6 @@ public class DrawingCanvas extends View {
         if (stroke != null) {
             Point pt = new Point(x, y);
             stroke.addPoint(pt);
-            _allPoints.add(pt);
-
-            if(_allPoints.size() == 100){
-                System.out.println(_allPoints);
-                socket.getSocket().emit("draw", "General", _allPoints.toString());
-                String json = new Gson().toJson(_allPoints);
-                socket.getSocket().emit("draw", "General", json);
-                _allPoints.clear();
-                _allPoints = new ArrayList<Point>();
-            }
         }
     }
 
@@ -196,8 +159,6 @@ public class DrawingCanvas extends View {
         activeStrokes.put(id, stroke);
         _allStroke.add(stroke);
     }
-
-    //Essaie pour l'efface de traits//
 
 //    private void findStroke(int x, int y, int id) {
 //        Paint paint = new Paint();
@@ -240,32 +201,36 @@ public class DrawingCanvas extends View {
 
     public void setPencilTip(String cap){
         if(cap.equals("Ronde")){
-           capOption = Paint.Cap.ROUND;
+            capOption = Paint.Cap.ROUND;
 
         }
         else{
             capOption = Paint.Cap.SQUARE;
         }
-
     }
 
-    public Bitmap getBitmap(){
+    private Emitter.Listener onDrawing = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            System.out.println("Stroke received");
 
-        this.setDrawingCacheEnabled(true);
-        this.buildDrawingCache();
-        Bitmap bmp = Bitmap.createBitmap(this.getDrawingCache());
-        this.setDrawingCacheEnabled(false);
+            JSONObject data = (JSONObject) args[0];
+            System.out.println(data);
+//            pointDown(_allPoints.get(0).x, _allPoints.get(0).y, 0);
+//            for (int pc = 1; pc < _allPoints.size(); pc++) {
+//                pointMove((int) _allPoints.get(pc).x, (int) _allPoints.get(pc).y, pc);
+//            }
+//            invalidate();
+        }
+    };
 
-        return bmp;
-    }
+    private Emitter.Listener onEraserToggle = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            Boolean data = (Boolean) args[0];
+            setErase(data);
+        }
+    };
 
-//    public void sendPoints(ArrayList<Point> points){
-//
-//        try {
-//            ObjectOutputStream oos = new ObjectOutputStream(socket.getSocket());
-//            oos.writeObject(points);
-//        } catch (IOException e){
-//            e.printStackTrace();
-//        }
-//    }
 }
+

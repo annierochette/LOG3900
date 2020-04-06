@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignupActivity"
+    android:background="@color/colorPrimary">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/back_button"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Retour"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@android:color/white"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="15dp"/>
+
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:paddingBottom="16dp"
+            android:text="Inscription"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+            android:textColor="#2364aa"
+            android:textSize="36sp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/backButton"
+            android:layout_margin="20dp"/>
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/round_textedit"
+            android:fontFamily="sans-serif-condensed"
+            android:hint="Prénom"
+            android:includeFontPadding="false"
+            android:paddingStart="5dp"
+            android:textSize="30sp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/textView7"/>
+
+        <EditText
+            android:id="@+id/surname"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/round_textedit"
+            android:fontFamily="sans-serif-condensed"
+            android:hint="Nom"
+            android:includeFontPadding="false"
+            android:paddingStart="5dp"
+            android:textSize="30sp"
+            android:layout_below="@+id/name"
+            android:layout_centerHorizontal="true"/>
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/round_textedit"
+            android:fontFamily="sans-serif-condensed"
+            android:hint="Nom d'utilisateur"
+            android:includeFontPadding="false"
+            android:paddingStart="5dp"
+            android:textSize="30sp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/surname"/>
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/round_textedit"
+            android:fontFamily="sans-serif-condensed"
+            android:hint="Mot de passe"
+            android:includeFontPadding="false"
+            android:inputType="textPassword"
+            android:paddingStart="5dp"
+            android:textSize="30sp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/username"/>
+
+        <EditText
+            android:id="@+id/passwordConfirmation"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/round_textedit"
+            android:fontFamily="sans-serif-condensed"
+            android:hint="Confirmation mot de passe"
+            android:includeFontPadding="false"
+            android:inputType="textPassword"
+            android:paddingStart="5dp"
+            android:textSize="30sp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/password"/>
+
+        <Button
+            android:id="@+id/signup"
+            android:layout_width="280dp"
+            android:layout_height="85dp"
+            android:layout_below="@+id/passwordConfirmation"
+            android:background="@drawable/round_button"
+            android:fontFamily="sans-serif-condensed"
+            android:text="S'enregistrer"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

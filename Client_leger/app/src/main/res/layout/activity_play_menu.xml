@@ -12,13 +12,6 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimary">
 
-        <!--<fragment
-            android:name="com.example.polydraw.Chat"
-            android:id="@+id/chatFragment"
-            android:layout_width="420dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"/>-->
-
         <Button
             android:id="@+id/backButton"
             android:layout_width="100dp"

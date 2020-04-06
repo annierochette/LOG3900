@@ -5,8 +5,18 @@ module.exports = function(http) {
     var io = SocketIo.listen(http);
 
     io.on(CHAT.EVENTS.CONNECTION, function(socket){
+      var currentDate = new Date();
+          // var date = currentDate.getDate();
+          // var month = currentDate.getMonth();
+          // var year = currentDate.getFullYear();
+          var hours = currentDate.getHours();
+          var minutes = currentDate.getMinutes();
+          var seconds = currentDate.getSeconds();
+    
+          var dateString = " à " + hours + ":" + minutes + ":" + seconds;
+      
       socket.join("General");
-      console.log("User connected");
+      console.log("User connected" + dateString);
       console.log("ScoketID: " + socket.id);
     
       socket.on(CHAT.EVENTS.MESSAGE, (username, channel, message) => {
@@ -31,7 +41,7 @@ module.exports = function(http) {
         var currentDate = new Date();
         
         // var date = currentDate.getDate();
-        // var month = currentDate.getMonth();
+        // var month = currentDate.getMonth(); 
         // var year = currentDate.getFullYear();
         var hours = currentDate.getHours();
         var minutes = currentDate.getMinutes();
@@ -60,7 +70,10 @@ module.exports = function(http) {
 
       // Drawing
       socket.on(CHAT.EVENTS.STROKE, (channel, points) => {
-        socket.to(channel).broadcast.emit(CHAT.EVENTS.STROKE, points);
+        console.log("stroke");
+        let pointArray = {"point": points};
+        console.log(pointArray)
+        socket.to(channel).broadcast.emit(CHAT.EVENTS.STROKE, pointArray);
       });
 
       socket.on(CHAT.EVENTS.DRAFTSMAN_DIMENSION, (channel, width, height) => {

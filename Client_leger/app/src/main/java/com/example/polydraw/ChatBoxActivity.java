@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +23,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.polydraw.Socket.SocketIO;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
@@ -49,12 +49,12 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
     public ListView channelsRecyclerView;
     public ChatChannelAdapter chatChannelAdapter;
 
-    private Socket socket;
+    private SocketIO socket;
 
-    public String Username = MainActivity.USERNAME;
-    public String IpAddress = "192.168.0.232";
+    String Username = MainActivity.editTextString;
+    public String IpAddress = "192.168.2.243";
     public String channelName;
-    String[] channels = {"Général"};
+    String[] channels = {"General"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,23 +66,18 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         addChannel = (ImageButton) findViewById(R.id.addChannel);
         ListView lv = (ListView) findViewById(R.id.channelsList);
 
-        Bundle extras = getIntent().getExtras();
+        /*try {
 
-//        Username = (String) extras.getString(MainActivity.USERNAME);
-//        IpAddress = (String) extras.getString(MainActivity.IP_ADDRESS);
+            chatsocket = IO.socket("http://"+IpAddress+":5050"); //https://fais-moi-un-dessin.herokuapp.com/"
 
-        try {
+            chatsocket.connect();
 
-            socket = IO.socket("http://"+IpAddress+":5050"); //https://fais-moi-un-dessin.herokuapp.com/"
-
-            socket.connect();
-
-            socket.emit("connection");
-            socket.emit("changeUsername", Username);
+            chatsocket.emit("connection");
+            chatsocket.emit("changeUsername", Username);
 
         } catch (URISyntaxException e) {
             e.printStackTrace();
-        }
+        }*/
 
         MessageList = new ArrayList<>();
         myRecyclerView = (RecyclerView) findViewById(R.id.messagelist);
@@ -103,13 +98,13 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
             public void onClick(View v) {
                 if (!messageTxt.getText().toString().trim().isEmpty() && !messageTxt.getText().toString().isEmpty()) {
 
-                    socket.emit("chat message", Username, "General", messageTxt.getText().toString());
+                    socket.getSocket().emit("chat message", Username, "General", messageTxt.getText().toString());
                     messageTxt.setText(" ");
                 }
             }
         });
 
-        socket.on("disconnection", new Emitter.Listener() {
+        socket.getSocket().on("disconnection", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 runOnUiThread(new Runnable() {
@@ -122,7 +117,7 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
             }
         });
 
-        socket.on("changeUsername", new Emitter.Listener() {
+        socket.getSocket().on("changeUsername", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 runOnUiThread(new Runnable() {
@@ -131,9 +126,9 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
                         Boolean data = (Boolean) args[0];
                         if(!data){
                             Toast.makeText(ChatBoxActivity.this, "Nom déjà utilisé", Toast.LENGTH_SHORT).show();
-                            socket.emit("disconnection");
+                            socket.getSocket().emit("disconnection");
                             startActivity(new Intent(ChatBoxActivity.this, MainActivity.class));
-                            socket.disconnect();
+                            socket.getSocket().disconnect();
                         }
 
                     }
@@ -141,7 +136,7 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
             }
         });
 
-        socket.on("chat message", new Emitter.Listener() {
+        socket.getSocket().on("chat message", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 runOnUiThread(new Runnable() {
@@ -211,13 +206,6 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
                 });
             }
         });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        socket.disconnect();
     }
 
     @Override

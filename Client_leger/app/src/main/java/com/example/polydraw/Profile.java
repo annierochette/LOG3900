@@ -15,6 +15,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.polydraw.Socket.SocketIO;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -24,6 +26,7 @@ public class Profile extends AppCompatActivity {
     private ImageButton disconnectButton;
     private ImageView chatButton;
     private Button pictureButton;
+    private SocketIO socket;
 
     public static final int GET_FROM_GALLERY = 3;
 //    private TextView usernameText;
@@ -78,6 +81,7 @@ public class Profile extends AppCompatActivity {
     }
 
     public void backToLogin(){
+        socket.getSocket().disconnect();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
@@ -106,4 +110,7 @@ public class Profile extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    public void onBackPressed() { }
 }

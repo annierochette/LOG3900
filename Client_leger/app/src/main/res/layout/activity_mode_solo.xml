@@ -39,7 +39,7 @@
             android:layout_below="@+id/toolbar"
             android:layout_alignParentRight="true"
             android:fontFamily="sans-serif-condensed"
-            android:text="0:00"
+            android:text="1:00"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Display3"
             android:textColor="@android:color/black"
@@ -63,31 +63,55 @@
 
         <TextView
             android:id="@+id/player1"
-            android:layout_width="200dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/score"
-            android:layout_alignParentRight="true"
             android:fontFamily="sans-serif-condensed"
             android:text="Player 1"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:layout_toLeftOf="@id/points"
+            android:layout_marginRight="30dp"/>
 
-        <com.example.polydraw.DrawingCanvas
-            android:id="@+id/drawing"
+        <TextView
+            android:id="@+id/points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/score"
+            android:fontFamily="sans-serif-condensed"
+            android:text="0 pts"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:layout_marginRight="30dp"/>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            android:layout_below="@id/player1"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"/>
+
+        <com.example.polydraw.GuessingCanvas
+            android:id="@+id/guessing"
             android:layout_width="1050dp"
             android:layout_height="570dp"
             android:layout_below="@id/toolbar"
-            android:layout_margin="10dp"
-            android:background="#FFFFFFFF" />
+            android:layout_margin="10dp"/>
 
         <View
             android:id="@+id/separatorResults"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="@android:color/darker_gray"
-            android:layout_toRightOf="@id/drawing"
+            android:layout_toRightOf="@id/guessing"
             android:layout_below="@id/toolbar"/>
 
         <LinearLayout

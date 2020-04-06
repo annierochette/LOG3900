@@ -10,12 +10,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.example.polydraw.Socket.SocketIO;
+
 public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
     private Button backButton;
     private Button playButton;
     private ImageButton disconnectButton;
     private ImageView chatButton;
+    private SocketIO socket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
     }
 
     public void backToLogin(){
+        socket.getSocket().disconnect();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
@@ -79,4 +83,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ChatBoxActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onBackPressed() { }
 }

@@ -55,6 +55,7 @@ public class DrawingActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         initializeObject();
         eventListeners();
+
     }
 
     private void initializeObject(){
@@ -283,5 +284,8 @@ public class DrawingActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ChatBoxActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onBackPressed() { }
 }
 
