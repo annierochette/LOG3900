@@ -20,8 +20,8 @@ namespace PolyPaint
         {
             base.OnStartup(e);
 
-            MainWindow app = new MainWindow();
-            MainWindowViewModel context = new MainWindowViewModel();
+            LoginControlWindow app = new LoginControlWindow();
+            LoginControlViewModel context = new LoginControlViewModel();
             app.DataContext = context;
             app.Show();
         }

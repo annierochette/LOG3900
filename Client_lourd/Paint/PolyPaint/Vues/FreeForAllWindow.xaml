@@ -7,8 +7,7 @@
         xmlns:convertisseurs="clr-namespace:PolyPaint.Convertisseurs"  
         xmlns:custom="clr-namespace:PolyPaint.CustomControls"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             xmlns:modeles="clr-namespace:PolyPaint.Modeles"
-             mc:Ignorable="d" d:DesignWidth="950" d:DesignHeight="600">
+        mc:Ignorable="d" d:DesignWidth="950" d:DesignHeight="600">
     <UserControl.Resources>
         <convertisseurs:ConvertisseurBordure x:Key="convertisseurBordure" />
         <convertisseurs:ConvertisseurCouleurFond x:Key="convertisseurCouleurFond" />
@@ -53,17 +52,11 @@
                       DragStarted="GlisserCommence" DragCompleted="GlisserTermine" Margin="22,24,72,16"
                       />
         <StackPanel Grid.Column="0" Grid.ColumnSpan="9" Grid.Row="0" Grid.RowSpan="11" >
-            <modeles:CustomInkCanvas ClipToBounds="True" x:Name="surfaceDessin" StrokeCollected="surfaceDessin_StrokeCollected"
-                          
+            <InkCanvas ClipToBounds="True" Name="surfaceDessin" 
                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"                           
                            MouseMove="surfaceDessin_MouseMove"                                             
                            Strokes="{Binding Path=Traits, Mode=OneTime}" EditingMode="{Binding Path=OutilSelectionne, Converter={StaticResource convertisseurModeEdition}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
-                           DefaultDrawingAttributes="{Binding Path=AttributsDessin, Mode=OneTime}" Margin="0,-5,212,41" Background="#FFFDF9F9" Height="558"
-             >
-                <InkPresenter Name="commPresenter" ClipToBounds="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                </InkPresenter>
-            </modeles:CustomInkCanvas>
-            <Grid x:Name="TEST"/>
+                           DefaultDrawingAttributes="{Binding Path=AttributsDessin, Mode=OneTime}" Margin="0,-5,212,41" Background="#FFFDF9F9" Height="558"/>
         </StackPanel>
         <custom:MessageBoxControl Grid.Column="7"  Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="12" Loaded="MessageBoxControl_Loaded"/>
         <custom:TimerControl Grid.Column="4" Grid.ColumnSpan="4" Grid.RowSpan="2" Margin="66,0,49,10" Loaded="TimerControl_Loaded" />

@@ -5,9 +5,16 @@
              xmlns:view="clr-namespace:PolyPaint.Vues"
              xmlns:viewModel="clr-namespace:PolyPaint.VueModeles"
              xmlns:utils="clr-namespace:PolyPaint.Utilitaires"
-             xmlns:custom="clr-namespace:PolyPaint.CustomControls">
+             xmlns:custom="clr-namespace:PolyPaint.CustomControls"
+           >
     
         <Application.Resources>
+            <DataTemplate DataType="{x:Type viewModel:MainWindowViewModel}">
+                <view:MainWindow />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:LoginControlViewModel}">
+                <view:LoginControlWindow />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewModel:GameMenuViewModel}">
                 <view:GameMenu/>
             </DataTemplate>
@@ -23,8 +30,8 @@
             <DataTemplate DataType="{x:Type viewModel:GuessingViewModel}">
                 <view:GuessingView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:GameCreatorViewModel}">
-                <view:GameCreator />
+            <DataTemplate DataType="{x:Type viewModel:GameCreatorControlViewModel}">
+                <view:GameCreatorViewControl />
             </DataTemplate>
              <DataTemplate DataType="{x:Type viewModel:LoginViewModel}">
                  <view:LoginWindow />
@@ -35,10 +42,14 @@
             <DataTemplate DataType="{x:Type viewModel:FreeForAllViewModel}">
                 <view:FreeForAllWindow />
             </DataTemplate>
-             <DataTemplate DataType="{x:Type viewModel:DrawingCreatorViewModel}">
-                <view:NewDrawing />
+            <DataTemplate DataType="{x:Type viewModel:GameChoiceViewModel}">
+                <view:GameChoiceWindow />
             </DataTemplate>
-  
+            <DataTemplate DataType="{x:Type viewModel:WaitingRoomViewModel}">
+                <view:WaitingRoomWindow />
+            </DataTemplate>
+
+
     </Application.Resources>
   
 </Application>

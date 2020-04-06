@@ -10,6 +10,9 @@
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^5.9.0",
         "morgan": "^1.9.1",
+        "ndjson": "^1.5.0",
+        "quickdraw": "^0.2.7",
+        "quickdraw.js": "^1.0.6",
         "socket.io": "^2.3.0",
         "validator": "^12.2.0",
         "winston": "^3.2.1"
