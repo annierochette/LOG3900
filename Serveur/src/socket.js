@@ -1,10 +1,10 @@
 const SocketIo = require('socket.io');
-const CHAT = require("../common/constants/chat");
+const SOCKET = require("../common/constants/socket");
 
 module.exports = function(http) {
     var io = SocketIo.listen(http);
 
-    io.on(CHAT.EVENTS.CONNECTION, function(socket){
+    io.on(SOCKET.CHAT.CONNECTION, function(socket){
       var currentDate = new Date();
           // var date = currentDate.getDate();
           // var month = currentDate.getMonth();
@@ -19,7 +19,7 @@ module.exports = function(http) {
       console.log("User connected" + dateString);
       console.log("ScoketID: " + socket.id);
     
-      socket.on(CHAT.EVENTS.MESSAGE, (username, channel, message) => {
+      socket.on(SOCKET.CHAT.MESSAGE, (username, channel, message) => {
           console.log("Message received")
           var currentDate = new Date();
           // var date = currentDate.getDate();
@@ -36,7 +36,7 @@ module.exports = function(http) {
           io.to(channel).emit('chat message', msg);
       });
     
-    socket.on(CHAT.EVENTS.JOIN_CHANNEL, (username, channel) => {
+    socket.on(SOCKET.CHAT.JOIN_CHANNEL, (username, channel) => {
         socket.join(channel);
         var currentDate = new Date();
         
@@ -52,7 +52,7 @@ module.exports = function(http) {
         socket.to(channel).broadcast.emit("chat message", msg);
       });
 
-      socket.on(CHAT.EVENTS.LEAVE_CHANNEL, (username, channel) => {
+      socket.on(SOCKET.CHAT.LEAVE_CHANNEL, (username, channel) => {
         socket.leave(channel);
         var currentDate = new Date();
         
@@ -68,67 +68,42 @@ module.exports = function(http) {
         io.to(channel).emit(CHAT.EVENTS.MESSAGE, msg);
       });
 
-      // Drawing
-      socket.on(CHAT.EVENTS.STROKE, (channel, points) => {
-        console.log("stroke");
-        let pointArray = {"point": points};
-        console.log(pointArray)
-        socket.to(channel).broadcast.emit(CHAT.EVENTS.STROKE, pointArray);
-      });
-
-      socket.on(CHAT.EVENTS.DRAFTSMAN_DIMENSION, (channel, width, height) => {
-        console.log("Dimension received");
-        let dimension = {
-          "width": width,
-          "height": height
-        };
-        socket.to(channel).broadcast.emit(CHAT.EVENTS.DRAFTSMAN_DIMENSION, dimension);
-      });
-
-      socket.on(CHAT.EVENTS.DRAWING_ATTRIBUTES, (channel, drawingAttributes) => {
-        socket.to(channel).broadcast.emit(CHAT.EVENTS.MODIFY_PROPERTY, drawingAttributes);
-      });
-        
-      socket.on(CHAT.EVENTS.DISCONNECTION, () => {
-          socket.disconnect();
-          console.log("User disconnected.");
-      });
-
       // Draft
-      socket.on(CHAT.EVENTS.STROKE_DRAWING, (channel, points) => {
+      socket.on(SOCKET.DRAFT.STROKE_DRAWING, (channel, points) => {
         io.emit(CHAT.EVENTS.STROKE_DRAWING, points);
       });
 
-      socket.on(CHAT.EVENTS.STROKE_COLLECTED, (channel, points) => {
+      socket.on(SOCKET.DRAFT.STROKE_COLLECTED, (channel, points) => {
         //console.log("Stroke: " + stroke);
         io.emit(CHAT.EVENTS.STROKE_COLLECTED, points);
       });
 
-      socket.on(CHAT.EVENTS.STROKE_ERASING, (channel, points) => {
+      socket.on(SOCKET.DRAFT.STROKE_ERASING, (channel, points) => {
         console.log("StrokeErasing")
         io.emit(CHAT.EVENTS.STROKE_ERASING, points);
       });
 
-      socket.on(CHAT.EVENTS.STROKE_SEGMENT_ERASING, (channel, points) => {
+      socket.on(SOCKET.DRAFT.STROKE_SEGMENT_ERASING, (channel, points) => {
         console.log("StrokeErasing")
         io.emit(CHAT.EVENTS.STROKE_SEGMENT_ERASING, points);
       });
 
-      socket.on(CHAT.EVENTS.STROKE_COLOR, (channel, color) => {
+      socket.on(SOCKET.DRAFT.STROKE_COLOR, (channel, color) => {
         io.emit(CHAT.EVENTS.STROKE_COLOR, color);
       });
 
-      socket.on(CHAT.EVENTS.STROKE_SIZE, (channel, size) => {
+      socket.on(SOCKET.DRAFT.STROKE_SIZE, (channel, size) => {
         io.emit(CHAT.EVENTS.STROKE_SIZE, size);
       });
 
-      socket.on(CHAT.EVENTS.STROKE_TIP, (channel, tip) => {
+      socket.on(SOCKET.DRAFT.STROKE_TIP, (channel, tip) => {
         io.emit(CHAT.EVENTS.STROKE_TIP, tip);
       });
 
-      socket.on(CHAT.EVENTS.STROKE_TOOL, (channel, tool) => {
+      socket.on(SOCKET.DRAFT.STROKE_TOOL, (channel, tool) => {
         io.emit(CHAT.EVENTS.STROKE_TOOL, tool);
       });
+
       socket.on("joinGame", (channel, nbPlayers) => {
         console.log("joining game")
         let  nbPlay = { "nbPlayers": "1" };
