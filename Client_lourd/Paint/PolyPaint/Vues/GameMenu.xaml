@@ -31,13 +31,14 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <custom:MessageBoxControl Grid.Column="7"  Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="11" Loaded="MessageBoxControl_Loaded"/>
         <Button Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="2"  Command="{Binding GoToUserProfile}">
             <Image Source="/PolyPaint;component/Resources/woman_avatar.png"  />
         </Button>
 
         <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="5" >
             <Button Height="50" Width="220" Margin="20" Content="JOUER" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToGameModeMenu}"/>
-            <Button Height="50" Width="220" Margin="20" Content="CRÉER" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToGameCreatorControl}"/>
+            <Button Height="50" Width="220" Margin="20" Content="CRÉER" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToGameCreator}"/>
             <Button Height="50" Width="220" Margin="20" Content="PARAMÈTRES" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free"  Foreground="White"/>
         </StackPanel>
     </Grid>

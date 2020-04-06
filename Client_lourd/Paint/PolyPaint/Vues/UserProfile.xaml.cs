@@ -11,7 +11,6 @@ namespace PolyPaint.Vues
         public UserProfile()
         {
             InitializeComponent();
-
         }
 
         private void Back_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -19,6 +18,9 @@ namespace PolyPaint.Vues
 
         }
 
-        
+        private void MessageBox_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
     }
 }
