@@ -151,8 +151,9 @@ public class DrawingCanvas extends View {
         Point pt = new Point(x,y);
         _allPoints.add(pt);
 
-        if(_allPoints.size() == 100){
-            socket.getSocket().emit("draw", "General", _allPoints);
+        if(_allPoints.size() == 25){
+            String json = new Gson().toJson(_allPoints);
+            socket.getSocket().emit("draw", "General", json);
             _allPoints.clear();
             _allPoints = new ArrayList<Point>();
         }
@@ -173,7 +174,6 @@ public class DrawingCanvas extends View {
 
             if(_allPoints.size() == 25){
                 System.out.println(_allPoints);
-                socket.getSocket().emit("draw", "General", _allPoints.toString());
                 String json = new Gson().toJson(_allPoints);
                 socket.getSocket().emit("draw", "General", json);
                 _allPoints.clear();
