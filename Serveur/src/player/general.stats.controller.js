@@ -20,14 +20,12 @@ exports.getGeneralStatistics = async function(req, res) {
 }
 
 exports.updateStatistics = async function(req, res) {
-    console.log("WINNER: ", req.body.matchResult.winner);
     await GeneralStatistics.findOneAndUpdate(
         { username: req.body.matchResult.winner },
         // TODO: Utiliser MatchResult lorsque défini
         { $inc: { matchWon: 1 } }
     );
 
-    console.log("Players: ", req.body.matchResult.players)
     await GeneralStatistics.updateMany(
         { username: {$in: req.body.matchResult.players } },
         { $inc: { matchPlayed: 1 } }    

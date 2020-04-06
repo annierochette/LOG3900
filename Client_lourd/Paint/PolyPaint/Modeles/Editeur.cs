@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Ink;
+using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace PolyPaint.Modeles
 {
@@ -15,6 +17,7 @@ namespace PolyPaint.Modeles
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public StrokeCollection traits = new StrokeCollection();
+        public StrokeCollection nouveauxTraits = new StrokeCollection();
 
         // Outil actif dans l'éditeur
         private string outilSelectionne = "crayon";
@@ -85,5 +88,8 @@ namespace PolyPaint.Modeles
 
         // L'outil actif devient celui passé en paramètre.
         public void ChoisirOutil(string outil) => OutilSelectionne = outil;
+
+
+        
     }
 }

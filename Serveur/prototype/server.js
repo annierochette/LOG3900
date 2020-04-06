@@ -36,7 +36,6 @@ io.on('connection', function(socket){
     var nameUsed = usernames.has(username);  
     if (nameUsed) {
         socket.emit("changeUsername", false);
-    }
     else {
         usernamesMap.set(socket.id, username);
         usernames.add(username);

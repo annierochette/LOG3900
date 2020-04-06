@@ -6,6 +6,7 @@ namespace PolyPaint.VueModeles
 {
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
+        public abstract string GetCurrentViewModelName();
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName)

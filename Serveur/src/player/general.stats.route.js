@@ -6,4 +6,5 @@ const router = express.Router();
 
 router.get("/players/:username/general-statistics", authentification, CONTROLLER.getGeneralStatistics);
 router.patch("/players/stats", CONTROLLER.updateStatistics);
+
 module.exports = router;

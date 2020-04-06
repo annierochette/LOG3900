@@ -11,6 +11,7 @@ namespace PolyPaint.Utilitaires
     public sealed class AppSocket
     {
         private Socket socket;
+        
 
         private static readonly string URL = "http://127.0.0.1";
         private static readonly string PORT = ":5050";
@@ -25,6 +26,7 @@ namespace PolyPaint.Utilitaires
 
         ~AppSocket()
         {
+            
             socket.Close();
         }
 
@@ -43,5 +45,6 @@ namespace PolyPaint.Utilitaires
             socket.Emit(eventString, args);
         }
 
+       
     }
 }

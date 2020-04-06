@@ -49,7 +49,7 @@ describe("Players Rest API", () => {
       password: "123456"
     });
     
-  expect(res.statusCode).toEqual(HTTP.STATUS.BAD_REQUEST);
+  expect(res.statusCode).toEqual(HTTP.STATUS.CONFLICT);
 
   done();
   });

@@ -1,3 +1,6 @@
 .DS_Store
 
 /Serveur/node_modules
+/Artefacts
+/Client_leger
+/Client_lourd/Prototype/
