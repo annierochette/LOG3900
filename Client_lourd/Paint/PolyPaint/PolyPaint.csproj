@@ -145,6 +145,7 @@
     <Compile Include="VueModeles\BaseViewModel.cs" />
     <Compile Include="VueModeles\FreeForAllViewModel.cs" />
     <Compile Include="VueModeles\GameChoiceViewModel.cs" />
+    <Compile Include="VueModeles\JoiningGameViewModel.cs" />
     <Compile Include="VueModeles\WaitingRoomViewModel.cs" />
     <Compile Include="VueModeles\GameCreatorViewModel.cs" />
     <Compile Include="VueModeles\GameMenuViewModel.cs" />
@@ -182,6 +183,9 @@
     </Compile>
     <Compile Include="Vues\GamePlay\GameModeMenu.xaml.cs">
       <DependentUpon>GameModeMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vues\GamePlay\JoiningGameWindow.xaml.cs">
+      <DependentUpon>JoiningGameWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vues\GamePlay\WaitingRoomWindow.xaml.cs">
       <DependentUpon>WaitingRoomWindow.xaml</DependentUpon>
@@ -265,6 +269,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vues\GamePlay\GameModeMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vues\GamePlay\JoiningGameWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
