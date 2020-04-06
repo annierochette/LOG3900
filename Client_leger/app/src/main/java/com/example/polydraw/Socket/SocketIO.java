@@ -1,11 +1,15 @@
 package com.example.polydraw.Socket;
 
 import android.app.Activity;
+import android.view.View;
+import android.widget.Button;
 
+import com.example.polydraw.Message;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.github.nkzawa.socketio.client.SocketIOException;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
@@ -15,7 +19,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.net.ssl.SSLContext;
 
 public class SocketIO {
-    private static final String serverUrl = "http://192.168.2.132:5050";
+    private static final String serverUrl = "http://192.168.2.243:5050";
     private static Socket socket;
     private static SocketIO instance;
     private static Activity act;
@@ -96,4 +100,50 @@ public class SocketIO {
 //            }
 //        }, args);
 //    }
+
+    public void init(){
+        if(socket == null){
+            try{
+                socket = IO.socket("http://192.168.2.243:5050");
+                socket = socket.connect();
+                socket.emit("connection");
+            }
+            catch(URISyntaxException e){
+                e.printStackTrace();
+
+            }
+        }
+    }
+
+    /*public void sendMessage(Button button){
+        JSONObject data = new JSONObject();
+        try {
+
+            String username = data.getString("username");
+            final String message = data.getString("message");
+            String timestamp = data.getString("timestamp");
+
+            final Message m = new Message(username,message,timestamp);
+
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!m.getMessage().trim().isEmpty() && !m.getMessage().isEmpty()) {
+
+                        socket.emit("chat message", m.getUsername(), m.getMessage());
+                        m.setMessage(" ");
+                    }
+                }
+            });
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }*/
+
+    public void disconnect() {
+        socket.disconnect();
+        socket.emit("disconnection");
+    }
 }

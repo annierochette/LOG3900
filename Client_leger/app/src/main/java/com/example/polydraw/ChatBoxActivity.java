@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.polydraw.Socket.SocketIO;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
@@ -48,12 +49,12 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
     public ListView channelsRecyclerView;
     public ChatChannelAdapter chatChannelAdapter;
 
-    private Socket chatsocket;
+    private SocketIO socket;
 
     String Username = MainActivity.editTextString;
-    public String IpAddress = "192.168.2.132";
+    public String IpAddress = "192.168.2.243";
     public String channelName;
-    String[] channels = {"Général"};
+    String[] channels = {"General"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,7 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         addChannel = (ImageButton) findViewById(R.id.addChannel);
         ListView lv = (ListView) findViewById(R.id.channelsList);
 
-        try {
+        /*try {
 
             chatsocket = IO.socket("http://"+IpAddress+":5050"); //https://fais-moi-un-dessin.herokuapp.com/"
 
@@ -76,7 +77,7 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
 
         } catch (URISyntaxException e) {
             e.printStackTrace();
-        }
+        }*/
 
         MessageList = new ArrayList<>();
         myRecyclerView = (RecyclerView) findViewById(R.id.messagelist);
@@ -97,13 +98,13 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
             public void onClick(View v) {
                 if (!messageTxt.getText().toString().trim().isEmpty() && !messageTxt.getText().toString().isEmpty()) {
 
-                    chatsocket.emit("chat message", Username, "General", messageTxt.getText().toString());
+                    socket.getSocket().emit("chat message", Username, "General", messageTxt.getText().toString());
                     messageTxt.setText(" ");
                 }
             }
         });
 
-        chatsocket.on("disconnection", new Emitter.Listener() {
+        socket.getSocket().on("disconnection", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 runOnUiThread(new Runnable() {
@@ -116,7 +117,7 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
             }
         });
 
-        chatsocket.on("changeUsername", new Emitter.Listener() {
+        socket.getSocket().on("changeUsername", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 runOnUiThread(new Runnable() {
@@ -125,9 +126,9 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
                         Boolean data = (Boolean) args[0];
                         if(!data){
                             Toast.makeText(ChatBoxActivity.this, "Nom déjà utilisé", Toast.LENGTH_SHORT).show();
-                            chatsocket.emit("disconnection");
+                            socket.getSocket().emit("disconnection");
                             startActivity(new Intent(ChatBoxActivity.this, MainActivity.class));
-                            chatsocket.disconnect();
+                            socket.getSocket().disconnect();
                         }
 
                     }
@@ -135,7 +136,7 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
             }
         });
 
-        chatsocket.on("chat message", new Emitter.Listener() {
+        socket.getSocket().on("chat message", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 runOnUiThread(new Runnable() {
@@ -205,13 +206,6 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
                 });
             }
         });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        chatsocket.disconnect();
     }
 
     @Override

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.polydraw.Socket.SocketIO;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 
@@ -24,7 +25,7 @@ public class Menu extends AppCompatActivity {
     private ImageView chatButton;
 //    public String username = getIntent().getStringExtra("username");
 
-    private Socket socket;
+    private SocketIO socket;
     private String http = "http://192.168.2.109:5050";
 
     @Override
@@ -40,14 +41,8 @@ public class Menu extends AppCompatActivity {
         disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
         chatButton = (ImageView) findViewById(R.id.chatButton);
 
-        try{
-            socket = IO.socket(http); //https://fais-moi-un-dessin.herokuapp.com/"
-            socket.connect();
-            socket.emit("connection");
-
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        socket = new SocketIO();
+        socket.init();
 
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +75,6 @@ public class Menu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 backToLogin();
-                socket.disconnect();
             }
         });
 
@@ -114,18 +108,15 @@ public class Menu extends AppCompatActivity {
     }
 
     public void backToLogin(){
+        socket.disconnect();
+        socket.emit("disconnection", "General", null);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-        socket.disconnect();
     }
 
     public void openChat(){
         Intent intent = new Intent(this, ChatBoxActivity.class);
         startActivity(intent);
-    }
-
-    public Socket getSocket() {
-        return socket;
     }
 
     @Override

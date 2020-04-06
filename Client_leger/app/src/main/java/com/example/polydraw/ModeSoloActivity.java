@@ -22,6 +22,8 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
+import com.example.polydraw.Socket.SocketIO;
+
 import yuku.ambilwarna.AmbilWarnaDialog; //https://codinginflow.com/tutorials/android/ambilwarna-color-picker-dialog
 
 public class ModeSoloActivity extends AppCompatActivity {
@@ -36,6 +38,7 @@ public class ModeSoloActivity extends AppCompatActivity {
     private Button button;
     private TextView points;
     private int score = 0;
+    private SocketIO socket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){

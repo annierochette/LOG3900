@@ -19,7 +19,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.polydraw.Socket.SocketIO;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
+import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -44,7 +46,6 @@ public class DrawingCanvas extends View {
     public Bitmap mBitmap;
     private Paint mBitmapPaint;
 
-    private JSONObject jsonObject = new JSONObject();
 
     public DrawingCanvas (Context context, AttributeSet attrs){
         super(context,attrs);
@@ -172,7 +173,9 @@ public class DrawingCanvas extends View {
 
             if(_allPoints.size() == 100){
                 System.out.println(_allPoints);
-                socket.getSocket().emit("draw", "General", _allPoints);
+                socket.getSocket().emit("draw", "General", _allPoints.toString());
+                String json = new Gson().toJson(_allPoints);
+                socket.getSocket().emit("draw", "General", json);
                 _allPoints.clear();
                 _allPoints = new ArrayList<Point>();
             }

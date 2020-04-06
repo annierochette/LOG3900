@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.example.polydraw.Socket.SocketIO;
+
 public class PlayMenu extends AppCompatActivity {
 
     private Button backButton;
@@ -18,6 +20,7 @@ public class PlayMenu extends AppCompatActivity {
     private Button freeButton;
     private ImageButton disconnectButton;
     private ImageView chatButton;
+    private SocketIO socket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +102,7 @@ public class PlayMenu extends AppCompatActivity {
     }
 
     public void backToLogin(){
+        socket.getSocket().disconnect();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
