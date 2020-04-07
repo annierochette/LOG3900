@@ -4,6 +4,7 @@ const MatchManager = require("./match/match.manager");
 
 module.exports = function(http) {
     var io = SocketIo.listen(http);
+    var matchManager = new MatchManager().getInstance();
 
     io.on(SOCKET.CHAT.CONNECTION, function(socket){
       var currentDate = new Date();
@@ -105,15 +106,20 @@ module.exports = function(http) {
         io.emit(SOCKET.DRAFT.STROKE_TOOL, tool);
       });
 
+      // Match
       socket.on(SOCKET.MATCH.JOIN_MATCH, (channel, nbPlayers) => {
         console.log("joining game")
         let  nbPlay = { "nbPlayers": "1" };
-        io.emit("joinGame", nbPlay);
+        io.emit(SOCKET.MATCH.JOIN_MATCH, nbPlay);
       });
 
       socket.on(SOCKET.MATCH.ANSWER, (matchId, answer) => {
-        let matchManager = new MatchManager().getInstance();
-        socket.emit(SOCKET.MATCH.ANSWER, matchManager.validateAnswer(answer));
+        socket.emit(SOCKET.MATCH.ANSWER, matchManager.validateAnswer(matchId, answer));
+      });
+
+      socket.on(SOCKET.MATCH.START, (matchId) => {
+        matchManager.start(matchId, 90);
+        io.to(matchId).emit(SOCKET.EMIT.START, "Round started");
       });
     
     });

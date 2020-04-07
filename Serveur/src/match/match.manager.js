@@ -1,7 +1,11 @@
+const CountdownTimer = require("./timer");
+
 class MatchManager {
 
     constructor() {
         this.answers = new Map();
+        this.timers = new Map();
+        this.matches = new Map();
     }
 
     get count() {
@@ -17,13 +21,20 @@ class MatchManager {
     }
 
     addAnswer = function(matchId, answer) {
-        console.log("HEER")
         this.answers.set(matchId,  answer);
-        console.log("HEER")
+    }
+
+    startTimer = function(matchId, duration) {
+        this.timers.set(matchId, new CountdownTimer(duration))
+    }
+
+    stopTimer = function(matchId) {
+        this.timers.get(matchId).stop();
     }
 
     deleteMatch = function(matchId) {
         this.answers.delete(matchId);
+        this.timers.delete(matchId);
     }
 }
 

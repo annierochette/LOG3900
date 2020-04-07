@@ -25,5 +25,7 @@ module.exports.DRAFT = {
 
 module.exports.MATCH = {
     ANSWER: "answer",
-    JOIN_MATCH: "joinGame",    
+    JOIN_MATCH: "joinGame",
+    REMAINING_TIME: "remainingTime",
+    START: "startTimer",    
 }
