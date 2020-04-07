@@ -86,6 +86,14 @@ public class SocketIO {
         SocketIO.getSocket().emit(event, channel,args);
     }
 
+    public static void emitDisconnectionStatus(String event) {
+        if (event.equals("disconnection")) {
+            SocketIO.getSocket().emit(event);
+            socket.off();
+            socket.disconnect();
+            }
+    }
+
 //    public static void emitWithAcknowledge(String event, Object args)
 //            throws MalformedURLException {
 //        if (!SocketIO.getSocket().connected()) {
@@ -102,16 +110,14 @@ public class SocketIO {
 //    }
 
     public void init(){
-        if(socket == null){
-            try{
-                socket = IO.socket("http://192.168.2.243:5050");
-                socket = socket.connect();
-                socket.emit("connection");
-            }
-            catch(URISyntaxException e){
-                e.printStackTrace();
+        try{
+            socket = IO.socket("http://192.168.2.243:5050");
+            socket = socket.connect();
+            socket.emit("connection");
+        }
+        catch(URISyntaxException e){
+            e.printStackTrace();
 
-            }
         }
     }
 
@@ -142,8 +148,4 @@ public class SocketIO {
 
     }*/
 
-    public void disconnect() {
-        socket.disconnect();
-        socket.emit("disconnection");
-    }
 }

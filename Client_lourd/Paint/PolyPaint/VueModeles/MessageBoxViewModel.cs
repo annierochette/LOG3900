@@ -1,33 +1,14 @@
-﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-
-
+﻿
 namespace PolyPaint.VueModeles
 {
-    class MessageBoxViewModel : INotifyPropertyChanged, IPageViewModel
+    class MessageBoxViewModel
     {
-        public string _messageList;
-        public event PropertyChangedEventHandler PropertyChanged;
+        public string message;
 
-        public string MessageList
+        public string Message
         {
-            get
-            {
-                return _messageList;
-            }
-            set
-            {
-                Console.WriteLine(value);
-                _messageList = value;
-                OnPropertyChanged("MessageList");
-            }
-        }
-
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            get { return message; }
+            set { message = value; }
         }
     }
 }

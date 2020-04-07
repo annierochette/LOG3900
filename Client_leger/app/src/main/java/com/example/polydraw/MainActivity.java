@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String query_url = "http://192.168.2.132:5050";
+                String query_url = "http://192.168.2.243:5050";
                 try {
 
                     Map<String, String> postData = new HashMap<>();

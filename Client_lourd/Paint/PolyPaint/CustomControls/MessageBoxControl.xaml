@@ -34,12 +34,12 @@
             </ComboBox.ItemContainerStyle>
             <ComboBoxItem>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock></TextBlock>
+                    <TextBlock Foreground="Red">Red</TextBlock>
                 </StackPanel>
             </ComboBoxItem>
             <ComboBoxItem>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock></TextBlock>
+                    <TextBlock Foreground="Green">Green</TextBlock>
                 </StackPanel>
             </ComboBoxItem>
         </ComboBox>

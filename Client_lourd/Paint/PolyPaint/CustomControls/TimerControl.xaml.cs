@@ -1,5 +1,4 @@
-﻿using PolyPaint.VueModeles;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,14 +32,12 @@ namespace PolyPaint.CustomControls
             Timer.Interval = new TimeSpan(0, 0, 1);
             Timer.Tick += Timer_Tick;
             Timer.Start();
-            
         }
 
         void Timer_Tick(object sender, EventArgs e)
         {
             if (time > 0) {
                 {
-                    
                     if (time <= 10)
                     {
 
@@ -72,19 +69,11 @@ namespace PolyPaint.CustomControls
                 else
                 {
                     Timer.Stop();
-                    string vm = ((BaseViewModel)(DataContext)).GetCurrentViewModelName();
-                    if (vm == "GuessingViewModel")
-                {
-                    ((GuessingViewModel)(DataContext)).assignDrawingView();
+                   
                 }
-                    if (vm == "FreeForAllViewModel")
-                {
-                    ((FreeForAllViewModel)(DataContext)).assignGuessingView();
-                }
-            }
             
             }
- 
+        
 
 
 
