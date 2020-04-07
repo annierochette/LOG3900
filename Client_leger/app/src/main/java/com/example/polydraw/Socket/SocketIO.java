@@ -89,7 +89,7 @@ public class SocketIO {
     public static void emitDisconnectionStatus(String event) {
         if (event.equals("disconnection")) {
             SocketIO.getSocket().emit(event);
-//            socket.off();
+            socket.off();
             socket.disconnect();
             }
     }
@@ -110,16 +110,14 @@ public class SocketIO {
 //    }
 
     public void init(){
-        if(socket == null){
-            try{
-                socket = IO.socket("http://192.168.2.243:5050");
-                socket = socket.connect();
-                socket.emit("connection");
-            }
-            catch(URISyntaxException e){
-                e.printStackTrace();
+        try{
+            socket = IO.socket("http://192.168.2.243:5050");
+            socket = socket.connect();
+            socket.emit("connection");
+        }
+        catch(URISyntaxException e){
+            e.printStackTrace();
 
-            }
         }
     }
 
