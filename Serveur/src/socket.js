@@ -32,7 +32,7 @@ module.exports = function(http) {
     
           let  msg = {"message": message, "username": username, "timestamp": dateString, "channel": channel}
 
-          io.to(channel).emit('chat message', msg);
+          io.to(channel).emit(SOCKET.CHAT.MESSAGE, msg);
       });
     
     socket.on(SOCKET.CHAT.JOIN_CHANNEL, (username, channel) => {
@@ -48,7 +48,7 @@ module.exports = function(http) {
     
         var dateString = " à " + hours + ":" + minutes + ":" + seconds;
         let  msg = { "message": username + " a rejoint la conversation.", "username": username, "timestamp": dateString, "channel": channel };
-        socket.to(channel).broadcast.emit("chat message", msg);
+        socket.to(channel).broadcast.emit(SOCKET.CHAT.MESSAGE, msg);
       });
 
       socket.on(SOCKET.CHAT.LEAVE_CHANNEL, (username, channel) => {
@@ -64,43 +64,43 @@ module.exports = function(http) {
     
         var dateString = " à " + hours + ":" + minutes + ":" + seconds;
         let  msg = { "message": username + " a quitté la conversation.", "username": username, "timestamp": dateString, "channel": channel };
-        io.to(channel).emit(CHAT.EVENTS.MESSAGE, msg);
+        io.to(channel).emit(SOCKET.CHAT.MESSAGE, msg);
       });
 
       // Draft
       socket.on(SOCKET.DRAFT.STROKE_DRAWING, (channel, points) => {
-        io.emit(CHAT.EVENTS.STROKE_DRAWING, points);
+        io.emit(SOCKET.DRAFT.STROKE_DRAWING, points);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_COLLECTED, (channel, points) => {
         //console.log("Stroke: " + stroke);
-        io.emit(CHAT.EVENTS.STROKE_COLLECTED, points);
+        io.emit(SOCKET.DRAFT.STROKE_COLLECTED, points);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_ERASING, (channel, points) => {
         console.log("StrokeErasing")
-        io.emit(CHAT.EVENTS.STROKE_ERASING, points);
+        io.emit(SOCKET.DRAFT.STROKE_ERASING, points);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_SEGMENT_ERASING, (channel, points) => {
         console.log("StrokeErasing")
-        io.emit(CHAT.EVENTS.STROKE_SEGMENT_ERASING, points);
+        io.emit(SOCKET.DRAFT.STROKE_SEGMENT_ERASING, points);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_COLOR, (channel, color) => {
-        io.emit(CHAT.EVENTS.STROKE_COLOR, color);
+        io.emit(SOCKET.DRAFT.STROKE_COLOR, color);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_SIZE, (channel, size) => {
-        io.emit(CHAT.EVENTS.STROKE_SIZE, size);
+        io.emit(SOCKET.DRAFT.STROKE_SIZE, size);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_TIP, (channel, tip) => {
-        io.emit(CHAT.EVENTS.STROKE_TIP, tip);
+        io.emit(SOCKET.DRAFT.STROKE_TIP, tip);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_TOOL, (channel, tool) => {
-        io.emit(CHAT.EVENTS.STROKE_TOOL, tool);
+        io.emit(SOCKET.DRAFT.STROKE_TOOL, tool);
       });
 
       socket.on("joinGame", (channel, nbPlayers) => {
