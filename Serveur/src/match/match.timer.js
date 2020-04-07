@@ -24,4 +24,8 @@ class MatchTimer {
     reset = function() {
         this.timer.reset();
     }
+
+    remainingTime = function() {
+        return remainingTime;
+    }
 }
