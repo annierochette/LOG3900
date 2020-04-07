@@ -76,6 +76,7 @@ module.exports = function(http) {
 
       // Draft
       socket.on(SOCKET.DRAFT.STROKE_DRAWING, (channel, points) => {
+        console.log(points)
         io.emit(SOCKET.DRAFT.STROKE_DRAWING, points);
       });
 
