@@ -77,6 +77,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -136,7 +137,9 @@
     <Compile Include="Utilitaires\RelayCommand.cs" />
     <Compile Include="VueModeles\BaseViewModel.cs" />
     <Compile Include="VueModeles\FreeForAllViewModel.cs" />
-    <Compile Include="VueModeles\SignInViewModel.cs" />
+    <Compile Include="VueModeles\GameChoiceViewModel.cs" />
+    <Compile Include="VueModeles\JoiningGameViewModel.cs" />
+    <Compile Include="VueModeles\WaitingRoomViewModel.cs" />
     <Compile Include="VueModeles\GameCreatorViewModel.cs" />
     <Compile Include="VueModeles\GameMenuViewModel.cs" />
     <Compile Include="VueModeles\GameModeMenuViewModel.cs" />
@@ -159,7 +162,13 @@
     <Compile Include="Vues\GameModeMenu.xaml.cs">
       <DependentUpon>GameModeMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Vues\GuessingView.xaml.cs">
+    <Compile Include="Vues\GamePlay\JoiningGameWindow.xaml.cs">
+      <DependentUpon>JoiningGameWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vues\GamePlay\WaitingRoomWindow.xaml.cs">
+      <DependentUpon>WaitingRoomWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vues\GamePlay\GuessingView.xaml.cs">
       <DependentUpon>GuessingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vues\LoginWindow.xaml.cs">
@@ -219,7 +228,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Vues\LoginWindow.xaml">
+    <Page Include="Vues\GamePlay\JoiningGameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vues\GamePlay\WaitingRoomWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vues\GamePlay\GuessingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vues\DrawingCreation\ImageImportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vues\Login\LoginControlWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Vues\Login\LoginWindow.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </Page>
     <Page Include="Vues\MainWindow.xaml">

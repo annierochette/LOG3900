@@ -111,10 +111,12 @@ module.exports = function(http) {
         io.emit(SOCKET.DRAFT.STROKE_TOOL, tool);
       });
 
-      socket.on("joinGame", (channel, nbPlayers) => {
-        console.log("joining game")
+      socket.on("joinGame", (channel, game) => {
+        console.log("joining game"  + game);
+        socket.join(game);
+        
         let  nbPlay = { "nbPlayers": "1" };
-        io.emit("joinGame", nbPlay);
+        io.to(game).emit("joinGame", nbPlay);
       });
     
     });

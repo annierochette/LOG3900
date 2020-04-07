@@ -98,6 +98,15 @@ namespace PolyPaint.VueModeles
             ChangeViewModel(PageViewModels[9]);
         }
 
+        private void OnGoToWaitingRoom(object obj) {
+            ChangeViewModel(PageViewModels[10]);
+        }
+
+        private void OnGoToJoiningGame(object obj)
+        {
+            ChangeViewModel(PageViewModels[11]);
+        }
+
         public MainWindowViewModel()
         {
             
@@ -111,7 +120,10 @@ namespace PolyPaint.VueModeles
             PageViewModels.Add(new SignInViewModel());        //6
             PageViewModels.Add(new GameCreatorViewModel());   //7
             PageViewModels.Add(new FreeForAllViewModel());    //8
-            PageViewModels.Add(new DrawingCreatorViewModel());    //9
+            PageViewModels.Add(new GameChoiceViewModel());    //9
+            PageViewModels.Add(new WaitingRoomViewModel());   //10
+            PageViewModels.Add(new JoiningGameViewModel());   //11
+                  
 
             CurrentPageViewModel = PageViewModels[1];
 
@@ -124,8 +136,10 @@ namespace PolyPaint.VueModeles
             Mediator.Subscribe("GoToGuessingView", OnGoToGuessingView);
             Mediator.Subscribe("GoToGameCreator", OnGoToGameCreator);
             Mediator.Subscribe("GoToFreeForAll", OnGoToFreeForAll);
-            Mediator.Subscribe("GoToDrawingCreator", OnGoToDrawingCreator);
-
+            Mediator.Subscribe("GoToGameChoice", OnGoToGameChoice);
+            Mediator.Subscribe("GoToWaitingRoom", OnGoToWaitingRoom);
+            Mediator.Subscribe("GoToJoiningGame", OnGoToJoiningGame);
+      
         }
     }
 }

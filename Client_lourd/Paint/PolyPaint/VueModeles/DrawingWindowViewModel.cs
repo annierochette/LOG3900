@@ -86,6 +86,10 @@ namespace PolyPaint.VueModeles
             set { Console.WriteLine("SET"); ProprieteModifiee(); }
         }
 
+
+        
+        public StrokeCollection NouveauxTraits { get; set; }
+
         // Commandes sur lesquels la vue pourra se connecter.
         public RelayCommand<string> ChoisirPointe { get; set; }
         public RelayCommand<string> ChoisirOutil { get; set; }

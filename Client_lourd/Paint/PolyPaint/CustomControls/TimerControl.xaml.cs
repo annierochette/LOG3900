@@ -22,7 +22,7 @@ namespace PolyPaint.CustomControls
     public partial class TimerControl : UserControl
     {
 
-        private int time = 15;
+        private int time = 74;
         private DispatcherTimer Timer;
 
         public TimerControl()
@@ -50,7 +50,12 @@ namespace PolyPaint.CustomControls
                             TBCountDown.Foreground = Brushes.Black;
                         }
                         time--;
-                        TBCountDown.Text = string.Format("0{0}:{1}", time / 60, time % 60);
+                        TBCountDown.Text = string.Format("0{0}:0{1}", time / 60, time % 60);
+
+                    }
+                    else if(time % 60 <= 10){
+                        time--;
+                        TBCountDown.Text = string.Format("0{0}:0{1}", time / 60, time % 60);
                     }
                     else
                     {
