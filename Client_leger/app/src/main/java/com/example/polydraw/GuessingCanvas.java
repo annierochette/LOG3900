@@ -17,6 +17,7 @@ import com.example.polydraw.Socket.SocketIO;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
@@ -48,8 +49,8 @@ public class GuessingCanvas extends View {
         setBackgroundColor(Color.TRANSPARENT);
         setLayerType(LAYER_TYPE_HARDWARE, null);
 
-        socket.getSocket().on("draw", onDrawing);
-        socket.getSocket().on("eraser", onEraserToggle);
+        socket.getSocket().on("StrokeDrawing", onDrawing);
+        socket.getSocket().on("StrokeErasing", onEraserToggle);
 
     }
 
@@ -214,13 +215,19 @@ public class GuessingCanvas extends View {
         public void call(Object... args) {
             System.out.println("Stroke received");
 
-            JSONObject data = (JSONObject) args[0];
-            System.out.println(data);
-//            pointDown(_allPoints.get(0).x, _allPoints.get(0).y, 0);
-//            for (int pc = 1; pc < _allPoints.size(); pc++) {
-//                pointMove((int) _allPoints.get(pc).x, (int) _allPoints.get(pc).y, pc);
-//            }
-//            invalidate();
+//            JSONObject data = (JSONObject) args[0];
+            String data = args[0].toString();
+            Gson gson = new Gson();
+            Point[] _receivedPoints = gson.fromJson(data, Point[].class);
+            System.out.println(_receivedPoints.length);
+            System.out.println(_receivedPoints[0].x);
+            System.out.println(_receivedPoints[0].y);
+            pointDown(_receivedPoints[0].x, _receivedPoints[0].y, 0);
+            for(int i = 1; i < _receivedPoints.length; i++){
+                pointMove((int) _receivedPoints[i].x, (int) _receivedPoints[i].y, 0);
+
+            }
+            postInvalidate();
         }
     };
 
