@@ -26,7 +26,7 @@ public class Menu extends AppCompatActivity {
 //    public String username = getIntent().getStringExtra("username");
 
     private SocketIO socket;
-    private String http = "http://192.168.2.109:5050";
+    private String http = "http://192.168.2.243:5050";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

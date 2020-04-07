@@ -153,7 +153,7 @@ public class DrawingCanvas extends View {
 
         if(_allPoints.size() == 25){
             String json = new Gson().toJson(_allPoints);
-            socket.getSocket().emit("draw", "General", json);
+            socket.getSocket().emit("StrokeDrawing", "General", json);
             _allPoints.clear();
             _allPoints = new ArrayList<Point>();
         }
@@ -175,7 +175,7 @@ public class DrawingCanvas extends View {
             if(_allPoints.size() == 25){
                 System.out.println(_allPoints);
                 String json = new Gson().toJson(_allPoints);
-                socket.getSocket().emit("draw", "General", json);
+                socket.getSocket().emit("StrokeDrawing", "General", json);
                 _allPoints.clear();
                 _allPoints = new ArrayList<Point>();
             }
@@ -268,4 +268,17 @@ public class DrawingCanvas extends View {
 //            e.printStackTrace();
 //        }
 //    }
+
+
+    public int getPaintColor() {
+        return paintColor;
+    }
+
+    public int getCapWidth() {
+        return capWidth;
+    }
+
+    public Paint.Cap getCapOption() {
+        return capOption;
+    }
 }
