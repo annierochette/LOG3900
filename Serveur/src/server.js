@@ -13,6 +13,7 @@ app.use(morgan("combined", {
 }));
 
 http.listen(PORT, () => {
+
   console.log('listening on *:', PORT);
   const f = async function(category, amount) {
     const test = await quickdraw.downloadCategory("teapot", 2);

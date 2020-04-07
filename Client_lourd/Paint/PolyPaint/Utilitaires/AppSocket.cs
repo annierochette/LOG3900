@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace PolyPaint.Utilitaires
 {
@@ -14,6 +15,7 @@ namespace PolyPaint.Utilitaires
 
         private static readonly string URL = "http://127.0.0.1";
         private static readonly string PORT = ":5050";
+        public InkCanvas canvas { get;  set; }
 
         public static AppSocket Instance { get; } = new AppSocket();
 
