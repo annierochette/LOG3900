@@ -2,6 +2,7 @@ const HTTP = require("../../common/constants/http");
 const ERR = require("../errors/messages/err");
 const LOGGER = require("../utils/logger");
 const Match = require("./match.model");
+const MatchManager = require("../match/match.manager");
 
 exports.createMatch = async function(req, res) {
     try {         
@@ -49,7 +50,8 @@ exports.addGame = async function(req, res) {
             { name: req.params.name },
             { $push: { games: req.body.game } }
         );
-
+        let matchManager = new MatchManager().getInstance();
+        matchManager.addAnswer(req.params.name, req.body.game);
         res.status(HTTP.STATUS.OK).end();
     } catch (error) {
         LOGGER.info(error);

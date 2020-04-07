@@ -1,5 +1,6 @@
 const SocketIo = require('socket.io');
 const SOCKET = require("../common/constants/socket");
+const MatchManager = require("./match/match.manager");
 
 module.exports = function(http) {
     var io = SocketIo.listen(http);
@@ -104,10 +105,15 @@ module.exports = function(http) {
         io.emit(SOCKET.DRAFT.STROKE_TOOL, tool);
       });
 
-      socket.on("joinGame", (channel, nbPlayers) => {
+      socket.on(SOCKET.MATCH.JOIN_MATCH, (channel, nbPlayers) => {
         console.log("joining game")
         let  nbPlay = { "nbPlayers": "1" };
         io.emit("joinGame", nbPlay);
+      });
+
+      socket.on(SOCKET.MATCH.ANSWER, (matchId, answer) => {
+        let matchManager = new MatchManager().getInstance();
+        socket.emit(SOCKET.MATCH.ANSWER, matchManager.validateAnswer(answer));
       });
     
     });

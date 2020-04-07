@@ -22,3 +22,8 @@ module.exports.DRAFT = {
     STROKE_TIP: "PointeSelectionnee",
     STROKE_TOOL: "OutilSelectionne",
 }
+
+module.exports.MATCH = {
+    ANSWER: "answer",
+    JOIN_MATCH: "joinGame",    
+}
