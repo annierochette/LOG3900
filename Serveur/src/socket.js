@@ -17,6 +17,8 @@ module.exports = function(http) {
       
       socket.join("General");
       console.log("Users connected: " + io.engine.clientsCount);
+      console.log("User connected" + dateString);
+      console.log("ScoketID: " + socket.id);
     
       socket.on(SOCKET.CHAT.MESSAGE, (username, channel, message) => {
           console.log("Message received")

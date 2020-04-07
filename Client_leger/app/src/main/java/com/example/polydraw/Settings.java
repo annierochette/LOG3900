@@ -57,7 +57,7 @@ public class Settings extends AppCompatActivity {
     }
 
     public void backToLogin(){
-        socket.getSocket().disconnect();
+        socket.emitDisconnectionStatus("disconnection");
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

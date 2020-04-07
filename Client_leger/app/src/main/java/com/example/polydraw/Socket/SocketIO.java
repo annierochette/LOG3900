@@ -86,6 +86,14 @@ public class SocketIO {
         SocketIO.getSocket().emit(event, channel,args);
     }
 
+    public static void emitDisconnectionStatus(String event) {
+        if (event.equals("disconnection")) {
+            SocketIO.getSocket().emit(event);
+//            socket.off();
+            socket.disconnect();
+            }
+    }
+
 //    public static void emitWithAcknowledge(String event, Object args)
 //            throws MalformedURLException {
 //        if (!SocketIO.getSocket().connected()) {
@@ -142,8 +150,4 @@ public class SocketIO {
 
     }*/
 
-    public void disconnect() {
-        socket.disconnect();
-        socket.emit("disconnection");
-    }
 }

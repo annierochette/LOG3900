@@ -108,8 +108,7 @@ public class Menu extends AppCompatActivity {
     }
 
     public void backToLogin(){
-        socket.disconnect();
-        socket.emit("disconnection", "General", null);
+        socket.emitDisconnectionStatus("disconnection");
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
