@@ -16,6 +16,8 @@ namespace PolyPaint.VueModeles
             return "GameChoiceViewModel";
         }
 
+        
+
 
         private ICommand _goToWaitingRoom;
         private ICommand _goToFreeForAll;

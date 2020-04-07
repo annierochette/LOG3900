@@ -1,5 +1,9 @@
 const SocketIo = require('socket.io');
 const CHAT = require("../common/constants/chat");
+const express = require("express");
+const CONTROLLER = require("./match/match.controller");
+const authentification = require("./services/authentification");
+const Match = require("./match/match.model");
 
 module.exports = function(http) {
     var io = SocketIo.listen(http);
@@ -115,10 +119,13 @@ module.exports = function(http) {
       socket.on(CHAT.EVENTS.STROKE_TOOL, (channel, tool) => {
         io.emit(CHAT.EVENTS.STROKE_TOOL, tool);
       });
-      socket.on("createGame", (channel, nbPlayers) => {
-        console.log("joining game")
+
+      socket.on("joinGame", (channel, game) => {
+        console.log("joining game"  + game);
+        socket.join(game);
+        
         let  nbPlay = { "nbPlayers": "1" };
-        io.emit("createGame", nbPlay);
+        io.to(game).emit("joinGame", nbPlay);
       });
     
     });
