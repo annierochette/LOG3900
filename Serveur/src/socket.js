@@ -67,6 +67,11 @@ module.exports = function(http) {
         io.to(channel).emit(SOCKET.CHAT.MESSAGE, msg);
       });
 
+      socket.on(SOCKET.CHAT.DISCONNECTION, () => {
+        socket.disconnect();
+        console.log("User disconnected");
+      });
+
       // Draft
       socket.on(SOCKET.DRAFT.STROKE_DRAWING, (channel, points) => {
         io.emit(SOCKET.DRAFT.STROKE_DRAWING, points);
