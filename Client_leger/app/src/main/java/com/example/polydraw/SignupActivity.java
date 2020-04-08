@@ -83,7 +83,7 @@ public class SignupActivity extends AppCompatActivity {
                     HttpPost task = new HttpPost(postData);
                     task.execute(SocketIO.HTTP_URL+query_url);
 
-                    Intent intent = new Intent(SignupActivity.this, Menu.class);
+                    Intent intent = new Intent(SignupActivity.this, MainActivity.class);
                     startActivity(intent);
 
                 } catch (Exception e) {
