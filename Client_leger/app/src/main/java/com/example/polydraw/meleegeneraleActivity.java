@@ -122,7 +122,6 @@ public class meleegeneraleActivity extends AppCompatActivity {
                 eraseButton.setBackground(getDrawable(R.drawable.selected_button));
                 drawButton.setBackground(getDrawable(R.drawable.round_button));
                 capStyle.setBackground(getDrawable(R.drawable.round_button));
-                openEraserOptions();
 
             }
         });
@@ -236,19 +235,6 @@ public class meleegeneraleActivity extends AppCompatActivity {
         });
         popup.show();
 
-    }
-
-    public void openEraserOptions(){
-        PopupMenu popup = new PopupMenu(meleegeneraleActivity.this, eraseButton);
-        popup.getMenuInflater().inflate(R.menu.eraser_menu, popup.getMenu());
-
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(MenuItem item) {
-                Toast.makeText(meleegeneraleActivity.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
-        popup.show();
     }
 
     public void setToggle(){
