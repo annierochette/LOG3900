@@ -9,7 +9,7 @@ using Svg;
 using System.Windows.Markup;
 using System.Xml.Linq;
 using System;
-using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace PolyPaint.VueModeles
 {
@@ -23,9 +23,6 @@ namespace PolyPaint.VueModeles
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private Editeur editeur = new Editeur();
-
-        private SvgDocument newImage = new SvgDocument();
-        // private Socket socket = IO.Socket("http://10.200.8.135:5050");
 
         // Ensemble d'attributs qui définissent l'apparence d'un trait.
         public DrawingAttributes AttributsDessin { get; set; } = new DrawingAttributes();
@@ -80,14 +77,9 @@ namespace PolyPaint.VueModeles
             get { return editeur.TailleTrait; }
             set { editeur.TailleTrait = value; }
         }
-        public StrokeCollection Traits
-        {
-            get { return editeur.traits;  }
-            set { Console.WriteLine("SET"); ProprieteModifiee(); }
-        }
 
 
-        
+        public StrokeCollection Traits { get; set; }
         public StrokeCollection NouveauxTraits { get; set; }
 
         // Commandes sur lesquels la vue pourra se connecter.
@@ -112,19 +104,46 @@ namespace PolyPaint.VueModeles
             AjusterPointe();
 
             Traits = editeur.traits;
+            NouveauxTraits = editeur.nouveauxTraits;
 
             // Pour les commandes suivantes, il est toujours possible des les activer.
             // Donc, aucune vérification de type Peut"Action" à faire.
             ChoisirPointe = new RelayCommand<string>(editeur.ChoisirPointe);
             ChoisirOutil = new RelayCommand<string>(editeur.ChoisirOutil);
-
-            //socket.On("drawingAttributes", drawingAttributes => {
-            //    Console.WriteLine("drawingAttributes: " + drawingAttributes.ToString());
-            //    AttributsDessin = JsonConvert.DeserializeObject<DrawingAttributes>(drawingAttributes.ToString());
-            //});
+           
         }
 
-       
+        //public void AfficherTraitsClassique()
+        //{
+        //    StrokeCollection strokeCollections = Traits.Clone();
+        //    StylusPointCollection points = new StylusPointCollection();
+
+
+        //    foreach (Stroke stroke in strokeCollections)
+        //    {
+        //        points.Add(stroke.StylusPoints);
+        //        StylusPointCollection first = new StylusPointCollection();
+        //        first.Add(points[0]);
+        //        Stroke newStroke = new Stroke(first);
+        //        DispatcherTimer timer = new DispatcherTimer();
+        //        timer.Interval = TimeSpan.FromMilliseconds(10);
+        //        timer.Start();
+        //        int index = 0;
+        //        timer.Tick += (s, a) =>
+        //        {
+                    
+        //            newStroke.StylusPoints.Insert(index, points[index]);
+        //            if (!NouveauxTraits.Contains(newStroke))
+        //            {
+        //                NouveauxTraits.Add(newStroke);
+        //            }
+        //            index++;
+        //            if (index >= points.Count) timer.Stop();
+        //        };
+        //    };
+
+
+        //}
 
         private void ConvertDrawingToSVG(object sender)
         {
@@ -137,7 +156,7 @@ namespace PolyPaint.VueModeles
 
             foreach (var stroke in Traits)
             {
-                var geometry = stroke.GetGeometry(stroke.DrawingAttributes).GetOutlinedPathGeometry();
+                var geometry = stroke.GetGeometry(stroke.DrawingAttributes).GetOutlinedPath‌​Geometry();
 
                 var s = XamlWriter.Save(geometry);
 
@@ -164,11 +183,7 @@ namespace PolyPaint.VueModeles
             
         }
 
-        public StrokeCollection getStrokeCollection()
-        {
-            return editeur.traits;
-        }
-
+       
         /// <summary>
         /// Appelee lorsqu'une propriété de VueModele est modifiée.
         /// Un évènement indiquant qu'une propriété a été modifiée est alors émis à partir de VueModèle.
@@ -190,8 +205,6 @@ namespace PolyPaint.VueModeles
         /// Il indique quelle propriété a été modifiée dans le modèle.</param>
         private void EditeurProprieteModifiee(object sender, PropertyChangedEventArgs e)
         {
-
-            Console.WriteLine("Debut: " + Traits.Count);
             if (e.PropertyName == "CouleurSelectionnee")
             {
                 AttributsDessin.Color = (Color)ColorConverter.ConvertFromString(editeur.CouleurSelectionnee);
@@ -205,18 +218,10 @@ namespace PolyPaint.VueModeles
                 PointeSelectionnee = editeur.PointeSelectionnee;
                 AjusterPointe();
             }
-            else if (e.PropertyName == "Traits")
-            {
-                Console.WriteLine("TRAITS IS MODIFIED");
-            }
             else // e.PropertyName == "TailleTrait"
             {
-                AjusterPointe(); 
+                AjusterPointe();
             }
-
-            Console.WriteLine("Fin: " + AttributsDessin.Color.ToString());
-            //send();
-            // socket.Emit("drawingAttributes", "General ", JsonConvert.SerializeObject(AttributsDessin));
         }
 
         /// <summary>
@@ -229,10 +234,6 @@ namespace PolyPaint.VueModeles
             AttributsDessin.StylusTip = (editeur.PointeSelectionnee == "ronde") ? StylusTip.Ellipse : StylusTip.Rectangle;
             AttributsDessin.Width = editeur.TailleTrait;
             AttributsDessin.Height = editeur.TailleTrait;
-        }
-        private void send()
-        {
-           // socket.Emit("drawingAttributes", "General ", JsonConvert.SerializeObject(AttributsDessin));
         }
     }
     

@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Ink;
+using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace PolyPaint.Modeles
 {
@@ -15,13 +17,14 @@ namespace PolyPaint.Modeles
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public StrokeCollection traits = new StrokeCollection();
+        public StrokeCollection nouveauxTraits = new StrokeCollection();
 
         // Outil actif dans l'éditeur
         private string outilSelectionne = "crayon";
         public string OutilSelectionne
         {
             get { return outilSelectionne; }
-            set { Console.WriteLine("OutilSeletionne: " + value);  outilSelectionne = value; ProprieteModifiee(); }
+            set { outilSelectionne = value; ProprieteModifiee(); }
         }
 
         // Forme de la pointe du crayon
@@ -76,7 +79,6 @@ namespace PolyPaint.Modeles
         /// <param name="propertyName">Nom de la propriété modifiée.</param>
         protected void ProprieteModifiee([CallerMemberName] string propertyName = null)
         {
-            Console.WriteLine("E.Property = " + propertyName);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         
@@ -85,5 +87,8 @@ namespace PolyPaint.Modeles
 
         // L'outil actif devient celui passé en paramètre.
         public void ChoisirOutil(string outil) => OutilSelectionne = outil;
+
+
+        
     }
 }

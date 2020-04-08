@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PolyPaint.VueModeles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,8 +23,8 @@ namespace PolyPaint.CustomControls
     public partial class TimerControl : UserControl
     {
 
-        private int time = 74;
-        private DispatcherTimer Timer;
+        public int time = 10;
+        public DispatcherTimer Timer;
 
         public TimerControl()
         {
@@ -32,12 +33,14 @@ namespace PolyPaint.CustomControls
             Timer.Interval = new TimeSpan(0, 0, 1);
             Timer.Tick += Timer_Tick;
             Timer.Start();
+            
         }
 
         void Timer_Tick(object sender, EventArgs e)
         {
             if (time > 0) {
                 {
+                    
                     if (time <= 10)
                     {
 
@@ -50,12 +53,7 @@ namespace PolyPaint.CustomControls
                             TBCountDown.Foreground = Brushes.Black;
                         }
                         time--;
-                        TBCountDown.Text = string.Format("0{0}:0{1}", time / 60, time % 60);
-
-                    }
-                    else if(time % 60 <= 10){
-                        time--;
-                        TBCountDown.Text = string.Format("0{0}:0{1}", time / 60, time % 60);
+                        TBCountDown.Text = string.Format("0{0}:{1}", time / 60, time % 60);
                     }
                     else
                     {
@@ -69,11 +67,19 @@ namespace PolyPaint.CustomControls
                 else
                 {
                     Timer.Stop();
-                   
-                }
+                //    string vm = ((BaseViewModel)(DataContext)).GetCurrentViewModelName();
+                //    if (vm == "GuessingViewModel")
+                //{
+                //    ((GuessingViewModel)(DataContext)).assignDrawingView();
+                //}
+                //    if (vm == "FreeForAllViewModel")
+                //{
+                //    ((FreeForAllViewModel)(DataContext)).assignGuessingView();
+                //}
+            }
             
             }
-        
+ 
 
 
 
