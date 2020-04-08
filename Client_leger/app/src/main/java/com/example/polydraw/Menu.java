@@ -23,10 +23,9 @@ public class Menu extends AppCompatActivity {
     private Button settingsButton;
     private ImageButton disconnectButton;
     private ImageView chatButton;
-//    public String username = getIntent().getStringExtra("username");
 
     private SocketIO socket;
-    private String http = "http://192.168.2.243:5050";
+    public final String http = "http://192.168.2.243:5050";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

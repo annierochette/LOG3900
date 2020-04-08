@@ -54,6 +54,8 @@
             android:layout_alignParentRight="true"
             android:fontFamily="sans-serif-condensed"
             android:text="Résultats"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="@android:color/black"
@@ -99,6 +101,29 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"/>
 
+        <TextView
+            android:id="@+id/hints"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            android:textFontWeight="800"
+            android:text="Indices"
+            android:gravity="center"
+            android:layout_toRightOf="@id/separatorResults"
+            android:layout_below="@id/player1"
+            android:layout_marginTop="75dp"/>
+
+        <ListView
+            android:id="@+id/hintsList"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/hints"/>
+
         <com.example.polydraw.GuessingCanvas
             android:id="@+id/guessing"
             android:layout_width="1050dp"
@@ -119,16 +144,7 @@
             android:layout_height="51dp"
             android:orientation="horizontal"
             android:layout_alignParentBottom="true"
-            android:id="@+id/guessingToolbox"
-            android:weightSum="3">
-
-            <TextView
-                android:id="@+id/hints"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="10dp"
-                android:text="Indices" />
+            android:id="@+id/guessingToolbox">
 
             <EditText
                 android:id="@+id/answer"
