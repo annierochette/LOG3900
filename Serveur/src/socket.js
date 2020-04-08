@@ -76,7 +76,7 @@ module.exports = function(http) {
 
       // Draft
       socket.on(SOCKET.DRAFT.STROKE_DRAWING, (channel, points) => {
-        console.log(points)
+        console.log("StrokeDrawing")
         io.emit(SOCKET.DRAFT.STROKE_DRAWING, points);
       });
 
@@ -86,7 +86,7 @@ module.exports = function(http) {
       });
 
       socket.on(SOCKET.DRAFT.STROKE_ERASING, (channel, points) => {
-        console.log("StrokeDrawing")
+        console.log("StrokeErasing")
         io.emit(SOCKET.DRAFT.STROKE_ERASING, points);
       });
 

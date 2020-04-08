@@ -69,57 +69,6 @@ public class GuessingCanvas extends View {
         }
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event){
-//        final int action = event.getActionMasked();
-//        final int pointerCount = event.getPointerCount();
-//
-//        switch(action) {
-//            case MotionEvent.ACTION_DOWN:
-//                if (eraser) {
-//                    eraseStroke((int) event.getX(), (int) event.getY(),event.getPointerId(0));
-//                } else {
-//                    pointDown((int) event.getX(), (int) event.getY(), event.getPointerId(0));
-//                }
-//                break;
-//
-//            case MotionEvent.ACTION_MOVE:
-//                if (eraser) {
-//                    for (int pc = 0; pc < pointerCount; pc++) {
-//                        pointMove((int) event.getX(pc), (int) event.getY(pc),event.getPointerId(pc));
-//                    }
-//                } else {
-//                    for (int pc = 0; pc < pointerCount; pc++) {
-//                        pointMove((int) event.getX(pc), (int) event.getY(pc), event.getPointerId(pc));
-//                    }
-//                }
-//                break;
-//
-//            case MotionEvent.ACTION_POINTER_DOWN:
-//                if (eraser) {
-//                    for (int pc = 0; pc < pointerCount; pc++) {
-//                        eraseStroke((int)event.getX(pc), (int)event.getY(pc),event.getPointerId(pc));
-//                    }
-//                } else {
-//                    for (int pc = 0; pc < pointerCount; pc++) {
-//                        pointDown((int)event.getX(pc), (int)event.getY(pc), event.getPointerId(pc));
-//                    }
-//                }
-//                break;
-//
-//            case MotionEvent.ACTION_UP:
-//                break;
-//
-//            case MotionEvent.ACTION_POINTER_UP:
-//                break;
-//
-//            default:
-//                return false;
-//        }
-//
-//        invalidate();
-        return true;
-    }
 
     private void pointDown(int x, int y, int id) {
         Paint paint = new Paint();
@@ -160,30 +109,6 @@ public class GuessingCanvas extends View {
         activeStrokes.put(id, stroke);
         _allStroke.add(stroke);
     }
-
-//    private void findStroke(int x, int y, int id) {
-//        Paint paint = new Paint();
-//        paint.setStyle(Paint.Style.FILL);
-//        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-//
-//        Stroke stroke = new Stroke(paint);
-//
-//        for (Stroke existingStroke: _allStroke) {
-//            for (Point pt : existingStroke.pointArray) {
-//                if (pt.equals(x, y)) {e
-//                    stroke = existingStroke;
-//                }
-//
-//            }
-//        }
-//
-//        Stroke erasedStroke = new Stroke(paint, stroke.pointArray);
-//        _allStroke.add(erasedStroke);
-//        _allStroke.remove(stroke);
-//
-//
-//        invalidate();
-//    }
 
     public void setErase(boolean isErase){
         eraser = isErase;

@@ -152,7 +152,7 @@ public class DrawingCanvas extends View {
         _allPoints.add(pt);
 
         if(eraser){
-            if(_allPoints.size() == 25){
+            if(_allPoints.size() == 15){
                 String json = new Gson().toJson(_allPoints);
                 socket.getSocket().emit("StrokeErasing", "General", json);
                 _allPoints.clear();
@@ -161,7 +161,7 @@ public class DrawingCanvas extends View {
 
         }
         else{
-            if(_allPoints.size() == 25){
+            if(_allPoints.size() == 15){
                 String json = new Gson().toJson(_allPoints);
                 socket.getSocket().emit("StrokeDrawing", "General", json);
                 _allPoints.clear();
@@ -193,7 +193,7 @@ public class DrawingCanvas extends View {
             }*/
 
             if(eraser){
-                if(_allPoints.size() == 25){
+                if(_allPoints.size() == 15){
                     String json = new Gson().toJson(_allPoints);
                     socket.getSocket().emit("StrokeErasing", "General", json);
                     _allPoints.clear();
@@ -202,7 +202,7 @@ public class DrawingCanvas extends View {
 
             }
             else {
-                if (_allPoints.size() == 25) {
+                if (_allPoints.size() == 15) {
                     String json = new Gson().toJson(_allPoints);
                     socket.getSocket().emit("StrokeDrawing", "General", json);
                     _allPoints.clear();
