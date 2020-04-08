@@ -33,19 +33,20 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Image x:Name="logo" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="3" Source="logo_noborder.png"/>
         <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="5" >
-            <Button x:Name="connection" Click="UserConnect" Content="Se connecter" VerticalAlignment="Top" Command="{Binding GoToMainWindow}" Height="44" Margin="100,231,100,0" Background="#FFFF7F11" FontFamily="Lucida Fax" FontWeight="Bold" />
+            <Button x:Name="connection" Click="UserConnect" Content="SE CONNECTER" VerticalAlignment="Top" Command="{Binding GoToMainWindow}" Height="44" Margin="61,231,61,0" Background="#FFFF7F11" FontFamily="Microsoft JhengHei UI" FontWeight="Bold" Foreground="White"/>
 
 
             <PasswordBox x:Name="passwordBox" Margin="28,-108,26,0" VerticalAlignment="Top" Height="41" FontSize="22"  PasswordChanged="passwordBox_PasswordChanged"/>
 
             <TextBlock x:Name="tbpass" HorizontalAlignment="Left" Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Mot de passe" VerticalAlignment="Top" Margin="41,-108,0,30" Height="30" Width="198" FontSize="18"/>
-            <Image x:Name="logo" Height="94" VerticalAlignment="Top" Margin="89,-275,107,0" Source="circle-cropped.png"/>
+
             <TextBox x:Name="usernameBox" Height="41" TextWrapping="Wrap" VerticalAlignment="Top" Margin="28,-167,26,0" FontSize="22" TextChanged="usernameBox_TextChanged"/>
-            <TextBlock x:Name="tbuser" HorizontalAlignment="Left"  Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Nom d'utilisateur" VerticalAlignment="Top" Height="30" Width="205" Margin="28,-166,26,0" FontSize="18"/>
+            <TextBlock x:Name="tbuser" HorizontalAlignment="Left"  Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Nom d'utilisateur" VerticalAlignment="Top" Height="30" Width="192" Margin="41,-166,0,0" FontSize="18"/>
         </StackPanel>
         <StackPanel Grid.Column="7" Grid.ColumnSpan="2" Grid.Row="9" Grid.RowSpan="2" >
-            <Button x:Name="SignIn" Content="Créer un compte" VerticalAlignment="Top"  Command="{Binding GoToSignInWindow}" Margin="26,42,20,0" Background="#FFB3C646" FontFamily="Lucida Fax" FontWeight="Bold" Height="43" Panel.ZIndex="1"/>
+            <Button x:Name="SignIn" Content="S'INSCRIRE" VerticalAlignment="Top"  Command="{Binding GoToSignInWindow}" Margin="10,42,20,0" Background="#FFB3C646" FontFamily="Microsoft JhengHei UI" FontWeight="Bold" Foreground="White" Height="43" Panel.ZIndex="1" Click="SignIn_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>
