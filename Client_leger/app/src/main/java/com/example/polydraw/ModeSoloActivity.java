@@ -95,7 +95,7 @@ public class ModeSoloActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //https://www.youtube.com/watch?v=zmjfAcnosS0
+    //source: https://www.youtube.com/watch?v=zmjfAcnosS0
     public void startTimer(){
         timer = new CountDownTimer(remainingTime, 1000) {
             @Override

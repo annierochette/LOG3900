@@ -19,7 +19,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.net.ssl.SSLContext;
 
 public class SocketIO {
-    private static final String serverUrl = "http://192.168.2.243:5050";
+    public static final String HTTP_URL = "http://192.168.2.243:5050";
     private static Socket socket;
     private static SocketIO instance;
     private static Activity act;
@@ -34,7 +34,7 @@ public class SocketIO {
             instance.initID(uid);
             if (SocketIO.getSocket() == null) {
                 try{
-                    Socket newSocket = IO.socket(serverUrl);
+                    Socket newSocket = IO.socket(HTTP_URL);
                     SocketIO.setSocket(newSocket);
                     SocketIO.connectIO();
                     emit("connection","General", null);
@@ -111,7 +111,7 @@ public class SocketIO {
 
     public void init(){
         try{
-            socket = IO.socket("http://192.168.2.243:5050");
+            socket = IO.socket(HTTP_URL);
             socket = socket.connect();
             socket.emit("connection");
         }

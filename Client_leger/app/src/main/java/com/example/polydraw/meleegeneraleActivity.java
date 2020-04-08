@@ -222,7 +222,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
         colorPicker.show();
     }
 
-    //https://www.javatpoint.com/android-popup-menu-example
+    //source: https://www.javatpoint.com/android-popup-menu-example
     public void openCapOptions(){
         PopupMenu popup = new PopupMenu(meleegeneraleActivity.this, capStyle);
         popup.getMenuInflater().inflate(R.menu.cap_menu, popup.getMenu());
@@ -273,7 +273,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //https://www.youtube.com/watch?v=zmjfAcnosS0
+    //source: https://www.youtube.com/watch?v=zmjfAcnosS0
     public void startTimer(){
         timer = new CountDownTimer(remainingTime, 1000) {
             @Override

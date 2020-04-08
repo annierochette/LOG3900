@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.polydraw.Socket.SocketIO;
+
 import org.json.JSONObject;
 import org.json.JSONException;
 import java.io.IOException;
@@ -29,9 +31,7 @@ public class SignupActivity extends AppCompatActivity {
     private EditText passwordConfirmation;
     private Button backButton;
 
-
-    public String IpAddress;
-    public String url = "http://192.168.2.132:5050"; //"https://fais-moi-un-dessin.herokuapp.com/"
+    String query_url = "/players";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,6 @@ public class SignupActivity extends AppCompatActivity {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String query_url = url;
                 try {
 
                     Map<String, String> postData = new HashMap<>();
@@ -82,7 +81,7 @@ public class SignupActivity extends AppCompatActivity {
                     postData.put("username", username.getText().toString());
                     postData.put("password", password.getText().toString());
                     HttpPost task = new HttpPost(postData);
-                    task.execute(query_url);
+                    task.execute(SocketIO.HTTP_URL+query_url);
 
                     Intent intent = new Intent(SignupActivity.this, Menu.class);
                     startActivity(intent);

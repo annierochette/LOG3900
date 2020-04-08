@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.polydraw.Socket.SocketIO;
+
 import java.net.*;
 import java.io.*;
 import java.util.*;
@@ -24,12 +26,11 @@ public class MainActivity extends AppCompatActivity {
     private Button signupButton;
     private EditText password;
     public static final String USERNAME = "username";
-    public static final String IP_ADDRESS = "ipAddress";
     public static final String PASSWORD = "password";
 
     public Application app;
 
-    String query_url = "https://fais-moi-un-dessin.herokuapp.com/players/login";
+    String query_url = "/players/login";
 
     public static String editTextString;
 
@@ -66,20 +67,18 @@ public class MainActivity extends AppCompatActivity {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String query_url = "http://192.168.2.243:5050";
                 try {
 
                     Map<String, String> postData = new HashMap<>();
                     postData.put("username", username.getText().toString());
                     postData.put("password", password.getText().toString());
                     HttpPost task = new HttpPost(postData);
-                    task.execute(query_url);
+                    task.execute(SocketIO.HTTP_URL+query_url);
 
                     String str = username.getText().toString();
                     editTextString=str;
 
                     Intent intent = new Intent(MainActivity.this, Menu.class);
-//                    intent.putExtra("username", username.getText().toString());
                     startActivity(intent);
 
                 } catch (Exception e) {
