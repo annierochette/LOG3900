@@ -391,7 +391,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Vues\Login\logo_noborder.png" />
-    <Content Include="Vues\Login\logo_noborder.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\avatar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\arrow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

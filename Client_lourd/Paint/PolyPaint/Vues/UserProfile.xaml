@@ -9,8 +9,8 @@ d:DesignHeight="650" d:DesignWidth="900"
              >
     <Grid Background="#4CAFE0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -20,9 +20,9 @@ d:DesignHeight="650" d:DesignWidth="900"
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="15"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="200"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -32,19 +32,14 @@ d:DesignHeight="650" d:DesignWidth="900"
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="Back" Height="50" BorderThickness="2"  FontWeight="Bold" FontSize="20" FontFamily="Ink Free" Command="{Binding GoToGameMenu}" Click="Back_Click" Grid.Row="9" Grid.RowSpan="2" >
-            <Image Source="back.png"></Image>
-        </Button>
-        <Button Grid.Column="0" Grid.RowSpan="2"  Command="{Binding GoToUserProfile}">
-            <Image Source="/PolyPaint;component/Resources/woman_avatar.png"  />
-        </Button>
-        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Grid.RowSpan="5" Margin="10,59,0,59" >
-            <TextBlock HorizontalAlignment="Left"   Text="PRÉNOM:"  FontSize="20" FontFamily="Ink Free" Foreground="White"/>
-            <TextBlock HorizontalAlignment="Center"    FontSize="24" Text="" FontFamily="Ink Free" Foreground="Black" FontWeight="Bold"/>
-            <TextBlock HorizontalAlignment="Left"  Text="NOM:" FontSize="20" FontFamily="Ink Free" Foreground="White"/>
-            <TextBlock HorizontalAlignment="Center"  Text="" FontSize="24" FontFamily="Ink Free" Foreground="Black" FontWeight="Bold"/>
-            <TextBlock HorizontalAlignment="Left"   Text="PSEUDONYME:" FontSize="20" FontFamily="Ink Free" Foreground="White"/>
-            <TextBlock HorizontalAlignment="Center"  Text="{Binding Username}" FontSize="24" FontFamily="Ink Free" Foreground="Black" FontWeight="Bold"/>
+
+        <Button Grid.Column="1" Content="RETOUR" FontFamily="Microsoft JhengHei UI" FontWeight="Bold" Height="35" Foreground="white" Background="#2364AA" Width="80" Command="{Binding GoToGameMenu}" HorizontalAlignment="Left" Grid.Row="1"/>
+
+        <Image Grid.Column="1" Grid.Row="2" Source="avatar.png" Stretch="Fill"   />
+
+        <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="4" Margin="10,45,96,9.6" >
+            <TextBlock HorizontalAlignment="Center"    FontSize="24" Text="NOM" Foreground="White" />
+            <TextBlock HorizontalAlignment="Center"  Text="{Binding Username}" FontSize="24"  Foreground="White" />
         </StackPanel>
     </Grid>
 </UserControl>

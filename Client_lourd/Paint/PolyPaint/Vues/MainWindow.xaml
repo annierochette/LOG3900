@@ -7,7 +7,8 @@
         xmlns:custom="clr-namespace:PolyPaint.CustomControls"
         mc:Ignorable="d"
         >
-    <Grid>
+
+    <Grid Background="#4CAFE0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -20,7 +21,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -32,8 +33,11 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ContentControl Grid.ColumnSpan="7" Grid.RowSpan="11"  Content="{Binding CurrentPageViewModel}" />
-        <custom:MessageBoxControl Grid.Column="7"  Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="11" Loaded="MessageBoxControl_Loaded"/>
+        <Button Background="#4CAFE0" Width="50" Grid.Column="9" HorizontalAlignment="Right" Command="{Binding GoToLoginControl}" Click="Disconnect" >
+            <Image  Source="off.png"  />
+        </Button>
+        <ContentControl x:Name="CurrentPage" Grid.ColumnSpan="7" Grid.Row="0" Grid.RowSpan="11"  Content="{Binding CurrentPageViewModel}" />
+        <custom:MessageBoxControl x:Name="MessageBox" Grid.Column="7"  Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="10" Loaded="MessageBoxControl_Loaded"/>
     </Grid>
     
 </UserControl>
