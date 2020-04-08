@@ -151,12 +151,25 @@ public class DrawingCanvas extends View {
         Point pt = new Point(x,y);
         _allPoints.add(pt);
 
-        if(_allPoints.size() == 25){
-            String json = new Gson().toJson(_allPoints);
-            socket.getSocket().emit("StrokeDrawing", "General", json);
-            _allPoints.clear();
-            _allPoints = new ArrayList<Point>();
+        if(eraser){
+            if(_allPoints.size() == 25){
+                String json = new Gson().toJson(_allPoints);
+                socket.getSocket().emit("StrokeErasing", "General", json);
+                _allPoints.clear();
+                _allPoints = new ArrayList<Point>();
+            }
+
         }
+        else{
+            if(_allPoints.size() == 25){
+                String json = new Gson().toJson(_allPoints);
+                socket.getSocket().emit("StrokeDrawing", "General", json);
+                _allPoints.clear();
+                _allPoints = new ArrayList<Point>();
+            }
+
+        }
+
 
         Stroke stroke = new Stroke(paint);
         stroke.addPoint(pt);
@@ -172,12 +185,29 @@ public class DrawingCanvas extends View {
             stroke.addPoint(pt);
             _allPoints.add(pt);
 
-            if(_allPoints.size() == 25){
-                System.out.println(_allPoints);
+            /*if(_allPoints.size() == 25){
                 String json = new Gson().toJson(_allPoints);
                 socket.getSocket().emit("StrokeDrawing", "General", json);
                 _allPoints.clear();
                 _allPoints = new ArrayList<Point>();
+            }*/
+
+            if(eraser){
+                if(_allPoints.size() == 25){
+                    String json = new Gson().toJson(_allPoints);
+                    socket.getSocket().emit("StrokeErasing", "General", json);
+                    _allPoints.clear();
+                    _allPoints = new ArrayList<Point>();
+                }
+
+            }
+            else {
+                if (_allPoints.size() == 25) {
+                    String json = new Gson().toJson(_allPoints);
+                    socket.getSocket().emit("StrokeDrawing", "General", json);
+                    _allPoints.clear();
+                    _allPoints = new ArrayList<Point>();
+                }
             }
         }
     }

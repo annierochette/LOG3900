@@ -219,9 +219,6 @@ public class GuessingCanvas extends View {
             String data = args[0].toString();
             Gson gson = new Gson();
             Point[] _receivedPoints = gson.fromJson(data, Point[].class);
-            System.out.println(_receivedPoints.length);
-            System.out.println(_receivedPoints[0].x);
-            System.out.println(_receivedPoints[0].y);
             pointDown(_receivedPoints[0].x, _receivedPoints[0].y, 0);
             for(int i = 1; i < _receivedPoints.length; i++){
                 pointMove((int) _receivedPoints[i].x, (int) _receivedPoints[i].y, 0);
@@ -231,11 +228,30 @@ public class GuessingCanvas extends View {
         }
     };
 
-    private Emitter.Listener onEraserToggle = new Emitter.Listener() {
+    /*private Emitter.Listener onEraserToggle = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
             Boolean data = (Boolean) args[0];
             setErase(data);
+        }
+    };*/
+
+    private Emitter.Listener onEraserToggle = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            System.out.println("Erasing stroke received");
+            setErase(true);
+
+//            JSONObject data = (JSONObject) args[0];
+            String data = args[0].toString();
+            Gson gson = new Gson();
+            Point[] _receivedPoints = gson.fromJson(data, Point[].class);
+            eraseStroke(_receivedPoints[0].x, _receivedPoints[0].y, 0);
+            for(int i = 1; i < _receivedPoints.length; i++){
+                pointMove((int) _receivedPoints[i].x, (int) _receivedPoints[i].y, 0);
+
+            }
+            postInvalidate();
         }
     };
 

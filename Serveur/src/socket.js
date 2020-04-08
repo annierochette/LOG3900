@@ -86,7 +86,7 @@ module.exports = function(http) {
       });
 
       socket.on(SOCKET.DRAFT.STROKE_ERASING, (channel, points) => {
-        console.log("StrokeErasing")
+        console.log("StrokeDrawing")
         io.emit(SOCKET.DRAFT.STROKE_ERASING, points);
       });
 
