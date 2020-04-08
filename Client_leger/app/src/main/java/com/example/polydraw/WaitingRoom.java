@@ -12,43 +12,36 @@ import android.widget.ImageView;
 
 import com.example.polydraw.Socket.SocketIO;
 
-public class MeleeGeneraleMenuActivity extends AppCompatActivity {
+public class WaitingRoom extends AppCompatActivity {
 
     private Button backButton;
     private Button playButton;
     private ImageButton disconnectButton;
     private ImageView chatButton;
     private SocketIO socket;
+    private int nbPlayers = 2; //nb d'utilisateurs qui ont joint la partie
+
+    private String channelName = "test12345"; //mettre nom de la partie
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_melee_generale_menu);
+        setContentView(R.layout.activity_waiting_room);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 
-        backButton = (Button) findViewById(R.id.backButton);
+        socket.getSocket().emit("joinChannel", channelName);
+
+
         playButton = (Button) findViewById(R.id.playButton);
-        disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
         chatButton = (ImageView) findViewById(R.id.chatButton);
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backToPlayMenu();
-            }
-        });
+        if(nbPlayers > 1)
+            playButton.setVisibility(View.VISIBLE);
 
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 playMultiplayerGame();
-            }
-        });
-
-        disconnectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backToLogin();
             }
         });
 
@@ -61,21 +54,8 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
     }
 
-
-
-    public void backToPlayMenu() {
-        Intent intent = new Intent(this, PlayMenu.class);
-        startActivity(intent);
-    }
-
     public void playMultiplayerGame(){
-        Intent intent = new Intent(this, WaitingRoom.class);
-        startActivity(intent);
-    }
-
-    public void backToLogin(){
-        socket.emitDisconnectionStatus("disconnection");
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, meleegeneraleActivity.class);
         startActivity(intent);
     }
 
@@ -83,7 +63,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ChatBoxActivity.class);
         startActivity(intent);
     }
-
-    @Override
-    public void onBackPressed() { }
+    //A DECOMMENTER QUAND PARTIE SERA FONCTIONNELLE
+    /*@Override
+    public void onBackPressed() { }*/
 }
