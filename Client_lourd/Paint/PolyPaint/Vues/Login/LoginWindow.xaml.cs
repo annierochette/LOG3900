@@ -17,8 +17,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
-
+using PolyPaint.VueModeles;
+using PolyPaint.Modeles;
 
 namespace PolyPaint.Vues
 {
@@ -28,6 +28,7 @@ namespace PolyPaint.Vues
         public LoginWindow()
         { 
             InitializeComponent();
+            User user = User.instance;
         }
 
         public class loginPlayer
@@ -56,21 +57,24 @@ namespace PolyPaint.Vues
             var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-          //  var res = await HttpClient.PostAsync("http://localhost:5050/players/login", httpContent);
+            //  var res = await HttpClient.PostAsync("http://localhost:5050/players/login", httpContent);
             //if (res.Content != null)
             //{
             //    var responseContent = await res.Content.ReadAsStringAsync();
             //    Console.WriteLine(responseContent);
+            //    User.instance.Username = username;
 
             //}
             //if (res.StatusCode.ToString() == "201")
             //{
-                
+
             //}
 
-            //Console.WriteLine(username);
-            //Console.WriteLine(password);
+           
         }
+
+   
+
 
         private void usernameBox_TextChanged(object sender, TextChangedEventArgs e)
         {

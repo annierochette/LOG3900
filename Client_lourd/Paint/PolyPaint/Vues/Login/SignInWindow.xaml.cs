@@ -51,8 +51,6 @@ namespace PolyPaint.Vues
             if (repass == password)
             {
 
-
-
                 var HttpClient = new HttpClient();
                 var infos = new player { 
                     firstName = firstName,
@@ -72,6 +70,9 @@ namespace PolyPaint.Vues
                     Console.WriteLine(responseContent);
 
                 }
+                else { 
+                    var responseContent = await res.Content.ReadAsStringAsync();
+                    Console.WriteLine("marche pas: " + responseContent); }
                 Console.WriteLine(password);
             }
             else { System.Windows.MessageBox.Show("le mot de passe et la vérification ne correspondent pas", "Erreur"); }
@@ -106,6 +107,11 @@ namespace PolyPaint.Vues
                 tbpassword.Visibility = Visibility.Collapsed;
             else
                 tbpassword.Visibility = Visibility.Visible;
+            if (rePassBox.Password.Length >= 7 && passBox.Password.Length >= 7)
+            {
+                connection.IsEnabled = true;
+            }
+            else connection.IsEnabled = false;
         }
 
         private void rePassBox_PasswordChanged(object sender, RoutedEventArgs e)
@@ -114,6 +120,10 @@ namespace PolyPaint.Vues
                 tbrepassword.Visibility = Visibility.Collapsed;
             else
                 tbrepassword.Visibility = Visibility.Visible;
+            if (rePassBox.Password.Length >= 7 && passBox.Password.Length >= 7)
+            {
+                connection.IsEnabled = true;
+            } else connection.IsEnabled= false;
         }
     }
 }

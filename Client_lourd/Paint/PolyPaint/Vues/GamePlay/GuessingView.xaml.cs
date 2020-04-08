@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Windows.Controls;
 
 
@@ -14,14 +15,9 @@ namespace PolyPaint.Vues
             InitializeComponent();
         }
 
-        private void MessageBoxControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-
-        }
-
         private void TimerControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-
+            
         }
     }
 }

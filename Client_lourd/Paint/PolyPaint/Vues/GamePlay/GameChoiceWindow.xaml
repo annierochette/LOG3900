@@ -34,7 +34,7 @@
 
         <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="5" >
             <Button Height="50" Width="220" Margin="20" Content="CRÉER JEU" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Click="testing" Command="{Binding GoToWaitingRoom}"/>
-            <Button Height="50" Width="220" Margin="20" Content="JOINDRE JEU" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Click="join" Command="{Binding GoToJoiningGame}"/>
+            <Button Height="50" Width="220" Margin="20" Content="JOINDRE JEU" Background="#FFFF7F11" BorderThickness="2" FontSize="24" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToFreeForAll}"/>
         </StackPanel>
         <Button x:Name="button" Width="75" Height="40" Command="{Binding GoToGameModeMenu}" Grid.Row="10" >
             <Image Source="back.png"></Image>
