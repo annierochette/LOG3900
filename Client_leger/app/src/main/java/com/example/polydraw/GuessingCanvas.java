@@ -33,7 +33,7 @@ public class GuessingCanvas extends View {
     private int paintColor = Color.BLACK;
     private Paint.Cap capOption = Paint.Cap.SQUARE;
     private int capWidth = 5;
-
+    private int strokeID = 0;
     private SocketIO socket;
 
     public GuessingCanvas (Context context, AttributeSet attrs){
@@ -51,7 +51,9 @@ public class GuessingCanvas extends View {
 
         socket.getSocket().on("StrokeDrawing", onDrawing);
         socket.getSocket().on("StrokeErasing", onEraserToggle);
-
+        socket.getSocket().on("CouleurSelectionnee", onColorChange);
+        socket.getSocket().on("TailleTrait", onWidthChange);
+        socket.getSocket().on("PointeSelectionnee", onTipChange);
     }
 
     @Override
@@ -68,7 +70,6 @@ public class GuessingCanvas extends View {
             }
         }
     }
-
 
     private void pointDown(int x, int y, int id) {
         Paint paint = new Paint();
@@ -115,51 +116,51 @@ public class GuessingCanvas extends View {
 
     }
 
-    public void setDrawingColor(int newColor){
-        paintColor = newColor;
-
-    }
-
-    public void setWidth(int width){
-        capWidth = width;
-
-    }
-
-    public void setPencilTip(String cap){
-        if(cap.equals("Ronde")){
-            capOption = Paint.Cap.ROUND;
-
+    private Emitter.Listener onWidthChange = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            capWidth = (Integer) args[0];
         }
-        else{
-            capOption = Paint.Cap.SQUARE;
+    };
+
+    private Emitter.Listener onColorChange = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            paintColor = (Integer) args[0];
         }
-    }
+    };
+
+    private Emitter.Listener onTipChange = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            String data = (String) args[0];
+
+            if(data.equals("Ronde")){
+                capOption = Paint.Cap.ROUND;
+            }
+            else{
+                capOption = Paint.Cap.SQUARE;
+            }
+        }
+    };
 
     private Emitter.Listener onDrawing = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
             System.out.println("Stroke received");
-
-//            JSONObject data = (JSONObject) args[0];
+            strokeID++;
             String data = args[0].toString();
             Gson gson = new Gson();
             Point[] _receivedPoints = gson.fromJson(data, Point[].class);
-            pointDown(_receivedPoints[0].x, _receivedPoints[0].y, 0);
+            pointDown(_receivedPoints[0].x, _receivedPoints[0].y, strokeID);
             for(int i = 1; i < _receivedPoints.length; i++){
-                pointMove((int) _receivedPoints[i].x, (int) _receivedPoints[i].y, 0);
+                pointMove((int) _receivedPoints[i].x, (int) _receivedPoints[i].y, strokeID);
 
             }
+
             postInvalidate();
         }
     };
-
-    /*private Emitter.Listener onEraserToggle = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            Boolean data = (Boolean) args[0];
-            setErase(data);
-        }
-    };*/
 
     private Emitter.Listener onEraserToggle = new Emitter.Listener() {
         @Override
@@ -176,6 +177,7 @@ public class GuessingCanvas extends View {
                 pointMove((int) _receivedPoints[i].x, (int) _receivedPoints[i].y, 0);
 
             }
+
             postInvalidate();
         }
     };

@@ -70,7 +70,6 @@ public class meleegeneraleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-
         drawingCanvas = new DrawingCanvas(this,null);
         setContentView(R.layout.activity_meleegenerale);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
