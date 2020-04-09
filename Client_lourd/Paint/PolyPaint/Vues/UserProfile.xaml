@@ -41,5 +41,32 @@ d:DesignHeight="650" d:DesignWidth="900"
             <TextBlock HorizontalAlignment="Center"    FontSize="24" Text="NOM" Foreground="White" />
             <TextBlock HorizontalAlignment="Center"  Text="{Binding Username}" FontSize="24"  Foreground="White" />
         </StackPanel>
+        <Border Grid.Column="3"  Grid.Row="1" Grid.ColumnSpan="4" Background="#A2B631" Height="50">
+            <TextBlock Text="STATS"  VerticalAlignment="Center"  HorizontalAlignment="Center"   Foreground="White" FontSize="24"/>
+        </Border>
+
+        <Border Grid.Column="3"  Grid.Row="3" Grid.ColumnSpan="4" Background="#A2B631" Height="50" >
+            <TextBlock  Text="BADGES"  VerticalAlignment="Center"  HorizontalAlignment="Center"   Foreground="White" FontSize="24"/>
+        </Border>
+        <StackPanel Grid.ColumnSpan="4" Grid.Column="3" HorizontalAlignment="Center" Height="180" Grid.Row="2" VerticalAlignment="Center" >
+            <TextBlock Text="NOMBRE DE PARTIES JOUÉES" VerticalAlignment="Center"  HorizontalAlignment="Center"   Foreground="White" FontSize="20" Margin="10"></TextBlock>
+            <TextBlock Text="POURCENTAGE DE PARTIES GAGNÉES" VerticalAlignment="Center"  HorizontalAlignment="Center"   Foreground="White" FontSize="20" Margin="10"></TextBlock>
+            <TextBlock Text="TEMPS MOYEN D'UNE PARTIE" VerticalAlignment="Center"  HorizontalAlignment="Center"   Foreground="White" FontSize="20" Margin="10"></TextBlock>
+            <TextBlock Text="TEMPS TOTAL À JOUER" VerticalAlignment="Center"  HorizontalAlignment="Center"   Foreground="White" FontSize="20" Margin="10"></TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="4" Grid.RowSpan="3" Grid.Column="2" Grid.ColumnSpan="6" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Image  Source="ic_badge_allmodes.png"  Margin="10" ></Image>
+            <Image  Source="ic_badge_10solo.png"  Margin="10"></Image>
+            <Image  Source="ic_badge_nightowl.png"  Margin="10"></Image>
+            <Image  Source="ic_badge_5losses.png"  Margin="10"/>
+         
+        </StackPanel>
+        <StackPanel Grid.Row="7" Grid.RowSpan="3" Grid.Column="2" Grid.ColumnSpan="6" Orientation="Horizontal" HorizontalAlignment="Center">
+
+            <Image  Source="ic_badge_5wins.png"  Margin="10"></Image>
+            <Image  Source="ic_badge_7days.png"  Margin="10"></Image>
+            <Image  Source="ic_badge_25wins.png"  Margin="10"></Image>
+            <Image  Source="ic_badge_allbadges.png"  Margin="10"></Image>
+        </StackPanel>
     </Grid>
 </UserControl>
