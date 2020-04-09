@@ -4,28 +4,36 @@ const SOCKET = require("../../common/constants/socket");
 class MatchTimer {
     constructor(matchId, duration, io) {
         this.matchId = matchId;
-        this.timer = new CountdownTimer();
         this.remainingTime = duration;
         this.io = io;
+        this.intervalHandler;
+        this.duration = duration;
     }
 
-    start = function() {
+    start() {
         let timeFlow = function() {
             this.remainingTime--;
-            io.to(matchId).emit(SOCKET.MATCH.REMAINING_TIME, this.remainingTime);
+            this.io.to(this.matchId).emit(SOCKET.MATCH.REMAINING_TIME, this.remainingTime);
+
+            if (this.remainingTime <= 0) {
+                console.log("TIME IS OVER");
+            }
         }
-        this.timer.start(timeFlow);
+        
+        this.intervalHandler = setInterval(timeFlow, 1000);
     }
 
-    stop = function() {
-        this.timer.stop();
+    stop() {
+        clearInterval(this.intervalHandler);
     }
 
-    reset = function() {
-        this.timer.reset();
+    reset() {
+        this.remainingTime = this.duration;
     }
 
-    remainingTime = function() {
-        return remainingTime;
+    getRemainingTime() {
+        return this.remainingTime;
     }
 }
+
+module.exports = MatchTimer;

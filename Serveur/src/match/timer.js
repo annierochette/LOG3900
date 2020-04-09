@@ -1,18 +1,19 @@
 class Timer {        
-    constructor() {
+    constructor(io) {
         this.intervalHandler;
+        this.io = io
     }
 
-    start = function(timeFlow) {
-        intervalHandler = setInterval(timeFlow, 1000);
+    start(timeFlow) {
+        this.intervalHandler = setInterval(timeFlow, 1000);
     }
 
-    stop = function() {
-        clearInterval(intervalHandler);
+    stop() {
+        clearInterval(this.intervalHandler);
     }
 
-    reset = function() {
-        clearInterval(intervalHandler);
+    reset() {
+        clearInterval(this.intervalHandler);
     }
 }
 

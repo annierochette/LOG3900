@@ -4,7 +4,7 @@ const MatchManager = require("./match/match.manager");
 
 module.exports = function(http) {
     var io = SocketIo.listen(http);
-    var matchManager = new MatchManager().getInstance();
+    var matchManager = new MatchManager(io).getInstance();
 
     io.on(SOCKET.CHAT.CONNECTION, function(socket){
       var currentDate = new Date();

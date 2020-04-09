@@ -11,6 +11,10 @@ const matchSchema = mongoose.Schema({
             type: String,
             required: true
     }],
+    turns: {
+        type: Number,
+        default: 3
+    },
     players: [{
         name: {   
             type: String,
