@@ -1,8 +1,10 @@
 package com.example.polydraw;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import java.io.File;
@@ -143,7 +146,9 @@ public class DrawingActivity extends AppCompatActivity {
         download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                File folder = getDir(Environment.DIRECTORY_PICTURES, Context.MODE_PRIVATE);
+                System.out.println("download clicked");
+                SaveImage(drawingCanvas.getBitmap());
+/*                File folder = getDir(Environment.DIRECTORY_PICTURES, Context.MODE_PRIVATE);
                 boolean success = false;
 
                 if (!folder.exists()) {
@@ -202,7 +207,7 @@ public class DrawingActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "IO error", Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         });
 
@@ -220,12 +225,6 @@ public class DrawingActivity extends AppCompatActivity {
             }
         });
 
-        download.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
     public void openColorPicker() {
@@ -273,5 +272,47 @@ public class DrawingActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() { }
+
+    private void SaveImage(Bitmap finalBitmap) {
+
+        // source: https://developer.android.com/training/permissions/requesting
+        if (ContextCompat.checkSelfPermission(DrawingActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(DrawingActivity.this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(DrawingActivity.this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        1);
+
+            }
+
+        }
+
+        File myDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator);
+        myDir.mkdirs();
+
+        Random random = new Random();
+        int randomInteger = random.nextInt();
+
+        String fname = "Fais-moi un dessin" + randomInteger +".jpg";
+        File file = new File (myDir, fname);
+        if (file.exists ())
+            file.delete ();
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            System.out.println(fname);
+            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+            Toast.makeText(DrawingActivity.this,"Téléchargé", Toast.LENGTH_SHORT).show();
+            out.flush();
+            out.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
 }
 
