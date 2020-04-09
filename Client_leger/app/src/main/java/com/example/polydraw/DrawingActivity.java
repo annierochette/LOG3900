@@ -30,6 +30,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Random;
 
 import yuku.ambilwarna.AmbilWarnaDialog; //https://codinginflow.com/tutorials/android/ambilwarna-color-picker-dialog
@@ -294,10 +296,12 @@ public class DrawingActivity extends AppCompatActivity {
         File myDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator);
         myDir.mkdirs();
 
-        Random random = new Random();
-        int randomInteger = random.nextInt();
+        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String stamp = sdf.format(timestamp);
+        System.out.println(stamp);
 
-        String fname = "Fais-moi un dessin" + randomInteger +".jpg";
+        String fname = "Fais-moi un dessin_" + stamp +".jpg";
         File file = new File (myDir, fname);
         if (file.exists ())
             file.delete ();
