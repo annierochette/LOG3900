@@ -3,6 +3,7 @@ const SOCKET = require("../common/constants/socket");
 const MatchManager = require("./match/match.manager");
 const Filter = require("bad-words");
 const messageController = require("./chat/message.controller");
+const playerController = require("./player/player.controller");
 const Timestamp = require("./utils/timestamp");
 
 const frenchBadwordsList = require('french-badwords-list');
@@ -54,9 +55,10 @@ module.exports = function(http) {
         socket.to(channel).emit(SOCKET.CHAT.HISTORY, docs);
       });
 
-      socket.on(SOCKET.CHAT.DISCONNECTION, () => {
+      socket.on(SOCKET.CHAT.DISCONNECTION, async (player) => {
         socket.disconnect();
         console.log("User disconnected");
+        await playerController.deleteToken();
       });
 
       // Draft

@@ -79,3 +79,12 @@ exports.logout = async function(req, res) {
         res.status(HTTP.STATUS.INTERNAL_SERVER_ERROR).send(error);
     }
 };
+
+// Socket use
+exports.deleteToken = async function(player) {
+    try {
+        await Player.removeToken(player);
+    } catch (error) {
+        LOGGER.info("Token was not removed");
+    }
+}
