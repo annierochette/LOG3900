@@ -23,7 +23,7 @@ namespace PolyPaint.CustomControls
         {
             DataContext = this;
             InitializeComponent();
-            _username = "Genevieve";
+            _username = "";
             socket = AppSocket.Instance;
             
             socket.On("chat message", (data) =>
