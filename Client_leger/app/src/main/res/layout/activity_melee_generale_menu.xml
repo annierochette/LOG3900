@@ -61,6 +61,33 @@
             android:textColor="#2364aa"
             android:textSize="36sp" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/newGame"
+                android:layout_width="600dp"
+                android:layout_height="wrap_content"
+                android:text="Créer une nouvelle partie"
+                android:fontFamily="sans-serif-condensed"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                android:textColor="@android:color/white"
+                android:textSize="30sp"/>
+
+            <Button
+                android:id="@+id/createButton"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Créer"
+                android:background="@drawable/round_green_button"
+                android:textColor="@android:color/white"/>
+
+
+        </LinearLayout>
+
         <Button
             android:id="@+id/playButton"
             android:layout_width="280dp"
@@ -74,9 +101,20 @@
             android:textColor="@android:color/white"
             android:textSize="30sp" />
 
-        <ListView
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 
