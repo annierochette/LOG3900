@@ -50,7 +50,7 @@ public class GuessingCanvas extends View {
         setLayerType(LAYER_TYPE_HARDWARE, null);
 
         socket.getSocket().on("StrokeDrawing", onDrawing);
-        socket.getSocket().on("StrokeErasing", onEraserToggle);
+        socket.getSocket().on("SegmentErasing", onEraserToggle);
         socket.getSocket().on("CouleurSelectionnee", onColorChange);
         socket.getSocket().on("TailleTrait", onWidthChange);
         socket.getSocket().on("PointeSelectionnee", onTipChange);

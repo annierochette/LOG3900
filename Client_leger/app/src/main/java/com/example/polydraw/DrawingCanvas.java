@@ -126,6 +126,9 @@ public class DrawingCanvas extends View {
                 break;
 
             case MotionEvent.ACTION_UP:
+                for (int pc = 0; pc < pointerCount; pc++) {
+                    pointUp((int)event.getX(pc), (int)event.getY(pc), event.getPointerId(pc));
+                }
                 break;
 
             case MotionEvent.ACTION_POINTER_UP:
@@ -154,7 +157,7 @@ public class DrawingCanvas extends View {
         if(eraser){
             if(_allPoints.size() == 15){
                 String json = new Gson().toJson(_allPoints);
-                socket.getSocket().emit("StrokeErasing", "General", json);
+                socket.getSocket().emit("SegmentErasing", "General", json);
                 _allPoints.clear();
                 _allPoints = new ArrayList<Point>();
             }
@@ -184,17 +187,10 @@ public class DrawingCanvas extends View {
             stroke.addPoint(pt);
             _allPoints.add(pt);
 
-            /*if(_allPoints.size() == 25){
-                String json = new Gson().toJson(_allPoints);
-                socket.getSocket().emit("StrokeDrawing", "General", json);
-                _allPoints.clear();
-                _allPoints = new ArrayList<Point>();
-            }*/
-
             if(eraser){
                 if(_allPoints.size() == 15){
                     String json = new Gson().toJson(_allPoints);
-                    socket.getSocket().emit("StrokeErasing", "General", json);
+                    socket.getSocket().emit("SegmentErasing", "General", json);
                     _allPoints.clear();
                     _allPoints = new ArrayList<Point>();
                 }
@@ -226,31 +222,38 @@ public class DrawingCanvas extends View {
         _allStroke.add(stroke);
     }
 
-    //Essaie pour l'efface de traits//
+    private void pointUp(int x, int y, int id) {
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(capWidth);
+        paint.setAntiAlias(true);
+        paint.setColor(paintColor);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        paint.setStrokeCap(capOption);
 
-//    private void findStroke(int x, int y, int id) {
-//        Paint paint = new Paint();
-//        paint.setStyle(Paint.Style.FILL);
-//        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-//
-//        Stroke stroke = new Stroke(paint);
-//
-//        for (Stroke existingStroke: _allStroke) {
-//            for (Point pt : existingStroke.pointArray) {
-//                if (pt.equals(x, y)) {e
-//                    stroke = existingStroke;
-//                }
-//
-//            }
-//        }
-//
-//        Stroke erasedStroke = new Stroke(paint, stroke.pointArray);
-//        _allStroke.add(erasedStroke);
-//        _allStroke.remove(stroke);
-//
-//
-//        invalidate();
-//    }
+        Point pt = new Point(x,y);
+        _allPoints.add(pt);
+
+        if(eraser){
+            String json = new Gson().toJson(_allPoints);
+            socket.getSocket().emit("SegmentErasing", "General", json);
+            _allPoints.clear();
+            _allPoints = new ArrayList<Point>();
+
+        }
+        else{
+            String json = new Gson().toJson(_allPoints);
+            socket.getSocket().emit("StrokeDrawing", "General", json);
+            _allPoints.clear();
+            _allPoints = new ArrayList<Point>();
+
+        }
+
+        Stroke stroke = new Stroke(paint);
+        stroke.addPoint(pt);
+        activeStrokes.put(id, stroke);
+        _allStroke.add(stroke);
+    }
 
     public void setErase(boolean isErase){
         eraser = isErase;

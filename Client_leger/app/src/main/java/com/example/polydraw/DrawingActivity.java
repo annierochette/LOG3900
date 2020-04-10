@@ -150,66 +150,7 @@ public class DrawingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 System.out.println("download clicked");
                 SaveImage(drawingCanvas.getBitmap());
-/*                File folder = getDir(Environment.DIRECTORY_PICTURES, Context.MODE_PRIVATE);
-                boolean success = false;
 
-                if (!folder.exists()) {
-                    success = folder.mkdirs();
-                }
-
-                System.out.println(success + " folder");
-
-                Random random = new Random();
-                int randomInteger = random.nextInt();
-
-                File file = new File(folder, "drawing" + randomInteger + ".txt");
-
-                if (!file.exists()) {
-                    try {
-                        success = file.createNewFile();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                System.out.println(success + " file");
-
-                FileOutputStream ostream = null;
-                String content = "Content of the file";
-
-                try {
-                    ostream = new FileOutputStream(file);
-
-                    byte[] contentBytes = content.getBytes();
-
-                    ostream.write(contentBytes);
-                    ostream.flush();
-                    ostream.close();
-
-//                    System.out.println(ostream);
-//                    View targetView = drawingCanvas;
-//
-//                    Bitmap well = drawingCanvas.getBitmap();
-//                    Bitmap save = Bitmap.createBitmap(320, 480, Bitmap.Config.ARGB_8888);
-//
-//                    Paint paint = new Paint();
-//                    paint.setColor(Color.WHITE);
-//
-//                    Canvas now = new Canvas(save);
-//                    now.drawRect(new Rect(0, 0, 320, 480), paint);
-//                    now.drawBitmap(well, new Rect(0, 0, well.getWidth(), well.getHeight()), new Rect(0, 0, 320, 480), null);
-//
-//                    save.compress(Bitmap.CompressFormat.PNG, 100, ostream);
-
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Null error", Toast.LENGTH_SHORT).show();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "File error", Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "IO error", Toast.LENGTH_SHORT).show();
-                }*/
             }
         });
 
