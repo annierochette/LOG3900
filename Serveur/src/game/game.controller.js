@@ -33,3 +33,21 @@ exports.getGame = async function(req, res) {
         res.status(HTTP.STATUS.BAD_REQUEST).send(error);
     }
 };
+
+// Socket use
+exports.getRandomGame = async function(playedGames) {
+    try {
+        let unplayedGamesCount = await Game.countDocuments({ games: { $nin: playedGames } });
+        let x;
+        if (unplayedGamesCount == 0) {
+            let totalGamesCount = await Game.countDocuments();
+            let randomIndex = Math.floor(Math.random() * totalGamesCount);
+            return await Game.findOne().skip(randomIndex);
+        } else {
+            let randomIndex = Math.floor(Math.random() * unplayedGamesCount);
+            return await Game.findOne({ games: { $nin: playedGames } }).skip(randomIndex);;
+        }
+    } catch (error) {
+        console.log("F NDJSFNKLS: " + error)
+    }
+}

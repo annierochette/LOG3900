@@ -8,6 +8,7 @@ const Timestamp = require("./utils/timestamp");
 
 const frenchBadwordsList = require('french-badwords-list');
 const GENERAL = "General";
+var playersInChannel = new Map();
 
 module.exports = function(http) {
     var io = SocketIo.listen(http);
@@ -37,6 +38,15 @@ module.exports = function(http) {
     
     socket.on(SOCKET.CHAT.JOIN_CHANNEL, (username, channel) => {
         socket.join(channel);
+
+        if (playersInChannel.has(channel)) {
+          let players = playersInChannel.get(channel);
+          players.add(username);
+          playersInChannel.set(channel, players);
+        } else {
+          playersInChannel.set(channel, new Set([username]));
+        }
+          
         messageController.lastPage(socket.id, channel);
         let timestamp = Timestamp.currentDate();
         let  msg = { "message": username + " a rejoint la conversation.", "username": username, "timestamp": Timestamp.chatString(timestamp), "channel": channel };
@@ -45,9 +55,22 @@ module.exports = function(http) {
 
       socket.on(SOCKET.CHAT.LEAVE_CHANNEL, (username, channel) => {
         socket.leave(channel);
+        let players = playersInChannel.get(channel);
+        players.delete(username);
+
+        if (players.size == 0) {
+          playersInChannel.delete(channel);
+        } else {
+          playersInChannel.set(channel, players);
+        }
+
         let timestamp = Timestamp.currentDate();    
         let  msg = { "message": username + " a quitté la conversation.", "username": username, "timestamp": Timestamp.chatString(timestamp), "channel": channel };
         io.to(channel).emit(SOCKET.CHAT.MESSAGE, msg);
+      });
+
+      socket.on(SOCKET.CHAT.CHANNELS, () => {
+        socket.emit(SOCKET.CHAT.CHANNELS, playersInChannel.keys());
       });
 
       socket.on(SOCKET.CHAT.HISTORY, async (channel) => {
@@ -109,9 +132,21 @@ module.exports = function(http) {
         socket.emit(SOCKET.MATCH.ANSWER, matchManager.validateAnswer(matchId, answer));
       });
 
-      socket.on(SOCKET.MATCH.START, (matchId) => {
+      socket.on(SOCKET.MATCH.START_ROUND, (matchId) => {
         matchManager.start(matchId, 90);
-        io.to(matchId).emit(SOCKET.EMIT.START, "Round started");
+        io.to(matchId).emit(SOCKET.EMIT.START_ROUND, "Round started");
+      });
+
+      socket.on(SOCKET.MATCH.NEXT_ROUND, async (matchId) => {
+        let round = await matchManager.nextRound(matchId);
+        io.to(matchId).emit(SOCKET.MATCH.NEXT_ROUND, round);
+      });
+
+      socket.on(SOCKET.MATCH.START_MATCH, async (players) => {
+        matchManager.addMatch(matchId, players);
+        let round = await matchManager.nextRound(matchId);
+        io.to(matchId).emit(SOCKET.MATCH.NEXT_ROUND, round);
+        matchManager.start(matchId, 90);
       });
     
     });

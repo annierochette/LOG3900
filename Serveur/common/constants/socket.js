@@ -4,6 +4,7 @@ module.exports.CHAT = {
     DISCONNECTION: "disconnection",
 
     // Canaux de discussion
+    CHANNELS: "channels",
     JOIN_CHANNEL: "joinChannel",
     LEAVE_CHANNEL: "leaveChannel",
 
@@ -28,5 +29,6 @@ module.exports.MATCH = {
     ANSWER: "answer",
     JOIN_MATCH: "joinGame",
     REMAINING_TIME: "remainingTime",
-    START: "startTimer",    
+    START_MATCH: "startMatch",    
+    START_ROUND: "startTimer",
 }
