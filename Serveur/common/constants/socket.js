@@ -9,6 +9,7 @@ module.exports.CHAT = {
 
     // Message
     MESSAGE: "chat message",
+    HISTORY: "history",
 }
 
 module.exports.DRAFT = {

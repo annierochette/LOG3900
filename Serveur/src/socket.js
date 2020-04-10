@@ -2,7 +2,11 @@ const SocketIo = require('socket.io');
 const SOCKET = require("../common/constants/socket");
 const MatchManager = require("./match/match.manager");
 const Filter = require("bad-words");
-var frenchBadwordsList = require('french-badwords-list');
+const messageController = require("./chat/message.controller");
+const Timestamp = require("./utils/timestamp");
+
+const frenchBadwordsList = require('french-badwords-list');
+const GENERAL = "General";
 
 module.exports = function(http) {
     var io = SocketIo.listen(http);
@@ -11,68 +15,43 @@ module.exports = function(http) {
     filter.addWords(...frenchBadwordsList.array);
 
     io.on(SOCKET.CHAT.CONNECTION, function(socket){
-      var currentDate = new Date();
-          // var date = currentDate.getDate();
-          // var month = currentDate.getMonth();
-          // var year = currentDate.getFullYear();
-          var hours = currentDate.getHours();
-          var minutes = currentDate.getMinutes();
-          var seconds = currentDate.getSeconds();
-    
-          var dateString = " à " + hours + ":" + minutes + ":" + seconds;
+      messageController.lastPage(socket.id, GENERAL);
       
-      socket.join("General");
+      socket.join(GENERAL);
       console.log("Users connected: " + io.engine.clientsCount);
-      console.log("User connected" + dateString);
-      console.log("ScoketID: " + socket.id);
+      // console.log("User connected" + dateString);
+      // console.log("ScoketID: " + socket.id);
     
       socket.on(SOCKET.CHAT.MESSAGE, (username, channel, message) => {
-          console.log("Message received")
-          var currentDate = new Date();
-          // var date = currentDate.getDate();
-          // var month = currentDate.getMonth();
-          // var year = currentDate.getFullYear();
-          var hours = currentDate.getHours();
-          var minutes = currentDate.getMinutes();
-          var seconds = currentDate.getSeconds();
-    
-          var dateString = " à " + hours + ":" + minutes + ":" + seconds;
+          console.log("Message received");
+
           let filteredMessage = filter.clean(message);
-          let  msg = {"message": filteredMessage, "username": username, "timestamp": dateString, "channel": channel}
+          let timestamp = Timestamp.currentDate();
+          messageController.save(filteredMessage, username, channel, timestamp);
+
+          let  msg = {"message": filteredMessage, "username": username, "timestamp": Timestamp.chatString(timestamp), "channel": channel}
 
           io.to(channel).emit(SOCKET.CHAT.MESSAGE, msg);
       });
     
     socket.on(SOCKET.CHAT.JOIN_CHANNEL, (username, channel) => {
         socket.join(channel);
-        var currentDate = new Date();
-        
-        // var date = currentDate.getDate();
-        // var month = currentDate.getMonth();
-        // var year = currentDate.getFullYear();
-        var hours = currentDate.getHours();
-        var minutes = currentDate.getMinutes();
-        var seconds = currentDate.getSeconds();
-    
-        var dateString = " à " + hours + ":" + minutes + ":" + seconds;
-        let  msg = { "message": username + " a rejoint la conversation.", "username": username, "timestamp": dateString, "channel": channel };
+        messageController.lastPage(socket.id, channel);
+        let timestamp = Timestamp.currentDate();
+        let  msg = { "message": username + " a rejoint la conversation.", "username": username, "timestamp": Timestamp.chatString(timestamp), "channel": channel };
         socket.to(channel).broadcast.emit(SOCKET.CHAT.MESSAGE, msg);
       });
 
       socket.on(SOCKET.CHAT.LEAVE_CHANNEL, (username, channel) => {
         socket.leave(channel);
-        var currentDate = new Date();
-        
-        // var date = currentDate.getDate();
-        // var month = currentDate.getMonth();
-        // var year = currentDate.getFullYear();
-        var hours = currentDate.getHours();
-        var minutes = currentDate.getMinutes();
-        var seconds = currentDate.getSeconds();
-    
-        var dateString = " à " + hours + ":" + minutes + ":" + seconds;
-        let  msg = { "message": username + " a quitté la conversation.", "username": username, "timestamp": dateString, "channel": channel };
+        let timestamp = Timestamp.currentDate();    
+        let  msg = { "message": username + " a quitté la conversation.", "username": username, "timestamp": Timestamp.chatString(timestamp), "channel": channel };
         io.to(channel).emit(SOCKET.CHAT.MESSAGE, msg);
+      });
+
+      socket.on(SOCKET.CHAT.HISTORY, async (channel) => {
+        let docs = await messageController.previousPage(socket.id);
+        socket.to(channel).emit(SOCKET.CHAT.HISTORY, docs);
       });
 
       socket.on(SOCKET.CHAT.DISCONNECTION, () => {
@@ -135,3 +114,4 @@ module.exports = function(http) {
     
     });
 }
+
