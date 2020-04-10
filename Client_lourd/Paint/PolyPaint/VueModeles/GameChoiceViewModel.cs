@@ -18,9 +18,6 @@ namespace PolyPaint.VueModeles
 
 
         private ICommand _goToWaitingRoom;
-        private ICommand _goToFreeForAll;
-        private ICommand _goToGameModeMenu;
-        private ICommand _goToJoiningGame;
 
         public ICommand GoToWaitingRoom
         {
@@ -33,7 +30,7 @@ namespace PolyPaint.VueModeles
             }
         }
 
-
+        private ICommand _goToGameModeMenu;
         public ICommand GoToGameModeMenu
         {
             get
@@ -45,27 +42,6 @@ namespace PolyPaint.VueModeles
             }
         }
 
-        public ICommand GoToFreeForAll
-        {
-            get
-            {
-                return _goToFreeForAll ?? (_goToFreeForAll = new RelayCommand(x =>
-                {
-                    Mediator.Notify("GoToFreeForAll", "");
-                }));
-            }
-        }
-
-        public ICommand GoToJoiningGame
-        {
-            get
-            {
-                return _goToJoiningGame ?? (_goToJoiningGame = new RelayCommand(x =>
-                {
-                    Mediator.Notify("GoToJoiningGame", "");
-                }));
-            }
-        }
     }
 }
 

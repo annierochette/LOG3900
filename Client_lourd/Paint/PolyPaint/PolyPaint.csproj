@@ -40,12 +40,42 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CsPotrace">
+      <HintPath>..\packages\CsPoTrace\bin\Debug\CsPotrace.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpVectors.Converters, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b532964b8548be77, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpVectors.1.0\lib\net20\SharpVectors.Converters.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpVectors.Core, Version=0.3.1.1588, Culture=neutral, PublicKeyToken=7407205e337c98ef, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpVectors.1.0\lib\net20\SharpVectors.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpVectors.Css, Version=0.3.1.1590, Culture=neutral, PublicKeyToken=7a46e3f532fdb787, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpVectors.1.0\lib\net20\SharpVectors.Css.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpVectors.Dom, Version=0.3.1.1589, Culture=neutral, PublicKeyToken=517340b6277b1a7a, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpVectors.1.0\lib\net20\SharpVectors.Dom.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpVectors.Model, Version=0.3.1.1592, Culture=neutral, PublicKeyToken=2236cfc76b505845, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpVectors.1.0\lib\net20\SharpVectors.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpVectors.Rendering.Gdi, Version=0.3.1.1595, Culture=neutral, PublicKeyToken=03902092284347e3, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpVectors.1.0\lib\net20\SharpVectors.Rendering.Gdi.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpVectors.Rendering.Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d0902381100df30e, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpVectors.1.0\lib\net20\SharpVectors.Rendering.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpVectors.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d16e717f0a981fb9, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpVectors.1.0\lib\net20\SharpVectors.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
     </Reference>
@@ -76,8 +106,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Threading.Tasks, Version=4.0.11.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -121,24 +151,24 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Convertisseurs\Convertisseurs.cs" />
+    <Compile Include="Convertisseurs\StylusPointConverter.cs" />
     <Compile Include="CustomControls\TimerControl.xaml.cs">
       <DependentUpon>TimerControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modeles\CustomDynamicRenderer.cs" />
-    <Compile Include="Modeles\CustomInkCanvas.cs" />
-    <Compile Include="Modeles\DraftsmanPlugIn.cs" />
-    <Compile Include="Modeles\Drawing.cs" />
     <Compile Include="Modeles\Editeur.cs" />
     <Compile Include="Modeles\Message.cs" />
+    <Compile Include="Modeles\User.cs" />
+    <Compile Include="Modeles\Word.cs" />
     <Compile Include="Utilitaires\AppSocket.cs" />
     <Compile Include="Utilitaires\EventArgs.cs" />
     <Compile Include="Utilitaires\EventRaiser.cs" />
     <Compile Include="Utilitaires\Mediator.cs" />
     <Compile Include="Utilitaires\RelayCommand.cs" />
+    <Compile Include="Utilitaires\SocketEvents.cs" />
+    <Compile Include="Utilitaires\Tool.cs" />
     <Compile Include="VueModeles\BaseViewModel.cs" />
     <Compile Include="VueModeles\FreeForAllViewModel.cs" />
     <Compile Include="VueModeles\GameChoiceViewModel.cs" />
-    <Compile Include="VueModeles\JoiningGameViewModel.cs" />
     <Compile Include="VueModeles\WaitingRoomViewModel.cs" />
     <Compile Include="VueModeles\GameCreatorViewModel.cs" />
     <Compile Include="VueModeles\GameMenuViewModel.cs" />
@@ -150,20 +180,32 @@
     <Compile Include="VueModeles\MessageBoxViewModel.cs" />
     <Compile Include="VueModeles\UserProfileViewModel.cs" />
     <Compile Include="VueModeles\DrawingWindowViewModel.cs" />
-    <Compile Include="Vues\FreeForAllWindow.xaml.cs">
+    <Compile Include="Vues\DrawingCreation\NewGameForm.xaml.cs">
+      <DependentUpon>NewGameForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vues\DrawingCreation\QuickDrawSuggestion.xaml.cs">
+      <DependentUpon>QuickDrawSuggestion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vues\FenetreDessin.xaml.cs">
+      <DependentUpon>FenetreDessin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vues\GamePlay\FreeForAllWindow.xaml.cs">
       <DependentUpon>FreeForAllWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Vues\GameCreator.xaml.cs">
+    <Compile Include="Vues\DrawingCreation\GameCreator.xaml.cs">
       <DependentUpon>GameCreator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vues\DrawingCreation\GameCreatorViewControl.xaml.cs">
+      <DependentUpon>GameCreatorViewControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vues\GameMenu.xaml.cs">
       <DependentUpon>GameMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Vues\GameModeMenu.xaml.cs">
-      <DependentUpon>GameModeMenu.xaml</DependentUpon>
+    <Compile Include="Vues\GamePlay\GameChoiceWindow.xaml.cs">
+      <DependentUpon>GameChoiceWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Vues\GamePlay\JoiningGameWindow.xaml.cs">
-      <DependentUpon>JoiningGameWindow.xaml</DependentUpon>
+    <Compile Include="Vues\GamePlay\GameModeMenu.xaml.cs">
+      <DependentUpon>GameModeMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vues\GamePlay\WaitingRoomWindow.xaml.cs">
       <DependentUpon>WaitingRoomWindow.xaml</DependentUpon>
@@ -171,16 +213,22 @@
     <Compile Include="Vues\GamePlay\GuessingView.xaml.cs">
       <DependentUpon>GuessingView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Vues\LoginWindow.xaml.cs">
+    <Compile Include="Vues\DrawingCreation\ImageImportView.xaml.cs">
+      <DependentUpon>ImageImportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vues\Login\LoginControlWindow.xaml.cs">
+      <DependentUpon>LoginControlWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vues\Login\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vues\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Vues\NewDrawing.xaml.cs">
+    <Compile Include="Vues\DrawingCreation\NewDrawing.xaml.cs">
       <DependentUpon>NewDrawing.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Vues\SignInWindow.xaml.cs">
+    <Compile Include="Vues\Login\SignInWindow.xaml.cs">
       <DependentUpon>SignInWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\MessageBoxControl.xaml.cs">
@@ -208,27 +256,39 @@
     <Compile Include="CustomControls\DrawingWindow.xaml.cs">
       <DependentUpon>DrawingWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Vues\FreeForAllWindow.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Vues\DrawingCreation\NewGameForm.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Vues\GameCreator.xaml">
+    <Page Include="Vues\DrawingCreation\QuickDrawSuggestion.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Vues\FenetreDessin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Vues\GamePlay\FreeForAllWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Vues\DrawingCreation\GameCreator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Vues\DrawingCreation\GameCreatorViewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vues\GameMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Vues\GameModeMenu.xaml">
+    <Page Include="Vues\GamePlay\GameChoiceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Vues\GuessingView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Vues\GamePlay\JoiningGameWindow.xaml">
+    <Page Include="Vues\GamePlay\GameModeMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -255,11 +315,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Vues\NewDrawing.xaml">
+    <Page Include="Vues\DrawingCreation\NewDrawing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Vues\SignInWindow.xaml">
+    <Page Include="Vues\Login\SignInWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -321,7 +381,49 @@
     <Resource Include="Resources\circle-cropped.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Vues\circle-cropped.png" />
+    <Resource Include="Vues\Login\circle-cropped.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\GamePlay\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\Login\logo_noborder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\avatar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\ic_badge_allmodes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\ic_badge_10solo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\ic_badge_nightowl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\ic_badge_5losses.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\ic_badge_5wins.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\ic_badge_7days.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\ic_badge_25wins.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\ic_badge_allbadges.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
