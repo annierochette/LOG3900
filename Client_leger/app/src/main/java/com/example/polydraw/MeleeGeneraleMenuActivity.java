@@ -15,7 +15,7 @@ import com.example.polydraw.Socket.SocketIO;
 public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
     private Button backButton;
-    private Button playButton;
+    private Button createButton;
     private ImageButton disconnectButton;
     private ImageView chatButton;
     private SocketIO socket;
@@ -27,7 +27,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 
         backButton = (Button) findViewById(R.id.backButton);
-        playButton = (Button) findViewById(R.id.playButton);
+        createButton = (Button) findViewById(R.id.createButton);
         disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
         chatButton = (ImageView) findViewById(R.id.chatButton);
 
@@ -38,7 +38,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
             }
         });
 
-        playButton.setOnClickListener(new View.OnClickListener() {
+        createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 playMultiplayerGame();
