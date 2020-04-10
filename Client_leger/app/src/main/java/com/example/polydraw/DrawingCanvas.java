@@ -170,7 +170,6 @@ public class DrawingCanvas extends View {
 
         }
 
-
         Stroke stroke = new Stroke(paint);
         stroke.addPoint(pt);
         activeStrokes.put(id, stroke);
@@ -259,21 +258,25 @@ public class DrawingCanvas extends View {
     }
 
     public void setDrawingColor(int newColor){
+        socket.getSocket().emit("CouleurSelectionnee", "General", newColor);
         paintColor = newColor;
 
     }
 
     public void setWidth(int width){
+        socket.getSocket().emit("TailleTrait", "General", width);
         capWidth = width;
 
     }
 
     public void setPencilTip(String cap){
         if(cap.equals("Ronde")){
-           capOption = Paint.Cap.ROUND;
+            socket.getSocket().emit("PointeSelectionnee", "General", "Ronde");
+            capOption = Paint.Cap.ROUND;
 
         }
         else{
+            socket.getSocket().emit("PointeSelectionnee", "General", "Carre");
             capOption = Paint.Cap.SQUARE;
         }
 
@@ -288,17 +291,6 @@ public class DrawingCanvas extends View {
 
         return bmp;
     }
-
-//    public void sendPoints(ArrayList<Point> points){
-//
-//        try {
-//            ObjectOutputStream oos = new ObjectOutputStream(socket.getSocket());
-//            oos.writeObject(points);
-//        } catch (IOException e){
-//            e.printStackTrace();
-//        }
-//    }
-
 
     public int getPaintColor() {
         return paintColor;
