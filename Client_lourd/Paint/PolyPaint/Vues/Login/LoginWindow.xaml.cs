@@ -41,6 +41,13 @@ namespace PolyPaint.Vues
             public string password { get; set; }
         }
 
+        private void UserConnectOnEnter(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                UserConnect(sender, e);
+            }
+        }
 
         private async void UserConnect(object sender, RoutedEventArgs e)
         {

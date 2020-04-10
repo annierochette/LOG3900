@@ -38,7 +38,7 @@ d:DesignHeight="650" d:DesignWidth="900"
         <Image Grid.Column="1" Grid.Row="2" Source="avatar.png" Stretch="Fill"   />
 
         <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="4" Margin="10,45,96,9.6" >
-            <TextBlock HorizontalAlignment="Center"    FontSize="24" Text="NOM" Foreground="White" />
+            <!--<TextBlock HorizontalAlignment="Center"    FontSize="24" Text="NOM" Foreground="White" />-->
             <TextBlock HorizontalAlignment="Center"  Text="{Binding Username}" FontSize="24"  Foreground="White" />
         </StackPanel>
         <Border Grid.Column="3"  Grid.Row="1" Grid.ColumnSpan="4" Background="#A2B631" Height="50">

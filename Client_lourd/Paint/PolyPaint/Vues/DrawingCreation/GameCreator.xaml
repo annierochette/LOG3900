@@ -35,10 +35,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="5" >
-                <Button Height="50" Width="220" Margin="20" Content="DESSIN MANUEL" Background="#FFFF7F11" BorderThickness="2" FontSize="22" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToNewDrawingWindow}"/>
-            <Button Height="50" Width="220" Margin="20" Content="IMPORTER UN FICHIER" Background="#FFFF7F11" BorderThickness="2" FontSize="18" FontFamily="Ink Free" Foreground="White" Command="{Binding GoToImageImport}"/>
-            <Button Height="50" Width="220" Margin="20" Content="BANQUE DE DESSINS" Background="#FFFF7F11" BorderThickness="2" FontSize="20" FontFamily="Ink Free"  Foreground="White" Command="{Binding GoToQuickDrawSuggestion}"/>
-         </StackPanel>
-        <Button x:Name="button" Content="RETOUR"  Width="75" Height="40" Command="{Binding GoToGameMenu}" RenderTransformOrigin="0.475,0.45" Grid.Row="10" Margin="25,0.2,0,0"/>
+            <Button Height="50" Width="220" Margin="20" Content="DESSIN MANUEL" Background="#FFFF7F11" BorderThickness="2" FontSize="18"  Foreground="White" Command="{Binding GoToNewDrawingWindow}"/>
+            <Button Height="50" Width="220" Margin="20" Content="IMPORTER UN FICHIER" Background="#FFFF7F11" BorderThickness="2" FontSize="18"  Foreground="White" Command="{Binding GoToImageImport}"/>
+            <Button Height="50" Width="220" Margin="20" Content="BANQUE DE DESSINS" Background="#FFFF7F11" BorderThickness="2" FontSize="18"   Foreground="White" Command="{Binding GoToQuickDrawSuggestion}"/>
+        </StackPanel>
+        <Button Content="RETOUR" FontFamily="Microsoft JhengHei UI" FontWeight="Bold" Height="35" Foreground="white" Background="#2364AA" Width="80" Command="{Binding GoToGameMenu}" HorizontalAlignment="Center" />
     </Grid>
 </UserControl>

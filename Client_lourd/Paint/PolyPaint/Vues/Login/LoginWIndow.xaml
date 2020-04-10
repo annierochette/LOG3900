@@ -35,12 +35,12 @@
         </Grid.RowDefinitions>
         <Image x:Name="logo" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="2" Source="logo_noborder.png" Margin="0,0.4,10,0"/>
         <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="5" >
-            <Button x:Name="Connection" Click="UserConnect" Content="SE CONNECTER" VerticalAlignment="Top" Height="44" Margin="53,231,49,0" Background="#FFFF7F11" FontFamily="Microsoft JhengHei UI" FontWeight="Bold" Foreground="White" Command="{Binding UserConnect}"/>
+            <Button x:Name="Connection" Click="UserConnect" Content="SE CONNECTER" VerticalAlignment="Top" Height="44" Margin="53,231,49,0" Background="#FFFF7F11" FontFamily="Microsoft JhengHei UI" FontWeight="Bold" Foreground="White" Command="{Binding UserConnect}" />
 
 
-            <PasswordBox x:Name="passwordBox" Margin="28,-108,26,0" VerticalAlignment="Top" Height="41" FontSize="22"  PasswordChanged="passwordBox_PasswordChanged"/>
+            <PasswordBox x:Name="passwordBox" Margin="28,-108,26,0" VerticalAlignment="Top" Height="41" FontSize="22"  PasswordChanged="passwordBox_PasswordChanged" KeyDown="UserConnectOnEnter"/>
 
-            <TextBlock x:Name="tbpass" HorizontalAlignment="Left" Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Mot de passe" VerticalAlignment="Top" Margin="41,-108,0,30" Height="30" Width="198" FontSize="18"/>
+            <TextBlock x:Name="tbpass" HorizontalAlignment="Left" Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Mot de passe" VerticalAlignment="Top" Margin="41,-108,0,30" Height="30" Width="198" FontSize="18" />
 
             <TextBox x:Name="usernameBox" Height="41" TextWrapping="Wrap" VerticalAlignment="Top" Margin="28,-167,26,0" FontSize="22" TextChanged="usernameBox_TextChanged"/>
             <TextBlock x:Name="tbuser" HorizontalAlignment="Left"  Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Nom d'utilisateur" VerticalAlignment="Top" Height="30" Width="192" Margin="41,-166,0,0" FontSize="18"/>
