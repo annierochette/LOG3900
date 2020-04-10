@@ -1,10 +1,14 @@
 const SocketIo = require('socket.io');
 const SOCKET = require("../common/constants/socket");
 const MatchManager = require("./match/match.manager");
+const Filter = require("bad-words");
+var frenchBadwordsList = require('french-badwords-list');
 
 module.exports = function(http) {
     var io = SocketIo.listen(http);
     var matchManager = new MatchManager(io).getInstance();
+    var filter = new Filter();
+    filter.addWords(...frenchBadwordsList.array);
 
     io.on(SOCKET.CHAT.CONNECTION, function(socket){
       var currentDate = new Date();
@@ -33,8 +37,8 @@ module.exports = function(http) {
           var seconds = currentDate.getSeconds();
     
           var dateString = " à " + hours + ":" + minutes + ":" + seconds;
-    
-          let  msg = {"message": message, "username": username, "timestamp": dateString, "channel": channel}
+          let filteredMessage = filter.clean(message);
+          let  msg = {"message": filteredMessage, "username": username, "timestamp": dateString, "channel": channel}
 
           io.to(channel).emit(SOCKET.CHAT.MESSAGE, msg);
       });
