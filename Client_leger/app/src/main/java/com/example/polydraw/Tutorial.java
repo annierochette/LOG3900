@@ -8,12 +8,14 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class Tutorial extends AppCompatActivity {
 
     Button button;
     TextView textView;
+    ImageView imageView;
 
 
     @Override
@@ -28,6 +30,7 @@ public class Tutorial extends AppCompatActivity {
 
         button = findViewById(R.id.enterapp);
         textView = findViewById(R.id.textView3);
+        imageView = findViewById(R.id.logo);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,9 +50,11 @@ public class Tutorial extends AppCompatActivity {
                 if(position == slideshow.getCount()-1){
                     button.setVisibility(View.VISIBLE);
                     textView.setVisibility(View.VISIBLE);
+                    imageView.setVisibility(View.VISIBLE);
                 } else{
                     button.setVisibility(View.INVISIBLE);
                     textView.setVisibility(View.INVISIBLE);
+                    imageView.setVisibility(View.INVISIBLE);
                 }
             }
 
