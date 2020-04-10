@@ -410,5 +410,29 @@
   <ItemGroup>
     <Resource Include="Vues\arrow.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\ic_badge_allmodes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\ic_badge_10solo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\ic_badge_nightowl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\ic_badge_5losses.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\ic_badge_5wins.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\ic_badge_7days.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\ic_badge_25wins.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vues\ic_badge_allbadges.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

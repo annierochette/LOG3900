@@ -1,8 +1,14 @@
 const SocketIo = require('socket.io');
 const SOCKET = require("../common/constants/socket");
+const MatchManager = require("./match/match.manager");
+const Filter = require("bad-words");
+var frenchBadwordsList = require('french-badwords-list');
 
 module.exports = function(http) {
     var io = SocketIo.listen(http);
+    var matchManager = new MatchManager(io).getInstance();
+    var filter = new Filter();
+    filter.addWords(...frenchBadwordsList.array);
 
     io.on(SOCKET.CHAT.CONNECTION, function(socket){
       var currentDate = new Date();
@@ -31,8 +37,8 @@ module.exports = function(http) {
           var seconds = currentDate.getSeconds();
     
           var dateString = " à " + hours + ":" + minutes + ":" + seconds;
-    
-          let  msg = {"message": message, "username": username, "timestamp": dateString, "channel": channel}
+          let filteredMessage = filter.clean(message);
+          let  msg = {"message": filteredMessage, "username": username, "timestamp": dateString, "channel": channel}
 
           io.to(channel).emit(SOCKET.CHAT.MESSAGE, msg);
       });
@@ -111,12 +117,20 @@ module.exports = function(http) {
         io.emit(SOCKET.DRAFT.STROKE_TOOL, tool);
       });
 
-      socket.on("joinGame", (channel, game) => {
-        console.log("joining game"  + game);
-        socket.join(game);
-        
+      // Match
+      socket.on(SOCKET.MATCH.JOIN_MATCH, (channel, nbPlayers) => {
+        console.log("joining game")
         let  nbPlay = { "nbPlayers": "1" };
-        io.to(game).emit("joinGame", nbPlay);
+        io.emit(SOCKET.MATCH.JOIN_MATCH, nbPlay);
+      });
+
+      socket.on(SOCKET.MATCH.ANSWER, (matchId, answer) => {
+        socket.emit(SOCKET.MATCH.ANSWER, matchManager.validateAnswer(matchId, answer));
+      });
+
+      socket.on(SOCKET.MATCH.START, (matchId) => {
+        matchManager.start(matchId, 90);
+        io.to(matchId).emit(SOCKET.EMIT.START, "Round started");
       });
     
     });

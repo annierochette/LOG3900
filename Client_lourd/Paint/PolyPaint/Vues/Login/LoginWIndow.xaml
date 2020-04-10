@@ -35,7 +35,7 @@
         </Grid.RowDefinitions>
         <Image x:Name="logo" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="2" Source="logo_noborder.png" Margin="0,0.4,10,0"/>
         <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="5" >
-            <Button x:Name="Connection" Click="UserConnect" Content="SE CONNECTER" VerticalAlignment="Top" Height="44" Margin="53,231,49,0" Background="#FFFF7F11" FontFamily="Microsoft JhengHei UI" FontWeight="Bold" Foreground="White"/>
+            <Button x:Name="Connection" Click="UserConnect" Content="SE CONNECTER" VerticalAlignment="Top" Height="44" Margin="53,231,49,0" Background="#FFFF7F11" FontFamily="Microsoft JhengHei UI" FontWeight="Bold" Foreground="White" Command="{Binding UserConnect}"/>
 
 
             <PasswordBox x:Name="passwordBox" Margin="28,-108,26,0" VerticalAlignment="Top" Height="41" FontSize="22"  PasswordChanged="passwordBox_PasswordChanged"/>
