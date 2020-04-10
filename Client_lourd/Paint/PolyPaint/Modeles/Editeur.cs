@@ -24,7 +24,7 @@ namespace PolyPaint.Modeles
         public string OutilSelectionne
         {
             get { return outilSelectionne; }
-            set { Console.WriteLine("OutilSeletionne: " + value);  outilSelectionne = value; ProprieteModifiee(); }
+            set { outilSelectionne = value; ProprieteModifiee(); }
         }
 
         // Forme de la pointe du crayon
@@ -79,7 +79,6 @@ namespace PolyPaint.Modeles
         /// <param name="propertyName">Nom de la propriété modifiée.</param>
         protected void ProprieteModifiee([CallerMemberName] string propertyName = null)
         {
-            Console.WriteLine("E.Property = " + propertyName);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         

@@ -18,6 +18,7 @@ module.exports = function(http) {
           var dateString = " à " + hours + ":" + minutes + ":" + seconds;
       
       socket.join("General");
+      console.log("Users connected: " + io.engine.clientsCount);
       console.log("User connected" + dateString);
       console.log("ScoketID: " + socket.id);
     
@@ -43,7 +44,7 @@ module.exports = function(http) {
         var currentDate = new Date();
         
         // var date = currentDate.getDate();
-        // var month = currentDate.getMonth(); 
+        // var month = currentDate.getMonth();
         // var year = currentDate.getFullYear();
         var hours = currentDate.getHours();
         var minutes = currentDate.getMinutes();
@@ -70,8 +71,14 @@ module.exports = function(http) {
         io.to(channel).emit(SOCKET.CHAT.MESSAGE, msg);
       });
 
+      socket.on(SOCKET.CHAT.DISCONNECTION, () => {
+        socket.disconnect();
+        console.log("User disconnected");
+      });
+
       // Draft
       socket.on(SOCKET.DRAFT.STROKE_DRAWING, (channel, points) => {
+        console.log(points)
         io.emit(SOCKET.DRAFT.STROKE_DRAWING, points);
       });
 

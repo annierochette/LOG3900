@@ -67,15 +67,15 @@ namespace PolyPaint.CustomControls
                 else
                 {
                     Timer.Stop();
-                    string vm = ((BaseViewModel)(DataContext)).GetCurrentViewModelName();
-                    if (vm == "GuessingViewModel")
-                {
-                    ((GuessingViewModel)(DataContext)).assignDrawingView();
-                }
-                    if (vm == "FreeForAllViewModel")
-                {
-                    ((FreeForAllViewModel)(DataContext)).assignGuessingView();
-                }
+                //    string vm = ((BaseViewModel)(DataContext)).GetCurrentViewModelName();
+                //    if (vm == "GuessingViewModel")
+                //{
+                //    ((GuessingViewModel)(DataContext)).assignDrawingView();
+                //}
+                //    if (vm == "FreeForAllViewModel")
+                //{
+                //    ((FreeForAllViewModel)(DataContext)).assignGuessingView();
+                //}
             }
             
             }

@@ -7,8 +7,7 @@
              xmlns:utils="clr-namespace:PolyPaint.Utilitaires"
              xmlns:custom="clr-namespace:PolyPaint.CustomControls"
            >
-    
-        <Application.Resources>
+    <Application.Resources>
             <DataTemplate DataType="{x:Type viewModel:MainWindowViewModel}">
                 <view:MainWindow />
             </DataTemplate>
