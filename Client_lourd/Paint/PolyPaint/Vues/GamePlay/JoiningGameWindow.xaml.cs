@@ -86,8 +86,6 @@ namespace PolyPaint.Vues
             [JsonProperty("__v")]
             public int __v { get; set; }
 
-            [JsonProperty("turns")]
-            public int turns { get; set; }
         }
         public JoiningGameWindow()
         {
@@ -101,16 +99,17 @@ namespace PolyPaint.Vues
         {
             Console.WriteLine("Nous sommes la");
             var HttpClient = new HttpClient();
-            HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hbm91Y2hlIiwiaWF0IjoxNTgzMzQyNTc2fQ.gWQpbS9nUt_Url6sDPgwBaAHLerd6XSc3k8lOq8sc7Y");
+            HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hbm91Y2hlIiwiaWF0IjoxNTg2NTM5MzgxfQ.C-wN3t47M4_iDuxZ4XtBy-ZuWnS66KAmhrZqbFscGKw");
 
 
 
 
             var res = await HttpClient.GetAsync("http://localhost:5050/match/");
+            Console.WriteLine(res.StatusCode.ToString());
             if (res.Content != null)
             {
                 var responseContent = await res.Content.ReadAsStringAsync();
-
+                Console.WriteLine(responseContent); 
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 gamesUnstarted = js.Deserialize<gameList[]>(responseContent);
                 //App.Current.Properties["games"] = gamesUnstarted;
@@ -185,6 +184,7 @@ namespace PolyPaint.Vues
             var res = await HttpClient.PostAsync("http://localhost:5050/match/:name/player", httpContent);
             if (res.Content != null)
             {
+                
                 var responseContent = await res.Content.ReadAsStringAsync();
 
                 Console.WriteLine(responseContent);

@@ -62,6 +62,7 @@ namespace PolyPaint.Vues
             var responseContent = await res.Content.ReadAsStringAsync();
             if (responseContent != "{}")
             {
+                Console.WriteLine(responseContent);
                 User.instance.Username = username;
                 ((LoginViewModel)(DataContext)).GiveAccess();
             }
