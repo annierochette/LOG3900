@@ -24,7 +24,7 @@ namespace PolyPaint.Utilitaires
 
         ~AppSocket()
         {
-            
+            socket.Disconnect();
             socket.Close();
         }
 
@@ -41,6 +41,13 @@ namespace PolyPaint.Utilitaires
         public void Emit(string eventString, params object[] args)
         {
             socket.Emit(eventString, args);
+        }
+
+        public void Close()
+        {
+            socket.Emit("disconnection");
+            socket.Disconnect();
+            socket.Close();
         }
 
        
