@@ -147,6 +147,10 @@ namespace PolyPaint.VueModeles
             }
         }
 
+        public void GoToLogin()
+        {
+            Mediator.Notify("GoToLoginWindow", "");
+        }
     }
 
 

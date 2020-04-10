@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using PolyPaint.VueModeles;
 
 namespace PolyPaint.Vues
 {
@@ -68,7 +69,8 @@ namespace PolyPaint.Vues
                 {
                     var responseContent = await res.Content.ReadAsStringAsync();
                     Console.WriteLine(responseContent);
-
+                    System.Windows.MessageBox.Show("Votre compte à bien été créé!", "Succès");
+                    ((SignInViewModel)(DataContext)).GoToLogin();
                 }
                 else { 
                     var responseContent = await res.Content.ReadAsStringAsync();
