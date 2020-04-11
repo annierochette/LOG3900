@@ -28,10 +28,11 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 //source: https://medium.com/@lewisjkl/android-httpurlconnection-with-asynctask-tutorial-7ce5bf0245cd
 
-public class HttpPost extends AsyncTask<String, Void, Void> {
+public class HttpPost extends AsyncTask<String, Void, String> {
     JSONObject postData;
-    public int status;
+    public String status;
     public String token;
+    public JSONObject player;
     public HttpPost(Map<String, String> postData) {
         if (postData != null) {
             this.postData = new JSONObject(postData);
@@ -39,13 +40,16 @@ public class HttpPost extends AsyncTask<String, Void, Void> {
     }
 
     @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
+    protected void onPostExecute(String result) {
+        super.onPostExecute(result);
+        System.out.println(status);
+        System.out.println(player);
+        System.out.println(token);
 
     }
 
     @Override
-    protected Void doInBackground(String... params) {
+    protected String doInBackground(String... params) {
 
         try {
             URL url = new URL(params[0]);
@@ -68,7 +72,7 @@ public class HttpPost extends AsyncTask<String, Void, Void> {
 
             if(statusCode == 200||statusCode == 201){
                 System.out.println(statusCode + ": Successful request");
-                status = statusCode;
+                status = "success";
                 if (statusCode < 299) { // success
                     BufferedReader in = new BufferedReader(new InputStreamReader(
                             urlConnection.getInputStream()));
@@ -83,29 +87,22 @@ public class HttpPost extends AsyncTask<String, Void, Void> {
                     String data = response.toString();
                     Gson gson = new Gson();
                     JSONObject reader = new JSONObject(data);
-                    JSONObject player  = reader.getJSONObject("player");
-                    System.out.println(player);
-                    Player _receivedPlayer = gson.fromJson(player.toString(), Player.class);
-                    setToken(player.get("token").toString());
-
+                    player  = reader.getJSONObject("player");
+                    token = player.get("token").toString();
 
                 }
             }
 
             else{
                 System.out.println(statusCode + ": Something went wrong...");
-                status = statusCode;
+                status = "failed";
             }
 
 
         } catch (Exception e) {
             Log.d(TAG, e.getLocalizedMessage());
         }
-        return null;
+        return status;
     }
 
-    public void  setToken(String string){
-        token = string;
-
-    }
 }

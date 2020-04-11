@@ -60,6 +60,7 @@ public class DrawingActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         initializeObject();
         eventListeners();
+        mDefaultColor = 0;
 
     }
 
