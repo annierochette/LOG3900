@@ -40,7 +40,6 @@
             <Button Height="50" Width="220" Margin="20" Content="JOUER" Background="#FFFF7F11" BorderThickness="2" FontSize="20" Foreground="White" Command="{Binding GoToGameModeMenu}"/>
             <Button Height="50" Width="220" Margin="20" Content="CRÉER" Background="#FFFF7F11" BorderThickness="2" FontSize="20"  Foreground="White" Command="{Binding GoToGameCreatorControl}"/>
             <Button Height="50" Width="220" Margin="20" Content="TUTORIEL" Background="#FFFF7F11" BorderThickness="2" FontSize="20"  Foreground="White"/>
-            <Button Height="50" Width="220" Margin="20" Content="PARAMÈTRES" Background="#FFFF7F11" BorderThickness="2" FontSize="20"  Foreground="White"/>
         </StackPanel>
     </Grid>
 </UserControl>
