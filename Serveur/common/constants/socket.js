@@ -5,8 +5,10 @@ module.exports.CHAT = {
 
     // Canaux de discussion
     CHANNELS: "channels",
+    DELETE_CHANNEL: "deleteChannel",
     JOIN_CHANNEL: "joinChannel",
     LEAVE_CHANNEL: "leaveChannel",
+    NEW_CHANNEL: "newChannel",
 
     // Message
     MESSAGE: "chat message",

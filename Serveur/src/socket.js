@@ -36,7 +36,7 @@ module.exports = function(http) {
           io.to(channel).emit(SOCKET.CHAT.MESSAGE, msg);
       });
     
-    socket.on(SOCKET.CHAT.JOIN_CHANNEL, (username, channel) => {
+      socket.on(SOCKET.CHAT.JOIN_CHANNEL, (username, channel) => {
         socket.join(channel);
 
         if (playersInChannel.has(channel)) {
@@ -45,6 +45,7 @@ module.exports = function(http) {
           playersInChannel.set(channel, players);
         } else {
           playersInChannel.set(channel, new Set([username]));
+          io.emit(SOCKET.CHAT.NEW_CHANNEL, channel);
         }
           
         messageController.lastPage(socket.id, channel);
@@ -60,6 +61,7 @@ module.exports = function(http) {
 
         if (players.size == 0) {
           playersInChannel.delete(channel);
+          io.emit(SOCKET.CHAT.DELETE_CHANNEL, channel);
         } else {
           playersInChannel.set(channel, players);
         }
