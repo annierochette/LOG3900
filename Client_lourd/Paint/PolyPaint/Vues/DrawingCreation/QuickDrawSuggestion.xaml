@@ -35,16 +35,16 @@
             <Image Name="imgPhoto"
          Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="5" Grid.RowSpan="6"  />
         </Border>
-        <Label Content="Mot suggéré: " HorizontalAlignment="Right" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="7" Grid.RowSpan="1" Grid.Column="1" FontWeight="Bold" FontFamily="Ink Free" FontSize="18" />
+        <Label Content="Mot suggéré: " HorizontalAlignment="Right" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="7" Grid.RowSpan="1" Grid.Column="1"   FontSize="18" />
         <TextBlock Name = "suggestedWord" Text="{Binding SuggestedWord}" Grid.ColumnSpan="2" Grid.Row="7" Grid.RowSpan="1" Grid.Column="3" Foreground="AntiqueWhite" FontWeight="Bold" FontFamily="Ink Free" FontSize="1" HorizontalAlignment="Left" VerticalAlignment="Center"
          TextDecorations="{x:Null}" /> 
         <Button Name="nextButton"  Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="2" Margin="5">
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                <TextBlock Text="Prochaine suggestion  " FontWeight="Bold" FontFamily="Ink Free" FontSize="16" FontStretch="Expanded"/>
+                <TextBlock Text="Prochaine suggestion  "  FontSize="16" FontStretch="Expanded"/>
                 <Image  HorizontalAlignment="Right" Source="arrow.png" Stretch="None"  />
             </StackPanel>
         </Button>
-        <Button x:Name="cancel_button" Content="ANNULER" Grid.Column="1" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="Red" BorderThickness="2" FontSize="22" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521" Command="{Binding GoToGameCreator}" />
-        <Button x:Name="confirm_button" Content="SÉLECTIONNER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="22" FontFamily="Ink Free" Foreground="White" RenderTransformOrigin="0.522,0.521" Command="{Binding GoToGameCreator}" />
+        <Button x:Name="cancel_button" Content="ANNULER" Grid.Column="1" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="Red" BorderThickness="2" FontSize="22"  Foreground="White" RenderTransformOrigin="0.522,0.521" Command="{Binding GoToGameCreator}" />
+        <Button x:Name="confirm_button" Content="SÉLECTIONNER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="22"  Foreground="White" RenderTransformOrigin="0.522,0.521" Command="{Binding GoToGameCreator}" />
     </Grid>
 </UserControl>

@@ -6,6 +6,7 @@
              xmlns:viewModel="clr-namespace:PolyPaint.VueModeles"
              xmlns:utils="clr-namespace:PolyPaint.Utilitaires"
              xmlns:custom="clr-namespace:PolyPaint.CustomControls"
+             Exit="Disconnect"
            >
     <Application.Resources>
             <DataTemplate DataType="{x:Type viewModel:MainWindowViewModel}">
