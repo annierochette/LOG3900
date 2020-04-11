@@ -15,17 +15,19 @@ const matchSchema = mongoose.Schema({
         type: Number,
         default: 3
     },
-    players: [{
-        name: {   
-            type: String,
-            required: true,
-            trim: true
-        },
-        score: {
-            type: Number,
-            default: 0
-        },
-    }],
+    players: {
+        type: [{
+            name: {   
+                type: String,
+                required: true,
+                trim: true
+            },
+            score: {
+                type: Number,
+                default: 0
+            },
+        }],
+    },
     status: {
         type: String,
         enum: ["Unstarted", "Started", "Completed"],
