@@ -118,6 +118,10 @@ public class Menu extends AppCompatActivity {
 
     public void openTutorialView(){
         Intent intent = new Intent(this, Tutorial.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
         startActivity(intent);
     }
 

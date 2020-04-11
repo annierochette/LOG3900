@@ -41,6 +41,8 @@ public class Profile extends AppCompatActivity {
     private String firstName;
     private String lastName;
 
+    String USERNAME = MainActivity.editTextString;
+
     public static final int GET_FROM_GALLERY = 3;
 
     @Override

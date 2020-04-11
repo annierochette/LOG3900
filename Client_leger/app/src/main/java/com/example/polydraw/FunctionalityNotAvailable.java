@@ -12,14 +12,8 @@ public class FunctionalityNotAvailable extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Cette fonctionnalité n'est pas disponible pour le moment")
-                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent intent = new Intent(getActivity(), Menu.class);
-                        startActivity(intent);
-                    }
-                });
+        builder.setTitle("Cette fonctionnalité n'est pas disponible pour le moment...")
+                .setMessage(" ");
 
         return builder.create();
     }
