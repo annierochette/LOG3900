@@ -122,8 +122,10 @@ public class Menu extends AppCompatActivity {
     }
 
     public void openSettingsView(){
-        Intent intent = new Intent(this, Settings.class);
-        startActivity(intent);
+        FunctionalityNotAvailable functionalityNotAvailable = new FunctionalityNotAvailable();
+        functionalityNotAvailable.show(getSupportFragmentManager(), "functionalityNotAvailable");
+        /*Intent intent = new Intent(this, Settings.class);
+        startActivity(intent);*/
     }
 
     public void backToLogin(){

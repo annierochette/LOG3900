@@ -92,8 +92,10 @@ public class PlayMenu extends AppCompatActivity {
     }
 
     public void playSoloGame(){
-        Intent intent = new Intent(this, ModeSoloActivity.class);
-        startActivity(intent);
+        FunctionalityNotAvailable functionalityNotAvailable = new FunctionalityNotAvailable();
+        functionalityNotAvailable.show(getSupportFragmentManager(), "functionalityNotAvailable");
+        /*Intent intent = new Intent(this, ModeSoloActivity.class);
+        startActivity(intent);*/
     }
 
     public void openFreeGame(){

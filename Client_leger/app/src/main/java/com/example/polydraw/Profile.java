@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.example.polydraw.Socket.SocketIO;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -168,8 +170,8 @@ public class Profile extends AppCompatActivity {
                     in.close();
 
                     // print result
-
-                    System.out.println(response.toString());
+                    JSONObject reader = new JSONObject(response.toString());
+                    System.out.println(reader.toString());
                 }
 
 
