@@ -1,4 +1,5 @@
 const MatchTimer = require("./match.timer");
+const gameController = require("../game/game.controller"); 
 
 class Match {
     constructor(players, matchId, duration, io) {
@@ -39,6 +40,7 @@ class Match {
         let score = 120/this.goodAnswers + this.timer.getRemainingTime();
         
         this.updateScore(score, player);
+        this.updateScore(75, this.players[this.actualRound % this.players.length]);
 
         return score;
     }
@@ -60,14 +62,21 @@ class Match {
         this.timer.remainingTime();
     }
 
-    nextRound() {
+    async nextRound() {
         this.actualRound++;
 
         if (this.actualRound > this.maxRounds) {
-            return "";
+            return { "status": "Completed" };
         }
-  
-        return this.players[this.actualRound % this.players.length];
+
+        let game = await gameController.getRandomGame(this.answers);
+
+        let round = {
+            "draftsman": this.players[this.actualRound % this.players.length],
+            "game": game,
+            "status": "ongoing" 
+        } 
+        return round;
     }
 }
 
@@ -110,8 +119,8 @@ class MatchManager {
         return this.matches.get(matchId).remainingTime();
     }
 
-    nextRound(matchId) {
-        return this.matches.get(matchId).nextRound();
+    async nextRound(matchId) {
+        return await this.matches.get(matchId).nextRound();
     }
 }
 

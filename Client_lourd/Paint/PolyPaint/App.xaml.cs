@@ -25,5 +25,13 @@ namespace PolyPaint
             app.DataContext = context;
             app.Show();
         }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+
+            var socket = AppSocket.Instance;
+            socket.Close();
+        }
     }
 }

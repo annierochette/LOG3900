@@ -14,16 +14,17 @@ namespace PolyPaint.CustomControls
 
     public partial class MessageBoxControl : UserControl, INotifyPropertyChanged
     {
+        User user = User.instance;
         private AppSocket socket;
         private string _username;
         public event PropertyChangedEventHandler PropertyChanged;
-        Message message = new Message();
+       
 
         public MessageBoxControl()
         {
             DataContext = this;
             InitializeComponent();
-            _username = "Genevieve";
+            _username = user.Username;
             socket = AppSocket.Instance;
             
             socket.On("chat message", (data) =>

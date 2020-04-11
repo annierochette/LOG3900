@@ -41,10 +41,17 @@ namespace PolyPaint.Vues
             public string password { get; set; }
         }
 
+        private void UserConnectOnEnter(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                UserConnect(sender, e);
+            }
+        }
 
         private async void UserConnect(object sender, RoutedEventArgs e)
         {
-            Connection.SetBinding(System.Windows.Controls.Primitives.ButtonBase.CommandProperty, new Binding("GoToMainWindow"));
+            
             string username = usernameBox.Text;
             string password = passwordBox.Password;
 
@@ -59,20 +66,15 @@ namespace PolyPaint.Vues
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
            
             var res = await HttpClient.PostAsync("http://localhost:5050/players/login", httpContent);
-            
-            if (res.Content != null)
+            var responseContent = await res.Content.ReadAsStringAsync();
+            if (responseContent != "{}")
             {
-                var responseContent = await res.Content.ReadAsStringAsync();
                 Console.WriteLine(responseContent);
                 User.instance.Username = username;
-                
+                ((LoginViewModel)(DataContext)).GiveAccess();
             }
         
-            if (res.StatusCode.ToString() == "201")
-            {
-                Console.WriteLine("201");
-            }
-
+         
         }
 
 

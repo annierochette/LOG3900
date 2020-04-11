@@ -58,10 +58,10 @@ exports.login = async function(req, res) {
             return res.status(HTTP.STATUS.UNAUTHORIZED).send({ error: ERR.MSG.WRONG_CREDENTIALS });
         }
 
-        if (player.token)
-        {
-            return res.status(HTTP.STATUS.UNAUTHORIZED).send({ error: ERR.MSG.ALREADY_CONNECTED });
-        }
+        // if (player.token)
+        // {
+        //     return res.status(HTTP.STATUS.UNAUTHORIZED).send({ error: ERR.MSG.ALREADY_CONNECTED });
+        // }
 
         const token = await player.generateAuthToken()
         res.status(HTTP.STATUS.OK).send({ player })
@@ -79,3 +79,12 @@ exports.logout = async function(req, res) {
         res.status(HTTP.STATUS.INTERNAL_SERVER_ERROR).send(error);
     }
 };
+
+// Socket use
+exports.deleteToken = async function(player) {
+    try {
+        await Player.removeToken(player);
+    } catch (error) {
+        LOGGER.info("Token was not removed");
+    }
+}
