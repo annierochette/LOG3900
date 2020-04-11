@@ -12,6 +12,12 @@ import android.widget.ImageView;
 
 import com.example.polydraw.Socket.SocketIO;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
     private Button backButton;
@@ -25,6 +31,11 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_melee_generale_menu);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+
+        HttpGet task = new HttpGet();
+        task.execute(SocketIO.HTTP_URL+"match/");
+
+        System.out.println(SocketIO.HTTP_URL+"match/");
 
         backButton = (Button) findViewById(R.id.backButton);
         createButton = (Button) findViewById(R.id.createButton);
@@ -86,4 +97,5 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() { }
+
 }

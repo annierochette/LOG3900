@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     public Application app;
 
-    String query_url = "/players/login";
+    String query_url = "players/login";
 
     public static String editTextString;
 
@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                     postData.put("username", username.getText().toString());
                     postData.put("password", password.getText().toString());
                     HttpPost task = new HttpPost(postData);
+                    System.out.println(SocketIO.HTTP_URL+query_url);
                     task.execute(SocketIO.HTTP_URL+query_url);
 
                     String str = username.getText().toString();

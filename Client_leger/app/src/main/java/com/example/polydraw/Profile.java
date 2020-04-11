@@ -38,6 +38,9 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 
+        /*HttpGet task = new HttpGet();
+        task.execute(SocketIO.HTTP_URL+"player/:snoopy/general-statistics");*/
+
         backButton = (Button) findViewById(R.id.backButton);
         disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
         chatButton = (ImageView) findViewById(R.id.chatButton);

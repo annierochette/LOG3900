@@ -31,7 +31,7 @@ public class SignupActivity extends AppCompatActivity {
     private EditText passwordConfirmation;
     private Button backButton;
 
-    String query_url = "/players";
+    String query_url = "players";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +83,6 @@ public class SignupActivity extends AppCompatActivity {
                     HttpPost task = new HttpPost(postData);
                     task.execute(SocketIO.HTTP_URL+query_url);
 
-                    Intent intent = new Intent(SignupActivity.this, MainActivity.class);
-                    startActivity(intent);
 
                 } catch (Exception e) {
                     System.out.println(e);
