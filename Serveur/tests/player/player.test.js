@@ -3,6 +3,7 @@ const app = require("../../src/app");
 const request = supertest(app);
 const HTTP = require("../../common/constants/http");
 const AVATAR = require("../constants/avatar");
+const DB = require("../../src/db/db");
 
 const firstName = "Abraham";
 const lastName = "Simpson";
@@ -21,6 +22,7 @@ var token;
 describe("Players Rest API", () => {
   beforeAll(async done => {
         // Create owner
+        DB.connect(process.env.MONGODB_URL, "playersTest");
         const owner = await request
         .post("/players")
         .send({
@@ -49,7 +51,7 @@ describe("Players Rest API", () => {
       password: "123456"
     });
     
-  expect(res.statusCode).toEqual(HTTP.STATUS.BAD_REQUEST);
+  expect(res.statusCode).toEqual(HTTP.STATUS.CONFLICT);
 
   done();
   });
