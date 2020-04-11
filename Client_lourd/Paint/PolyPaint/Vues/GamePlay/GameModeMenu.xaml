@@ -32,9 +32,9 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="5" VerticalAlignment="Center" >
-            <Button Height="50" Width="220" Margin="20"  Content="MELEE GENERALE" Background="#FFFF7F11" BorderThickness="2" FontSize="24"  Foreground="White" Command="{Binding GoToGameChoice}"/>
-            <Button Height="50" Width="220" Margin="20" Content="SOLO" Background="#FFFF7F11" BorderThickness="2" FontSize="24"  Foreground="White" Command="{Binding GoToGuessingView}"/>
+        <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="5" VerticalAlignment="Top" >
+            <Button Height="50" Width="220" Margin="20"  Content="MELEE GENERALE" Background="#FFFF7F11" BorderThickness="2" FontSize="20"  Foreground="White" Command="{Binding GoToGameChoice}"/>
+            <Button Height="50" Width="220" Margin="20" Content="SOLO" Background="#FFFF7F11" BorderThickness="2" FontSize="20"  Foreground="White" Command="{Binding GoToGuessingView}"/>
         </StackPanel>
  
         <Button  Content="RETOUR" FontFamily="Microsoft JhengHei UI" FontWeight="Bold" Height="35" Foreground="white" Background="#2364AA" Width="80" Command="{Binding GoToGameMenu}" HorizontalAlignment="Center" />

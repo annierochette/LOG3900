@@ -101,15 +101,15 @@ namespace PolyPaint.Vues
 
         private void afficherTraitsClassique()
         {
-            
+
             strokes = ((DrawingWindowViewModel)(DataContext)).Traits;
             var tasks = new List<Task<(int Index, bool IsDone)>>();
 
-     
+
             foreach (Stroke stroke in strokes)
-                 {
-                
-            
+            {
+
+
                 StylusPointCollection points = new StylusPointCollection();
                 Timer timer = new Timer();
                 timer.Interval = 10;
@@ -117,64 +117,61 @@ namespace PolyPaint.Vues
 
                 int index = 0;
 
-                    timer.Tick += (s, a) =>
+                timer.Tick += (s, a) =>
+                {
+
+                    StylusPoint point = stroke.StylusPoints[index];
+                    var x = (float)point.X;
+                    var y = (float)point.Y;
+
+                    points.Add(new StylusPoint(x, y));
+
+                    inkPresenter.Strokes.Add(new Stroke(points));
+
+                    index++;
+                    if (index >= stroke.StylusPoints.Count)
                     {
+                        timer.Stop();
 
-                        StylusPoint point = stroke.StylusPoints[index];
-                        var x = (float)point.X;
-                        var y = (float)point.Y;
+                    }
+                };
 
-                        points.Add(new StylusPoint(x, y));
 
-                        inkPresenter.Strokes.Add(new Stroke(points));
+            }
 
-                        index++;
-                        if (index >= stroke.StylusPoints.Count)
-                        {
-                            timer.Stop();
-                           
-                        }
-                    };
-                
-                    
-                }
-            
         }
-            
-        
 
-        //private void afficherTraitsAléatoire()
+        //private void afficherTraitsClassique()
         //{
-        //    Random r = new Random();
         //    strokes = ((DrawingWindowViewModel)(DataContext)).Traits;
         //    StylusPointCollection points = new StylusPointCollection();
-        //    for (int i = 0; i < strokes.Count; i++)
+
+
+        //    foreach (Stroke stroke in strokes)
         //    {
-        //        points.Add(strokes[i].StylusPoints);
-        //    }
-        //    StylusPointCollection first = new StylusPointCollection();
-        //    first.Add(points[0]);
-        //    Stroke newStroke = new Stroke(first);
-        //    inkPresenter.Strokes.Add(newStroke);
-        //    DispatcherTimer timer = new DispatcherTimer();
-        //    timer.Interval = TimeSpan.FromMilliseconds(10);
-          
-        //    foreach (int i in Enumerable.Range(0, points.Count).OrderBy(x => r.Next()))
-        //        {
+        //        points.Add(stroke.StylusPoints);
+        //        StylusPointCollection first = new StylusPointCollection();
+        //        first.Add(points[0]);
+        //        Stroke newStroke = new Stroke(first);
+        //        DispatcherTimer timer = new DispatcherTimer();
+        //        timer.Interval = TimeSpan.FromMilliseconds(10);
         //        timer.Start();
         //        int index = 0;
         //        timer.Tick += (s, a) =>
-        //        {
-        //            StylusPoint point = points[i];
-        //            inkPresenter.Strokes[0].StylusPoints.Add(point);
-        //            index++;
-        //            if (index >= points.Count) timer.Stop();
-        //        };
+        //                {
 
+        //                    newStroke.StylusPoints.Insert(index, points[index]);
+        //                    if (!inkPresenter.Strokes.Contains(newStroke))
+        //                    {
+        //                        inkPresenter.Strokes.Add(newStroke);
+        //                    }
+        //                    index++;
+        //                    if (index >= points.Count) timer.Stop();
+        //                };
         //    };
+
+
         //}
-
-
 
         private void modifyDrawing_button_Click(object sender, RoutedEventArgs e)
         {
