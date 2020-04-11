@@ -31,8 +31,8 @@ public class HttpGet extends AsyncTask<String, Void, Void> {
 
             // Create the urlConnection
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setConnectTimeout(5000);
-            urlConnection.setReadTimeout(5000);
+/*            urlConnection.setConnectTimeout(5000);
+            urlConnection.setReadTimeout(5000);*/
 //            urlConnection.setHeader("token", "Token value goes here");
             urlConnection.setRequestProperty("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNub29weSIsImlhdCI6MTU4NjU3NDUwNH0.hBXym3o793NljYhJO6_ef3aBLI5SeMvRCcDICyTpnGk");
             urlConnection.setRequestMethod("GET");
@@ -58,7 +58,7 @@ public class HttpGet extends AsyncTask<String, Void, Void> {
 
 
         } catch (Exception e) {
-            Log.d(TAG, e.getLocalizedMessage());
+            e.printStackTrace();
         }
         return null;
     }

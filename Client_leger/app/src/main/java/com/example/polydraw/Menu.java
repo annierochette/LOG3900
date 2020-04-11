@@ -24,6 +24,12 @@ public class Menu extends AppCompatActivity {
     private ImageButton disconnectButton;
     private ImageView chatButton;
 
+    private String player;
+    private String token;
+    private String username;
+    private String firstName;
+    private String lastName;
+
     private SocketIO socket;
 
     @Override
@@ -38,6 +44,17 @@ public class Menu extends AppCompatActivity {
         settingsButton = (Button) findViewById(R.id.settings);
         disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
         chatButton = (ImageView) findViewById(R.id.chatButton);
+
+        Intent intent = getIntent();
+        player = intent.getStringExtra("player");
+        token = intent.getStringExtra("token");
+        username = intent.getStringExtra("username");
+        firstName = intent.getStringExtra("firstName");
+        lastName = intent.getStringExtra("lastName");
+
+        System.out.println("Menu player: "+ player);
+        System.out.println("Menu token: "+ token);
+        System.out.println("Menu username: "+ username);
 
         socket = new SocketIO();
         socket.init();
@@ -55,6 +72,7 @@ public class Menu extends AppCompatActivity {
                 openProfileView();
             }
         });
+
         tutorialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +109,10 @@ public class Menu extends AppCompatActivity {
 
     public void openProfileView(){
         Intent intent = new Intent(this, Profile.class);
-//        intent.putExtra("username", username);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
         startActivity(intent);
     }
 

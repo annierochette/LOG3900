@@ -31,9 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText username;
     private Button signupButton;
     private EditText password;
-    public static final String USERNAME = "username";
-    public static final String PASSWORD = "password";
-    public String resultHttp;
 
     public Application app;
 
@@ -101,9 +98,13 @@ public class MainActivity extends AppCompatActivity {
 
     public class HttpPostLogin extends AsyncTask<String, Void, String> {
         JSONObject postData;
-        public int status;
         public String token;
         public JSONObject player;
+        public String playerString;
+        public String playerName;
+        public String playerLastName;
+        public String playerUsername;
+        private String result;
 
         public HttpPostLogin(Map<String, String> postData) {
             if (postData != null) {
@@ -114,8 +115,28 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            if(token!=null){
+            if(result!=null){
                 Intent intent = new Intent(MainActivity.this, Menu.class);
+
+                try{
+                    JSONObject reader = new JSONObject(result);
+
+                    String token1 = reader.get("token").toString();;
+                    String username1 = reader.get("username").toString();
+                    String lastName1 = reader.get("lastName").toString();
+                    String firstName1 = reader.get("firstName").toString();
+
+                    System.out.println("token try catch pour intent main "+token1);
+
+                    intent.putExtra("token", token1);
+                    intent.putExtra("username", username1);
+                    intent.putExtra("lastName", lastName1);
+                    intent.putExtra("firstName", firstName1);
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+
+                intent.putExtra("player", result);
                 startActivity(intent);
             }else{
                 LoginErrorDialog loginErrorDialog = new LoginErrorDialog();
@@ -162,28 +183,27 @@ public class MainActivity extends AppCompatActivity {
                         in.close();
 
                         String data = response.toString();
-                        Gson gson = new Gson();
                         JSONObject reader = new JSONObject(data);
                         player = reader.getJSONObject("player");
-                        String result = player.toString();
-                        System.out.println(result);
-//                        JSONPlayer(player);
-                        token = player.get("token").toString();
-//                        getStatus(statusCode);
+                        playerString = player.toString();
+                        result = playerString;
 
+                        /*token = player.get("token").toString();
+                        playerUsername = player.get("username").toString();
+                        playerLastName = player.get("lastName").toString();
+                        playerName = player.get("firstName").toString();*/
 
                     }
                 } else {
                     System.out.println(statusCode + ": Something went wrong...");
-//                    status = statusCode;
-                    token = null;
+                    result = null;
                 }
 
 
             } catch (Exception e) {
                 Log.d(TAG, e.getLocalizedMessage());
             }
-            return token;
+            return result;
         }
     }
 

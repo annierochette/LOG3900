@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -17,8 +18,12 @@ import android.widget.TextView;
 
 import com.example.polydraw.Socket.SocketIO;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class Profile extends AppCompatActivity {
 
@@ -27,10 +32,14 @@ public class Profile extends AppCompatActivity {
     private ImageView chatButton;
     private Button pictureButton;
     private SocketIO socket;
+    private TextView namePlaceholder;
+    private TextView usernamePlaceholder;
+    private String token;
+    private String username;
+    private String firstName;
+    private String lastName;
 
     public static final int GET_FROM_GALLERY = 3;
-//    private TextView usernameText;
-//    public String username = getIntent().getStringExtra("username");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +47,25 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 
-        /*HttpGet task = new HttpGet();
-        task.execute(SocketIO.HTTP_URL+"player/:snoopy/general-statistics");*/
+        Intent intent = getIntent();
+        token = intent.getStringExtra("token");
+        username = intent.getStringExtra("username");
+        firstName = intent.getStringExtra("firstName");
+        lastName = intent.getStringExtra("lastName");
+
+        HttpGetPlayer task = new HttpGetPlayer();
+        task.execute(SocketIO.HTTP_URL+"players/:username/general-statistics");
 
         backButton = (Button) findViewById(R.id.backButton);
         disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
         chatButton = (ImageView) findViewById(R.id.chatButton);
         pictureButton = (Button) findViewById(R.id.changePicture);
-//        usernameText = (TextView) findViewById(R.id.username);
-//
-//        usernameText.setText(username);
+
+        namePlaceholder = (TextView) findViewById(R.id.name);
+        namePlaceholder.setText(firstName+ " "+lastName);
+
+        usernamePlaceholder = (TextView) findViewById(R.id.username);
+        usernamePlaceholder.setText(username);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,4 +134,50 @@ public class Profile extends AppCompatActivity {
 
     @Override
     public void onBackPressed() { }
+
+    public class HttpGetPlayer extends AsyncTask<String, Void, String> {
+        public HttpGetPlayer() {
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String result;
+
+            try {
+                URL url = new URL(params[0]);
+
+                // Create the urlConnection
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestProperty("Authorization", token);
+                urlConnection.setRequestMethod("GET");
+
+
+                int statusCode = urlConnection.getResponseCode();
+                System.out.println(statusCode);
+
+                if (statusCode < 299) { // success
+                    BufferedReader in = new BufferedReader(new InputStreamReader(
+                            urlConnection.getInputStream()));
+                    String inputLine;
+                    StringBuffer response = new StringBuffer();
+
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+                    in.close();
+
+                    // print result
+
+                    System.out.println(response.toString());
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+    }
 }
