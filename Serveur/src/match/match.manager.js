@@ -126,9 +126,9 @@ class MatchManager {
 
 class Singleton {
 
-  constructor() {
+  constructor(io) {
       if (!Singleton.instance) {
-          Singleton.instance = new MatchManager();
+          Singleton.instance = new MatchManager(io);
       }
   }
 

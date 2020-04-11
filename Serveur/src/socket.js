@@ -25,8 +25,6 @@ module.exports = function(http) {
       // console.log("ScoketID: " + socket.id);
     
       socket.on(SOCKET.CHAT.MESSAGE, (username, channel, message) => {
-          console.log("Message received");
-
           let filteredMessage = filter.clean(message);
           let timestamp = Timestamp.currentDate();
           messageController.save(filteredMessage, username, channel, timestamp);
@@ -93,17 +91,14 @@ module.exports = function(http) {
       });
 
       socket.on(SOCKET.DRAFT.STROKE_COLLECTED, (channel, points) => {
-        //console.log("Stroke: " + stroke);
         io.emit(SOCKET.DRAFT.STROKE_COLLECTED, points);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_ERASING, (channel, points) => {
-        console.log("StrokeErasing")
         io.emit(SOCKET.DRAFT.STROKE_ERASING, points);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_SEGMENT_ERASING, (channel, points) => {
-        console.log("StrokeErasing")
         io.emit(SOCKET.DRAFT.STROKE_SEGMENT_ERASING, points);
       });
 

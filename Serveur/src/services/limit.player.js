@@ -5,9 +5,7 @@ const MatchController = require("../match/match.controller");
 
 const limitPlayer = async function(req, res, next) {
     try {
-        console.log("limitPlayer");
         await MatchController.countPlayersInMatch(req.params.name);
-        console.log("AFTER")
         next();
     } catch (error) {
         LOGGER.error(error);

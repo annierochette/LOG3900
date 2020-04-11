@@ -1,16 +1,23 @@
 const MatchManager = require("../src/match/match.manager");
 const app = require("../src/app");
 const SocketIo = require('socket.io');
-const http = require('http').createServer(app);
+const http = require('http');
+const DB = require("../src/db/db");
 
 var matchManager;
 const matchId = "matchId";
 let players = ["playerA", "playerB", "playerC"];
+let httpServer;
+let io;
 
 describe("MatchManager", () => {
     beforeAll(() => {
-        matchManager = new MatchManager(SocketIo.listen(http)).getInstance();
-    });
+        DB.connect(process.env.MONGODB_URL, "matchManager");
+        httpServer = http.createServer(app);
+        io = SocketIo.listen(httpServer);
+        if (io) {console.log("Exist")} else {console.log("NOTONONT")}
+        matchManager = new MatchManager(io).getInstance();
+      });
 
     afterAll(() => {
         matchManager.deleteMatch(matchId);

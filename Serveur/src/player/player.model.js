@@ -64,12 +64,12 @@ playerSchema.statics.findByCredentials = async function (username, password) {
     // Search for a player by username and password.
     const player = await Player.findOne({ username });
     if (!player) {
-        console.log("username invalid");
+        LOGGER.info("username invalid");
         throw new Error({ error: 'Invalid login credentials' })
     }
     const isPasswordMatch = await bcrypt.compare(password, player.password)
     if (!isPasswordMatch) {
-        console.log(`password invalid`);
+        LOGGER.info(`password invalid`);
         throw new Error({ error: 'Invalid login credentials' })
     }
     
