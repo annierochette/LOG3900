@@ -14,6 +14,7 @@ namespace PolyPaint.Vues
         {
             InitializeComponent();
             FontFamily = new FontFamily("Microsoft JhengHei UI");
+            //FontFamily = new FontFamily("Ink Free");
         }
 
         private void MessageBoxControl_Loaded(object sender, RoutedEventArgs e)

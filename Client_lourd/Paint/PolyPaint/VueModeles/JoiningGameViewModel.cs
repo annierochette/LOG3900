@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace PolyPaint.VueModeles
 {
-    public class GameChoiceViewModel : BaseViewModel, IPageViewModel
+    public class JoiningGameViewModel : BaseViewModel, IPageViewModel
     {
 
         public override string GetCurrentViewModelName()
@@ -16,11 +16,12 @@ namespace PolyPaint.VueModeles
             return "GameChoiceViewModel";
         }
 
+        
+
 
         private ICommand _goToWaitingRoom;
         private ICommand _goToFreeForAll;
         private ICommand _goToGameModeMenu;
-        private ICommand _goToJoiningGame;
 
         public ICommand GoToWaitingRoom
         {
@@ -52,17 +53,6 @@ namespace PolyPaint.VueModeles
                 return _goToFreeForAll ?? (_goToFreeForAll = new RelayCommand(x =>
                 {
                     Mediator.Notify("GoToFreeForAll", "");
-                }));
-            }
-        }
-
-        public ICommand GoToJoiningGame
-        {
-            get
-            {
-                return _goToJoiningGame ?? (_goToJoiningGame = new RelayCommand(x =>
-                {
-                    Mediator.Notify("GoToJoiningGame", "");
                 }));
             }
         }
