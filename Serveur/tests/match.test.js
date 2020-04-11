@@ -10,8 +10,12 @@ let players = ["playerA", "playerB", "playerC"];
 describe("MatchManager", () => {
     beforeAll(() => {
         matchManager = new MatchManager(SocketIo.listen(http)).getInstance();
-
     });
+
+    afterAll(() => {
+        matchManager.deleteMatch(matchId);
+    });
+
     it("should add a match", () => {
         expect(matchManager.count()).toBe(0);
         matchManager.addMatch(matchId, players);
@@ -44,14 +48,14 @@ describe("MatchManager", () => {
         }, 5000);
     });
 
-    it("should switch role", () => {
-        let draftsman = matchManager.nextRound(matchId);
-        expect(draftsman).toBe(players[0]);
-        draftsman = matchManager.nextRound(matchId);
-        expect(draftsman).toBe(players[1]);
-        draftsman = matchManager.nextRound(matchId);
-        expect(draftsman).toBe(players[2]);
-        draftsman = matchManager.nextRound(matchId);
-        expect(draftsman).toBe(players[0]);
+    it("should switch role", async () => {
+        let round = await matchManager.nextRound(matchId);
+        expect(round.draftsman).toBe(players[0]);
+        round = await matchManager.nextRound(matchId);
+        expect(round.draftsman).toBe(players[1]);
+        round = await matchManager.nextRound(matchId);
+        expect(round.draftsman).toBe(players[2]);
+        round = await matchManager.nextRound(matchId);
+        expect(round.draftsman).toBe(players[0]);
     });
 });
