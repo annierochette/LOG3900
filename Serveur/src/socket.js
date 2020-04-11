@@ -27,7 +27,7 @@ module.exports = function(http) {
       console.log("ScoketID: " + socket.id);
     
       socket.on(SOCKET.CHAT.MESSAGE, (username, channel, message) => {
-          console.log("Message received")
+          console.log("Message received in " + channel);
           var currentDate = new Date();
           // var date = currentDate.getDate();
           // var month = currentDate.getMonth();
@@ -46,7 +46,7 @@ module.exports = function(http) {
     socket.on(SOCKET.CHAT.JOIN_CHANNEL, (username, channel) => {
         socket.join(channel);
         var currentDate = new Date();
-        
+        console.log(username + " joined channel " + channel)
         // var date = currentDate.getDate();
         // var month = currentDate.getMonth();
         // var year = currentDate.getFullYear();
@@ -62,7 +62,7 @@ module.exports = function(http) {
       socket.on(SOCKET.CHAT.LEAVE_CHANNEL, (username, channel) => {
         socket.leave(channel);
         var currentDate = new Date();
-        
+        console.log(username + " left channel " + channel)
         // var date = currentDate.getDate();
         // var month = currentDate.getMonth();
         // var year = currentDate.getFullYear();

@@ -22,8 +22,8 @@ public class ChatChannelAdapter extends RecyclerView.Adapter<ChatChannelAdapter.
             super(view);
 
             channelName = (TextView) view.findViewById(R.id.username);
+            
         }
-
     }
 
     public ChatChannelAdapter(List<ChatChannel> ChatChannelList) {

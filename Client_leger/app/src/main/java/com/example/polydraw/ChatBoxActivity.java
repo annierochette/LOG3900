@@ -8,17 +8,18 @@ import android.os.Bundle;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,11 +49,11 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
     ImageButton addChannel;
     public ListView channelsRecyclerView;
     public ChatChannelAdapter chatChannelAdapter;
-
+    public Toolbar toolbar;
     private SocketIO socket;
 
     String Username = MainActivity.editTextString;
-    public String channelName;
+    public String currentChannel = "General";
     String[] channels = {"General"};
 
     @Override
@@ -64,6 +65,7 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         send = (Button) findViewById(R.id.send);
         addChannel = (ImageButton) findViewById(R.id.addChannel);
         ListView lv = (ListView) findViewById(R.id.channelsList);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         MessageList = new ArrayList<>();
         myRecyclerView = (RecyclerView) findViewById(R.id.messagelist);
@@ -77,14 +79,26 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, availableChannels);
 
         lv.setAdapter(arrayAdapter);
+        setToolbarName(currentChannel);
 
+        channelsRecyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String channel = availableChannels.get(position);
+                socket.getSocket().emit("leaveChannel", Username, currentChannel);
+                currentChannel = channel;
+                socket.getSocket().emit("joinChannel", Username, channel);
+                setToolbarName(currentChannel);
+                Toast.makeText(ChatBoxActivity.this, "Vous êtes désormais dans le canal " + channel , Toast.LENGTH_SHORT).show();
+            }
+        });
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!messageTxt.getText().toString().trim().isEmpty() && !messageTxt.getText().toString().isEmpty()) {
 
-                    socket.getSocket().emit("chat message", Username, "General", messageTxt.getText().toString());
+                    socket.getSocket().emit("chat message", Username, currentChannel, messageTxt.getText().toString());
                     messageTxt.setText(" ");
                 }
             }
@@ -200,8 +214,8 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
 
     }
 
-    public void chatToolbarName(){
+    public void setToolbarName(String channel){
         //code pour choisir nom du channel selectionne
-
+        toolbar.setTitle(channel);
     }
 }
