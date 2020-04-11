@@ -26,6 +26,7 @@
         <Border Background="#2364AA" Grid.ColumnSpan="6"/>
         <TextBlock x:Name="ChatName" Grid.Column="0" Grid.ColumnSpan="4" Text="Général" FontSize="22" Foreground="White" />
         <TextBox x:Name="messageList"  Text="{Binding MessageList, UpdateSourceTrigger=PropertyChanged}" Background="White"  Grid.ColumnSpan="6" Grid.Row="1" Grid.RowSpan="3" TextChanged="messageList_TextChanged" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"></TextBox>
+        <Button Grid.Column="3" Content="+" FontSize="30" ></Button>
         <ComboBox Grid.Column="4" Grid.ColumnSpan="2" >
             <ComboBox.ItemContainerStyle>
                 <Style TargetType="ComboBoxItem">

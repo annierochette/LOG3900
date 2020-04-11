@@ -44,11 +44,12 @@ namespace PolyPaint.Vues
             {
                 imgPhoto.Source = new BitmapImage(new Uri(op.FileName));
                 save_button.IsEnabled = true;
+                ListOfCurveArray = null;
+                if (Bitmap != null) Bitmap.Dispose();
+                Bitmap = new Bitmap(op.FileName);
+                refreshMatrix();
             }
-            ListOfCurveArray = null;
-            if (Bitmap != null) Bitmap.Dispose();
-            Bitmap = new Bitmap(op.FileName);
-            refreshMatrix();
+          
         }
 
         private void refreshMatrix()
