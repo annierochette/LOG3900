@@ -17,6 +17,11 @@ public class Tutorial extends AppCompatActivity {
     TextView textView;
     ImageView imageView;
 
+    private String token;
+    private String username;
+    private String firstName;
+    private String lastName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,12 @@ public class Tutorial extends AppCompatActivity {
         button = findViewById(R.id.enterapp);
         textView = findViewById(R.id.textView3);
         imageView = findViewById(R.id.logo);
+
+        Intent intent = getIntent();
+        token = intent.getStringExtra("token");
+        username = intent.getStringExtra("username");
+        firstName = intent.getStringExtra("firstName");
+        lastName = intent.getStringExtra("lastName");
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +79,10 @@ public class Tutorial extends AppCompatActivity {
 
     public void backToMenu() {
         Intent intent = new Intent(this, Menu.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
         startActivity(intent);
     }
 

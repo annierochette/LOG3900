@@ -102,6 +102,10 @@ public class Profile extends AppCompatActivity {
 
     public void backToMenu(){
         Intent intent = new Intent(this, Menu.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
         startActivity(intent);
     }
 
@@ -113,6 +117,10 @@ public class Profile extends AppCompatActivity {
 
     public void openChat(){
         Intent intent = new Intent(this, ChatBoxActivity.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
         startActivity(intent);
     }
 

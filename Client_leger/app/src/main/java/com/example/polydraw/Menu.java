@@ -52,10 +52,6 @@ public class Menu extends AppCompatActivity {
         firstName = intent.getStringExtra("firstName");
         lastName = intent.getStringExtra("lastName");
 
-        System.out.println("Menu player: "+ player);
-        System.out.println("Menu token: "+ token);
-        System.out.println("Menu username: "+ username);
-
         socket = new SocketIO();
         socket.init();
 
@@ -104,6 +100,10 @@ public class Menu extends AppCompatActivity {
 
     public void openPlayMenuView(){
         Intent intent = new Intent(this, PlayMenu.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
         startActivity(intent);
     }
 
@@ -140,6 +140,10 @@ public class Menu extends AppCompatActivity {
 
     public void openChat(){
         Intent intent = new Intent(this, ChatBoxActivity.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
         startActivity(intent);
     }
 

@@ -26,6 +26,12 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
     private ImageView chatButton;
     private SocketIO socket;
 
+    private String player;
+    private String token;
+    private String username;
+    private String firstName;
+    private String lastName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +40,14 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
         HttpGet task = new HttpGet();
         task.execute(SocketIO.HTTP_URL+"match/");
-
         System.out.println(SocketIO.HTTP_URL+"match/");
+
+        Intent intent = getIntent();
+        player = intent.getStringExtra("player");
+        token = intent.getStringExtra("token");
+        username = intent.getStringExtra("username");
+        firstName = intent.getStringExtra("firstName");
+        lastName = intent.getStringExtra("lastName");
 
         backButton = (Button) findViewById(R.id.backButton);
         createButton = (Button) findViewById(R.id.createButton);
@@ -76,11 +88,19 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
     public void backToPlayMenu() {
         Intent intent = new Intent(this, PlayMenu.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
         startActivity(intent);
     }
 
     public void playMultiplayerGame(){
         Intent intent = new Intent(this, WaitingRoom.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
         startActivity(intent);
     }
 
@@ -92,6 +112,10 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
     public void openChat(){
         Intent intent = new Intent(this, ChatBoxActivity.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
         startActivity(intent);
     }
 

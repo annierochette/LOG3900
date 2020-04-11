@@ -22,6 +22,12 @@ public class PlayMenu extends AppCompatActivity {
     private ImageView chatButton;
     private SocketIO socket;
 
+    private String player;
+    private String token;
+    private String username;
+    private String firstName;
+    private String lastName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +40,13 @@ public class PlayMenu extends AppCompatActivity {
         freeButton = (Button) findViewById(R.id.freeButton);
         disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
         chatButton = (ImageView) findViewById(R.id.chatButton);
+
+        Intent intent = getIntent();
+        player = intent.getStringExtra("player");
+        token = intent.getStringExtra("token");
+        username = intent.getStringExtra("username");
+        firstName = intent.getStringExtra("firstName");
+        lastName = intent.getStringExtra("lastName");
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,11 +96,19 @@ public class PlayMenu extends AppCompatActivity {
 
     public void backToMenu() {
         Intent intent = new Intent(this, Menu.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
         startActivity(intent);
     }
 
     public void goToMultiplayerGameMenu(){
         Intent intent = new Intent(this, MeleeGeneraleMenuActivity.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
         startActivity(intent);
     }
 
@@ -100,6 +121,10 @@ public class PlayMenu extends AppCompatActivity {
 
     public void openFreeGame(){
         Intent intent = new Intent(this, DrawingActivity.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
         startActivity(intent);
     }
 
@@ -111,6 +136,10 @@ public class PlayMenu extends AppCompatActivity {
 
     public void openChat(){
         Intent intent = new Intent(this, ChatBoxActivity.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
         startActivity(intent);
     }
 
