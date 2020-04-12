@@ -24,7 +24,7 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Border Background="#2364AA" Grid.ColumnSpan="6"/>
-        <TextBlock x:Name="ChatName" Grid.Column="0" Grid.ColumnSpan="4" Text="Général" FontSize="22" Foreground="White" />
+        <TextBlock x:Name="ChatName" Grid.Column="0" Grid.ColumnSpan="4" Text="Général" FontSize="22" Foreground="White" VerticalAlignment="Center"/>
         <TextBox x:Name="messageList"  Text="{Binding MessageList, UpdateSourceTrigger=PropertyChanged}" Background="White"  Grid.ColumnSpan="6" Grid.Row="1" Grid.RowSpan="3" TextChanged="messageList_TextChanged" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"></TextBox>
         <DockPanel Grid.Column="3"  >
             <StackPanel>
@@ -55,13 +55,13 @@
                 </Popup>
             </StackPanel>
         </DockPanel>
-        <ComboBox Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="100" >
+        <ComboBox Name="ListOfChannels" Grid.Column="4" Grid.ColumnSpan="2" >
             <ComboBox.ItemContainerStyle>
                 <Style TargetType="ComboBoxItem">
                     <Setter Property="Width" Value="200"/>
                 </Style>
             </ComboBox.ItemContainerStyle>
-            <ComboBoxItem>
+            <!--<ComboBoxItem>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock></TextBlock>
                 </StackPanel>
@@ -70,7 +70,7 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock></TextBlock>
                 </StackPanel>
-            </ComboBoxItem>
+            </ComboBoxItem>-->
         </ComboBox>
         <Button x:Name="SendMessage" Content="Envoyer"  Grid.Column="4" Grid.ColumnSpan="2"  Grid.Row="4" FontWeight="Bold" FontSize="16" Click="sendMessage" />
         <TextBox x:Name="MessageTextBox" Grid.Column="0" Grid.Row="4"  Grid.ColumnSpan="4" TextChanged="MessageTextBox_TextChanged" KeyDown="sendMessageOnEnter"></TextBox>
