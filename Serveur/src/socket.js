@@ -39,7 +39,7 @@ module.exports = function(http) {
       socket.on(SOCKET.CHAT.JOIN_CHANNEL, (username, channel) => {
         socket.join(channel);
 
-        playerSocket.push(socket.id, username);
+        playerSocket.set(socket.id, username);
 
         if (playersInChannel.has(channel)) {
           let players = playersInChannel.get(channel);

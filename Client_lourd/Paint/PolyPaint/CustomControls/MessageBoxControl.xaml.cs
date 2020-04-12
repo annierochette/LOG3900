@@ -18,7 +18,8 @@ namespace PolyPaint.CustomControls
         User user = User.instance;
         private AppSocket socket;
         private string _username;
-        private List<string> channels;
+        private string currentChannel;
+        private List<string> channels = new List<string>();
         public event PropertyChangedEventHandler PropertyChanged;
        
 
@@ -29,8 +30,13 @@ namespace PolyPaint.CustomControls
             _username = user.Username;
             socket = AppSocket.Instance;
             GetChatRooms();
-           
-            
+            currentChannel = "Général";
+            socket.Emit("joinChannel", user.Username, "Général");
+
+            socket.On("newChannel", (data) =>
+            {
+                GetChatRooms();
+            });
 
             socket.On("chat message", (data) =>
             {
@@ -92,9 +98,12 @@ namespace PolyPaint.CustomControls
             if (!string.IsNullOrWhiteSpace(newChannelName.Text)){
 
                 socket.Emit("joinChannel", user.Username, newChannelName.Text);
-
+                socket.Emit("leaveChannel", user.Username, currentChannel);
+                currentChannel = newChannelName.Text;
+                ChatName.Text = (newChannelName.Text).ToString();
             }
             newChannelName.Text = "";
+            
         }
 
         private void GetChatRooms()
@@ -108,8 +117,12 @@ namespace PolyPaint.CustomControls
                 {
                     foreach (var channel in temp)
                 {
+                       
+                        if(!channels.Contains(channel)) {
+                            channels.Add(channel);
                     ListOfChannels.Items.Add(channel);
-                }
+                        }
+                    }
                 });
             });
             
@@ -145,6 +158,8 @@ namespace PolyPaint.CustomControls
         {
             Console.WriteLine("Selection: " + ListOfChannels.SelectedItem);
             socket.Emit("joinChannel", user.Username, ListOfChannels.SelectedItem);
+            socket.Emit("leaveChannel", user.Username, currentChannel);
+            currentChannel = ListOfChannels.SelectedItem.ToString();
             ChatName.Text = (ListOfChannels.SelectedItem).ToString();
             
 
