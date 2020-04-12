@@ -36,7 +36,7 @@ module.exports = function(http) {
     
       socket.on(SOCKET.CHAT.JOIN_CHANNEL, (username, channel) => {
         socket.join(channel);
-
+        console.log("Channel: " + channel);
         if (playersInChannel.has(channel)) {
           let players = playersInChannel.get(channel);
           players.add(username);
@@ -70,7 +70,8 @@ module.exports = function(http) {
       });
 
       socket.on(SOCKET.CHAT.CHANNELS, () => {
-        socket.emit(SOCKET.CHAT.CHANNELS, playersInChannel.keys());
+        let channels = [...playersInChannel.keys()];
+        socket.emit(SOCKET.CHAT.CHANNELS, channels);
       });
 
       socket.on(SOCKET.CHAT.HISTORY, async (channel) => {
