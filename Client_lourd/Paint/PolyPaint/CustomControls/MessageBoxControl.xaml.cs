@@ -72,7 +72,7 @@ namespace PolyPaint.CustomControls
         {
             if (!string.IsNullOrWhiteSpace(MessageTextBox.Text))
             {
-                socket.Emit("chat message", _username, "General", MessageTextBox.Text);
+                socket.Emit("chat message", _username, ChatName.Text, MessageTextBox.Text);
             }
             MessageTextBox.Text = string.Empty;
             MessageTextBox.Focus();
@@ -143,12 +143,12 @@ namespace PolyPaint.CustomControls
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //socket.Emit("channels");
-            //socket.On("channels", (data) =>
-            //{
-            //    Newtonsoft.Json.Linq.JObject channels = (Newtonsoft.Json.Linq.JObject)data;
+            Console.WriteLine("Selection: " + ListOfChannels.SelectedItem);
+            socket.Emit("joinChannel", user.Username, ListOfChannels.SelectedItem);
+            ChatName.Text = (ListOfChannels.SelectedItem).ToString();
             
-            //});
+
+
         }
     }
 }
