@@ -153,10 +153,13 @@
     </ApplicationDefinition>
     <Compile Include="Convertisseurs\Convertisseurs.cs" />
     <Compile Include="Convertisseurs\StylusPointConverter.cs" />
+    <Compile Include="Convertisseurs\SVGConverter.cs" />
     <Compile Include="CustomControls\TimerControl.xaml.cs">
       <DependentUpon>TimerControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modeles\Drawings.cs" />
     <Compile Include="Modeles\Editeur.cs" />
+    <Compile Include="Modeles\Game.cs" />
     <Compile Include="Modeles\Message.cs" />
     <Compile Include="Modeles\User.cs" />
     <Compile Include="Modeles\Word.cs" />
@@ -185,8 +188,8 @@
     <Compile Include="Vues\DrawingCreation\NewGameForm.xaml.cs">
       <DependentUpon>NewGameForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Vues\DrawingCreation\QuickDrawSuggestion.xaml.cs">
-      <DependentUpon>QuickDrawSuggestion.xaml</DependentUpon>
+    <Compile Include="CustomControls\QuickDrawSuggestionControl.xaml.cs">
+      <DependentUpon>QuickDrawSuggestionControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vues\FenetreDessin.xaml.cs">
       <DependentUpon>FenetreDessin.xaml</DependentUpon>
@@ -265,7 +268,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Vues\DrawingCreation\QuickDrawSuggestion.xaml">
+    <Page Include="CustomControls\QuickDrawSuggestionControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -6,7 +6,7 @@ const SAMPLE_SIZE = 10;
 
 exports.getRandomDrawings = async function(req, res) {
     try {
-        let drawings = await quickdraw.downloadRandomDrawings(1, SAMPLE_SIZE);
+        let drawings = await quickdraw.downloadRandomDrawings(SAMPLE_SIZE, 1);
         res.status(HTTP.STATUS.OK).send({ drawings });
     } catch (error) {
         res.status(HTTP.STATUS.BAD_REQUEST).send(error);

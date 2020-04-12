@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="PolyPaint.CustomControls.QuickDrawSuggestionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PolyPaint.CustomControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="#4CAFE0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border x:Name="inkPresBorder" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="7" Grid.RowSpan="7" Background="white" Margin="38,4,51,37">
+            <InkPresenter Name="inkPres"
+         Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="5" Grid.RowSpan="6" Margin="36,0,-36,0"  />
+        </Border>
+        <Label x:Name="suggestedWord" Content="Mot suggéré: " HorizontalAlignment="Right" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="7" Grid.RowSpan="1" Grid.Column="1"   FontSize="18" />
+        <Grid>
+        <TextBlock x:Name="wordToGuess" Text="{Binding SuggestedWord}" Grid.ColumnSpan="2" Grid.Row="7" Grid.RowSpan="1" Grid.Column="3" Foreground="AntiqueWhite" FontWeight="Bold" FontFamily="Ink Free" FontSize="1" HorizontalAlignment="Left" VerticalAlignment="Center"
+         TextDecorations="{x:Null}" />
+        </Grid>
+        <Button x:Name="previous" RenderTransformOrigin="7.528,4.512" Margin="32,0,56,11" Grid.RowSpan="3" Grid.Row="3" Background="#4CAFE0" Grid.ColumnSpan="2" Click="previous_Click"/>
+        <Button x:Name="next" RenderTransformOrigin="7.528,4.512" Margin="53,10,35,1" Grid.RowSpan="3" Grid.ColumnSpan="2" Grid.Column="7" Grid.Row="3" Background="#4CAFE0" Click="next_Click"/>
+        <Path Fill="Black" Data="M 0 0 L -30 30 L 0 60 Z" RenderTransformOrigin="21.667,4.811" Stretch="Fill" Grid.ColumnSpan="2" Margin="24.687,5.507,73.313,19.493" Grid.Row="3" Grid.RowSpan="3"/>
+        <Path Fill="Black" Data="M 0 0 L 30 30 L 0 60 Z" RenderTransformOrigin="21.667,4.811" Stretch="Fill" Grid.Column="7" Margin="53,10,45,15" Grid.Row="3" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
+    </Grid>
+</UserControl>

@@ -58,6 +58,11 @@ namespace PolyPaint.Vues
                 if (HasAtleastOneClue)
                 {
                     save.IsEnabled = true;
+                    importer.IsEnabled = true;
+                    if (!string.IsNullOrWhiteSpace(Svg) || strokes.Count > 0)
+                    {
+                        sendGame.IsEnabled = true;
+                    }
                 }
             }
             else
@@ -72,13 +77,17 @@ namespace PolyPaint.Vues
         {
 
             inkCanvas.Visibility = Visibility.Visible;
-            NewDrawingForm.Visibility = Visibility.Hidden;
+            NewDrawingForm.Visibility = Visibility.Collapsed;
 
-            save.Visibility = Visibility.Hidden;
+            save.Visibility = Visibility.Collapsed;
             confirm.Visibility = Visibility.Visible;
 
-            cancel_button.Visibility = Visibility.Hidden;
+            cancel_button.Visibility = Visibility.Collapsed;
             back_button.Visibility = Visibility.Visible;
+
+            quickdraw.Visibility = Visibility.Collapsed;
+            importer.Visibility = Visibility.Collapsed;
+            sendGame.Visibility = Visibility.Collapsed;
         }
 
         private void back_button_Click(object sender, RoutedEventArgs e)
@@ -94,9 +103,17 @@ namespace PolyPaint.Vues
 
             importer.Visibility = Visibility.Visible;
             quickdraw.Visibility = Visibility.Visible;
+            quickdrawPage.Visibility = Visibility.Collapsed;
+            ImageImport.Visibility = Visibility.Collapsed;
+
+            sendGame.Visibility = Visibility.Visible;
+
+            cancel_button2.Visibility = Visibility.Collapsed;
+            save_button.Visibility = Visibility.Collapsed;
+            updateForm.Visibility = Visibility.Collapsed;
         }
 
-        
+
         private void confirm_drawing(object sender, RoutedEventArgs e)
         {
             //((DrawingWindowViewModel)(this.DataContext)).AfficherTraitsClassique();
@@ -220,42 +237,24 @@ namespace PolyPaint.Vues
         }
 
 
-        private async void SendNewGame(object sender, RoutedEventArgs e)
+        private void SendNewGame(object sender, RoutedEventArgs e)
         {
-            List<string> clues = getClues();
+            quickdrawPage.Visibility = Visibility.Collapsed;
+            NewDrawingForm.Visibility = Visibility.Visible;
 
-            if (String.IsNullOrEmpty(Svg))
-            {
-                Svg = SVGConverter.ConvertDrawingToSVG(strokes);
-            }
+            save.Visibility = Visibility.Visible;
+            confirm.Visibility = Visibility.Collapsed;
+            send.Visibility = Visibility.Collapsed;
+            inkCanvas.Visibility = Visibility.Hidden;
+            modifyDrawing_button.Visibility = Visibility.Collapsed;
 
-            try
-            {
-                var HttpClient = new HttpClient();
-                var infos = new Game
-                {
-                    name = Word.Text,
-                    clues = clues,
-                    data = Svg
-                };
-                var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
-                var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            cancel_button.Visibility = Visibility.Visible;
+            back_button.Visibility = Visibility.Collapsed;
+            quickdraw.Visibility = Visibility.Visible;
+            importer.Visibility = Visibility.Visible;
 
-                var res = await HttpClient.PostAsync("http://localhost:5050/games", httpContent);
-                if (res.Content != null)
-                {
-                    var responseContent = await res.Content.ReadAsStringAsync();
-                    Console.WriteLine(responseContent);
-                    System.Windows.Forms.MessageBox.Show( "Image bien sauvegardée!", "Caption", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
 
-            strokes.Clear();                   
+            sendGame.Visibility = Visibility.Visible;
         }
 
         public class Game
@@ -285,7 +284,14 @@ namespace PolyPaint.Vues
                 HasAtleastOneClue = true;
                 DeleteClue.IsEnabled = true;
                 if (IsWordWritten)
+                {
                     save.IsEnabled = true;
+                    importer.IsEnabled = true;
+                    if (!string.IsNullOrWhiteSpace(Svg) || strokes.Count > 0)
+                    {
+                        sendGame.IsEnabled = true;
+                    }
+                }
             }
             Clue.Text = "";
         }
@@ -303,7 +309,9 @@ namespace PolyPaint.Vues
             }
             if (!ListOfClues.HasItems) { 
                 DeleteClue.IsEnabled = false;
-                 save.IsEnabled = false;
+                save.IsEnabled = false;
+                sendGame.IsEnabled = false;
+                importer.IsEnabled = false;
             }
 
         }
@@ -316,14 +324,10 @@ namespace PolyPaint.Vues
             PropertyChanged(this, new PropertyChangedEventArgs(property));
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void inkCanvas_StrokeCollected(object sender, InkCanvasStrokeCollectedEventArgs e)
         {
             confirm.IsEnabled = true;
+            sendGame.IsEnabled = false;
         }
 
 
@@ -400,7 +404,11 @@ namespace PolyPaint.Vues
                 refreshMatrix();
                 vectorize();
                 Svg = Potrace.Export2SVG(ListOfCurveArray, Bitmap.Width, Bitmap.Height);
-                Console.WriteLine("Svg: " + Svg);
+
+                if (HasAtleastOneClue && !string.IsNullOrWhiteSpace(Word.Text))
+                {
+                    save.IsEnabled = true;
+                }
             }
         }
 
@@ -412,6 +420,70 @@ namespace PolyPaint.Vues
             cancel_button.Visibility = Visibility.Collapsed;
             quickdraw.Visibility = Visibility.Collapsed;
             ImageImport.Visibility = Visibility.Visible;
+            back_button.Visibility = Visibility.Collapsed;
+            sendGame.Visibility = Visibility.Collapsed;
+        }
+
+        private void quickdraw_Click(object sender, RoutedEventArgs e)
+        {
+            quickdrawPage.Visibility = Visibility.Visible;
+            NewDrawingForm.Visibility = Visibility.Collapsed;
+
+            save.Visibility = Visibility.Collapsed;
+            confirm.Visibility = Visibility.Collapsed;
+            send.Visibility = Visibility.Collapsed;
+
+            cancel_button.Visibility = Visibility.Collapsed;
+            back_button.Visibility = Visibility.Visible;
+            quickdraw.Visibility = Visibility.Collapsed;
+            importer.Visibility = Visibility.Collapsed;
+
+            sendGame.Visibility = Visibility.Collapsed;
+            updateForm.Visibility = Visibility.Visible;
+        }
+
+        private async void sendGame_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> clues = getClues();
+
+            if (String.IsNullOrEmpty(Svg))
+            {
+                Svg = SVGConverter.ConvertDrawingToSVG(strokes);
+            }
+
+            try
+            {
+                var HttpClient = new HttpClient();
+                var infos = new Game
+                {
+                    name = Word.Text,
+                    clues = clues,
+                    data = Svg
+                };
+                var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
+                var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var res = await HttpClient.PostAsync("http://localhost:5050/games", httpContent);
+                if (res.Content != null)
+                {
+                    var responseContent = await res.Content.ReadAsStringAsync();
+                    Console.WriteLine(responseContent);
+                    System.Windows.Forms.MessageBox.Show("Image bien sauvegardée!", "Caption", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+
+            strokes.Clear();
+        }
+
+        private void updateForm_Click(object sender, RoutedEventArgs e)
+        {
+            Word.Text = quickdrawPage.getWord();
+            strokes = quickdrawPage.getGameStrokes();
+            back_button_Click(sender, e);
         }
     }
 }

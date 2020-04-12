@@ -37,7 +37,6 @@
         <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="5" >
             <Button Height="50" Width="220" Margin="20" Content="DESSIN MANUEL" Background="#FFFF7F11" BorderThickness="2" FontSize="18"  Foreground="White" Command="{Binding GoToNewDrawingWindow}"/>
             <Button Height="50" Width="220" Margin="20" Content="IMPORTER UN FICHIER" Background="#FFFF7F11" BorderThickness="2" FontSize="18"  Foreground="White" Command="{Binding GoToImageImport}"/>
-            <Button Height="50" Width="220" Margin="20" Content="BANQUE DE DESSINS" Background="#FFFF7F11" BorderThickness="2" FontSize="18"   Foreground="White" Command="{Binding GoToQuickDrawSuggestion}"/>
         </StackPanel>
         <Button Content="RETOUR" FontFamily="Microsoft JhengHei UI" FontWeight="Bold" Height="35" Foreground="white" Background="#2364AA" Width="80" Command="{Binding GoToGameMenu}" HorizontalAlignment="Center" />
     </Grid>

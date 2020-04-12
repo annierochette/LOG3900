@@ -27,7 +27,8 @@ exports.downloadCategory = function (category, amount) {
                 let keepDrawing = Math.random() <= PROBABILITY;
 
                 if (keepDrawing) {
-                  drawings.push(obj);
+                  resolve(obj);
+                  res.pause();
                 }
               } 
 

@@ -33,13 +33,13 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <InkCanvas x:Name="inkCanvas" Strokes="{Binding Traits}" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Loaded="DrawingWindow_Loaded" Grid.Column="1" Visibility="Hidden" StrokeCollected="inkCanvas_StrokeCollected"/>
+        <InkCanvas x:Name="inkCanvas" Strokes="{Binding Traits}" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Loaded="DrawingWindow_Loaded" Grid.Column="1" Visibility="Collapsed" StrokeCollected="inkCanvas_StrokeCollected"/>
         <Border x:Name="inkPresenterBorder" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Grid.Column="1" Background="White" Visibility="Collapsed">
             <InkPresenter  x:Name="inkPresenter" Strokes="{Binding NouveauxTraits}" Grid.ColumnSpan="5" Grid.RowSpan="7" Loaded="DrawingWindow_Loaded" Grid.Column="1"  >
             </InkPresenter>
         </Border>
 
-        <GroupBox BorderThickness="0" Name="NewDrawingForm" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Grid.Column="1" BorderBrush="#FF004066"  >
+        <GroupBox BorderThickness="0" Name="NewDrawingForm" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Grid.Column="1" BorderBrush="#FF004066" Visibility="Visible">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="11*"/>
@@ -110,19 +110,26 @@
                 <Button  Name="uploadImage" VerticalAlignment="Top" Grid.Row="7" Grid.RowSpan="2" Grid.ColumnSpan="2"
         Grid.Column="1" Click="btnLoad_Click" Background="#FFFF7F11" BorderThickness="2" FontSize="24"  >Télécharger</Button>
                 <Button x:Name="cancel_button2" Content="RETOUR" Grid.Column="1" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="Red" BorderThickness="2" FontSize="24" Foreground="White" RenderTransformOrigin="0.522,0.521" Click="back_button_Click" />
-                <Button x:Name="save_button" Content="ENREGISTRER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="24" Foreground="White" RenderTransformOrigin="0.522,0.521" Command="{Binding GoToNewGameForm}" Click="SendNewGame" />
+                <Button x:Name="save_button" Content="ENREGISTRER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="24" Foreground="White" RenderTransformOrigin="0.522,0.521" Command="{Binding GoToGameCreator}" Click="sendGame_Click" />
             </Grid>
         </GroupBox>
 
-        <Button x:Name="cancel_button" Content="ANNULER" Grid.Column="1" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="Red" BorderThickness="2" FontSize="24"  Foreground="White" RenderTransformOrigin="0.522,0.521" Command="{Binding GoToGameCreator}" />
-        <Button x:Name="modifyDrawing_button" Content="MODIFIER" Grid.Column="1" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="Red" BorderThickness="2" FontSize="24" Foreground="White" RenderTransformOrigin="0.522,0.521" Visibility="Hidden" Click="modifyDrawing_button_Click"/>
-        <Button x:Name="back_button" Content="RETOUR" Grid.Column="1" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="Red" BorderThickness="2" FontSize="24"  Foreground="White" RenderTransformOrigin="0.522,0.521" Visibility="Hidden" Click="back_button_Click"/>
+        <GroupBox Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" Grid.Column="1">
+            <custom:QuickDrawSuggestionControl x:Name="quickdrawPage" Visibility="Collapsed"/>
+        </GroupBox>
 
-        <Button x:Name="save" Content="DESSINER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="24"  Foreground="White" RenderTransformOrigin="0.522,0.521"  Click="save_form" IsEnabled="False"/>
-        <Button x:Name="confirm" Content="CONFIRMER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="24"  Foreground="White" RenderTransformOrigin="0.522,0.521" Click="confirm_drawing" Visibility="Hidden" IsEnabled="False"/>
-        <Button x:Name="send" Content="ENREGISTRER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="24"  Foreground="White" RenderTransformOrigin="0.522,0.521"  Command="{Binding GoToGameCreator}" Visibility="Hidden" Click="SendNewGame"/>
-        
-        <Button x:Name ="importer" Grid.ColumnSpan="2" Content="Importer" Grid.Column="6" HorizontalAlignment="Left" Margin="79,10,0,11" Grid.Row="5" Width="75" Click="ImporterImage"/>
-        <Button x:Name ="quickdraw" Content="Quickdraw" Grid.Column="7" HorizontalAlignment="Left" Margin="10,31,0,0" Grid.Row="6" VerticalAlignment="Top" Width="75" Height="41" Grid.RowSpan="2"/>
+        <Button x:Name="cancel_button" Content="ANNULER" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="Red" BorderThickness="2" FontSize="24"  Foreground="White" RenderTransformOrigin="0.522,0.521" Command="{Binding GoToGameCreator}" Margin="0,29,78,28" Grid.Column="1" />
+        <Button x:Name="modifyDrawing_button" Content="MODIFIER" Grid.Column="1" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="Red" BorderThickness="2" FontSize="24" Foreground="White" RenderTransformOrigin="0.522,0.521" Visibility="Collapsed" Click="modifyDrawing_button_Click"/>
+        <Button x:Name="back_button" Content="RETOUR" Grid.Column="1" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="Red" BorderThickness="2" FontSize="24"  Foreground="White" RenderTransformOrigin="0.522,0.521" Visibility="Collapsed" Click="back_button_Click"/>
+
+        <Button x:Name="confirm" Content="CONFIRMER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="24"  Foreground="White" RenderTransformOrigin="0.522,0.521" Click="confirm_drawing" Visibility="Collapsed" IsEnabled="False"/>
+        <Button x:Name="send" Content="ACCEPTER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="24"  Foreground="White" RenderTransformOrigin="0.522,0.521" Visibility="Collapsed" Command="{Binding GoToGameCreator}" Click="sendGame_Click"/>
+
+        <Button x:Name="updateForm" Content="ACCEPTER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="24"  Foreground="White" RenderTransformOrigin="0.522,0.521" Visibility="Collapsed" Click="updateForm_Click"/>
+
+        <Button x:Name="save" IsEnabled="False"  Content="DESSINER" Grid.Column="1"  Grid.Row="7" Grid.ColumnSpan="2"  Width="100" Background="#FFB3C646" BorderThickness="2" FontSize="16"  Foreground="White" RenderTransformOrigin="0.522,0.521"  Click="save_form" Margin="26,0,51.667,10"/>
+        <Button x:Name ="importer" IsEnabled="False" Content="IMPORTER" Grid.Column="3"  Grid.Row="7" Grid.ColumnSpan="2"  Width="100" Background="#FFB3C646" BorderThickness="2" FontSize="16"  Foreground="White" RenderTransformOrigin="0.522,0.521" Margin="0,0,78,10" Click="ImporterImage"/>
+        <Button x:Name ="quickdraw" Content="QUICKDRAW" Grid.Column="4"  Grid.Row="7" Grid.ColumnSpan="2"  Width="100" Background="#FFB3C646" BorderThickness="2" FontSize="16"  Foreground="White" RenderTransformOrigin="0.522,0.521" Margin="54,0,24,10" Click="quickdraw_Click"/>
+        <Button x:Name="sendGame" Content="ENREGISTRER" IsEnabled="false" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="24"  Foreground="White" RenderTransformOrigin="0.522,0.521" Command="{Binding GoToGameCreator}" Margin="68,29,10,28" Grid.Column="3" Click="sendGame_Click"/>
     </Grid>
 </UserControl>
