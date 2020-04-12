@@ -12,14 +12,14 @@ namespace PolyPaint.Utilitaires
         private Socket socket;
         
 
-        private static readonly string URL = "http://127.0.0.1";
-        private static readonly string PORT = ":5050";
+        private static readonly string URL = "https://fais-moi-un-dessin.herokuapp.com/";
+        //private static readonly string PORT = ":5050";
 
         public static AppSocket Instance { get; } = new AppSocket();
 
         private AppSocket()
         {
-            socket = IO.Socket(URL + PORT);
+            socket = IO.Socket(URL);
         }
 
         ~AppSocket()

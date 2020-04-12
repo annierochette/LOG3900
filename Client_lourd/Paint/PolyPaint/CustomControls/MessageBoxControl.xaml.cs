@@ -121,7 +121,7 @@ namespace PolyPaint.CustomControls
                        
                         if(!channels.Contains(channel)) {
                             channels.Add(channel);
-                    ListOfChannels.Items.Add(channel);
+                            ListOfChannels.Items.Add(channel);
                         }
                     }
                 });
