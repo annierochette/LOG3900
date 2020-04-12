@@ -6,6 +6,12 @@
              xmlns:custom="clr-namespace:PolyPaint.CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="900">
+
+    
+        <UserControl.Resources >
+            <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        </UserControl.Resources>
+    
     <Grid Background="#4CAFE0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -32,16 +38,16 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="0" Grid.ColumnSpan="9" Grid.Row="2" Grid.RowSpan="7" Background="#FFFDF9F9">
-            <InkPresenter ClipToBounds="True" Name="surfaceDessin" 
+            <InkPresenter Visibility="{Binding ActivateDrawing, Converter={StaticResource BoolToVisibilityConverter}}" ClipToBounds="True" Name="surfaceDessin" 
                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"                           
                                                                         
                            Strokes="{Binding Path=Traits, Mode=OneTime}">
 
             </InkPresenter>
         </StackPanel>
-       
-            <TextBox x:Name="answerTextBox" Height="50" TextWrapping="Wrap" Grid.Column="2" Grid.Row="10" Grid.ColumnSpan="3" FontSize="36"/>
-        <Button x:Name="BtnSend" Content="Envoyer" Height="50" Background="#FFFF7F11" Grid.Column="5" Grid.Row="10"  FontSize="24" FontFamily="Ink Free" Foreground="White"/>
+
+        <TextBox x:Name="answerTextBox" Height="50" Visibility="{Binding ActivateDrawing, Converter={StaticResource BoolToVisibilityConverter}}" TextWrapping="Wrap" Grid.Column="2" Grid.Row="10" Grid.ColumnSpan="3" FontSize="36"/>
+        <Button x:Name="BtnSend" Content="Envoyer" Visibility="{Binding ActivateDrawing, Converter={StaticResource BoolToVisibilityConverter}}" Height="50" Background="#FFFF7F11" Grid.Column="5" Grid.Row="10"  FontSize="24" FontFamily="Ink Free" Foreground="White"/>
        
         <custom:TimerControl x:Name="timer"  Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="2"  Loaded="TimerControl_Loaded" VerticalAlignment="Top" />
         <Button x:Name="button" Width="75" Height="40" Command="{Binding GoToGameModeMenu}"  HorizontalAlignment="Center">

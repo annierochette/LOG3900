@@ -5,6 +5,12 @@ namespace PolyPaint.VueModeles
 {
     class GuessingViewModel : BaseViewModel, IPageViewModel
     {
+        public GuessingViewModel()
+        {
+            ActivateDrawing = false;
+        }
+
+        private bool _drawing;
         public void assignDrawingView()
         {
             Mediator.Notify("GoToFreeForAll", "");
@@ -26,5 +32,16 @@ namespace PolyPaint.VueModeles
                 }));
             }
         }
+
+        public bool ActivateDrawing
+        {
+            get { return _drawing; }
+            private set
+            {
+                _drawing= value;
+                
+            }
+        }
     }
 }
+
