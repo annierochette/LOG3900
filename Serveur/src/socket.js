@@ -146,7 +146,7 @@ module.exports = function(http) {
 
       // Match
       socket.on(SOCKET.MATCH.JOIN_MATCH, (channel, username) => {
-        if ( matchManager.getPlayerInWaitingRoom(matchId).length < 4) {
+        if ( matchManager.getPlayerInWaitingRoom(channel).length < 4) {
           let playersInWaitingRoom = matchManager.addPlayerInWaitingRoom(channel, username);
           io.emit(SOCKET.MATCH.JOIN_MATCH, playersInWaitingRoom);
         } else {
