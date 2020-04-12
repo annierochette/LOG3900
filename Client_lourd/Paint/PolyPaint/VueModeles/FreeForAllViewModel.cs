@@ -164,7 +164,7 @@ namespace PolyPaint.VueModeles
         {
             if (e.PropertyName == "CouleurSelectionnee")
             {
-                socket.Emit(SocketEvents.STROKE_COLOR, "General", editeur.CouleurSelectionnee);
+                socket.Emit(SocketEvents.STROKE_COLOR, "General", Convert.ToInt64(editeur.CouleurSelectionnee.Substring(1), 16));
                 AttributsDessin.Color = (Color)ColorConverter.ConvertFromString(editeur.CouleurSelectionnee);
             }
             else if (e.PropertyName == "OutilSelectionne")
