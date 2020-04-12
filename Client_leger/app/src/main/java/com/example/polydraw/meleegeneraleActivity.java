@@ -20,6 +20,8 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
+import com.example.polydraw.Socket.SocketIO;
+import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 
@@ -30,6 +32,7 @@ import yuku.ambilwarna.AmbilWarnaDialog; //https://codinginflow.com/tutorials/an
 public class meleegeneraleActivity extends AppCompatActivity {
     public DrawingCanvas drawingCanvas;
     public GuessingCanvas guessingCanvas;
+    private SocketIO socket;
 
     public Button eraseButton;
     public Button drawButton;
@@ -91,6 +94,21 @@ public class meleegeneraleActivity extends AppCompatActivity {
         username = intent.getStringExtra("username");
         firstName = intent.getStringExtra("firstName");
         lastName = intent.getStringExtra("lastName");
+
+        socket.getSocket().emit("joinChannel", "");
+
+        socket.getSocket().on("joinGame",new Emitter.Listener() {
+            @Override
+            public void call(final Object... args) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String data = (String) args[0];
+                        Toast.makeText(meleegeneraleActivity.this, data, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
 
     }
 

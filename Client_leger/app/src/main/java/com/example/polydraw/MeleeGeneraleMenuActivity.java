@@ -44,6 +44,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
     matchListAdapter adapter;
     ArrayList<String> matchList;
+    ArrayList<String> matchListId;
     public RecyclerView myRecyclerView;
 
     private String player;
@@ -76,6 +77,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         chatButton = (ImageView) findViewById(R.id.chatButton);
 
         matchList = new ArrayList<>();
+        matchListId = new ArrayList<>();
         myRecyclerView = (RecyclerView) findViewById(R.id.matchlist);
         /*adapter = new matchListAdapter(new ArrayList<String>());
         myRecyclerView.setAdapter(adapter);*/
@@ -182,6 +184,8 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
                         JSONObject oneObject = jsonArray.getJSONObject(i);
                         // Pulling items from the array
                         String matchName = oneObject.getString("name");
+                        String matchId = oneObject.getString("_id");
+                        matchListId.add(matchId);
                         publishProgress(matchName);
 
                     } catch (JSONException e) {
@@ -210,7 +214,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
 
                 int statusCode = urlConnection.getResponseCode();
-                System.out.println(statusCode);
+                System.out.println("Status GET liste des parties: "+statusCode);
 
                 if (statusCode < 299) { // success
                     BufferedReader in = new BufferedReader(new InputStreamReader(

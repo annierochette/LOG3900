@@ -54,6 +54,7 @@ public class matchListAdapter extends RecyclerView.Adapter<matchListAdapter.MyVi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), WaitingRoom.class);
+                intent.putExtra("matchName", s);
                 v.getContext().startActivity(intent);
 
             }

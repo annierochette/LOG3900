@@ -85,7 +85,6 @@ public class DrawingCanvas extends View {
                 }
             }
         }
-        System.out.println(mCanvas.getWidth()+" "+mCanvas.getHeight());
     }
 
     @Override

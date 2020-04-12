@@ -9,8 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.polydraw.Socket.SocketIO;
+import com.github.nkzawa.emitter.Emitter;
 
 public class WaitingRoom extends AppCompatActivity {
 
@@ -21,7 +23,7 @@ public class WaitingRoom extends AppCompatActivity {
     private SocketIO socket;
     private int nbPlayers = 2; //nb d'utilisateurs qui ont joint la partie
 
-    private String channelName = "test12345"; //mettre nom de la partie
+    private String channelName;
 
     private String player;
     private String token;
@@ -42,7 +44,23 @@ public class WaitingRoom extends AppCompatActivity {
         firstName = intent.getStringExtra("firstName");
         lastName = intent.getStringExtra("lastName");
 
+        channelName = intent.getStringExtra("matchName");
+        System.out.println("je suis connecté à: "+channelName);
+
         socket.getSocket().emit("joinChannel", channelName);
+
+        socket.getSocket().on("joinGame",new Emitter.Listener() {
+            @Override
+            public void call(final Object... args) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String data = (String) args[0];
+                        Toast.makeText(WaitingRoom.this, data, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
 
 
         playButton = (Button) findViewById(R.id.playButton);
