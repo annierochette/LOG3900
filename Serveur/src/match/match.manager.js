@@ -85,6 +85,7 @@ class MatchManager {
     constructor(io) {
         this.matches = new Map();
         this.io = io;
+        this.waitingRoom = new Map();
     }
 
     count() {
@@ -121,6 +122,16 @@ class MatchManager {
 
     async nextRound(matchId) {
         return await this.matches.get(matchId).nextRound();
+    }
+
+    addPlayerToWaitingRoom(matchId, username) {
+        if (this.waitingRoom.has(matchId)) {
+            this.waitingRoom.get(matchId).push(username);
+        } else {
+            this.waitingRoom.set(matchId, [username]);
+        }
+
+        return this.waitingRoom.get(matchId); 
     }
 }
 

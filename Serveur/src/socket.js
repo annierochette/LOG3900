@@ -39,7 +39,7 @@ module.exports = function(http) {
       socket.on(SOCKET.CHAT.JOIN_CHANNEL, (username, channel) => {
         socket.join(channel);
 
-        playerSocket.push(socket.id, username);
+        playerSocket.set(socket.id, username);
 
         if (playersInChannel.has(channel)) {
           let players = playersInChannel.get(channel);
@@ -103,13 +103,6 @@ module.exports = function(http) {
           players.delete(username);
         }
 
-        if (players.size == 0) {
-          playersInChannel.delete(channel);
-          io.emit(SOCKET.CHAT.DELETE_CHANNEL, channel);
-        } else {
-          playersInChannel.set(channel, players);
-        }
-
         channelsSubscribed.delete(player);
         playerSocket.delete(socket.id);
 
@@ -152,10 +145,9 @@ module.exports = function(http) {
       });
 
       // Match
-      socket.on(SOCKET.MATCH.JOIN_MATCH, (channel, nbPlayers) => {
-        console.log("joining game")
-        let  nbPlay = { "nbPlayers": "1" };
-        io.emit(SOCKET.MATCH.JOIN_MATCH, nbPlay);
+      socket.on(SOCKET.MATCH.JOIN_MATCH, (channel, username) => {
+        let playersInWaitingRoom = matchManager.addPlayerInWaitingRoom(channel, username);
+        io.emit(SOCKET.MATCH.JOIN_MATCH, playersInWaitingRoom);
       });
 
       socket.on(SOCKET.MATCH.ANSWER, (matchId, answer) => {
