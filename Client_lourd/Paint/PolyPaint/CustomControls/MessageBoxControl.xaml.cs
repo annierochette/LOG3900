@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System;
 using PolyPaint.Modeles;
 using PolyPaint.Utilitaires;
+using System.Collections.Generic;
 
 namespace PolyPaint.CustomControls
 {
@@ -26,10 +27,13 @@ namespace PolyPaint.CustomControls
             InitializeComponent();
             _username = user.Username;
             socket = AppSocket.Instance;
+            GetChatRoom();
             
+
             socket.On("chat message", (data) =>
             {
                 Newtonsoft.Json.Linq.JObject obj = (Newtonsoft.Json.Linq.JObject)data;
+                Console.WriteLine("channel: " + obj);
                 Newtonsoft.Json.Linq.JToken un = obj.GetValue("username");
                 Newtonsoft.Json.Linq.JToken ts = obj.GetValue("timestamp");
                 Newtonsoft.Json.Linq.JToken ms = obj.GetValue("message");
@@ -81,7 +85,45 @@ namespace PolyPaint.CustomControls
             }
         }
 
-   
+        private void AddChatRoom(object sender, RoutedEventArgs e)
+        {
+            NewChannelPopup.IsOpen = false;
+            if (!string.IsNullOrWhiteSpace(newChannelName.Text)){
+
+                socket.Emit("joinChannel", user.Username, newChannelName.Text);
+                socket.Emit("channels");
+                socket.On("channels", (data) =>
+                {
+                    Newtonsoft.Json.Linq.JObject obj = (Newtonsoft.Json.Linq.JObject)data;
+                    Console.WriteLine("channel: " + obj);
+
+
+                });
+            }
+            newChannelName.Text = "";
+        }
+
+        private void GetChatRoom()
+        {
+            socket.Emit("channels");
+            socket.On("channels", (data) =>
+            {
+                Newtonsoft.Json.Linq.JObject channels = (Newtonsoft.Json.Linq.JObject)data;
+                Console.WriteLine(channels);
+            });
+
+        }
+
+        public void DisplayPopup(object sender, RoutedEventArgs e)
+        {
+            NewChannelPopup.IsOpen = true;
+        }
+
+        public void HidePopup(object sender, RoutedEventArgs e)
+        {
+            NewChannelPopup.IsOpen = false;
+            newChannelName.Text = "";
+        }
 
         private void messageList_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -96,6 +138,16 @@ namespace PolyPaint.CustomControls
          protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            socket.Emit("channels");
+            socket.On("channels", (data) =>
+            {
+                Newtonsoft.Json.Linq.JObject channels = (Newtonsoft.Json.Linq.JObject)data;
+                Console.WriteLine(channels);
+            });
         }
     }
 }
