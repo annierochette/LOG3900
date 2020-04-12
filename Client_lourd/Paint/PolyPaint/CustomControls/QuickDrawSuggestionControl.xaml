@@ -31,18 +31,36 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Border x:Name="inkPresBorder" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="7" Grid.RowSpan="7" Background="white" Margin="38,4,51,37">
-            <InkPresenter Name="inkPres"
-         Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="5" Grid.RowSpan="6" Margin="36,0,-36,0"  />
+        <Border x:Name="inkPresBorder" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="7" Grid.RowSpan="8" Background="white" Margin="38,4,51,37">
+            <InkPresenter Name="inkPres" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="5" Grid.RowSpan="6" Margin="36,0,-36,0"  />
         </Border>
-        <Label x:Name="suggestedWord" Content="Mot suggéré: " HorizontalAlignment="Right" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="7" Grid.RowSpan="1" Grid.Column="1"   FontSize="18" />
+        <Label x:Name="suggestedWord" Content="Mot suggéré: " HorizontalAlignment="Right" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="8" Grid.RowSpan="2" Grid.Column="1"   FontSize="18" Margin="0,28,0,20" />
+        <Label x:Name="wordToGuess" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="8" Grid.RowSpan="2" Grid.Column="3"   FontSize="18" />
         <Grid>
-        <TextBlock x:Name="wordToGuess" Text="{Binding SuggestedWord}" Grid.ColumnSpan="2" Grid.Row="7" Grid.RowSpan="1" Grid.Column="3" Foreground="AntiqueWhite" FontWeight="Bold" FontFamily="Ink Free" FontSize="1" HorizontalAlignment="Left" VerticalAlignment="Center"
-         TextDecorations="{x:Null}" />
+            <Button x:Name ="next" Click="next_Click" Height="100" Width="60" Margin="875,240,-846,-299">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <StackPanel Orientation="Horizontal">
+                                <Polygon Points= "0,0 60,50, 0,100" Stroke="Black" Fill="Black" />
+                            </StackPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </Grid>
-        <Button x:Name="previous" RenderTransformOrigin="7.528,4.512" Margin="32,0,56,11" Grid.RowSpan="3" Grid.Row="3" Background="#4CAFE0" Grid.ColumnSpan="2" Click="previous_Click"/>
-        <Button x:Name="next" RenderTransformOrigin="7.528,4.512" Margin="53,10,35,1" Grid.RowSpan="3" Grid.ColumnSpan="2" Grid.Column="7" Grid.Row="3" Background="#4CAFE0" Click="next_Click"/>
-        <Path Fill="Black" Data="M 0 0 L -30 30 L 0 60 Z" RenderTransformOrigin="21.667,4.811" Stretch="Fill" Grid.ColumnSpan="2" Margin="24.687,5.507,73.313,19.493" Grid.Row="3" Grid.RowSpan="3"/>
-        <Path Fill="Black" Data="M 0 0 L 30 30 L 0 60 Z" RenderTransformOrigin="21.667,4.811" Stretch="Fill" Grid.Column="7" Margin="53,10,45,15" Grid.Row="3" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
+        <Grid>
+            <Button x:Name ="previous" Click="previous_Click" Height="100" Width="60" Margin="55,240,-26,-299" Visibility="Hidden">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <StackPanel Orientation="Horizontal">
+                                <Polygon Points= "60,0 0,50, 60,100" Stroke="Black" Fill="Black" />
+                            </StackPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
     </Grid>
 </UserControl>

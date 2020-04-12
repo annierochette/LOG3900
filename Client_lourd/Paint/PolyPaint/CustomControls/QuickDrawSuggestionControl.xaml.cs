@@ -31,16 +31,24 @@ namespace PolyPaint.CustomControls
 
         private void previous_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (gameShownIndex != 0)
+            if (gameShownIndex > 0)
             {
                 gameShownIndex--;
                 showNewGame(gameShownIndex);
+
+                if (gameShownIndex <= 0)
+                {
+                    previous.Visibility = System.Windows.Visibility.Hidden;
+                }
             }
         }
 
         private async void next_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-
+            if (previous.Visibility == System.Windows.Visibility.Hidden)
+            {
+                previous.Visibility = System.Windows.Visibility.Visible;
+            }
             if (gameShownIndex >= games.Count - 1)
             {
                 if (!fetching)
@@ -89,17 +97,25 @@ namespace PolyPaint.CustomControls
                 Game game = games[index];
                 inkPres.Strokes.Clear();
                 inkPres.Strokes.Add(game.ResizedStrokes(inkPresBorder.ActualWidth, inkPresBorder.ActualHeight));
-                wordToGuess.Text = game.word;
+                wordToGuess.Content = game.word;
             }
         }
 
         public string getWord()
         {
+            if (gameShownIndex >= games.Count)
+            {
+                gameShownIndex = games.Count - 1;
+            }
             return games[gameShownIndex].word;
         }
 
         public StrokeCollection getGameStrokes()
         {
+            if (gameShownIndex >= games.Count)
+            {
+                gameShownIndex = games.Count - 1;
+            }
             return games[gameShownIndex].CollapsedStrokes();
         }
     }

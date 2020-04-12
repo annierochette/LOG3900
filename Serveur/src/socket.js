@@ -97,7 +97,7 @@ module.exports = function(http) {
         socket.disconnect();
         let player = playerSocket.get(socket.id);
         let playerChannels = channelsSubscribed.get(player);
-
+        
         for (let playerChannel in playerChannels) {
           let players = playersInChannel.get(playerChannel);
           players.delete(username);

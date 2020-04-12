@@ -6,7 +6,7 @@ const mongoose = require('./db/db');
 
 const http = require('http').createServer(app);
 require("./socket")(http);
-mongoose.connect(process.env.MONGODB_URL, "svg");
+mongoose.connect(process.env.MONGODB_URL, process.env.DBNAME);
 
 app.use(morgan("combined", {
   skip: function (req, res) { return res.statusCode < HTTP.STATUS.BAD_REQUEST }

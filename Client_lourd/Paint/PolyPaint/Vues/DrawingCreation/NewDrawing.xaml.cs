@@ -419,9 +419,11 @@ namespace PolyPaint.Vues
             save.Visibility = Visibility.Collapsed;
             cancel_button.Visibility = Visibility.Collapsed;
             quickdraw.Visibility = Visibility.Collapsed;
-            ImageImport.Visibility = Visibility.Visible;
             back_button.Visibility = Visibility.Collapsed;
             sendGame.Visibility = Visibility.Collapsed;
+            ImageImport.Visibility = Visibility.Visible;
+            save_button.Visibility = Visibility.Visible;
+            cancel_button2.Visibility = Visibility.Visible;
         }
 
         private void quickdraw_Click(object sender, RoutedEventArgs e)

@@ -43,7 +43,7 @@ namespace PolyPaint.Modeles
 
         public StrokeCollection ResizedStrokes(double actualWidth, double actualHeigth)
         {
-            const double resizeFactor = 0.5;
+            const double resizeFactor = 0.75;
             StrokeCollection strokes = Strokes();
             double width = strokes.Max(stroke => stroke.StylusPoints.Max(point => point.X));
             double heigth = strokes.Max(stroke => stroke.StylusPoints.Max(point => point.Y));
