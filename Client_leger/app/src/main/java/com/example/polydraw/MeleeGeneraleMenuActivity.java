@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -164,7 +166,6 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(String... values) {
             matchList.add(values[0]);
-            System.out.println(values[0]);
             adapter = new matchListAdapter(matchList);
             myRecyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();

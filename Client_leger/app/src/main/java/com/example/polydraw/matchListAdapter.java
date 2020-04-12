@@ -1,6 +1,7 @@
 package com.example.polydraw;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,14 @@ public class matchListAdapter extends RecyclerView.Adapter<matchListAdapter.MyVi
     @Override public void onBindViewHolder(final matchListAdapter.MyViewHolder holder, final int position){
         final String s = matchList.get(position);
         holder.name.setText(s);
+        holder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), WaitingRoom.class);
+                v.getContext().startActivity(intent);
+
+            }
+        });
 
     }
 }
