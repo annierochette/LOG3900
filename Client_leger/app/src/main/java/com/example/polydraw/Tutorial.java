@@ -8,12 +8,19 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class Tutorial extends AppCompatActivity {
 
     Button button;
     TextView textView;
+    ImageView imageView;
+
+    private String token;
+    private String username;
+    private String firstName;
+    private String lastName;
 
 
     @Override
@@ -28,6 +35,13 @@ public class Tutorial extends AppCompatActivity {
 
         button = findViewById(R.id.enterapp);
         textView = findViewById(R.id.textView3);
+        imageView = findViewById(R.id.logo);
+
+        Intent intent = getIntent();
+        token = intent.getStringExtra("token");
+        username = intent.getStringExtra("username");
+        firstName = intent.getStringExtra("firstName");
+        lastName = intent.getStringExtra("lastName");
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,9 +61,11 @@ public class Tutorial extends AppCompatActivity {
                 if(position == slideshow.getCount()-1){
                     button.setVisibility(View.VISIBLE);
                     textView.setVisibility(View.VISIBLE);
+                    imageView.setVisibility(View.VISIBLE);
                 } else{
                     button.setVisibility(View.INVISIBLE);
                     textView.setVisibility(View.INVISIBLE);
+                    imageView.setVisibility(View.INVISIBLE);
                 }
             }
 
@@ -63,6 +79,10 @@ public class Tutorial extends AppCompatActivity {
 
     public void backToMenu() {
         Intent intent = new Intent(this, Menu.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
         startActivity(intent);
     }
 

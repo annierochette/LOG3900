@@ -49,6 +49,12 @@ public class DrawingActivity extends AppCompatActivity {
     private Button backButton;
     private ImageView chatButton;
 
+    private String player;
+    private String token;
+    private String username;
+    private String firstName;
+    private String lastName;
+
     ConstraintLayout mLayout;
     int mDefaultColor;
 
@@ -60,6 +66,14 @@ public class DrawingActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         initializeObject();
         eventListeners();
+        mDefaultColor = 0;
+
+        Intent intent = getIntent();
+        player = intent.getStringExtra("player");
+        token = intent.getStringExtra("token");
+        username = intent.getStringExtra("username");
+        firstName = intent.getStringExtra("firstName");
+        lastName = intent.getStringExtra("lastName");
 
     }
 
@@ -205,11 +219,19 @@ public class DrawingActivity extends AppCompatActivity {
 
     public void backToPlayMenu() {
         Intent intent = new Intent(this, PlayMenu.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
         startActivity(intent);
     }
 
     public void openChat(){
         Intent intent = new Intent(this, ChatBoxActivity.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
         startActivity(intent);
     }
 
