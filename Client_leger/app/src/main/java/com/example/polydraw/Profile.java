@@ -39,10 +39,19 @@ public class Profile extends AppCompatActivity {
     private SocketIO socket;
     private TextView namePlaceholder;
     private TextView usernamePlaceholder;
+    private TextView nbPlayedGames;
+    private TextView nbGamesWon;
+    private TextView gameTime;
+    private TextView time;
+
     private String token;
     private String username;
     private String firstName;
     private String lastName;
+
+    public JSONObject generalStats;
+    String matchWon;
+    String matchPlayed;
 
     private List<JSONObject> games;
 
@@ -63,7 +72,7 @@ public class Profile extends AppCompatActivity {
         lastName = intent.getStringExtra("lastName");
 
         HttpGetPlayer task = new HttpGetPlayer();
-        task.execute(SocketIO.HTTP_URL+"players/:username/general-statistics");
+        task.execute(SocketIO.HTTP_URL+"players/"+username+"/general-statistics");
 
         backButton = (Button) findViewById(R.id.backButton);
         disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
@@ -75,6 +84,39 @@ public class Profile extends AppCompatActivity {
 
         usernamePlaceholder = (TextView) findViewById(R.id.username);
         usernamePlaceholder.setText(username);
+
+        nbPlayedGames = (TextView) findViewById(R.id.nbPlayedGames);
+        if(matchPlayed!=null){
+            int matchsJoues = Integer.valueOf(matchPlayed);
+            int matchsGagnes = Integer.valueOf(matchWon);
+            float result = (matchsGagnes/matchsJoues)*100;
+            nbPlayedGames.setText("Nombre de parties jouées: "+ matchPlayed);
+        } else{
+            nbPlayedGames.setText("Nombre de parties jouées: 0");
+
+        }
+
+        nbGamesWon = (TextView) findViewById(R.id.nbGamesWon);
+        if(matchPlayed!=null){
+            int matchsJoues = Integer.valueOf(matchPlayed);
+            int matchsGagnes = Integer.valueOf(matchWon);
+            float result = (matchsGagnes/matchsJoues)*100;
+            nbGamesWon.setText("Pourcentage de parties gagnées: "+result+"%");
+        } else{
+            nbGamesWon.setText("Pourcentage de parties gagnées: 0%");
+
+        }
+
+        gameTime = (TextView) findViewById(R.id.gameTime);
+        gameTime.setText("Temps moyen d'une partie: 1 minute");
+
+        time = (TextView) findViewById(R.id.time);
+        if(matchPlayed!=null){
+            time.setText("Temps total à jouer: "+matchPlayed+" minutes");
+        } else{
+            time.setText("Temps total à jouer: 0 minute");
+
+        }
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,6 +214,7 @@ public class Profile extends AppCompatActivity {
 
                 // Create the urlConnection
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                System.out.println(token);
                 urlConnection.setRequestProperty("Authorization", token);
                 urlConnection.setRequestMethod("GET");
 
@@ -191,8 +234,15 @@ public class Profile extends AppCompatActivity {
                     in.close();
 
                     // print result
-                    JSONObject reader = new JSONObject(response.toString());
-                    result = reader.toString();
+                    String data = response.toString();
+                    System.out.println(data);
+                    JSONObject reader = new JSONObject(data);
+                    generalStats = reader.getJSONObject("generalStats");
+                    matchWon = generalStats.get("matchWon").toString();
+                    matchPlayed = generalStats.get("matchPlayed").toString();
+                    System.out.println(matchWon);
+                    System.out.println(matchPlayed);
+
 
                 } else{
                     result = null;
