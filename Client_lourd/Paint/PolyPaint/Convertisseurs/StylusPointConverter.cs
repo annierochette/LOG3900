@@ -17,7 +17,7 @@ namespace PolyPaint.Convertisseurs
             var point = (StylusPoint)value;
 
             serializer.Serialize(
-                writer, new JObject { { "x", point.X }, { "x", point.Y } });
+                writer, new JObject { { "x", point.X }, { "y", point.Y } });
         }
 
         public override object ReadJson(
@@ -26,7 +26,7 @@ namespace PolyPaint.Convertisseurs
         {
             var jObject = serializer.Deserialize<JObject>(reader);
 
-            return new StylusPoint((double)jObject["x"], (double)jObject["x"]);
+            return new StylusPoint((double)jObject["x"], (double)jObject["y"]);
         }
 
         public override bool CanConvert(Type objectType)

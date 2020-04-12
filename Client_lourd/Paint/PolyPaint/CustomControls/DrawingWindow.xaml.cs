@@ -94,8 +94,9 @@ namespace PolyPaint.CustomControls
 
             socket.On(SocketEvents.STROKE_COLOR, (color) =>
             {
-                Dispatcher.Invoke(() => { 
-                    drawingAttributes.Color = (Color)ColorConverter.ConvertFromString(color.ToString());
+                Dispatcher.Invoke(() => {
+                    string hex = "#" + ((Int64) color).ToString("X8");
+                    drawingAttributes.Color = (Color)ColorConverter.ConvertFromString(hex);
                 });
             });
 
