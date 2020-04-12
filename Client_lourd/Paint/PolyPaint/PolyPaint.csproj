@@ -165,6 +165,7 @@
     <Compile Include="Modeles\User.cs" />
     <Compile Include="Modeles\Word.cs" />
     <Compile Include="Utilitaires\AppSocket.cs" />
+    <Compile Include="Utilitaires\Constants.cs" />
     <Compile Include="Utilitaires\EventArgs.cs" />
     <Compile Include="Utilitaires\EventRaiser.cs" />
     <Compile Include="Utilitaires\Mediator.cs" />

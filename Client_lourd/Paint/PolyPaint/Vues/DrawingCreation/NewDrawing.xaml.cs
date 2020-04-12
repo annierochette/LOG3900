@@ -1,6 +1,7 @@
 ﻿using CsPotrace;
 using Newtonsoft.Json;
 using PolyPaint.Convertisseurs;
+using PolyPaint.Utilitaires;
 using PolyPaint.VueModeles;
 using System;
 using System.Collections;
@@ -465,7 +466,7 @@ namespace PolyPaint.Vues
                 var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
                 var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var res = await HttpClient.PostAsync("http://localhost:5050/games", httpContent);
+                var res = await HttpClient.PostAsync(Constants.ADDR + "games", httpContent);
                 if (res.Content != null)
                 {
                     var responseContent = await res.Content.ReadAsStringAsync();

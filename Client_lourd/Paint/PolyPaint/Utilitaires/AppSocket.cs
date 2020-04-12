@@ -9,17 +9,13 @@ namespace PolyPaint.Utilitaires
 {
     public sealed class AppSocket
     {
-        private Socket socket;
-        
-
-        private static readonly string URL = "https://fais-moi-un-dessin.herokuapp.com/";
-        //private static readonly string PORT = ":5050";
+        private Socket socket;        
 
         public static AppSocket Instance { get; } = new AppSocket();
 
         private AppSocket()
         {
-            socket = IO.Socket(URL);
+            socket = IO.Socket(Constants.ADDR);
         }
 
         ~AppSocket()

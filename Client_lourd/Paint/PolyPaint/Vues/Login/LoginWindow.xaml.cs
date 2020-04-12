@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using PolyPaint.VueModeles;
 using PolyPaint.Modeles;
+using PolyPaint.Utilitaires;
 
 namespace PolyPaint.Vues
 {
@@ -54,7 +55,7 @@ namespace PolyPaint.Vues
             var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
            
-            var res = await HttpClient.PostAsync("https://fais-moi-un-dessin.herokuapp.com/players/login", httpContent);
+            var res = await HttpClient.PostAsync(Constants.ADDR + "login", httpContent);
             var responseContent = await res.Content.ReadAsStringAsync();
             Console.WriteLine(responseContent);
             if (responseContent != "{}")
