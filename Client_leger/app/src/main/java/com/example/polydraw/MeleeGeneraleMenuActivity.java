@@ -39,9 +39,9 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
     private ImageView chatButton;
     private SocketIO socket;
 
-    ListView listView;
-    ArrayAdapter<String> adapter;
+    matchListAdapter adapter;
     ArrayList<String> matchList;
+    public RecyclerView myRecyclerView;
 
     private String player;
     private String token;
@@ -71,9 +71,14 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         createButton = (Button) findViewById(R.id.createButton);
         disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
         chatButton = (ImageView) findViewById(R.id.chatButton);
-        listView = (ListView) findViewById(R.id.list);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, new ArrayList<String>());
-        listView.setAdapter(adapter);
+
+        matchList = new ArrayList<>();
+        myRecyclerView = (RecyclerView) findViewById(R.id.matchlist);
+        /*adapter = new matchListAdapter(new ArrayList<String>());
+        myRecyclerView.setAdapter(adapter);*/
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        myRecyclerView.setLayoutManager(mLayoutManager);
+        myRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +148,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() { }
 
+    // source ajouter item dans listview avec asynctask: https://www.youtube.com/watch?time_continue=602&v=2bNBLiqkKlE&feature=emb_title
     public class HttpGetMatches extends AsyncTask<String, String, String> {
         String result;
         public HttpGetMatches() {
@@ -151,12 +157,14 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
+            adapter = new matchListAdapter(new ArrayList<String>());
         }
 
         @Override
         protected void onProgressUpdate(String... values) {
-            adapter.add(values[0]);
+            matchList.add(values[0]);
+            System.out.println(values[0]);
+            myRecyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
 
@@ -164,8 +172,6 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            matchList = new ArrayList<>();
-            System.out.println("Liste des parties: ");
             try{
                 JSONArray jsonArray = new JSONArray(s);
                 for(int i = 0; i<jsonArray.length(); i++){
@@ -176,10 +182,9 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
                         publishProgress(matchName);
 
                     } catch (JSONException e) {
-                        // Oops
+                        e.printStackTrace();
                     }
                 }
-                System.out.println(matchList);
 
             } catch(Exception e){
 
@@ -197,7 +202,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setConnectTimeout(5000);
                 urlConnection.setReadTimeout(5000);
-                urlConnection.setRequestProperty("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNub29weSIsImlhdCI6MTU4NjY1OTMzOX0.KDiKMsU6YqDI_2IpthjmnJCHfEMr-La1wk7fjvxJyAU");
+                urlConnection.setRequestProperty("Authorization", token);
                 urlConnection.setRequestMethod("GET");
 
 
