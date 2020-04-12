@@ -38,6 +38,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
     private ImageButton disconnectButton;
     private ImageView chatButton;
     private SocketIO socket;
+    private Button join;
 
     matchListAdapter adapter;
     ArrayList<String> matchList;
