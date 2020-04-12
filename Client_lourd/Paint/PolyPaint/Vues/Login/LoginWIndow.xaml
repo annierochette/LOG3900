@@ -33,6 +33,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <TextBlock x:Name="ErreurConnection" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="5" HorizontalAlignment="Center" Foreground="Red" FontWeight="Bold" FontSize="16" Margin="0,42.4,6,16.6" Grid.RowSpan="2" Visibility="Hidden"> Erreur: Utilisateur inexistant ou utilisateur/mot de passe incorrect</TextBlock>
         <Image x:Name="logo" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="2" Source="logo_noborder.png" Margin="0,0.4,10,0"/>
         <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="5" >
             <Button x:Name="Connection" Click="UserConnect" Content="SE CONNECTER" VerticalAlignment="Top" Height="44" Margin="53,231,49,0" Background="#FFFF7F11" FontWeight="Bold" Foreground="White" Command="{Binding UserConnect}" />

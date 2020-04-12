@@ -24,25 +24,45 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Border Background="#2364AA" Grid.ColumnSpan="6"/>
-        <TextBlock x:Name="ChatName" Grid.Column="0" Grid.ColumnSpan="4" Text="Général" FontSize="22" Foreground="White" />
+        <Viewbox Stretch="Uniform" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left">
+        <TextBlock x:Name="ChatName"  Text="Général" FontSize="22" Foreground="White"  Margin="10"/>
+        </Viewbox>
         <TextBox x:Name="messageList"  Text="{Binding MessageList, UpdateSourceTrigger=PropertyChanged}" Background="White"  Grid.ColumnSpan="6" Grid.Row="1" Grid.RowSpan="3" TextChanged="messageList_TextChanged" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"></TextBox>
-        <Button Grid.Column="3" Content="+" FontSize="30" ></Button>
-        <ComboBox Grid.Column="4" Grid.ColumnSpan="2" >
+        <DockPanel Grid.Column="3"  >
+            <StackPanel>
+                <Button Click="DisplayPopup" Height="50">
+                    <TextBlock FontSize="30">+</TextBlock>
+                </Button>
+                
+                <Popup Name="NewChannelPopup" IsOpen="False" Placement="Bottom" HorizontalOffset="-200"  >
+                    <Border BorderBrush="Black">
+                    <StackPanel Orientation="Vertical"  >
+                        
+                        <DockPanel Background="LightGray" Height="40">
+                         
+                    <TextBlock Name="myPopupText" HorizontalAlignment="Left"
+                 FontSize="18"
+                   Width="220" Text="Nom du nouveau cannal:" Padding="5">
+
+                    </TextBlock>
+                                <Button HorizontalAlignment="Right" FontSize="16" VerticalContentAlignment="Top" Content="x" Width="35" Click="HidePopup" />
+                            </DockPanel>
+                        <StackPanel Orientation="Horizontal" Width="255">
+                        <TextBox x:Name="newChannelName" Width="200" HorizontalAlignment="Left" FontSize="16" ></TextBox>
+                            <Button HorizontalAlignment="Right" Width="55" Click="AddChatRoom">
+                                <TextBlock Text="Ok" FontSize="18"></TextBlock></Button>
+                        </StackPanel>
+                    </StackPanel>
+                    </Border>
+                </Popup>
+            </StackPanel>
+        </DockPanel>
+        <ComboBox Name="ListOfChannels" Grid.Column="4" Grid.ColumnSpan="2" Text="blabla"  SelectionChanged="ComboBox_SelectionChanged" IsTextSearchCaseSensitive="True">
             <ComboBox.ItemContainerStyle>
                 <Style TargetType="ComboBoxItem">
                     <Setter Property="Width" Value="200"/>
                 </Style>
             </ComboBox.ItemContainerStyle>
-            <ComboBoxItem>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock></TextBlock>
-                </StackPanel>
-            </ComboBoxItem>
-            <ComboBoxItem>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock></TextBlock>
-                </StackPanel>
-            </ComboBoxItem>
         </ComboBox>
         <Button x:Name="SendMessage" Content="Envoyer"  Grid.Column="4" Grid.ColumnSpan="2"  Grid.Row="4" FontWeight="Bold" FontSize="16" Click="sendMessage" />
         <TextBox x:Name="MessageTextBox" Grid.Column="0" Grid.Row="4"  Grid.ColumnSpan="4" TextChanged="MessageTextBox_TextChanged" KeyDown="sendMessageOnEnter"></TextBox>
