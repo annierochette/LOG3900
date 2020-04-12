@@ -103,13 +103,6 @@ module.exports = function(http) {
           players.delete(username);
         }
 
-        if (players.size == 0) {
-          playersInChannel.delete(channel);
-          io.emit(SOCKET.CHAT.DELETE_CHANNEL, channel);
-        } else {
-          playersInChannel.set(channel, players);
-        }
-
         channelsSubscribed.delete(player);
         playerSocket.delete(socket.id);
 
@@ -152,10 +145,13 @@ module.exports = function(http) {
       });
 
       // Match
-      socket.on(SOCKET.MATCH.JOIN_MATCH, (channel, nbPlayers) => {
-        console.log("joining game")
-        let  nbPlay = { "nbPlayers": "1" };
-        io.emit(SOCKET.MATCH.JOIN_MATCH, nbPlay);
+      socket.on(SOCKET.MATCH.JOIN_MATCH, (channel, username) => {
+        if ( matchManager.getPlayerInWaitingRoom(matchId).length < 4) {
+          let playersInWaitingRoom = matchManager.addPlayerInWaitingRoom(channel, username);
+          io.emit(SOCKET.MATCH.JOIN_MATCH, playersInWaitingRoom);
+        } else {
+          socket.to(SOCKET.MATCH.FULL, "La partie est complète.");
+        }
       });
 
       socket.on(SOCKET.MATCH.ANSWER, (matchId, answer) => {
@@ -172,8 +168,8 @@ module.exports = function(http) {
         io.to(matchId).emit(SOCKET.MATCH.NEXT_ROUND, round);
       });
 
-      socket.on(SOCKET.MATCH.START_MATCH, async (players) => {
-        matchManager.addMatch(matchId, players);
+      socket.on(SOCKET.MATCH.START_MATCH, async (matchId) => {
+        matchManager.addMatch(matchId, matchManager.getPlayerInWaitingRoom(matchId));
         let round = await matchManager.nextRound(matchId);
         io.to(matchId).emit(SOCKET.MATCH.NEXT_ROUND, round);
         matchManager.start(matchId, 90);
