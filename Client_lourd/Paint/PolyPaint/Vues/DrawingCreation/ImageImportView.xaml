@@ -43,6 +43,6 @@
         <Button  Name="uploadImage" VerticalAlignment="Top" Grid.Row="7" Grid.RowSpan="2" Grid.ColumnSpan="2"
         Grid.Column="1" Click="btnLoad_Click" Background="#FFFF7F11" BorderThickness="2" FontSize="24"  >Télécharger</Button>
         <Button x:Name="cancel_button" Content="ANNULER" Grid.Column="1" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="Red" BorderThickness="2" FontSize="24" Foreground="White" RenderTransformOrigin="0.522,0.521" Command="{Binding GoToGameCreator}" />
-        <Button x:Name="save_button" Content="SAUVEGARDER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="24" Foreground="White" RenderTransformOrigin="0.522,0.521" Command="{Binding GoToNewGameForm}" />
+        <Button x:Name="save_button" Content="SAUVEGARDER" Grid.Column="4" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="#FFB3C646" BorderThickness="2" FontSize="24" Foreground="White" RenderTransformOrigin="0.522,0.521" Click="saveAsSVG" />
     </Grid>
 </UserControl>

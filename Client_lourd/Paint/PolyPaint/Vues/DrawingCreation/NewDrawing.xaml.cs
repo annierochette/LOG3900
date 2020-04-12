@@ -1,8 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using CsPotrace;
+using Newtonsoft.Json;
+using PolyPaint.Convertisseurs;
 using PolyPaint.VueModeles;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -14,7 +18,10 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Ink;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using Point = System.Windows.Point;
 
 namespace PolyPaint.Vues
 {
@@ -22,7 +29,11 @@ namespace PolyPaint.Vues
     public partial class NewDrawing : System.Windows.Controls.UserControl
     {
         StrokeCollection strokes = new StrokeCollection();
-       
+        public String Svg ;
+        bool[,] Matrix;
+        ArrayList ListOfCurveArray;
+        Bitmap Bitmap;
+
 
         public NewDrawing()
         {
@@ -72,14 +83,17 @@ namespace PolyPaint.Vues
 
         private void back_button_Click(object sender, RoutedEventArgs e)
         {
-            inkCanvas.Visibility = Visibility.Hidden;
+            inkCanvas.Visibility = Visibility.Collapsed;
             NewDrawingForm.Visibility = Visibility.Visible;
 
             save.Visibility = Visibility.Visible;
-            confirm.Visibility = Visibility.Hidden;
+            confirm.Visibility = Visibility.Collapsed;
 
             cancel_button.Visibility = Visibility.Visible;
-            back_button.Visibility = Visibility.Hidden;
+            back_button.Visibility = Visibility.Collapsed;
+
+            importer.Visibility = Visibility.Visible;
+            quickdraw.Visibility = Visibility.Visible;
         }
 
         
@@ -209,65 +223,39 @@ namespace PolyPaint.Vues
         private async void SendNewGame(object sender, RoutedEventArgs e)
         {
             List<string> clues = getClues();
-           
-            if (strokes.Count > 0)
+
+            if (String.IsNullOrEmpty(Svg))
             {
-               
-          
-                MyCustomStrokes customStrokes = new MyCustomStrokes();
-                customStrokes.StrokeCollection = new Point[strokes.Count][];
-
-                for (int i = 0; i < strokes.Count; i++)
-                {
-                    customStrokes.StrokeCollection[i] =
-                      new Point[strokes[i].StylusPoints.Count];
-
-                    for (int j = 0; j < strokes[i].StylusPoints.Count; j++)
-                    {
-                        customStrokes.StrokeCollection[i][j] = new Point();
-                        customStrokes.StrokeCollection[i][j].X =
-                                              strokes[i].StylusPoints[j].X;
-                        customStrokes.StrokeCollection[i][j].Y =
-                                              strokes[i].StylusPoints[j].Y;
-                    }
-                }
-
-
-                MemoryStream ms = new MemoryStream();
-                BinaryFormatter bf = new BinaryFormatter();
-                bf.Serialize(ms, customStrokes);
-
-                try
-                {
-
-                    var HttpClient = new HttpClient();
-                    var infos = new Game
-                    {
-                        name = Word.Text,
-                        clues = clues,
-                        data = ms.GetBuffer()
-                    };
-                    var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
-                    var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
-
-                    var res = await HttpClient.PostAsync("http://localhost:5050/games", httpContent);
-                    if (res.Content != null)
-                    {
-                        var responseContent = await res.Content.ReadAsStringAsync();
-                        Console.WriteLine(responseContent);
-                        System.Windows.Forms.MessageBox.Show( "Image bien sauvegardée!", "Caption", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
-                    }
-                }
-
-                catch (Exception ex)
-                {
-                    System.Windows.Forms.MessageBox.Show(ex.Message);
-                }
-
-                strokes.Clear();
+                Svg = SVGConverter.ConvertDrawingToSVG(strokes);
             }
-        
+
+            try
+            {
+                var HttpClient = new HttpClient();
+                var infos = new Game
+                {
+                    name = Word.Text,
+                    clues = clues,
+                    data = Svg
+                };
+                var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
+                var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var res = await HttpClient.PostAsync("http://localhost:5050/games", httpContent);
+                if (res.Content != null)
+                {
+                    var responseContent = await res.Content.ReadAsStringAsync();
+                    Console.WriteLine(responseContent);
+                    System.Windows.Forms.MessageBox.Show( "Image bien sauvegardée!", "Caption", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+
+            strokes.Clear();                   
         }
 
         public class Game
@@ -280,7 +268,7 @@ namespace PolyPaint.Vues
             public List<string> clues { get; set; }
 
             [JsonProperty("data")]
-            public byte[] data { get; set; }
+            public string data { get; set; }
         }
         [Serializable]
         public sealed class MyCustomStrokes
@@ -336,6 +324,94 @@ namespace PolyPaint.Vues
         private void inkCanvas_StrokeCollected(object sender, InkCanvasStrokeCollectedEventArgs e)
         {
             confirm.IsEnabled = true;
+        }
+
+
+
+        private void refreshMatrix()
+        {
+            if (Bitmap == null) return;
+            Matrix = Potrace.BitMapToBinary(Bitmap, (int)contrastSlider.Value);
+            refreshPicture();
+
+        }
+
+        private void ContrastSlider_Scroll(object sender, EventArgs e)
+        {
+            refreshMatrix();
+            float p = 100 * (float)contrastSlider.Value / (float)255;
+
+        }
+
+        private void refreshPicture()
+        {
+            if (Matrix == null) return;
+            Bitmap b = Potrace.BinaryToBitmap(Matrix, true);
+            imgPhoto.Source = BitmapToImageSource(b);
+
+        }
+
+        private void vectorize()
+        {
+
+            ListOfCurveArray = new ArrayList();
+            Potrace.turdsize = Convert.ToInt32(contrastSlider.Value);
+            Potrace.curveoptimizing = true;
+            Matrix = Potrace.BitMapToBinary(Bitmap, (int)contrastSlider.Value);
+            Potrace.potrace_trace(Matrix, ListOfCurveArray);
+            Bitmap s = Potrace.Export2GDIPlus(ListOfCurveArray, Bitmap.Width, Bitmap.Height);
+            imgPhoto.Source = BitmapToImageSource(s);
+            refreshMatrix();
+
+        }
+
+        BitmapImage BitmapToImageSource(Bitmap bitmap)
+        {
+            using (MemoryStream memory = new MemoryStream())
+            {
+                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
+                memory.Position = 0;
+                BitmapImage bitmapimage = new BitmapImage();
+                bitmapimage.BeginInit();
+                bitmapimage.StreamSource = memory;
+                bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapimage.EndInit();
+
+                return bitmapimage;
+            }
+        }
+
+        private void btnLoad_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog op = new Microsoft.Win32.OpenFileDialog();
+            op.Title = "Select a picture";
+            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+              "Portable Network Graphic (*.png)|*.png" +
+              "|BMP Windows Bitmap (*.bmp)|*.bmp";
+
+            if (op.ShowDialog() == true)
+            {
+                imgPhoto.Source = new BitmapImage(new Uri(op.FileName));
+                save_button.IsEnabled = true;
+                ListOfCurveArray = null;
+                if (Bitmap != null) Bitmap.Dispose();
+                Bitmap = new Bitmap(op.FileName);
+                refreshMatrix();
+                vectorize();
+                Svg = Potrace.Export2SVG(ListOfCurveArray, Bitmap.Width, Bitmap.Height);
+                Console.WriteLine("Svg: " + Svg);
+            }
+        }
+
+        private void ImporterImage(object sender, RoutedEventArgs e)
+        {
+            NewDrawingForm.Visibility = Visibility.Collapsed;
+            importer.Visibility = Visibility.Collapsed;
+            save.Visibility = Visibility.Collapsed;
+            cancel_button.Visibility = Visibility.Collapsed;
+            quickdraw.Visibility = Visibility.Collapsed;
+            ImageImport.Visibility = Visibility.Visible;
         }
     }
 }

@@ -7,10 +7,13 @@ const LOGGER = require("../utils/logger");
 exports.createGame = async function(req, res) {
     // Create a new player
     try {
+        console.log("CREATE")
         const game = new Game(req.body)
         await game.save();
+        console.log("CREATED")
         res.status(HTTP.STATUS.CREATED).json({ game });
     } catch (error) {
+        console.log("ERROR " + error)
         res.status(HTTP.STATUS.CONFLICT).send(error)
     }
 };
