@@ -21,10 +21,11 @@ public class ChatChannelAdapter extends RecyclerView.Adapter<ChatChannelAdapter.
         public MyViewHolder(View view) {
             super(view);
 
-            channelName = (TextView) view.findViewById(R.id.username);
+            channelName = (TextView) view.findViewById(R.id.channelName);
             
         }
     }
+
 
     public ChatChannelAdapter(List<ChatChannel> ChatChannelList) {
         this.ChatChannelList = ChatChannelList;
@@ -34,14 +35,24 @@ public class ChatChannelAdapter extends RecyclerView.Adapter<ChatChannelAdapter.
         return ChatChannelList.size();
     }
 
-    @NonNull
     @Override
-    public ChatChannelAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+    public ChatChannelAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.channel_item, parent, false);
+
+        return new ChatChannelAdapter.MyViewHolder(itemView);
     }
 
     @Override public void onBindViewHolder(final ChatChannelAdapter.MyViewHolder holder, final int position){
         final ChatChannel channel = ChatChannelList.get(position);
         holder.channelName.setText(channel.getChannelName());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println(channel.getChannelName());
+            }
+        });
+
+
     }
 }

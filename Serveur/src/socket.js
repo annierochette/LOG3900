@@ -25,7 +25,7 @@ module.exports = function(http) {
       // console.log("ScoketID: " + socket.id);
     
       socket.on(SOCKET.CHAT.MESSAGE, (username, channel, message) => {
-          console.log("Message received");
+          console.log("Message received in " + channel);
 
           let filteredMessage = filter.clean(message);
           let timestamp = Timestamp.currentDate();
@@ -50,6 +50,7 @@ module.exports = function(http) {
         messageController.lastPage(socket.id, channel);
         let timestamp = Timestamp.currentDate();
         let  msg = { "message": username + " a rejoint la conversation.", "username": username, "timestamp": Timestamp.chatString(timestamp), "channel": channel };
+        console.log(username + " joined " + channel);
         socket.to(channel).broadcast.emit(SOCKET.CHAT.MESSAGE, msg);
       });
 
@@ -66,10 +67,12 @@ module.exports = function(http) {
 
         let timestamp = Timestamp.currentDate();    
         let  msg = { "message": username + " a quitté la conversation.", "username": username, "timestamp": Timestamp.chatString(timestamp), "channel": channel };
+        console.log(username + " left " + channel);
         io.to(channel).emit(SOCKET.CHAT.MESSAGE, msg);
       });
 
       socket.on(SOCKET.CHAT.CHANNELS, () => {
+        console.log(playersInChannel.keys());
         socket.emit(SOCKET.CHAT.CHANNELS, playersInChannel.keys());
       });
 

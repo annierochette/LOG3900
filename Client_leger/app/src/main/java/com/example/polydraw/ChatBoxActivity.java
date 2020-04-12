@@ -36,6 +36,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 //sources: https://stackoverflow.com/questions/44300547/adding-items-to-listview-from-android-alertdialog
 
@@ -43,18 +44,18 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
 
     public RecyclerView myRecyclerView;
     public List<Message> MessageList;
+    public List<ChatChannel> ChannelList;
     public ChatBoxAdapter chatBoxAdapter;
     public EditText messageTxt;
     public Button send;
     ImageButton addChannel;
-    public ListView channelsRecyclerView;
+    public RecyclerView channelsRecyclerView;
     public ChatChannelAdapter chatChannelAdapter;
     public Toolbar toolbar;
     private SocketIO socket;
 
     String Username = MainActivity.editTextString;
     public String currentChannel = "General";
-    String[] channels = {"General"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,34 +65,55 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         messageTxt = (EditText) findViewById(R.id.message);
         send = (Button) findViewById(R.id.send);
         addChannel = (ImageButton) findViewById(R.id.addChannel);
-        ListView lv = (ListView) findViewById(R.id.channelsList);
+//        ListView lv = (ListView) findViewById(R.id.channelsList);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         MessageList = new ArrayList<>();
+        ChannelList = new ArrayList<>();
+
+//        final List<ChatChannel> availableChannels = new ArrayList<ChatChannel>(Arrays.asList(channels));
+
         myRecyclerView = (RecyclerView) findViewById(R.id.messagelist);
+        channelsRecyclerView = (RecyclerView) findViewById(R.id.channelsList);
+
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         myRecyclerView.setLayoutManager(mLayoutManager);
         myRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-//        String[] channels = {"Général"};
-        channelsRecyclerView = (ListView) findViewById(R.id.channelsList);
-        final List<String> availableChannels = new ArrayList<String>(Arrays.asList(channels));
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, availableChannels);
+        RecyclerView.LayoutManager cLayoutManager = new LinearLayoutManager(getApplicationContext());
+        channelsRecyclerView.setLayoutManager(cLayoutManager);
+        channelsRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        lv.setAdapter(arrayAdapter);
+        socket.getSocket().emit("channels");
+        socket.getSocket().on("channels", getChannels);
+
+        ChatChannel c = new ChatChannel("General");
+        ChannelList.add(c);
+
+        chatChannelAdapter = new ChatChannelAdapter(ChannelList);
+        chatChannelAdapter.notifyDataSetChanged();
+
+        channelsRecyclerView.setAdapter(chatChannelAdapter);
+
+//        String[] channels = {"Général"};
+//        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, availableChannels);
+//
+//        lv.setAdapter(arrayAdapter);
         setToolbarName(currentChannel);
 
-        channelsRecyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String channel = availableChannels.get(position);
-                socket.getSocket().emit("leaveChannel", Username, currentChannel);
-                currentChannel = channel;
-                socket.getSocket().emit("joinChannel", Username, channel);
-                setToolbarName(currentChannel);
-                Toast.makeText(ChatBoxActivity.this, "Vous êtes désormais dans le canal " + channel , Toast.LENGTH_SHORT).show();
-            }
-        });
+//        channelsRecyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                String channel = availableChannels.get(position);
+//                socket.getSocket().emit("leaveChannel", Username, currentChannel);
+//                currentChannel = channel;
+//                socket.getSocket().emit("joinChannel", Username, channel);
+//                setToolbarName(currentChannel);
+//                Toast.makeText(ChatBoxActivity.this, "Vous êtes désormais dans le canal " + channel , Toast.LENGTH_SHORT).show();
+//                socket.getSocket().emit("channels");
+//                socket.getSocket().on("channels", getChannels);
+//            }
+//        });
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,9 +208,16 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
                     public void onClick(View v) {
                         if (!newChannelName.getText().toString().isEmpty()) {
                             String result = newChannelName.getText().toString();
-                            availableChannels.add(result);
-                            arrayAdapter.notifyDataSetChanged();
-                            Toast.makeText(ChatBoxActivity.this, "Le canal '"+ result +"' a été créé", Toast.LENGTH_SHORT).show();
+
+                            ChatChannel newChannel = new ChatChannel(result);
+                            ChannelList.add(newChannel);
+
+                            chatChannelAdapter = new ChatChannelAdapter(ChannelList);
+                            chatChannelAdapter.notifyDataSetChanged();
+
+                            channelsRecyclerView.setAdapter(chatChannelAdapter);
+
+                            Toast.makeText(ChatBoxActivity.this, "Le canal '" + result + "' a été créé", Toast.LENGTH_SHORT).show();
                             //dismiss dialog once item is added successfully
                             dialog.dismiss();
                         }
@@ -218,4 +247,12 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         //code pour choisir nom du channel selectionne
         toolbar.setTitle(channel);
     }
+
+    private Emitter.Listener getChannels = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            JSONObject channels = (JSONObject) args[0];
+            System.out.println(channels);
+        }
+    };
 }
