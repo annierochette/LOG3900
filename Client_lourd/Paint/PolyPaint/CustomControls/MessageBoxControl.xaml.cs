@@ -44,9 +44,10 @@ namespace PolyPaint.CustomControls
                 Newtonsoft.Json.Linq.JToken un = obj.GetValue("username");
                 Newtonsoft.Json.Linq.JToken ts = obj.GetValue("timestamp");
                 Newtonsoft.Json.Linq.JToken ms = obj.GetValue("message");
-           
-               MessageList += Environment.NewLine + un.ToString() + ts.ToString() + ":\n" + ms.ToString() + Environment.NewLine;
-                
+                Newtonsoft.Json.Linq.JToken channelName = obj.GetValue("channel");
+                if(currentChannel == channelName.ToString()) { 
+                MessageList += Environment.NewLine + un.ToString() + ts.ToString() + ":\n" + ms.ToString() + Environment.NewLine;
+                }
             });
         }
 
