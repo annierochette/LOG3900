@@ -9,6 +9,8 @@ const Timestamp = require("./utils/timestamp");
 const frenchBadwordsList = require('french-badwords-list');
 const GENERAL = "General";
 var playersInChannel = new Map();
+var channelsSubscribed = new Map();
+var playerSocket = new Map();
 
 module.exports = function(http) {
     var io = SocketIo.listen(http);
@@ -37,6 +39,8 @@ module.exports = function(http) {
       socket.on(SOCKET.CHAT.JOIN_CHANNEL, (username, channel) => {
         socket.join(channel);
 
+        playerSocket.push(socket.id, username);
+
         if (playersInChannel.has(channel)) {
           let players = playersInChannel.get(channel);
           players.add(username);
@@ -44,6 +48,15 @@ module.exports = function(http) {
         } else {
           playersInChannel.set(channel, new Set([username]));
           io.emit(SOCKET.CHAT.NEW_CHANNEL, channel);
+        }
+
+        if (channelsSubscribed.has(username)) {
+          let playerChannels = channelsSubscribed.get(username);
+          playerChannels.add(username);
+          channelsSubscribed.set(channel, playerChannels);
+        }
+        else {
+          channelsSubscribed.set(username, new Set([channel]));
         }
           
         messageController.lastPage(socket.id, channel);
@@ -70,7 +83,9 @@ module.exports = function(http) {
       });
 
       socket.on(SOCKET.CHAT.CHANNELS, () => {
-        socket.emit(SOCKET.CHAT.CHANNELS, playersInChannel.keys());
+        let channels = ["Général"];
+        channels.push(...playersInChannel.keys());
+        socket.emit(SOCKET.CHAT.CHANNELS, channels);
       });
 
       socket.on(SOCKET.CHAT.HISTORY, async (channel) => {
@@ -78,8 +93,26 @@ module.exports = function(http) {
         socket.to(channel).emit(SOCKET.CHAT.HISTORY, docs);
       });
 
-      socket.on(SOCKET.CHAT.DISCONNECTION, async (player) => {
+      socket.on(SOCKET.CHAT.DISCONNECTION, async () => {
         socket.disconnect();
+        let player = playerSocket.get(socket.id);
+        let playerChannels = channelsSubscribed.get(player);
+
+        for (let playerChannel in playerChannels) {
+          let players = playersInChannel.get(playerChannel);
+          players.delete(username);
+        }
+
+        if (players.size == 0) {
+          playersInChannel.delete(channel);
+          io.emit(SOCKET.CHAT.DELETE_CHANNEL, channel);
+        } else {
+          playersInChannel.set(channel, players);
+        }
+
+        channelsSubscribed.delete(player);
+        playerSocket.delete(socket.id);
+
         console.log("User disconnected");
         await playerController.deleteToken();
       });
