@@ -133,6 +133,10 @@ class MatchManager {
 
         return this.waitingRoom.get(matchId); 
     }
+
+    getPlayerInWaitingRoom(matchId) {
+        return this.waitingRoom.get(matchId);
+    }
 }
 
 class Singleton {
