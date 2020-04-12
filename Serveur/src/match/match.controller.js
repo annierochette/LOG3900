@@ -70,7 +70,7 @@ exports.getMatch = async function(req, res) {
 
 exports.getUnstartedMatch = async function(req, res) {
     try{
-        let matches = await Match.find({ status: "Unstarted", playersCount: { $lt: 4 } });
+        let matches = await Match.find({ status: "Unstarted" });
         res.status(HTTP.STATUS.OK).send(matches);
     } catch (error) {
         LOGGER.info(error);
