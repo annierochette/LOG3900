@@ -164,6 +164,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         protected void onProgressUpdate(String... values) {
             matchList.add(values[0]);
             System.out.println(values[0]);
+            adapter = new matchListAdapter(matchList);
             myRecyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
