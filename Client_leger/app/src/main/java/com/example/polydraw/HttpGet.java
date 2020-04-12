@@ -18,13 +18,19 @@ import java.util.Map;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 import static com.example.polydraw.Socket.SocketIO.HTTP_URL;
 
-public class HttpGet extends AsyncTask<String, Void, Void> {
+public class HttpGet extends AsyncTask<String, Void, String> {
+    String result;
     public HttpGet() {
 
     }
 
     @Override
-    protected Void doInBackground(String... params) {
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+    }
+
+    @Override
+    protected String doInBackground(String... params) {
 
         try {
             URL url = new URL(params[0]);
@@ -54,6 +60,9 @@ public class HttpGet extends AsyncTask<String, Void, Void> {
 
                 // print result
                 System.out.println(response.toString());
+                result = response.toString();
+            }else{
+                result = null;
             }
 
 

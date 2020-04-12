@@ -1,5 +1,6 @@
 package com.example.polydraw;
 
+import androidx.annotation.RequiresPermission;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -26,6 +27,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Array;
+import java.util.List;
 
 public class Profile extends AppCompatActivity {
 
@@ -40,6 +43,8 @@ public class Profile extends AppCompatActivity {
     private String username;
     private String firstName;
     private String lastName;
+
+    private List<JSONObject> games;
 
     String USERNAME = MainActivity.editTextString;
 
@@ -148,13 +153,19 @@ public class Profile extends AppCompatActivity {
     public void onBackPressed() { }
 
     public class HttpGetPlayer extends AsyncTask<String, Void, String> {
+        String result;
+
         public HttpGetPlayer() {
 
         }
 
         @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
+
+        @Override
         protected String doInBackground(String... params) {
-            String result;
 
             try {
                 URL url = new URL(params[0]);
@@ -181,14 +192,17 @@ public class Profile extends AppCompatActivity {
 
                     // print result
                     JSONObject reader = new JSONObject(response.toString());
-                    System.out.println(reader.toString());
+                    result = reader.toString();
+
+                } else{
+                    result = null;
                 }
 
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return null;
+            return result;
         }
 
     }

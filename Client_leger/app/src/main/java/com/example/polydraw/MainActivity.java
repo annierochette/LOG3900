@@ -126,8 +126,6 @@ public class MainActivity extends AppCompatActivity {
                     String lastName1 = reader.get("lastName").toString();
                     String firstName1 = reader.get("firstName").toString();
 
-                    System.out.println("token try catch pour intent main "+token1);
-
                     intent.putExtra("token", token1);
                     intent.putExtra("username", username1);
                     intent.putExtra("lastName", lastName1);
@@ -159,6 +157,8 @@ public class MainActivity extends AppCompatActivity {
                 urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
                 urlConnection.setRequestProperty("Accept", "application/json");
                 urlConnection.setRequestMethod("POST");
+                urlConnection.setConnectTimeout(5000);
+                urlConnection.setReadTimeout(5000);
 
                 if (this.postData != null) {
                     OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
