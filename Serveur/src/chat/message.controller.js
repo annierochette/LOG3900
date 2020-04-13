@@ -4,9 +4,11 @@ const PAGE_SIZE = 25;
 var pageKeeper = new Map();
 
 exports.previousPage = async function(player, channel) {
+    console.log(player + " " + channel);
+
     let infos = pageKeeper.get(player).get(channel);
 
-    if (infos.offset < 0) { return; }
+    if (!infos || infos.offset < 0) { return; }
 
     let results = await Message.paginate({}, { offset: infos.offset, limit: infos.documents });
     let newInfos = { "offset": infos.offset - PAGE_SIZE, "documents": PAGE_SIZE };
@@ -27,6 +29,8 @@ exports.lastPage = async function(player, channel) {
         channelInfos.set(channel, {"offset": offset, "documents": remaining});
     }
     pageKeeper.set(player, channelInfos);
+
+    console.log("LAST "+ player + " " + channel);
 }
 
 exports.save = async function(message, username, channel, timestamp) {

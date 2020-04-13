@@ -19,7 +19,6 @@ module.exports = function(http) {
     filter.addWords(...frenchBadwordsList.array);
 
     io.on(SOCKET.CHAT.CONNECTION, function(socket){
-      messageController.lastPage(socket.id, GENERAL);
       socket.join(GENERAL);
       console.log("Users connected: " + io.engine.clientsCount);
       // console.log("User connected" + dateString);
@@ -58,7 +57,7 @@ module.exports = function(http) {
           channelsSubscribed.set(username, new Set([channel]));
         }
           
-        messageController.lastPage(socket.id, channel);
+        messageController.lastPage(username, channel);
         let timestamp = Timestamp.currentDate();
         let  msg = { "message": username + " a rejoint la conversation.", "username": username, "timestamp": Timestamp.chatString(timestamp), "channel": channel };
         socket.to(channel).broadcast.emit(SOCKET.CHAT.MESSAGE, msg);
@@ -90,8 +89,10 @@ module.exports = function(http) {
         socket.emit(SOCKET.CHAT.CHANNELS, channels);
       });
 
-      socket.on(SOCKET.CHAT.HISTORY, async (channel) => {
-        let docs = await messageController.previousPage(socket.id, channel);
+      socket.on(SOCKET.CHAT.HISTORY, async (username, channel) => {
+        console.log("History username" + username);
+        console.log("History channel" + channel);
+        let docs = await messageController.previousPage(username, channel);
         socket.to(channel).emit(SOCKET.CHAT.HISTORY, docs);
       });
 
@@ -114,7 +115,6 @@ module.exports = function(http) {
 
       // Draft
       socket.on(SOCKET.DRAFT.STROKE_DRAWING, (channel, points) => {
-        console.log(points)
         io.emit(SOCKET.DRAFT.STROKE_DRAWING, points);
       });
 
