@@ -29,9 +29,11 @@ import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,16 +67,12 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         messageTxt = (EditText) findViewById(R.id.message);
         send = (Button) findViewById(R.id.send);
         addChannel = (ImageButton) findViewById(R.id.addChannel);
-//        ListView lv = (ListView) findViewById(R.id.channelsList);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        myRecyclerView = (RecyclerView) findViewById(R.id.messagelist);
+        channelsRecyclerView = (RecyclerView) findViewById(R.id.channelsList);
 
         MessageList = new ArrayList<>();
         ChannelList = new ArrayList<>();
-
-//        final List<ChatChannel> availableChannels = new ArrayList<ChatChannel>(Arrays.asList(channels));
-
-        myRecyclerView = (RecyclerView) findViewById(R.id.messagelist);
-        channelsRecyclerView = (RecyclerView) findViewById(R.id.channelsList);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         myRecyclerView.setLayoutManager(mLayoutManager);
@@ -88,36 +86,11 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         socket.getSocket().on("channels", getChannels);
 
         ChatChannel c = new ChatChannel("General");
-//        ChatChannel g = new ChatChannel("GGG");
-//        ChatChannel f = new ChatChannel("GGGGGGGGGGGGG");
+        c.setCurrent(true);
         ChannelList.add(c);
-//        ChannelList.add(g);
-//        ChannelList.add(f);
-//
-//        chatChannelAdapter = new ChatChannelAdapter(ChannelList, this);
-//        chatChannelAdapter.notifyDataSetChanged();
-//
-//        channelsRecyclerView.setAdapter(chatChannelAdapter);
 
-        updateRecycler(ChannelList);
-
+        updateChannelRecycler(ChannelList);
         setToolbarName(currentChannel);
-
-//        channelsRecyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                String channel = availableChannels.get(position);
-//                socket.getSocket().emit("leaveChannel", Username, currentChannel);
-//                currentChannel = channel;
-//                socket.getSocket().emit("joinChannel", Username, channel);
-//                setToolbarName(currentChannel);
-//                Toast.makeText(ChatBoxActivity.this, "Vous êtes désormais dans le canal " + channel , Toast.LENGTH_SHORT).show();
-//                socket.getSocket().emit("channels");
-//                socket.getSocket().on("channels", getChannels);
-//            }
-//        });
-
-
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,16 +153,51 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
 
                             MessageList.add(m);
 
-                            chatBoxAdapter = new ChatBoxAdapter(MessageList);
-
-                            chatBoxAdapter.notifyDataSetChanged();
-
-                            myRecyclerView.setAdapter(chatBoxAdapter);
+                            updateMessageRecycler(MessageList);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                    }
+                });
+            }
+        });
 
+        socket.getSocket().on("newChannel", new Emitter.Listener() {
+            @Override
+            public void call(final Object... args) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String newChannel = (String) args[0];
+                        ChatChannel nc = new ChatChannel(newChannel);
+
+                        if(currentChannel.equals(newChannel)){
+                            switchCurrentChannelNoPosition();
+                            nc.setCurrent(true);
+                        }
+
+                        ChannelList.add(nc);
+                        updateChannelRecycler(ChannelList);
+                    }
+                });
+            }
+        });
+
+        socket.getSocket().on("deleteChannel", new Emitter.Listener() {
+            @Override
+            public void call(final Object... args) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String deletedChannel = (String) args[0];
+
+                        for(ChatChannel channel: ChannelList) {
+                            if(channel.getChannelName().equals(deletedChannel)){
+                                ChannelList.remove(channel);
+                            }
+                        }
+                        updateChannelRecycler(ChannelList);
                     }
                 });
             }
@@ -212,20 +220,20 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
                     public void onClick(View v) {
                         if (!newChannelName.getText().toString().isEmpty()) {
                             String result = newChannelName.getText().toString();
+                            currentChannel = result;
+                            socket.getSocket().emit("joinChannel", Username, result);
 
-                            ChatChannel newChannel = new ChatChannel(result);
-                            ChannelList.add(newChannel);
-
-                            updateRecycler(ChannelList);
-
-
+//                            ChatChannel newChannel = new ChatChannel(result);
 //
-//                            chatChannelAdapter = new ChatChannelAdapter(ChannelList);
-//                            chatChannelAdapter.notifyDataSetChanged();
+//                            switchCurrentChannelNoPosition();
 //
-//                            channelsRecyclerView.setAdapter(chatChannelAdapter);
+//                            newChannel.setCurrent(true);
+//                            ChannelList.add(newChannel);
+//
+//                            updateChannelRecycler(ChannelList);
 
                             Toast.makeText(ChatBoxActivity.this, "Le canal '" + result + "' a été créé", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ChatBoxActivity.this, "Vous êtes désormais dans le canal " + result , Toast.LENGTH_SHORT).show();
                             //dismiss dialog once item is added successfully
                             dialog.dismiss();
                         }
@@ -256,7 +264,7 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         toolbar.setTitle(channel);
     }
 
-    private void updateRecycler(List<ChatChannel> channelList){
+    private void updateChannelRecycler(List<ChatChannel> channelList){
 
         chatChannelAdapter = new ChatChannelAdapter(channelList, this);
         chatChannelAdapter.notifyDataSetChanged();
@@ -264,20 +272,31 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         channelsRecyclerView.setAdapter(chatChannelAdapter);
     }
 
+    private void updateMessageRecycler(List<Message> messageList){
+
+        chatBoxAdapter = new ChatBoxAdapter(messageList);
+        chatBoxAdapter.notifyDataSetChanged();
+        myRecyclerView.setAdapter(chatBoxAdapter);
+    }
+
     @Override
     public void onChannelClick(int position) {
         ChatChannel channel = ChannelList.get(position);
-        socket.getSocket().emit("leaveChannel", Username, currentChannel);
-        currentChannel = channel.getChannelName();
 
-        switchCurrentChannel(position);
+        if(!channel.getChannelName().equals(currentChannel)){
 
-        socket.getSocket().emit("joinChannel", Username, channel.getChannelName());
+            socket.getSocket().emit("leaveChannel", Username, currentChannel);
+            currentChannel = channel.getChannelName();
 
+            switchCurrentChannel(position);
 
-        Toast.makeText(ChatBoxActivity.this, "Vous êtes désormais dans le canal " + channel , Toast.LENGTH_SHORT).show();
-        socket.getSocket().emit("channels");
-        socket.getSocket().on("channels", getChannels);
+            socket.getSocket().emit("joinChannel", Username, channel.getChannelName());
+
+            Toast.makeText(ChatBoxActivity.this, "Vous êtes désormais dans le canal " + channel.getChannelName() , Toast.LENGTH_SHORT).show();
+            socket.getSocket().emit("channels");
+            socket.getSocket().on("channels", getChannels);
+
+        }
     }
 
     private void switchCurrentChannel(int position){
@@ -286,14 +305,29 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         }
 
         ChannelList.get(position).setCurrent(true);
-        updateRecycler(ChannelList);
+
+        MessageList = new ArrayList<Message>();
+
+        updateMessageRecycler(MessageList);
+        updateChannelRecycler(ChannelList);
+        setToolbarName(currentChannel);
+    }
+
+    private void switchCurrentChannelNoPosition(){
+        for (ChatChannel channel: ChannelList) {
+            channel.setCurrent(false);
+        }
+        MessageList = new ArrayList<Message>();
+
+        updateMessageRecycler(MessageList);
+        updateChannelRecycler(ChannelList);
         setToolbarName(currentChannel);
     }
 
     private Emitter.Listener getChannels = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
-            JSONObject channels = (JSONObject) args[0];
+            JSONArray channels = (JSONArray) args[0];
             System.out.println(channels);
         }
     };
