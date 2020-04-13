@@ -5,11 +5,14 @@ import android.content.Intent;
 
 import android.os.Bundle;
 
+import android.view.KeyEvent;
 import android.view.View;
 
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -84,7 +87,7 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         }
 
         socket.getSocket().emit("history", currentChannel);
-        socket.getSocket().on("history", retrieveHistory);
+//        socket.getSocket().on("history", retrieveHistory);
 
         updateChannelRecycler(ChannelList);
         setToolbarName(currentChannel);
@@ -97,6 +100,22 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
                     socket.getSocket().emit("chat message", Username, currentChannel, messageTxt.getText().toString());
                     messageTxt.setText(" ");
                 }
+            }
+        });
+
+        messageTxt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if(actionId == EditorInfo.IME_ACTION_SEND){
+                    if (!messageTxt.getText().toString().trim().isEmpty() && !messageTxt.getText().toString().isEmpty()) {
+
+                        socket.getSocket().emit("chat message", Username, currentChannel, messageTxt.getText().toString());
+                        messageTxt.setText(" ");
+                        handled = true;
+                    }
+                }
+                return handled;
             }
         });
 
@@ -208,6 +227,21 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
             }
         });
 
+        socket.getSocket().on("history", new Emitter.Listener() {
+            @Override
+            public void call(final Object... args) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        JSONObject messages = (JSONObject) args[0];
+
+                        System.out.println("Retrieve messages");
+                        System.out.println(messages);
+                    }
+                });
+            }
+        });
+
         addChannel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -231,7 +265,7 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
 
 
                             socket.getSocket().emit("history", result);
-                            socket.getSocket().on("history", retrieveHistory);
+//                            socket.getSocket().on("history", retrieveHistory);
 //                            socket.getSocket().emit("leaveChannel", Username, currentChannel);
 //                            System.out.println("Left " + currentChannel);
 
@@ -338,15 +372,15 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         setToolbarName(currentChannel);
     }
 
-    private Emitter.Listener retrieveHistory = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            JSONObject messages = (JSONObject) args[0];
-
-            System.out.println("Retrieve messages");
-            System.out.println(messages);
-        }
-    };
+//    private Emitter.Listener retrieveHistory = new Emitter.Listener() {
+//        @Override
+//        public void call(Object... args) {
+//            JSONObject messages = (JSONObject) args[0];
+//
+//            System.out.println("Retrieve messages");
+//            System.out.println(messages);
+//        }
+//    };
 
     private Emitter.Listener getChannels = new Emitter.Listener() {
         @Override
