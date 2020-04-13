@@ -20,7 +20,6 @@ module.exports = function(http) {
 
     io.on(SOCKET.CHAT.CONNECTION, function(socket){
       messageController.lastPage(socket.id, GENERAL);
-      
       socket.join(GENERAL);
       console.log("Users connected: " + io.engine.clientsCount);
       // console.log("User connected" + dateString);
