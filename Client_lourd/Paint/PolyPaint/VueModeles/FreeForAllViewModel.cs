@@ -9,6 +9,8 @@ using Svg;
 using System.Windows.Markup;
 using System.Xml.Linq;
 using System;
+using Newtonsoft.Json;
+using System.Web.Script.Serialization;
 
 namespace PolyPaint.VueModeles
 {
@@ -20,6 +22,54 @@ namespace PolyPaint.VueModeles
     /// </summary>
     class FreeForAllViewModel :  INotifyPropertyChanged, IPageViewModel
     {
+        response info;
+        public string _textBoxWordData;
+
+        public string TextBoxWordData
+        {
+            get
+            {
+                return _textBoxWordData;
+            }
+            set
+            {
+                _textBoxWordData = value;
+
+            }
+        }
+        public class game
+        {
+
+            [JsonProperty("clues")]
+            public string[] clues { get; set; }
+            
+            [JsonProperty("_id")]
+            public string _id { get; set; }
+
+            [JsonProperty("name")]
+            public string name { get; set; }
+
+            [JsonProperty("__v")]
+            public int __v { get; set; }
+
+        }
+
+        public class response
+        {
+
+            [JsonProperty("draftsman")]
+            public string draftsman { get; set; }
+
+            [JsonProperty("game")]
+            public game game { get; set; }
+
+            [JsonProperty("status")]
+            public string Status { get; set; }
+
+
+
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private Editeur editeur = new Editeur();
         private SvgDocument newImage = new SvgDocument();
@@ -108,19 +158,30 @@ namespace PolyPaint.VueModeles
         /// </summary>
         public FreeForAllViewModel()
         {
-            //socket.On("startMatch", (data) =>
-            //{
+            socket.On("nextRound", (data) =>
+            {
+                Console.WriteLine("se rend au next round");
             //    string test = data.ToString();
-            //    Console.WriteLine(test);
+                Console.WriteLine(data);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                info  = js.Deserialize<response>(data.ToString());
+                string name = info.draftsman;
+                string user = User.instance.Username;
+                if (name == user)
+                {
+                    ActivateDrawing = true;
+                    ActivateGuessing = false;
+                }
+                else { 
+                    ActivateDrawing = false;
+                    ActivateGuessing = true;
+                }
 
-            //    //string test = (string)un;
-            //    //Console.WriteLine("le nombre: " + test);
-            //    //Console.WriteLine(test);
-            //    //TextBoxData = test;
+                
+                TextBoxWordData = info.game.name;
 
-            //});
-            ActivateDrawing = false;
-            ActivateGuessing = true;
+            });
+            
             ButtonCommand = new RelayCommand(o => ConvertDrawingToSVG("ToSVG"));
             // On écoute pour des changements sur le modèle. Lorsqu'il y en a, EditeurProprieteModifiee est appelée.
             editeur.PropertyChanged += new PropertyChangedEventHandler(EditeurProprieteModifiee);

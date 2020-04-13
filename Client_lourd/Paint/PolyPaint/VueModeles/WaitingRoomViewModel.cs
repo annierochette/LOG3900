@@ -92,11 +92,8 @@ namespace PolyPaint.VueModeles
             socket.On("joinGame", (data) =>
             {
                 Console.WriteLine(data);
-
-                //string test = (string)un;
-                //Console.WriteLine("le nombre: " + test);
-                //Console.WriteLine(test);
-                //TextBoxData = test;
+                
+                TextBoxData = data.ToString();
 
             });
         }

@@ -117,11 +117,11 @@ namespace PolyPaint.Vues
             if (res.Content != null)
             {
                 var responseContent = await res.Content.ReadAsStringAsync();
-                Console.WriteLine(responseContent); 
+                //Console.WriteLine(responseContent); 
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 gamesUnstarted = js.Deserialize<gameList[]>(responseContent);
                 //App.Current.Properties["games"] = gamesUnstarted;
-                Console.WriteLine("on est rendu la");
+               // Console.WriteLine("on est rendu la");
 
 
 
@@ -165,52 +165,54 @@ namespace PolyPaint.Vues
         }
 
 
-        private async void joinGame(object sender, RoutedEventArgs e)
+        private void joinGame(object sender, RoutedEventArgs e)
         {
 
             var button = (Button)sender;
             string gameJoined = (string)button.Content;
             App.Current.Properties["currentGame"] = gameJoined;
-            socket.Emit("joinGame", gameJoined);
+            Global.GameName = gameJoined;
+            
+            socket.Emit("joinGame", gameJoined, User.instance.Username);
 
-            var playerOne = new Joiner
-            {
-                name = User.instance.Username,
-                score = 0,
-                _id = User.instance.Id
-            };
+            //var playerOne = new Joiner
+            //{
+            //    name = User.instance.Username,
+            //    score = 0,
+            //    _id = User.instance.Id
+            //};
 
-            var playerList = new Players
-            {
-                players = playerOne
-            };
+            //var playerList = new Players
+            //{
+            //    players = playerOne
+            //};
 
-            var HttpClient = new HttpClient();
-            HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", User.instance.Token);
+            //var HttpClient = new HttpClient();
+            //HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", User.instance.Token);
 
-            var json = await Task.Run(() => JsonConvert.SerializeObject(playerList));
-            Console.WriteLine(json);
-            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            //var json = await Task.Run(() => JsonConvert.SerializeObject(playerList));
+            //Console.WriteLine(json);
+            //var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
 
 
-            //var res = await HttpClient.PostAsync(Constants.ADDR + "match/:name/player", httpContent);
-            var res = await PatchAsync(HttpClient, new Uri(Constants.ADDR + "match/:name/player"), httpContent);
-            if (res.Content != null)
-            {
+            ////var res = await HttpClient.PostAsync(Constants.ADDR + "match/:name/player", httpContent);
+            //var res = await PatchAsync(HttpClient, new Uri(Constants.ADDR + "match/:name/player"), httpContent);
+            //if (res.Content != null)
+            //{
                 
-                var responseContent = await res.Content.ReadAsStringAsync();
+            //    var responseContent = await res.Content.ReadAsStringAsync();
 
-                Console.WriteLine(responseContent);
-                Console.WriteLine("on est rendu la");
+            //    Console.WriteLine(responseContent);
+            //    Console.WriteLine("on est rendu la");
 
 
 
-            }
-            if (res.StatusCode.ToString() == "201")
-            {
+            //}
+            //if (res.StatusCode.ToString() == "201")
+            //{
 
-            }
+            //}
 
         }
 

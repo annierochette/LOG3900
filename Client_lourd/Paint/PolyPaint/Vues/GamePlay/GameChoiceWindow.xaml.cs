@@ -120,7 +120,6 @@ namespace PolyPaint.Vues
 
             var infos = new gameCreated
             {
-                players = playersList,
                 type = "FreeForAll"
 
             };
@@ -142,7 +141,7 @@ namespace PolyPaint.Vues
                 Application.Current.Properties["gameName"] = game.match.name;
                 Console.WriteLine("gameChoice: " + Global.GameName);
                 ((GameChoiceViewModel)(DataContext)).GiveAccess();
-                socket.Emit("joinGame", game.match.name);
+                socket.Emit("joinGame", (game.match.name, User.instance.Username));
             }
             if (res.StatusCode.ToString() == "201")
             {

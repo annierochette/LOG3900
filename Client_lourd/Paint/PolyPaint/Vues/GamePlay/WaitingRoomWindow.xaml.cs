@@ -34,8 +34,10 @@ namespace PolyPaint.Vues
             gameName = Global.GameName;
             
             Console.WriteLine("WaitingRoom: " +gameName);
+            Console.WriteLine("waiting room: " + Application.Current.Properties["gameName"]);
             Console.WriteLine("token: " + User.Instance.Token);
-            socket.Emit("joinGame", gameName);
+            //socket.On("joinGame", gameName);
+
        
         }
 
