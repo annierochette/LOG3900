@@ -92,9 +92,22 @@ exports.updateStatus = async function(req, res) {
     }
 }
 
+// Socket
 exports.countPlayersInMatch = async function(name) {
     let match = await Match.findOne({ name: name }).select("players -_id");
     if (match.players.length >= 4) {
         throw new Error("Too many players");
+    }
+}
+
+exports.startStatus = async function(matchId) {
+    try {
+        await Match.findOneAndUpdate(
+            { name: matchId },
+            { status: "Started" }
+        );
+    } catch (error) {
+        LOGGER.info(error);
+        throw new Exception("La partie ne peux être commencée");
     }
 }
