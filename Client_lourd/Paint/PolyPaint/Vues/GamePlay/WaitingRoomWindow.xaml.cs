@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PolyPaint.VueModeles;
 using Quobject.SocketIoClientDotNet.Client;
+using PolyPaint.Modeles;
 
 
 namespace PolyPaint.Vues
@@ -29,28 +30,25 @@ namespace PolyPaint.Vues
         public WaitingRoomWindow()
         {
             InitializeComponent();
-            string gameName = (string)App.Current.Properties["gameName"];
-            socket.Emit("joinGame", gameName);
+            string gameName = "";
+            gameName = Global.GameName;
             
-
+            Console.WriteLine("WaitingRoom: " +gameName);
+            Console.WriteLine("token: " + User.Instance.Token);
+            socket.Emit("joinGame", gameName);
+       
         }
 
 
         private void voir(object sender, RoutedEventArgs e) {
-            Console.WriteLine("Voici le mot:");
-            string prop = (string)App.Current.Properties["gameName"];
-            Console.WriteLine(prop);
-            App.Current.Properties["gameName"] = "partie2";
-             prop = (string)App.Current.Properties["gameName"];
-            Console.WriteLine(prop);
+            
             
         }
 
         private void assignView(object sender, System.EventArgs e)
         {
 
-            ((WaitingRoomViewModel)(DataContext)).assignGuessingView();
-            //((WaitingRoomViewModel)(DataContext)).assignDrawingView();
+            socket.Emit("startMatch", Global.GameName);
         }
 
 

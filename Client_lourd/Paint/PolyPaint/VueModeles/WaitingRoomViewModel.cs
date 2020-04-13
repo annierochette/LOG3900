@@ -77,13 +77,12 @@ namespace PolyPaint.VueModeles
 
             socket.On("joinGame", (data) =>
             {
-                Newtonsoft.Json.Linq.JObject obj = (Newtonsoft.Json.Linq.JObject)data;
-                Newtonsoft.Json.Linq.JToken un = obj.GetValue("nbPlayers");
+                Console.WriteLine(data);
 
-                string test = (string)un;
+                //string test = (string)un;
                 //Console.WriteLine("le nombre: " + test);
-                Console.WriteLine(test);
-                TextBoxData = test;
+                //Console.WriteLine(test);
+                //TextBoxData = test;
 
             });
         }
