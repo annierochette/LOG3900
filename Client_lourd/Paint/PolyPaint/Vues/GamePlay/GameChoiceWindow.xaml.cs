@@ -62,11 +62,8 @@ namespace PolyPaint.Vues
         public class gameCreated
         {
 
-            [JsonProperty("name")]
-            public string name { get; set; }
-
-            [JsonProperty("players")]
-            public List<Player> players { get; set; }
+            //[JsonProperty("players")]
+            //public List<Player> players { get; set; }
 
             [JsonProperty("type")]
             public string type { get; set; }
@@ -117,22 +114,19 @@ namespace PolyPaint.Vues
 
             var infos = new gameCreated
             {
-                name = "game2",
-                players = playersList,
                 type = "FreeForAll"
-
 
             };
 
             var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
-            Console.WriteLine(json);
+            //Console.WriteLine(json);
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             var res = await HttpClient.PostAsync(Constants.ADDR + "match/:type", httpContent);
             if (res.Content != null)
             {
                 var responseContent = await res.Content.ReadAsStringAsync();
-                //Console.WriteLine(responseContent);
+                Console.WriteLine(responseContent);
                 App.Current.Properties["gameName"] = "game1";
 
             }
@@ -141,9 +135,6 @@ namespace PolyPaint.Vues
 
             }
 
-
-
-            App.Current.Properties["gameName"] = "game1";
             socket.Emit("createGame", "0");
         }
 

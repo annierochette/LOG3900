@@ -27,7 +27,28 @@ namespace PolyPaint.VueModeles
 
         // Ensemble d'attributs qui définissent l'apparence d'un trait.
         public DrawingAttributes AttributsDessin { get; set; } = new DrawingAttributes();
+        private bool _drawing;
+        private bool _guessing;
 
+        public bool ActivateDrawing
+        {
+            get { return _drawing; }
+            private set
+            {
+                _drawing = value;
+
+            }
+        }
+
+        public bool ActivateGuessing
+        {
+            get { return _guessing; }
+            private set
+            {
+                _guessing = value;
+
+            }
+        }
 
         public void assignGuessingView()
         {
@@ -87,6 +108,8 @@ namespace PolyPaint.VueModeles
         /// </summary>
         public FreeForAllViewModel()
         {
+            ActivateDrawing = false;
+            ActivateGuessing = true;
             ButtonCommand = new RelayCommand(o => ConvertDrawingToSVG("ToSVG"));
             // On écoute pour des changements sur le modèle. Lorsqu'il y en a, EditeurProprieteModifiee est appelée.
             editeur.PropertyChanged += new PropertyChangedEventHandler(EditeurProprieteModifiee);
