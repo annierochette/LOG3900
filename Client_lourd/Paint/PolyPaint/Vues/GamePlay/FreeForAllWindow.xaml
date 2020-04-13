@@ -138,16 +138,16 @@
             </InkPresenter>
         </StackPanel>
 
-        <TextBox x:Name="answerTextBox" Height="50" Visibility="{Binding ActivateGuessing, Converter={StaticResource BoolToVisibilityConverter}}" TextWrapping="Wrap" Grid.Column="2" Grid.Row="10" Grid.ColumnSpan="3" FontSize="36" Margin="0,49,0,1" Grid.RowSpan="2"/>
+        <TextBox x:Name="answerTextBox" Height="50" KeyDown="sendMessageOnEnter" Visibility="{Binding ActivateGuessing, Converter={StaticResource BoolToVisibilityConverter}}" TextWrapping="Wrap" Grid.Column="2" Grid.Row="10" Grid.ColumnSpan="3" FontSize="36" Margin="0,49,0,1" Grid.RowSpan="2"/>
         <Button x:Name="BtnSend" Content="Envoyer" Visibility="{Binding ActivateGuessing, Converter={StaticResource BoolToVisibilityConverter}}" Height="50" Background="#FFFF7F11" Grid.Column="5" Grid.Row="10"  FontSize="24" FontFamily="Ink Free" Foreground="White" Margin="0,49,0,1" Grid.RowSpan="2"/>
 
 
-        <custom:TimerControl Grid.Column="4" Grid.ColumnSpan="4" Grid.RowSpan="2" Margin="66,0,49,10" Loaded="TimerControl_Loaded" />
+        <custom:TimerControl x:Name="timer" Grid.Column="4" Grid.ColumnSpan="4" Grid.RowSpan="2" Margin="66,0,49,10" Loaded="TimerControl_Loaded" />
         <Button x:Name="button" Width="75" Height="40" Command="{Binding GoToGameModeMenu}" >
             <Image Source="back.png"></Image>
         </Button>
-        <TextBlock  Text="mot à faire deviner: " TextWrapping="Wrap" FontSize="20" FontWeight="Bold" Foreground="White" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,0,105,0"/>
-        <TextBlock x:Name="word" Text="{Binding TextBoxWordData}" TextWrapping="Wrap" FontSize="40" FontWeight="Bold" Foreground="White" Grid.Column="3" Grid.ColumnSpan="2" Margin="1,0,105,0"/>
+        <TextBlock  Text="mot à faire deviner: " Visibility="{Binding ActivateDrawing, Converter={StaticResource BoolToVisibilityConverter}}" TextWrapping="Wrap" FontSize="20" FontWeight="Bold" Foreground="White" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,0,105,0"/>
+        <TextBlock x:Name="word" Visibility="{Binding ActivateDrawing, Converter={StaticResource BoolToVisibilityConverter}}" Text="{Binding TextBoxWordData}" TextWrapping="Wrap" FontSize="40" FontWeight="Bold" Foreground="White" Grid.Column="3" Grid.ColumnSpan="2" Margin="1,0,105,0"/>
 
     </Grid>
 

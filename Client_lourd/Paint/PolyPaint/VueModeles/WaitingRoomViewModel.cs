@@ -19,6 +19,8 @@ namespace PolyPaint.VueModeles
         public ObservableCollection<string> SomeCollection { get; set; }
         public ICommand TestCommand { get; private set; }
 
+       
+
         public override string GetCurrentViewModelName()
         {
             return "WaitingRoomViewModel";
@@ -95,6 +97,13 @@ namespace PolyPaint.VueModeles
                 
                 TextBoxData = data.ToString();
 
+            });
+
+            socket.On("nextRound", (data) =>
+            {
+
+                Mediator.Notify("GoToFreeForAll", "");
+                
             });
         }
 

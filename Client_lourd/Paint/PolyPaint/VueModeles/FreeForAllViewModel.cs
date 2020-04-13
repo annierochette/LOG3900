@@ -11,6 +11,7 @@ using System.Xml.Linq;
 using System;
 using Newtonsoft.Json;
 using System.Web.Script.Serialization;
+using PolyPaint.Vues;
 
 namespace PolyPaint.VueModeles
 {
@@ -79,6 +80,8 @@ namespace PolyPaint.VueModeles
         public DrawingAttributes AttributsDessin { get; set; } = new DrawingAttributes();
         private bool _drawing;
         private bool _guessing;
+       
+        
 
         public bool ActivateDrawing
         {
@@ -158,6 +161,8 @@ namespace PolyPaint.VueModeles
         /// </summary>
         public FreeForAllViewModel()
         {
+
+            JoiningGameWindow tes = new JoiningGameWindow();
             socket.On("nextRound", (data) =>
             {
                 Console.WriteLine("se rend au next round");
@@ -181,7 +186,16 @@ namespace PolyPaint.VueModeles
                 TextBoxWordData = info.game.name;
 
             });
-            
+
+            socket.On("answer", (data) =>
+            {
+                Newtonsoft.Json.Linq.JObject obj = (Newtonsoft.Json.Linq.JObject)data;
+                Newtonsoft.Json.Linq.JToken un = obj.GetValue("valid");
+                Newtonsoft.Json.Linq.JToken ts = obj.GetValue("score");
+
+
+            });
+
             ButtonCommand = new RelayCommand(o => ConvertDrawingToSVG("ToSVG"));
             // On écoute pour des changements sur le modèle. Lorsqu'il y en a, EditeurProprieteModifiee est appelée.
             editeur.PropertyChanged += new PropertyChangedEventHandler(EditeurProprieteModifiee);

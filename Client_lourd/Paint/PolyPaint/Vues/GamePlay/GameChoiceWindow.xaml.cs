@@ -110,13 +110,7 @@ namespace PolyPaint.Vues
         {
             var HttpClient = new HttpClient();
             HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", User.instance.Token);
-            var playerOne = new Player
-            {
-                name = "test"
-            };
-
-            List<Player> playersList = new List<Player>();
-            playersList.Add(playerOne);
+            
 
             var infos = new gameCreated
             {
@@ -141,7 +135,7 @@ namespace PolyPaint.Vues
                 Application.Current.Properties["gameName"] = game.match.name;
                 Console.WriteLine("gameChoice: " + Global.GameName);
                 ((GameChoiceViewModel)(DataContext)).GiveAccess();
-                socket.Emit("joinGame", (game.match.name, User.instance.Username));
+                socket.Emit("joinGame", game.match.name, User.instance.Username);
             }
             if (res.StatusCode.ToString() == "201")
             {

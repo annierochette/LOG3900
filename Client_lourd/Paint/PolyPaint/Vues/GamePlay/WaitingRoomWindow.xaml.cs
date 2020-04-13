@@ -29,6 +29,7 @@ namespace PolyPaint.Vues
         private AppSocket socket = AppSocket.Instance;
         public WaitingRoomWindow()
         {
+
             InitializeComponent();
             string gameName = "";
             gameName = Global.GameName;
