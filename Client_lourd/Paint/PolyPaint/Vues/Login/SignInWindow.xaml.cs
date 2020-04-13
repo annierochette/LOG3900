@@ -78,7 +78,7 @@ namespace PolyPaint.Vues
                     Console.WriteLine("marche pas: " + responseContent); }
                 Console.WriteLine(password);
             }
-            else { System.Windows.MessageBox.Show("le mot de passe et la vérification ne correspondent pas", "Erreur"); }
+            else { System.Windows.MessageBox.Show("Le mot de passe et sa vérification ne correspondent pas", "Erreur"); }
         }
 
         private void surnameBox_TextChanged(object sender, TextChangedEventArgs e)
