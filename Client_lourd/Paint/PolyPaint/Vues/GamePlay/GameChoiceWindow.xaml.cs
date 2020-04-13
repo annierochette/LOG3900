@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Web.Script.Serialization;
+using PolyPaint.VueModeles;
+using System.Windows.Data;
+using PolyPaint.Modeles;
 
 namespace PolyPaint.Vues
 {
@@ -17,29 +21,28 @@ namespace PolyPaint.Vues
     public partial class GameChoiceWindow : UserControl
     {
         private AppSocket socket = AppSocket.Instance;
-        public static gameList[] gamesUnstarted;
+        public static Match game;
+        public string gameName;
         public GameChoiceWindow()
         {
             InitializeComponent();
         }
 
-        public gameList[] gameListTransfer
-        {
-            get
-            {
-                return gamesUnstarted;
-            }
-            set
-            {
-                gamesUnstarted = value;
-            }
-        }
+        
 
         public class Player
         {
 
             [JsonProperty("name")]
             public string name { get; set; }
+
+        }
+
+        public class Match
+        {
+
+            [JsonProperty("match")]
+            public gameList match { get; set; }
 
         }
 
@@ -61,9 +64,6 @@ namespace PolyPaint.Vues
 
         public class gameCreated
         {
-
-            [JsonProperty("name")]
-            public string name { get; set; }
 
             [JsonProperty("players")]
             public List<Player> players { get; set; }
@@ -95,6 +95,9 @@ namespace PolyPaint.Vues
 
             [JsonProperty("__v")]
             public int __v { get; set; }
+
+            [JsonProperty("turns")]
+            public int turns { get; set; }
         }
 
 
@@ -106,26 +109,17 @@ namespace PolyPaint.Vues
         private async void testing(object sender, RoutedEventArgs e)
         {
             var HttpClient = new HttpClient();
-            HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hbm91Y2hlIiwiaWF0IjoxNTgzMzQyNTc2fQ.gWQpbS9nUt_Url6sDPgwBaAHLerd6XSc3k8lOq8sc7Y");
-            var playerOne = new Player
-            {
-                name = "test"
-            };
-
-            List<Player> playersList = new List<Player>();
-            playersList.Add(playerOne);
+            HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", User.instance.Token);
+            
 
             var infos = new gameCreated
             {
-                name = "game2",
-                players = playersList,
                 type = "FreeForAll"
-
 
             };
 
             var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
-            Console.WriteLine(json);
+            //Console.WriteLine(json);
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             var res = await HttpClient.PostAsync(Constants.ADDR + "match/:type", httpContent);
@@ -133,18 +127,22 @@ namespace PolyPaint.Vues
             {
                 var responseContent = await res.Content.ReadAsStringAsync();
                 //Console.WriteLine(responseContent);
-                App.Current.Properties["gameName"] = "game1";
-
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                game= js.Deserialize<Match>(responseContent);
+                //Button bt = (Button)sender;
+                //Console.WriteLine(game.match.name);
+                Global.GameName = game.match.name;
+                Application.Current.Properties["gameName"] = game.match.name;
+                Console.WriteLine("gameChoice: " + Global.GameName);
+                ((GameChoiceViewModel)(DataContext)).GiveAccess();
+                socket.Emit("joinGame", game.match.name, User.instance.Username);
             }
             if (res.StatusCode.ToString() == "201")
             {
 
             }
 
-
-
-            App.Current.Properties["gameName"] = "game1";
-            socket.Emit("createGame", "0");
+            
         }
 
         private void join(object sender, RoutedEventArgs e)

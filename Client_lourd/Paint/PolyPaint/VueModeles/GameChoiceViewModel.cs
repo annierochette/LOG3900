@@ -66,6 +66,11 @@ namespace PolyPaint.VueModeles
                 }));
             }
         }
+
+        public void GiveAccess()
+        {
+            Mediator.Notify("GoToWaitingRoom", "");
+        }
     }
 }
 

@@ -7,7 +7,7 @@ const playerController = require("./player/player.controller");
 const Timestamp = require("./utils/timestamp");
 
 const frenchBadwordsList = require('french-badwords-list');
-const GENERAL = "General";
+const GENERAL = "Général";
 var playersInChannel = new Map();
 var channelsSubscribed = new Map();
 var playerSocket = new Map();
@@ -69,13 +69,16 @@ module.exports = function(http) {
       socket.on(SOCKET.CHAT.LEAVE_CHANNEL, (username, channel) => {
         socket.leave(channel);
         let players = playersInChannel.get(channel);
-        players.delete(username);
+        
+        if (players) {
+          players.delete(username);
 
-        if (players.size == 0) {
-          playersInChannel.delete(channel);
-          io.emit(SOCKET.CHAT.DELETE_CHANNEL, channel);
-        } else {
-          playersInChannel.set(channel, players);
+          if (players.size == 0) {
+            playersInChannel.delete(channel);
+            io.emit(SOCKET.CHAT.DELETE_CHANNEL, channel);
+          } else {
+            playersInChannel.set(channel, players);
+          }
         }
 
         let timestamp = Timestamp.currentDate();    
@@ -91,7 +94,7 @@ module.exports = function(http) {
       });
 
       socket.on(SOCKET.CHAT.HISTORY, async (channel) => {
-        let docs = await messageController.previousPage(socket.id);
+        let docs = await messageController.previousPage(socket.id, channel);
         socket.to(channel).emit(SOCKET.CHAT.HISTORY, docs);
       });
 
@@ -151,9 +154,10 @@ module.exports = function(http) {
 
       // Match
       socket.on(SOCKET.MATCH.JOIN_MATCH, (channel, username) => {
+        socket.join(channel);
         let players = matchManager.getPlayerInWaitingRoom(channel);
         if ( !players || players.length < 4) {
-          let playersInWaitingRoom = matchManager.addPlayerInWaitingRoom(channel, username);
+          let playersInWaitingRoom = matchManager.addPlayerToWaitingRoom(channel, username);
           io.emit(SOCKET.MATCH.JOIN_MATCH, playersInWaitingRoom);
         } else {
           socket.to(SOCKET.MATCH.FULL, "La partie est complète.");
@@ -176,11 +180,11 @@ module.exports = function(http) {
 
       socket.on(SOCKET.MATCH.START_MATCH, async (matchId) => {
         matchManager.addMatch(matchId, matchManager.getPlayerInWaitingRoom(matchId));
+        console.log(matchId)
         let round = await matchManager.nextRound(matchId);
         io.to(matchId).emit(SOCKET.MATCH.NEXT_ROUND, round);
-        matchManager.start(matchId, 90);
+        matchManager.startTimer(matchId, 90);
       });
     
     });
 }
-

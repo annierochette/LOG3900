@@ -168,6 +168,7 @@
     <Compile Include="Utilitaires\Constants.cs" />
     <Compile Include="Utilitaires\EventArgs.cs" />
     <Compile Include="Utilitaires\EventRaiser.cs" />
+    <Compile Include="Utilitaires\Global.cs" />
     <Compile Include="Utilitaires\Mediator.cs" />
     <Compile Include="Utilitaires\RelayCommand.cs" />
     <Compile Include="Utilitaires\SocketEvents.cs" />

@@ -13,10 +13,13 @@ namespace PolyPaint.VueModeles
     {
         private ICommand _goToGameMenu;
         private ICommand _goToSignInWindow;
+        private ICommand _goToFreeForAll;
         public string _textBoxData;
         AppSocket socket = AppSocket.Instance;
         public ObservableCollection<string> SomeCollection { get; set; }
         public ICommand TestCommand { get; private set; }
+
+       
 
         public override string GetCurrentViewModelName()
         {
@@ -59,6 +62,19 @@ namespace PolyPaint.VueModeles
 
         }
 
+        public ICommand GoToFreeForAll
+        {
+            get
+            {
+                return _goToFreeForAll ?? (_goToFreeForAll = new RelayCommand(x =>
+                {
+                    Mediator.Notify("GoToFreeForAll", "");
+                }));
+            }
+
+
+        }
+
         public string TextBoxData
         {
             get
@@ -77,14 +93,17 @@ namespace PolyPaint.VueModeles
 
             socket.On("joinGame", (data) =>
             {
-                Newtonsoft.Json.Linq.JObject obj = (Newtonsoft.Json.Linq.JObject)data;
-                Newtonsoft.Json.Linq.JToken un = obj.GetValue("nbPlayers");
+                Console.WriteLine(data);
+                
+                TextBoxData = data.ToString();
 
-                string test = (string)un;
-                //Console.WriteLine("le nombre: " + test);
-                Console.WriteLine(test);
-                TextBoxData = test;
+            });
 
+            socket.On("nextRound", (data) =>
+            {
+
+                Mediator.Notify("GoToFreeForAll", "");
+                
             });
         }
 

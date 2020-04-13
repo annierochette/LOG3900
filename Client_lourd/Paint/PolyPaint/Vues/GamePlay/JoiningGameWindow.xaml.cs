@@ -12,6 +12,8 @@ using System.Web.Script.Serialization;
 using PolyPaint.VueModeles;
 using System.Text;
 using System.Threading.Tasks;
+using PolyPaint.Modeles;
+using System.Diagnostics;
 
 
 namespace PolyPaint.Vues
@@ -23,7 +25,6 @@ namespace PolyPaint.Vues
     {
         private AppSocket socket = AppSocket.Instance;
         private gameList[] gamesUnstarted = { };
-        private bool isAccepted = false;
 
         public class Player
         {
@@ -33,6 +34,13 @@ namespace PolyPaint.Vues
 
         }
 
+        public class Players
+        {
+
+            [JsonProperty("players")]
+            public Joiner players { get; set; }
+
+        }
 
         public class Joiner
         {
@@ -99,7 +107,7 @@ namespace PolyPaint.Vues
         {
             Console.WriteLine("Nous sommes la");
             var HttpClient = new HttpClient();
-            HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hbm91Y2hlIiwiaWF0IjoxNTg2NTM5MzgxfQ.C-wN3t47M4_iDuxZ4XtBy-ZuWnS66KAmhrZqbFscGKw");
+            HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", User.instance.Token);
 
 
 
@@ -109,12 +117,11 @@ namespace PolyPaint.Vues
             if (res.Content != null)
             {
                 var responseContent = await res.Content.ReadAsStringAsync();
-                Console.WriteLine(responseContent); 
+                //Console.WriteLine(responseContent); 
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 gamesUnstarted = js.Deserialize<gameList[]>(responseContent);
                 //App.Current.Properties["games"] = gamesUnstarted;
-                isAccepted = true;
-                Console.WriteLine("on est rendu la");
+               // Console.WriteLine("on est rendu la");
 
 
 
@@ -129,8 +136,8 @@ namespace PolyPaint.Vues
             {
 
                 Button bt = new Button();
-                bt.Name = gamesUnstarted[i].name;
-                Console.WriteLine(bt.Name);
+                //bt.Name = gamesUnstarted[i].name;
+                //Console.WriteLine(bt.Name);
                 bt.Content = gamesUnstarted[i].name;
                 bt.Click += joinGame;
 
@@ -158,60 +165,79 @@ namespace PolyPaint.Vues
         }
 
 
-        private async void joinGame(object sender, RoutedEventArgs e)
+        private void joinGame(object sender, RoutedEventArgs e)
         {
 
             var button = (Button)sender;
-            string gameJoined = button.Name;
+            string gameJoined = (string)button.Content;
             App.Current.Properties["currentGame"] = gameJoined;
-            socket.Emit("joinGame", gameJoined);
+            Global.GameName = gameJoined;
+            
+            socket.Emit("joinGame", gameJoined, User.instance.Username);
 
-            var playerOne = new Joiner
-            {
-                name = "player2",
-                score = 0
-            };
+            //var playerOne = new Joiner
+            //{
+            //    name = User.instance.Username,
+            //    score = 0,
+            //    _id = User.instance.Id
+            //};
 
-            var HttpClient = new HttpClient();
-            HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hbm91Y2hlIiwiaWF0IjoxNTgzMzQyNTc2fQ.gWQpbS9nUt_Url6sDPgwBaAHLerd6XSc3k8lOq8sc7Y");
+            //var playerList = new Players
+            //{
+            //    players = playerOne
+            //};
 
-            var json = await Task.Run(() => JsonConvert.SerializeObject(playerOne));
-            Console.WriteLine(json);
-            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            //var HttpClient = new HttpClient();
+            //HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", User.instance.Token);
+
+            //var json = await Task.Run(() => JsonConvert.SerializeObject(playerList));
+            //Console.WriteLine(json);
+            //var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
 
 
-            var res = await HttpClient.PostAsync(Constants.ADDR + "/match/:name/player", httpContent);
-            if (res.Content != null)
-            {
+            ////var res = await HttpClient.PostAsync(Constants.ADDR + "match/:name/player", httpContent);
+            //var res = await PatchAsync(HttpClient, new Uri(Constants.ADDR + "match/:name/player"), httpContent);
+            //if (res.Content != null)
+            //{
                 
-                var responseContent = await res.Content.ReadAsStringAsync();
+            //    var responseContent = await res.Content.ReadAsStringAsync();
 
-                Console.WriteLine(responseContent);
-                Console.WriteLine("on est rendu la");
+            //    Console.WriteLine(responseContent);
+            //    Console.WriteLine("on est rendu la");
 
 
 
-            }
-            if (res.StatusCode.ToString() == "201")
-            {
+            //}
+            //if (res.StatusCode.ToString() == "201")
+            //{
 
-            }
+            //}
 
         }
 
-        //public async Task<HttpResponseMessage> PatchAsync(this HttpClient client, string requestUri, HttpContent content)
-        //{
-        //    var method = new HttpMethod("PATCH");
-        //    var request = new HttpRequestMessage(method, requestUri)
-        //    {
-        //        Content = content
-        //    };
+        public static async Task<HttpResponseMessage> PatchAsync(HttpClient client, Uri requestUri, HttpContent iContent)
+        {
+            var method = new HttpMethod("PATCH");
+            var request = new HttpRequestMessage(method, requestUri)
+            {
+                Content = iContent
+            };
 
-        //    var response = await client.SendAsync(request);
-        //    return response;
-        //}
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                response = await client.SendAsync(request);
+            }
+            catch (TaskCanceledException e)
+            {
+                Debug.WriteLine("ERROR: " + e.ToString());
+            }
 
+            return response;
+        }
+
+        
 
 
 
