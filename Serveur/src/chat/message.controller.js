@@ -9,7 +9,7 @@ exports.previousPage = async function(player, channel) {
     if (infos.offset < 0) { return; }
 
     let results = await Message.paginate({}, { offset: infos.offset, limit: infos.documents });
-    let newInfos = { "offset": offset - PAGE_SIZE, "documents": PAGE_SIZE };
+    let newInfos = { "offset": infos.offset - PAGE_SIZE, "documents": PAGE_SIZE };
     pageKeeper.get(player).set(channel, newInfos);
 
     return results.docs;
@@ -25,6 +25,7 @@ exports.lastPage = async function(player, channel) {
         channelInfos.set(channel, {"offset": offset, "documents": PAGE_SIZE});
     } else {
         channelInfos.set(channel, {"offset": offset, "documents": remaining});
+        pageKeeper.set(key, {"offset": offset, "documents": remaining});
     }
     pageKeeper.set(player, channelInfos);
 }
