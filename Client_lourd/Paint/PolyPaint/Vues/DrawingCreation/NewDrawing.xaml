@@ -117,7 +117,7 @@
         <GroupBox BorderThickness="0" Grid.ColumnSpan="8" Grid.Row="1" Grid.RowSpan="9" Grid.Column="0" BorderBrush="#FF004066" Margin="60 0 0 0">
             <custom:QuickDrawSuggestionControl x:Name="quickdrawPage" Visibility="Collapsed"/>
         </GroupBox>
-        <Button x:Name="cancel_button" Content="ANNULER" Height="66"  Grid.Row="8" Grid.RowSpan="2" Grid.ColumnSpan="3"  Width="189" Background="Red" BorderThickness="2" FontSize="24"  Foreground="White" RenderTransformOrigin="0.522,0.521" Command="{Binding GoToGameCreator}" Margin="0,16,79,0" Grid.Column="2" />
+        <Button x:Name="cancel_button" Content="ANNULER" Height="66"  Grid.Row="8" Grid.RowSpan="2" Grid.ColumnSpan="3"  Width="189" Background="Red" BorderThickness="2" FontSize="24"  Foreground="White" RenderTransformOrigin="0.522,0.521" Command="{Binding GoToGameMenu}" Margin="0,16,79,0" Grid.Column="2" />
         <Button x:Name="modifyDrawing_button" Content="MODIFIER" Grid.Column="1" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="Red" BorderThickness="2" FontSize="24" Foreground="White" RenderTransformOrigin="0.522,0.521" Visibility="Collapsed" Click="modifyDrawing_button_Click"/>
         <Button x:Name="back_button" Content="RETOUR" Grid.Column="1" Height="66"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3"  Width="189" Background="Red" BorderThickness="2" FontSize="24"  Foreground="White" RenderTransformOrigin="0.522,0.521" Visibility="Collapsed" Click="back_button_Click"/>
 
