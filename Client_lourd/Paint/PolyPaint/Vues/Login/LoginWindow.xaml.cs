@@ -9,12 +9,16 @@ using System.Windows.Input;
 using PolyPaint.VueModeles;
 using PolyPaint.Modeles;
 using PolyPaint.Utilitaires;
+using System.Web.Script.Serialization;
+using System.Diagnostics;
 
 namespace PolyPaint.Vues
 {
 
     public partial class LoginWindow : UserControl
     {
+        public responsePlayer playerInfo;
+
         public LoginWindow()
         { 
             InitializeComponent();
@@ -29,6 +33,39 @@ namespace PolyPaint.Vues
 
             [JsonProperty("password")]
             public string password { get; set; }
+        }
+
+        public class connectedPlayer
+        {
+
+            [JsonProperty("_id")]
+            public string _id { get; set; }
+
+            [JsonProperty("firstName")]
+            public string firstName { get; set; }
+
+            [JsonProperty("lastName")]
+            public string lastName { get; set; }
+
+            [JsonProperty("username")]
+            public string username { get; set; }
+
+            [JsonProperty("password")]
+            public string password { get; set; }
+
+            [JsonProperty("token")]
+            public string token { get; set; }
+
+            [JsonProperty("__v")]
+            public int __v { get; set; }
+        }
+
+        public class responsePlayer
+        {
+
+            [JsonProperty("player")]
+            public connectedPlayer player { get; set; }
+
         }
 
         private void UserConnectOnEnter(object sender, KeyEventArgs e)
@@ -54,18 +91,23 @@ namespace PolyPaint.Vues
 
             var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
-           
+
             var res = await HttpClient.PostAsync(Constants.ADDR + "players/login", httpContent);
+            
             var responseContent = await res.Content.ReadAsStringAsync();
             Console.WriteLine(responseContent);
             if (responseContent != "{}")
             {
-             
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                playerInfo = js.Deserialize<responsePlayer>(responseContent);
                 User.instance.Username = username;
+                User.instance.Token = playerInfo.player.token;
+                User.instance.Id = playerInfo.player._id;
                 ((LoginViewModel)(DataContext)).GiveAccess();
             } else
             {
                 ErreurConnection.Visibility = Visibility.Visible;
+
 
             }
         
@@ -88,6 +130,8 @@ namespace PolyPaint.Vues
             else
                 tbpass.Visibility = Visibility.Visible;
         }
+
+       
 
 
     }
