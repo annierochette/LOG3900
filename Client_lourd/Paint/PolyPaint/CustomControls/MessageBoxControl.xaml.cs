@@ -21,7 +21,7 @@ namespace PolyPaint.CustomControls
         private string currentChannel;
         private List<string> channels = new List<string>();
         public event PropertyChangedEventHandler PropertyChanged;
-       
+        private Dictionary<string,string> messagesPerChannel = new Dictionary<string, string>();
 
         public MessageBoxControl()
         {
@@ -40,16 +40,37 @@ namespace PolyPaint.CustomControls
 
             socket.On("chat message", (data) =>
             {
+                Console.WriteLine("message!");
                 Newtonsoft.Json.Linq.JObject obj = (Newtonsoft.Json.Linq.JObject)data;
                 Newtonsoft.Json.Linq.JToken un = obj.GetValue("username");
                 Newtonsoft.Json.Linq.JToken ts = obj.GetValue("timestamp");
                 Newtonsoft.Json.Linq.JToken ms = obj.GetValue("message");
-                Newtonsoft.Json.Linq.JToken channelName = obj.GetValue("channel");
-                if(currentChannel == channelName.ToString()) { 
-                MessageList += Environment.NewLine + un.ToString() + ts.ToString() + ":\n" + ms.ToString() + Environment.NewLine;
-                }
+                Newtonsoft.Json.Linq.JToken channelName = obj.GetValue("channel"); 
+                string newMessage = Environment.NewLine + un.ToString() + ts.ToString() + ":\n" + ms.ToString() + Environment.NewLine;
+                updateDictionnary(newMessage.ToString(), channelName.ToString());
+                Dispatcher.Invoke(() =>
+                    {
+                        if (currentChannel == channelName.ToString())
+                        {
+                            messageList.Text += newMessage.ToString();
+                        }
+                    
+                    });
+                
             });
         }
+
+        private void updateDictionnary(string newMessage, string channel)
+        {
+            if (messagesPerChannel.ContainsKey(channel))
+            {
+                messagesPerChannel[channel] += newMessage;
+            }
+            else messagesPerChannel.Add(channel, newMessage);
+
+            Console.WriteLine(newMessage);
+        }
+        
 
         public static readonly DependencyProperty ValueProperty =
         DependencyProperty.Register("Value", typeof(string), typeof(MessageBoxControl), new PropertyMetadata(null));
@@ -99,9 +120,13 @@ namespace PolyPaint.CustomControls
             if (!string.IsNullOrWhiteSpace(newChannelName.Text)){
 
                 socket.Emit("joinChannel", user.Username, newChannelName.Text);
-                socket.Emit("leaveChannel", user.Username, currentChannel);
                 currentChannel = newChannelName.Text;
                 ChatName.Text = (newChannelName.Text).ToString();
+                messageList.Text = "";
+                if (messagesPerChannel.ContainsKey(currentChannel))
+                {
+                    messageList.Text = messagesPerChannel[currentChannel].ToString();
+                }
             }
             newChannelName.Text = "";
             
@@ -158,12 +183,14 @@ namespace PolyPaint.CustomControls
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Console.WriteLine("Selection: " + ListOfChannels.SelectedItem);
             socket.Emit("joinChannel", user.Username, ListOfChannels.SelectedItem);
-            socket.Emit("leaveChannel", user.Username, currentChannel);
             currentChannel = ListOfChannels.SelectedItem.ToString();
             ChatName.Text = (ListOfChannels.SelectedItem).ToString();
-            
+            messageList.Text = "";
+            if (messagesPerChannel.ContainsKey(currentChannel))
+            {
+                messageList.Text = messagesPerChannel[currentChannel].ToString();
+            }
 
 
         }
