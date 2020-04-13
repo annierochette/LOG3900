@@ -40,7 +40,16 @@
             <ListView
                 android:id="@+id/playersWaiting"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="200dp"
+                android:fontFamily="sans-serif-condensed"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                android:textColor="@android:color/white"
+                android:textSize="30sp">
+
+            </ListView>
+
+
 
             <Button
                 android:id="@+id/playButton"

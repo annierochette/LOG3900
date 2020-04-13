@@ -101,12 +101,12 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
             }
         });
 
-        createButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playMultiplayerGame();
-            }
-        });
+//        createButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                playMultiplayerGame();
+//            }
+//        });
 
         disconnectButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,12 +122,12 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
             }
         });
 
-        joinGeneral.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playGeneralGame();
-            }
-        });
+//        joinGeneral.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                playGeneralGame();
+//            }
+//        });
 
     }
 

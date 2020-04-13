@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.polydraw.Socket.SocketIO;
@@ -38,8 +40,11 @@ public class WaitingRoom extends AppCompatActivity {
     private String username;
     private String firstName;
     private String lastName;
-    private ArrayList<String> playersList;
     private String _id;
+
+    ListView playersWaiting;
+    ArrayAdapter<String> adapter;
+    JSONArray playersList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,19 +130,29 @@ public class WaitingRoom extends AppCompatActivity {
             System.out.println(data);
             System.out.println("SOCKET JOIN ON");
             try{
-                JSONArray jsonArray = new JSONArray(data);
-                nbPlayers = jsonArray.length();
-                System.out.println("Nb de joueurs presents: "+nbPlayers);
+                playersList = new JSONArray(data);
+                nbPlayers = playersList.length();
+               System.out.println("Nb de joueurs presents: "+nbPlayers);
 
                 if(nbPlayers>1)
                     playButton.setVisibility(View.VISIBLE);
+
+                /*playersWaiting = (ListView) findViewById(R.id.playersWaiting);
+                adapter = new ArrayAdapter<String>(WaitingRoom.this, android.R.layout.simple_list_item_1, new ArrayList<String>());
+                playersWaiting.setAdapter(adapter);*/
 
 
             } catch(Exception e){
 
             }
-            /*List<String> myList = new ArrayList<String>(Arrays.asList(data.split(",")));
-            System.out.println("SIZE DE LA LISTE "+myList.size());*/
+            List<String> myList = new ArrayList<String>(Arrays.asList(data.split(",")));
+            System.out.println("SIZE DE LA LISTE "+myList.size());
+
+            playButton.setVisibility(View.VISIBLE);
+
+            playersWaiting = (ListView) findViewById(R.id.playersWaiting);
+            adapter = new ArrayAdapter<String>(WaitingRoom.this, android.R.layout.simple_list_item_1, myList);
+            playersWaiting.setAdapter(adapter);
 
         }
     };
