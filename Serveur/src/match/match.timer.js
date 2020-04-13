@@ -11,9 +11,10 @@ class MatchTimer {
     }
 
     start() {
+        var timer = this;
         let timeFlow = function() {
             this.remainingTime--;
-            this.io.to(this.matchId).emit(SOCKET.MATCH.REMAINING_TIME, this.remainingTime);
+            timer.io.to(this.matchId).emit(SOCKET.MATCH.REMAINING_TIME, this.remainingTime);
 
             if (this.remainingTime <= 0) {
                 console.log("TIME IS OVER");

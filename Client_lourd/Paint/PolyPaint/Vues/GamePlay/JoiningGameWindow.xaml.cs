@@ -104,7 +104,7 @@ namespace PolyPaint.Vues
 
 
 
-            var res = await HttpClient.GetAsync("http://localhost:5050/match/");
+            var res = await HttpClient.GetAsync(Constants.ADDR + "match/");
             Console.WriteLine(res.StatusCode.ToString());
             if (res.Content != null)
             {
@@ -181,7 +181,7 @@ namespace PolyPaint.Vues
 
 
 
-            var res = await HttpClient.PostAsync("http://localhost:5050/match/:name/player", httpContent);
+            var res = await HttpClient.PostAsync(Constants.ADDR + "/match/:name/player", httpContent);
             if (res.Content != null)
             {
                 

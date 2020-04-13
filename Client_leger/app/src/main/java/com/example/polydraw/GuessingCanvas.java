@@ -150,6 +150,7 @@ public class GuessingCanvas extends View {
             System.out.println("Stroke received");
             strokeID++;
             String data = args[0].toString();
+            System.out.println(data);
             Gson gson = new Gson();
             Point[] _receivedPoints = gson.fromJson(data, Point[].class);
             pointDown(_receivedPoints[0].x, _receivedPoints[0].y, strokeID);
@@ -171,6 +172,7 @@ public class GuessingCanvas extends View {
 //            JSONObject data = (JSONObject) args[0];
             String data = args[0].toString();
             Gson gson = new Gson();
+            System.out.println(data);
             Point[] _receivedPoints = gson.fromJson(data, Point[].class);
             eraseStroke(_receivedPoints[0].x, _receivedPoints[0].y, 0);
             for(int i = 1; i < _receivedPoints.length; i++){

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Media;
 
 namespace PolyPaint.Vues
 {
@@ -10,6 +11,8 @@ namespace PolyPaint.Vues
         public LoginControlWindow()
         {
             InitializeComponent();
+            FontFamily = new FontFamily("Microsoft JhengHei UI");
+           // FontFamily = new FontFamily("Ink Free");
         }
     }
 }

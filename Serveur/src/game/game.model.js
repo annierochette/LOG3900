@@ -11,10 +11,10 @@ const gameSchema = mongoose.Schema({
         type: String,
         required: true
     }],
-    data: [{
-        type: Buffer,
+    data: {
+        type: String,
         required: true
-    }]
+    }
 });
 
 const Game = mongoose.model("Game", gameSchema);

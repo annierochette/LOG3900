@@ -9,6 +9,8 @@ const Timestamp = require("./utils/timestamp");
 const frenchBadwordsList = require('french-badwords-list');
 const GENERAL = "General";
 var playersInChannel = new Map();
+var channelsSubscribed = new Map();
+var playerSocket = new Map();
 
 module.exports = function(http) {
     var io = SocketIo.listen(http);
@@ -25,8 +27,6 @@ module.exports = function(http) {
       // console.log("ScoketID: " + socket.id);
     
       socket.on(SOCKET.CHAT.MESSAGE, (username, channel, message) => {
-          console.log("Message received in " + channel);
-
           let filteredMessage = filter.clean(message);
           let timestamp = Timestamp.currentDate();
           messageController.save(filteredMessage, username, channel, timestamp);
@@ -36,8 +36,10 @@ module.exports = function(http) {
           io.to(channel).emit(SOCKET.CHAT.MESSAGE, msg);
       });
     
-    socket.on(SOCKET.CHAT.JOIN_CHANNEL, (username, channel) => {
+      socket.on(SOCKET.CHAT.JOIN_CHANNEL, (username, channel) => {
         socket.join(channel);
+
+        playerSocket.set(socket.id, username);
 
         if (playersInChannel.has(channel)) {
           let players = playersInChannel.get(channel);
@@ -45,6 +47,16 @@ module.exports = function(http) {
           playersInChannel.set(channel, players);
         } else {
           playersInChannel.set(channel, new Set([username]));
+          io.emit(SOCKET.CHAT.NEW_CHANNEL, channel);
+        }
+
+        if (channelsSubscribed.has(username)) {
+          let playerChannels = channelsSubscribed.get(username);
+          playerChannels.add(username);
+          channelsSubscribed.set(channel, playerChannels);
+        }
+        else {
+          channelsSubscribed.set(username, new Set([channel]));
         }
           
         messageController.lastPage(socket.id, channel);
@@ -61,6 +73,7 @@ module.exports = function(http) {
 
         if (players.size == 0) {
           playersInChannel.delete(channel);
+          io.emit(SOCKET.CHAT.DELETE_CHANNEL, channel);
         } else {
           playersInChannel.set(channel, players);
         }
@@ -72,8 +85,9 @@ module.exports = function(http) {
       });
 
       socket.on(SOCKET.CHAT.CHANNELS, () => {
-        console.log(playersInChannel.keys());
-        socket.emit(SOCKET.CHAT.CHANNELS, playersInChannel.keys());
+        let channels = ["Général"];
+        channels.push(...playersInChannel.keys());
+        socket.emit(SOCKET.CHAT.CHANNELS, channels);
       });
 
       socket.on(SOCKET.CHAT.HISTORY, async (channel) => {
@@ -81,8 +95,19 @@ module.exports = function(http) {
         socket.to(channel).emit(SOCKET.CHAT.HISTORY, docs);
       });
 
-      socket.on(SOCKET.CHAT.DISCONNECTION, async (player) => {
+      socket.on(SOCKET.CHAT.DISCONNECTION, async () => {
         socket.disconnect();
+        let player = playerSocket.get(socket.id);
+        let playerChannels = channelsSubscribed.get(player);
+        
+        for (let playerChannel in playerChannels) {
+          let players = playersInChannel.get(playerChannel);
+          players.delete(username);
+        }
+
+        channelsSubscribed.delete(player);
+        playerSocket.delete(socket.id);
+
         console.log("User disconnected");
         await playerController.deleteToken();
       });
@@ -94,17 +119,14 @@ module.exports = function(http) {
       });
 
       socket.on(SOCKET.DRAFT.STROKE_COLLECTED, (channel, points) => {
-        //console.log("Stroke: " + stroke);
         io.emit(SOCKET.DRAFT.STROKE_COLLECTED, points);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_ERASING, (channel, points) => {
-        console.log("StrokeErasing")
         io.emit(SOCKET.DRAFT.STROKE_ERASING, points);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_SEGMENT_ERASING, (channel, points) => {
-        console.log("StrokeErasing")
         io.emit(SOCKET.DRAFT.STROKE_SEGMENT_ERASING, points);
       });
 
@@ -128,10 +150,14 @@ module.exports = function(http) {
       });
 
       // Match
-      socket.on(SOCKET.MATCH.JOIN_MATCH, (channel, nbPlayers) => {
-        console.log("joining game")
-        let  nbPlay = { "nbPlayers": "1" };
-        io.emit(SOCKET.MATCH.JOIN_MATCH, nbPlay);
+      socket.on(SOCKET.MATCH.JOIN_MATCH, (channel, username) => {
+        let players = matchManager.getPlayerInWaitingRoom(channel);
+        if ( !players || players.length < 4) {
+          let playersInWaitingRoom = matchManager.addPlayerInWaitingRoom(channel, username);
+          io.emit(SOCKET.MATCH.JOIN_MATCH, playersInWaitingRoom);
+        } else {
+          socket.to(SOCKET.MATCH.FULL, "La partie est complète.");
+        }
       });
 
       socket.on(SOCKET.MATCH.ANSWER, (matchId, answer) => {
@@ -148,8 +174,8 @@ module.exports = function(http) {
         io.to(matchId).emit(SOCKET.MATCH.NEXT_ROUND, round);
       });
 
-      socket.on(SOCKET.MATCH.START_MATCH, async (players) => {
-        matchManager.addMatch(matchId, players);
+      socket.on(SOCKET.MATCH.START_MATCH, async (matchId) => {
+        matchManager.addMatch(matchId, matchManager.getPlayerInWaitingRoom(matchId));
         let round = await matchManager.nextRound(matchId);
         io.to(matchId).emit(SOCKET.MATCH.NEXT_ROUND, round);
         matchManager.start(matchId, 90);

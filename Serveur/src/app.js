@@ -1,6 +1,5 @@
 var express = require('express');
 var app = express();
-require('./db/db')
 
 app.use(express.json({limit: "50mb"}));
 

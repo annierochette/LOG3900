@@ -21,10 +21,9 @@ exports.addPlayer = async function(req, res) {
             { name: req.params.name },
             { $push: { players: { name: req.body.player } } }
         );
-
         res.status(HTTP.STATUS.OK).end();
     } catch (error) {
-        LOGGER.info(error);
+        LOGGER.error(error);
         res.status(HTTP.STATUS.CONFLICT).send(error);
     }
 }
@@ -90,5 +89,12 @@ exports.updateStatus = async function(req, res) {
     } catch (error) {
         LOGGER.info(error);
         res.status(HTTP.STATUS.CONFLICT).send(error);
+    }
+}
+
+exports.countPlayersInMatch = async function(name) {
+    let match = await Match.findOne({ name: name }).select("players -_id");
+    if (match.players.length >= 4) {
+        throw new Error("Too many players");
     }
 }

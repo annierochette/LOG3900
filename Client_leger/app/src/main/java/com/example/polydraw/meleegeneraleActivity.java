@@ -67,6 +67,12 @@ public class meleegeneraleActivity extends AppCompatActivity {
     public TextView score3;
     public TextView score4;
 
+    private String player;
+    private String token;
+    private String username;
+    private String firstName;
+    private String lastName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -77,6 +83,14 @@ public class meleegeneraleActivity extends AppCompatActivity {
         eventListeners();
         startTimer();
         showNbPlayers();
+        mDefaultColor = 0;
+
+        Intent intent = getIntent();
+        player = intent.getStringExtra("player");
+        token = intent.getStringExtra("token");
+        username = intent.getStringExtra("username");
+        firstName = intent.getStringExtra("firstName");
+        lastName = intent.getStringExtra("lastName");
 
     }
 
@@ -255,6 +269,10 @@ public class meleegeneraleActivity extends AppCompatActivity {
 
     public void openChat(){
         Intent intent = new Intent(this, ChatBoxActivity.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
         startActivity(intent);
     }
 

@@ -128,7 +128,7 @@ namespace PolyPaint.Vues
             Console.WriteLine(json);
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var res = await HttpClient.PostAsync("http://localhost:5050/match/:type", httpContent);
+            var res = await HttpClient.PostAsync(Constants.ADDR + "match/:type", httpContent);
             if (res.Content != null)
             {
                 var responseContent = await res.Content.ReadAsStringAsync();
