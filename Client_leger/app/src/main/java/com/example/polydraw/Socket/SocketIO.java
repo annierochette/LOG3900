@@ -106,4 +106,11 @@ public class SocketIO {
         }
     }
 
+    public static void emitNewGame(String event, Object args) {
+        if (!SocketIO.getSocket().connected()) {
+            SocketIO.getSocket().connect();
+        }
+        SocketIO.getSocket().emit(event, args);
+    }
+
 }

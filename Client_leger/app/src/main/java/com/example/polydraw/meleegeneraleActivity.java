@@ -109,6 +109,10 @@ public class meleegeneraleActivity extends AppCompatActivity {
         System.out.println("CHANNEL IN MELEE ACTIVITY: "+channel);
 
 
+        /*socket.getSocket().on("remainingTime", onDrawing);
+        socket.getSocket().on("startTimer", onEraserToggle);
+        socket.getSocket().on("answer", onColorChange);*/
+
 
 
         /*socket.getSocket().emit("joinChannel", "");
@@ -135,6 +139,21 @@ public class meleegeneraleActivity extends AppCompatActivity {
                     public void run() {
                         String data = (String) args[0];
                         System.out.println(data);
+
+                    }
+                });
+            }
+        });
+
+        socket.getSocket().on("startTimer",new Emitter.Listener() {
+            @Override
+            public void call(final Object... args) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String data = (String) args[0];
+                        System.out.println(data);
+                        startTimer();
 
                     }
                 });
@@ -435,4 +454,12 @@ public class meleegeneraleActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() { }
+
+    private Emitter.Listener onStartTimer = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            String data = (String) args[0];
+
+        }
+    };
 }

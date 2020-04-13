@@ -45,6 +45,7 @@ public class WaitingRoom extends AppCompatActivity {
     ListView playersWaiting;
     ArrayAdapter<String> adapter;
     JSONArray playersList;
+    List<String> myList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +74,7 @@ public class WaitingRoom extends AppCompatActivity {
         socket.getSocket().emit("joinGame", channelName, username);*/
 
         socket.getSocket().on("joinGame", onJoinMatch);
-        /*socket.getSocket().on("startMatch", startMatch);*/
-        System.out.println();
-
+        socket.getSocket().on("startMatch", onStartMatch);
 
         playButton = (Button) findViewById(R.id.playButton);
         chatButton = (ImageView) findViewById(R.id.chatButton);
@@ -93,6 +92,8 @@ public class WaitingRoom extends AppCompatActivity {
                 openChat();
             }
         });
+
+        setAdapter(adapter);
 
     }
 
@@ -122,6 +123,17 @@ public class WaitingRoom extends AppCompatActivity {
     /*@Override
     public void onBackPressed() { }*/
 
+    /*public void setAdapter(List<String> array){
+        myList = new ArrayList<String>(array);
+        System.out.println("SIZE DE LA LISTE "+myList.size());
+
+        playButton.setVisibility(View.VISIBLE);
+
+        playersWaiting = (ListView) findViewById(R.id.playersWaiting);
+        adapter = new ArrayAdapter<String>(WaitingRoom.this, android.R.layout.simple_list_item_1, myList);
+        playersWaiting.setAdapter(adapter);
+    }*/
+
     private Emitter.Listener onJoinMatch = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
@@ -134,8 +146,8 @@ public class WaitingRoom extends AppCompatActivity {
                 nbPlayers = playersList.length();
                System.out.println("Nb de joueurs presents: "+nbPlayers);
 
-                if(nbPlayers>1)
-                    playButton.setVisibility(View.VISIBLE);
+                myList = (Arrays.asList(data.split(",")));
+                System.out.println("SIZE DE LA LISTE "+myList.size());
 
                 /*playersWaiting = (ListView) findViewById(R.id.playersWaiting);
                 adapter = new ArrayAdapter<String>(WaitingRoom.this, android.R.layout.simple_list_item_1, new ArrayList<String>());
@@ -145,16 +157,42 @@ public class WaitingRoom extends AppCompatActivity {
             } catch(Exception e){
 
             }
-            List<String> myList = new ArrayList<String>(Arrays.asList(data.split(",")));
-            System.out.println("SIZE DE LA LISTE "+myList.size());
-
-            playButton.setVisibility(View.VISIBLE);
+            /*List<String> myList = new ArrayList<String>(Arrays.asList(data.split(",")));
+            System.out.println("SIZE DE LA LISTE "+myList.size());*/
 
             playersWaiting = (ListView) findViewById(R.id.playersWaiting);
             adapter = new ArrayAdapter<String>(WaitingRoom.this, android.R.layout.simple_list_item_1, myList);
-            playersWaiting.setAdapter(adapter);
+            //playersWaiting.setAdapter(adapter);
 
         }
     };
+
+    private Emitter.Listener onStartMatch = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+//            playersList = (String) args[0];
+            String data = args[0].toString();
+            System.out.println(data);
+            System.out.println("START MATCH");
+
+            Intent intent = new Intent(WaitingRoom.this, meleegeneraleActivity.class);
+            intent.putExtra("token", token);
+            intent.putExtra("username", username);
+            intent.putExtra("firstName", firstName);
+            intent.putExtra("lastName", lastName);
+            intent.putExtra("matchId", channelName);
+            intent.putExtra("_id", _id);
+            startActivity(intent);
+        }
+    };
+
+    public void setAdapter(ArrayAdapter<String> newArray){
+        playersWaiting = (ListView) findViewById(R.id.playersWaiting);
+        adapter = newArray;
+        playersWaiting.setAdapter(adapter);
+        if(nbPlayers>1)
+            playButton.setVisibility(View.VISIBLE);
+
+    }
 
 }

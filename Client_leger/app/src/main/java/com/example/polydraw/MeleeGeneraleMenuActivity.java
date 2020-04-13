@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.polydraw.Socket.SocketIO;
+import com.github.nkzawa.emitter.Emitter;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -101,12 +102,12 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
             }
         });
 
-//        createButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                playMultiplayerGame();
-//            }
-//        });
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playMultiplayerGame();
+            }
+        });
 
         disconnectButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +130,15 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 //            }
 //        });
 
+        socket.getSocket().on("fullMatch", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                String data = args[0].toString();
+                System.out.println("FULL MATCH: "+data);
+
+            }
+        });
+
     }
 
 
@@ -145,6 +155,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
     public void playMultiplayerGame(){
         Intent intent = new Intent(this, WaitingRoom.class);
+        socket.emitNewGame("createMatch", username);
         intent.putExtra("token", token);
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);

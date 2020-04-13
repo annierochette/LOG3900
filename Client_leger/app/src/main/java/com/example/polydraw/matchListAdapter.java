@@ -17,6 +17,7 @@ import androidx.appcompat.widget.ButtonBarLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.polydraw.Socket.SocketIO;
+import com.github.nkzawa.emitter.Emitter;
 
 import org.json.JSONObject;
 
@@ -78,6 +79,16 @@ public class matchListAdapter extends RecyclerView.Adapter<matchListAdapter.MyVi
         final String s = matchList.get(position);
         holder.name.setText(s);
         System.out.println();
+        /*socket.getSocket().on("fullMatch", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                String data = args[0].toString();
+                System.out.println("FULL MATCH: "+data);
+
+            }
+        });*/
+
+
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,16 +99,8 @@ public class matchListAdapter extends RecyclerView.Adapter<matchListAdapter.MyVi
                 intent.putExtra("firstName", firstName);
                 intent.putExtra("lastName", lastName);
                 intent.putExtra("_id", _id);
-//                v.getContext().getString();
                 System.out.print("PRINT USERNAME POUR EMIT JOIN: "+s +" "+ username);
                 socket.getSocket().emit("joinGame", s, username);
-                /*Map<String, String> postData = new HashMap<>();
-                postData.put("player", username);
-//                postData.put("score", "0");
-//                postData.put("_id", _id);
-                JSONObject jsonObject = new JSONObject(postData);
-                HttpPatch task = new HttpPatch(postData);
-                task.execute(SocketIO.HTTP_URL+"match/"+s+"player/");*/
                 v.getContext().startActivity(intent);
 
             }
