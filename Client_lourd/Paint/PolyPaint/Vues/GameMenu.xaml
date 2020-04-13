@@ -36,10 +36,10 @@
         </Button>
      
         <TextBlock Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Foreground="#FF35457C" ><Run Text="MENU"/></TextBlock>
-        <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="5" >
-            <Button Height="50" Width="220" Margin="20" Content="JOUER" Background="#FFFF7F11" BorderThickness="2" FontSize="24" Foreground="White" Command="{Binding GoToGameModeMenu}"/>
-            <Button Height="50" Width="220" Margin="20" Content="CRÉER" Background="#FFFF7F11" BorderThickness="2" FontSize="24"  Foreground="White" Command="{Binding GoToGameCreatorControl}"/>
-            <Button Height="50" Width="220" Margin="20" Content="PARAMÈTRES" Background="#FFFF7F11" BorderThickness="2" FontSize="24"  Foreground="White"/>
+        <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="7" >
+            <Button Height="50" Width="220" Margin="20" Content="JOUER" Background="#FFFF7F11" BorderThickness="2" FontSize="20" Foreground="White" Command="{Binding GoToGameModeMenu}"/>
+            <Button Height="50" Width="220" Margin="20" Content="CRÉER" Background="#FFFF7F11" BorderThickness="2" FontSize="20"  Foreground="White" Command="{Binding GoToGameCreatorControl}"/>
+            <Button Height="50" Width="220" Margin="20" Content="TUTORIEL" Background="#FFFF7F11" BorderThickness="2" FontSize="20"  Foreground="White"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -9,14 +9,14 @@ const GeneralStatsController = require("./general.stats.controller");
 exports.createPlayer = async function(req, res) {
     // Create a new player
     try {
-        const player = new Player(req.body)
+        const player = new Player(req.body);
         player.token = await player.generateAuthToken();
         await player.save();
         await GeneralStatsController.intialize(player.username);
         res.status(HTTP.STATUS.CREATED).json({ player });
     } catch (error) {
-        console.log("Error ", error)
-        res.status(HTTP.STATUS.CONFLICT).send(error)
+        LOGGER.error(error);
+        res.status(HTTP.STATUS.CONFLICT).send(error);
     }
 };
 
@@ -26,6 +26,7 @@ exports.deletePlayer = async function(req, res) {
         await GeneralStatsController.delete(req.params.username);
         res.status(HTTP.STATUS.OK).send();
     } catch (error) {
+        LOGGER.error(error);
         res.status(HTTP.STATUS.BAD_REQUEST).send();
     }
 };
@@ -44,7 +45,7 @@ exports.changeAvatar = async function(req, res) {
         await Player.changeAvatar(req);
         res.status(HTTP.STATUS.OK).send();
     } catch (error) {
-        console.log(error);
+        LOGGER.error(error);
         res.status(HTTP.STATUS.BAD_REQUEST).send(error);
     }
 };
@@ -58,10 +59,10 @@ exports.login = async function(req, res) {
             return res.status(HTTP.STATUS.UNAUTHORIZED).send({ error: ERR.MSG.WRONG_CREDENTIALS });
         }
 
-        if (player.token)
-        {
-            return res.status(HTTP.STATUS.UNAUTHORIZED).send({ error: ERR.MSG.ALREADY_CONNECTED });
-        }
+        // if (player.token)
+        // {
+        //     return res.status(HTTP.STATUS.UNAUTHORIZED).send({ error: ERR.MSG.ALREADY_CONNECTED });
+        // }
 
         const token = await player.generateAuthToken()
         res.status(HTTP.STATUS.OK).send({ player })
@@ -79,3 +80,12 @@ exports.logout = async function(req, res) {
         res.status(HTTP.STATUS.INTERNAL_SERVER_ERROR).send(error);
     }
 };
+
+// Socket use
+exports.deleteToken = async function(player) {
+    try {
+        await Player.removeToken(player);
+    } catch (error) {
+        LOGGER.info("Token was not removed");
+    }
+}

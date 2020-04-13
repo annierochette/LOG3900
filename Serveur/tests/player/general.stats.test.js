@@ -2,6 +2,7 @@ const supertest = require("supertest");
 const app = require("../../src/app");
 const request = supertest(app);
 const HTTP = require("../../common/constants/http");
+const DB = require("../../src/db/db");
 
 const firstName = "General";
 const lastName = "Statistics";
@@ -16,6 +17,7 @@ var loserToken;
 describe("General Statistics REST API", () => {
   beforeAll(async done => {
         // Create player
+        DB.connect(process.env.MONGODB_URL, "generalStats");
         const player = await request
         .post("/players")
         .send({
@@ -44,8 +46,7 @@ describe("General Statistics REST API", () => {
   afterAll(async done => {
     await request.delete("/players/" + username);
     await request.delete("/players/" + loserUsername); 
-
-    // Close connection to db
+    DB.disconnect();
     done();
   });
 

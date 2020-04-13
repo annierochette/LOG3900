@@ -4,11 +4,15 @@ module.exports.CHAT = {
     DISCONNECTION: "disconnection",
 
     // Canaux de discussion
+    CHANNELS: "channels",
+    DELETE_CHANNEL: "deleteChannel",
     JOIN_CHANNEL: "joinChannel",
     LEAVE_CHANNEL: "leaveChannel",
+    NEW_CHANNEL: "newChannel",
 
     // Message
     MESSAGE: "chat message",
+    HISTORY: "history",
 }
 
 module.exports.DRAFT = {
@@ -25,7 +29,9 @@ module.exports.DRAFT = {
 
 module.exports.MATCH = {
     ANSWER: "answer",
+    FULL: "fullMatch",
     JOIN_MATCH: "joinGame",
     REMAINING_TIME: "remainingTime",
-    START: "startTimer",    
+    START_MATCH: "startMatch",    
+    START_ROUND: "startTimer",
 }

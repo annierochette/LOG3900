@@ -1,17 +1,28 @@
 const MatchManager = require("../src/match/match.manager");
 const app = require("../src/app");
 const SocketIo = require('socket.io');
-const http = require('http').createServer(app);
+const http = require('http');
+const DB = require("../src/db/db");
 
 var matchManager;
 const matchId = "matchId";
 let players = ["playerA", "playerB", "playerC"];
+let httpServer;
+let io;
 
 describe("MatchManager", () => {
     beforeAll(() => {
-        matchManager = new MatchManager(SocketIo.listen(http)).getInstance();
+        DB.connect(process.env.MONGODB_URL, "matchManager");
+        httpServer = http.createServer(app);
+        io = SocketIo.listen(httpServer);
+        if (io) {console.log("Exist")} else {console.log("NOTONONT")}
+        matchManager = new MatchManager(io).getInstance();
+      });
 
+    afterAll(() => {
+        matchManager.deleteMatch(matchId);
     });
+
     it("should add a match", () => {
         expect(matchManager.count()).toBe(0);
         matchManager.addMatch(matchId, players);
@@ -44,14 +55,14 @@ describe("MatchManager", () => {
         }, 5000);
     });
 
-    it("should switch role", () => {
-        let draftsman = matchManager.nextRound(matchId);
-        expect(draftsman).toBe(players[0]);
-        draftsman = matchManager.nextRound(matchId);
-        expect(draftsman).toBe(players[1]);
-        draftsman = matchManager.nextRound(matchId);
-        expect(draftsman).toBe(players[2]);
-        draftsman = matchManager.nextRound(matchId);
-        expect(draftsman).toBe(players[0]);
+    it("should switch role", async () => {
+        let round = await matchManager.nextRound(matchId);
+        expect(round.draftsman).toBe(players[0]);
+        round = await matchManager.nextRound(matchId);
+        expect(round.draftsman).toBe(players[1]);
+        round = await matchManager.nextRound(matchId);
+        expect(round.draftsman).toBe(players[2]);
+        round = await matchManager.nextRound(matchId);
+        expect(round.draftsman).toBe(players[0]);
     });
 });

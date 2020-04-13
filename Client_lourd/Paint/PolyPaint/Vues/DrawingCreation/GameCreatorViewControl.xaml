@@ -20,9 +20,6 @@
         <DataTemplate DataType="{x:Type viewModel:NewGameFormViewModel}">
             <view:NewGameForm />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModel:QuickDrawSuggestionViewModel}">
-            <view:QuickDrawSuggestion />
-        </DataTemplate>
     </UserControl.Resources>
     <Grid>
         <ContentControl Content="{Binding CurrentCreatorViewModel}" />

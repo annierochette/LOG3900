@@ -43,6 +43,7 @@
     <Reference Include="CsPotrace">
       <HintPath>..\packages\CsPoTrace\bin\Debug\CsPotrace.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="SharpVectors.Converters, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b532964b8548be77, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpVectors.1.0\lib\net20\SharpVectors.Converters.dll</HintPath>
     </Reference>
@@ -108,6 +109,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Threading.Tasks, Version=4.0.11.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -152,14 +154,18 @@
     </ApplicationDefinition>
     <Compile Include="Convertisseurs\Convertisseurs.cs" />
     <Compile Include="Convertisseurs\StylusPointConverter.cs" />
+    <Compile Include="Convertisseurs\SVGConverter.cs" />
     <Compile Include="CustomControls\TimerControl.xaml.cs">
       <DependentUpon>TimerControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modeles\Drawings.cs" />
     <Compile Include="Modeles\Editeur.cs" />
+    <Compile Include="Modeles\Game.cs" />
     <Compile Include="Modeles\Message.cs" />
     <Compile Include="Modeles\User.cs" />
     <Compile Include="Modeles\Word.cs" />
     <Compile Include="Utilitaires\AppSocket.cs" />
+    <Compile Include="Utilitaires\Constants.cs" />
     <Compile Include="Utilitaires\EventArgs.cs" />
     <Compile Include="Utilitaires\EventRaiser.cs" />
     <Compile Include="Utilitaires\Mediator.cs" />
@@ -169,6 +175,7 @@
     <Compile Include="VueModeles\BaseViewModel.cs" />
     <Compile Include="VueModeles\FreeForAllViewModel.cs" />
     <Compile Include="VueModeles\GameChoiceViewModel.cs" />
+    <Compile Include="VueModeles\JoiningGameViewModel.cs" />
     <Compile Include="VueModeles\WaitingRoomViewModel.cs" />
     <Compile Include="VueModeles\GameCreatorViewModel.cs" />
     <Compile Include="VueModeles\GameMenuViewModel.cs" />
@@ -183,8 +190,8 @@
     <Compile Include="Vues\DrawingCreation\NewGameForm.xaml.cs">
       <DependentUpon>NewGameForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Vues\DrawingCreation\QuickDrawSuggestion.xaml.cs">
-      <DependentUpon>QuickDrawSuggestion.xaml</DependentUpon>
+    <Compile Include="CustomControls\QuickDrawSuggestionControl.xaml.cs">
+      <DependentUpon>QuickDrawSuggestionControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vues\FenetreDessin.xaml.cs">
       <DependentUpon>FenetreDessin.xaml</DependentUpon>
@@ -206,6 +213,9 @@
     </Compile>
     <Compile Include="Vues\GamePlay\GameModeMenu.xaml.cs">
       <DependentUpon>GameModeMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vues\GamePlay\JoiningGameWindow.xaml.cs">
+      <DependentUpon>JoiningGameWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vues\GamePlay\WaitingRoomWindow.xaml.cs">
       <DependentUpon>WaitingRoomWindow.xaml</DependentUpon>
@@ -260,7 +270,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Vues\DrawingCreation\QuickDrawSuggestion.xaml">
+    <Page Include="CustomControls\QuickDrawSuggestionControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -291,6 +301,10 @@
     <Page Include="Vues\GamePlay\GameModeMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vues\GamePlay\JoiningGameWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Vues\GamePlay\WaitingRoomWindow.xaml">
       <SubType>Designer</SubType>

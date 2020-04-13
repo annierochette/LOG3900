@@ -28,41 +28,11 @@ namespace PolyPaint.Modeles
             }
         }
 
-        private string username;
+        public string Username { get; set; }
 
-        public string Username
-        {
-            get { return username; }
-            set
-            {
-                username = value;
-                //ChangeProperty();
-            }
-        }
+        public string Firstname { get; set; }
 
-        private string firstname;
-
-        public string Firstname
-        {
-            get { return firstname; }
-            set
-            {
-                firstname = value;
-                //ChangeProperty();
-            }
-        }
-
-        private string lastname;
-
-        public string Lastname
-        {
-            get { return lastname; }
-            set
-            {
-                lastname = value;
-                //ChangeProperty();
-            }
-        }
+        public string Lastname { get; set; }
 
         //public event PropertyChangedEventHandler PropertyChanged;
 

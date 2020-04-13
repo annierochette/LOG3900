@@ -33,20 +33,21 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <TextBlock x:Name="ErreurConnection" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="5" HorizontalAlignment="Center" Foreground="Red" FontWeight="Bold" FontSize="16" Margin="0,42.4,6,16.6" Grid.RowSpan="2" Visibility="Hidden"> Erreur: Utilisateur inexistant ou utilisateur/mot de passe incorrect</TextBlock>
         <Image x:Name="logo" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="2" Source="logo_noborder.png" Margin="0,0.4,10,0"/>
         <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="5" >
-            <Button x:Name="Connection" Click="UserConnect" Content="SE CONNECTER" VerticalAlignment="Top" Height="44" Margin="53,231,49,0" Background="#FFFF7F11" FontFamily="Microsoft JhengHei UI" FontWeight="Bold" Foreground="White"/>
+            <Button x:Name="Connection" Click="UserConnect" Content="SE CONNECTER" VerticalAlignment="Top" Height="44" Margin="53,231,49,0" Background="#FFFF7F11" FontWeight="Bold" Foreground="White" Command="{Binding UserConnect}" />
 
 
-            <PasswordBox x:Name="passwordBox" Margin="28,-108,26,0" VerticalAlignment="Top" Height="41" FontSize="22"  PasswordChanged="passwordBox_PasswordChanged"/>
+            <PasswordBox x:Name="passwordBox" Margin="28,-108,26,0" VerticalAlignment="Top" Height="41" FontSize="22"  PasswordChanged="passwordBox_PasswordChanged" KeyDown="UserConnectOnEnter"/>
 
-            <TextBlock x:Name="tbpass" HorizontalAlignment="Left" Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Mot de passe" VerticalAlignment="Top" Margin="41,-108,0,30" Height="30" Width="198" FontSize="18"/>
+            <TextBlock x:Name="tbpass" HorizontalAlignment="Left" Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Mot de passe" VerticalAlignment="Top" Margin="41,-108,0,30" Height="30" Width="198" FontSize="18" />
 
             <TextBox x:Name="usernameBox" Height="41" TextWrapping="Wrap" VerticalAlignment="Top" Margin="28,-167,26,0" FontSize="22" TextChanged="usernameBox_TextChanged"/>
             <TextBlock x:Name="tbuser" HorizontalAlignment="Left"  Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Nom d'utilisateur" VerticalAlignment="Top" Height="30" Width="192" Margin="41,-166,0,0" FontSize="18"/>
         </StackPanel>
         <StackPanel Grid.Column="7" Grid.ColumnSpan="2" Grid.Row="9" Grid.RowSpan="2" >
-            <Button x:Name="SignIn" Content="S'INSCRIRE" VerticalAlignment="Top"  Command="{Binding GoToSignInWindow}" Margin="26,42,20,0" Background="#FFB3C646" FontFamily="Microsoft JhengHei UI" FontWeight="Bold" Foreground="White" Height="43" Panel.ZIndex="1" />
+            <Button x:Name="SignIn" Content="S'INSCRIRE" VerticalAlignment="Top"  Command="{Binding GoToSignInWindow}" Margin="26,42,20,0" Background="#FFB3C646" FontWeight="Bold" Foreground="White" Height="43" Panel.ZIndex="1" />
         </StackPanel>
     </Grid>
 </UserControl>

@@ -41,12 +41,12 @@
 
             <PasswordBox x:Name="passBox" Margin="45,13,45,0" VerticalAlignment="Top" Height="36"  PasswordChanged="passBox_PasswordChanged" FontSize="18"/>
             <PasswordBox x:Name="rePassBox" Margin="45,16,45,0" VerticalAlignment="Top" Height="36"  PasswordChanged="rePassBox_PasswordChanged" FontSize="18"/>
-            <Button x:Name="connection" Content="S'ENREGISTRER" Click="UserSign" VerticalAlignment="Top" Command="{Binding GoToLoginWindow}" Margin="90,7,90,0" Background="#FFFF7F11" FontFamily="Microsoft JhengHei UI" FontWeight="Bold" Height="35" Foreground="white" IsEnabled="False" />
+            <Button x:Name="connection" Content="S'ENREGISTRER" Click="UserSign" VerticalAlignment="Top" Margin="90,7,90,0" Background="#FFFF7F11" FontFamily="Microsoft JhengHei UI" FontWeight="Bold" Height="35" Foreground="white" IsEnabled="False" />
             <TextBlock x:Name="tbsurname" HorizontalAlignment="Left"  Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Prénom" VerticalAlignment="Top" Margin="50,-280,0,0" Height="35" Width="205" FontSize="18"/>
             <TextBlock x:Name="tbname" HorizontalAlignment="Left"  Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Nom" VerticalAlignment="Top" Margin="49,-231,0,0" Height="30" Width="205" FontSize="18"/>
             <TextBlock x:Name="tbusername" HorizontalAlignment="Left"  Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Nom d'utilisateur" VerticalAlignment="Top" Margin="49,-177,0,0" Height="30" Width="205" FontSize="18"/>
             <TextBlock x:Name="tbpassword" HorizontalAlignment="Left"  Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Mot de passe" VerticalAlignment="Top" Margin="49,-127,0,0" Height="30" Width="180" FontSize="18"/>
-            <TextBlock x:Name="tbrepassword" HorizontalAlignment="Left"  Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Confirmation mot de passe" VerticalAlignment="Top" Margin="49,-74,0,0" Height="30" Width="194" FontSize="16"/>
+            <TextBlock x:Name="tbrepassword" HorizontalAlignment="Left"  Foreground="Gray" IsHitTestVisible="False" TextWrapping="Wrap" Text="Confirmation mot de passe" VerticalAlignment="Top" Margin="49,-74,0,0" Height="31" Width="279" FontSize="16"/>
         </StackPanel>
     </Grid>
 </UserControl>

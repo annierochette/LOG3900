@@ -6,6 +6,7 @@
              xmlns:viewModel="clr-namespace:PolyPaint.VueModeles"
              xmlns:utils="clr-namespace:PolyPaint.Utilitaires"
              xmlns:custom="clr-namespace:PolyPaint.CustomControls"
+             Exit="Disconnect"
            >
     <Application.Resources>
             <DataTemplate DataType="{x:Type viewModel:MainWindowViewModel}">
@@ -46,6 +47,10 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModel:WaitingRoomViewModel}">
                 <view:WaitingRoomWindow />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:JoiningGameViewModel}">
+                <view:JoiningGameWindow />
             </DataTemplate>
 
 
