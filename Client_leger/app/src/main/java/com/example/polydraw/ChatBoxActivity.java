@@ -191,12 +191,14 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
                     @Override
                     public void run() {
                         String deletedChannel = (String) args[0];
+                        List<ChatChannel> channelsToDelete = new ArrayList<ChatChannel>();
 
                         for(ChatChannel channel: ChannelList) {
                             if(channel.getChannelName().equals(deletedChannel)){
-                                ChannelList.remove(channel);
+                                channelsToDelete.add(channel);
                             }
                         }
+                        ChannelList.removeAll(channelsToDelete);
                         updateChannelRecycler(ChannelList);
                     }
                 });
@@ -220,8 +222,7 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
                     public void onClick(View v) {
                         if (!newChannelName.getText().toString().isEmpty()) {
                             String result = newChannelName.getText().toString();
-//
-//                            socket.getSocket().emit("leaveChannel", Username, currentChannel);
+                            socket.getSocket().emit("leaveChannel", Username, currentChannel);
 
                             currentChannel = result;
                             socket.getSocket().emit("joinChannel", Username, result);
@@ -271,7 +272,6 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
 
         chatChannelAdapter = new ChatChannelAdapter(channelList, this);
         chatChannelAdapter.notifyDataSetChanged();
-
         channelsRecyclerView.setAdapter(chatChannelAdapter);
     }
 
