@@ -1,23 +1,18 @@
 package com.example.polydraw;
 
-import android.content.DialogInterface;
+
 import android.content.Intent;
-import android.graphics.Color;
+
 import android.os.Bundle;
 
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -26,19 +21,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.polydraw.Socket.SocketIO;
 import com.github.nkzawa.emitter.Emitter;
-import com.github.nkzawa.socketio.client.IO;
-import com.github.nkzawa.socketio.client.Socket;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 //sources: https://stackoverflow.com/questions/44300547/adding-items-to-listview-from-android-alertdialog
 
@@ -57,7 +46,7 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
     private SocketIO socket;
 
     String Username = MainActivity.editTextString;
-    public String currentChannel = "General";
+    public String currentChannel = "Général";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,9 +74,17 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         socket.getSocket().emit("channels");
         socket.getSocket().on("channels", getChannels);
 
-        ChatChannel c = new ChatChannel("General");
-        c.setCurrent(true);
-        ChannelList.add(c);
+//        ChatChannel c = new ChatChannel("General");
+//        c.setCurrent(true);
+//        ChannelList.add(c);
+        for(ChatChannel channel: ChannelList) {
+            if(channel.getChannelName().equals(currentChannel)){
+                channel.setCurrent(true);
+            }
+        }
+
+        socket.getSocket().emit("history", currentChannel);
+        socket.getSocket().on("history", retrieveHistory);
 
         updateChannelRecycler(ChannelList);
         setToolbarName(currentChannel);
@@ -145,13 +142,15 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
                         JSONObject data = (JSONObject) args[0];
                         try {
 
-                            String username = data.getString("username");
-                            String message = data.getString("message");
-                            String timestamp = data.getString("timestamp");
+                            if(data.getString("channel").equals(currentChannel)){
+                                String username = data.getString("username");
+                                String message = data.getString("message");
+                                String timestamp = data.getString("timestamp");
 
-                            Message m = new Message(username,message,timestamp);
+                                Message m = new Message(username,message,timestamp);
 
-                            MessageList.add(m);
+                                MessageList.add(m);
+                            }
 
                             updateMessageRecycler(MessageList);
 
@@ -230,19 +229,20 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
                             socket.getSocket().emit("joinChannel", Username, result);
                             System.out.println("Joined " + result);
 
-                            socket.getSocket().emit("leaveChannel", Username, currentChannel);
-                            System.out.println("Left " + currentChannel);
+
+                            socket.getSocket().emit("history", result);
+                            socket.getSocket().on("history", retrieveHistory);
+//                            socket.getSocket().emit("leaveChannel", Username, currentChannel);
+//                            System.out.println("Left " + currentChannel);
 
                             currentChannel = result;
 
                             updateChannelRecycler(ChannelList);
+
 //                            ChatChannel newChannel = new ChatChannel(result);
-//
 //                            switchCurrentChannelNoPosition();
-//
 //                            newChannel.setCurrent(true);
 //                            ChannelList.add(newChannel);
-//
 //                            updateChannelRecycler(ChannelList);
 
                             Toast.makeText(ChatBoxActivity.this, "Le canal '" + result + "' a été créé", Toast.LENGTH_SHORT).show();
@@ -301,13 +301,14 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
             socket.getSocket().emit("leaveChannel", Username, currentChannel);
             currentChannel = channel.getChannelName();
 
+            socket.getSocket().emit("history", currentChannel);
             switchCurrentChannel(position);
 
             socket.getSocket().emit("joinChannel", Username, channel.getChannelName());
 
             Toast.makeText(ChatBoxActivity.this, "Vous êtes désormais dans le canal " + channel.getChannelName() , Toast.LENGTH_SHORT).show();
-            socket.getSocket().emit("channels");
-            socket.getSocket().on("channels", getChannels);
+//            socket.getSocket().emit("channels");
+//            socket.getSocket().on("channels", getChannels);
 
         }
     }
@@ -337,11 +338,40 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         setToolbarName(currentChannel);
     }
 
-    private Emitter.Listener getChannels = new Emitter.Listener() {
+    private Emitter.Listener retrieveHistory = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
-            JSONArray channels = (JSONArray) args[0];
-            System.out.println(channels);
+            JSONObject messages = (JSONObject) args[0];
+
+            System.out.println("Retrieve messages");
+            System.out.println(messages);
+        }
+    };
+
+    private Emitter.Listener getChannels = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONArray channels = (JSONArray) args[0];
+                    System.out.println(channels);
+                    List<ChatChannel> channelsToAdd = new ArrayList<ChatChannel>();
+
+                    try{
+                        for(int i = 0; i < channels.length(); i++){
+                            String newChannel = channels.getString(i);
+                            channelsToAdd.add(new ChatChannel(newChannel));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+
+                    }
+                    ChannelList = new ArrayList<ChatChannel>();
+                    ChannelList.addAll(channelsToAdd);
+                    updateChannelRecycler(ChannelList);
+                }
+            });
         }
     };
 }
