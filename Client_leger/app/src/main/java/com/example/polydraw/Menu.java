@@ -29,6 +29,7 @@ public class Menu extends AppCompatActivity {
     private String username;
     private String firstName;
     private String lastName;
+    private String _id;
 
     private SocketIO socket;
 
@@ -53,6 +54,7 @@ public class Menu extends AppCompatActivity {
         username = intent.getStringExtra("username");
         firstName = intent.getStringExtra("firstName");
         lastName = intent.getStringExtra("lastName");
+        _id = intent.getStringExtra("_id");
 
         socket = new SocketIO();
         socket.init();
@@ -106,6 +108,7 @@ public class Menu extends AppCompatActivity {
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);
         intent.putExtra("lastName", lastName);
+        intent.putExtra("_id", _id);
         startActivity(intent);
     }
 
@@ -115,6 +118,7 @@ public class Menu extends AppCompatActivity {
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);
         intent.putExtra("lastName", lastName);
+        intent.putExtra("_id", _id);
         startActivity(intent);
     }
 
@@ -124,6 +128,7 @@ public class Menu extends AppCompatActivity {
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);
         intent.putExtra("lastName", lastName);
+        intent.putExtra("_id", _id);
         startActivity(intent);
     }
 
@@ -146,6 +151,7 @@ public class Menu extends AppCompatActivity {
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);
         intent.putExtra("lastName", lastName);
+        intent.putExtra("_id", _id);
         startActivity(intent);
     }
 

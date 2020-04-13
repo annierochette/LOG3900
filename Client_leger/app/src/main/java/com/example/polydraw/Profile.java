@@ -48,6 +48,7 @@ public class Profile extends AppCompatActivity {
     private String username;
     private String firstName;
     private String lastName;
+    private String _id;
 
     public JSONObject generalStats;
     String matchWon;
@@ -70,13 +71,14 @@ public class Profile extends AppCompatActivity {
         username = intent.getStringExtra("username");
         firstName = intent.getStringExtra("firstName");
         lastName = intent.getStringExtra("lastName");
+        _id = intent.getStringExtra("_id");
 
         final String firstNameFinal = intent.getStringExtra("firstName");
         final String lastNameFinal = intent.getStringExtra("lastName");
         final String usernameFinal = intent.getStringExtra("username");
 
         HttpGetPlayer task = new HttpGetPlayer();
-        task.execute(SocketIO.HTTP_URL+"/players/"+username+"/general-statistics");
+        task.execute(SocketIO.HTTP_URL+"players/"+username+"/general-statistics");
 
         backButton = (Button) findViewById(R.id.backButton);
         disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
@@ -157,6 +159,7 @@ public class Profile extends AppCompatActivity {
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);
         intent.putExtra("lastName", lastName);
+        intent.putExtra("_id", _id);
         startActivity(intent);
     }
 
@@ -172,6 +175,7 @@ public class Profile extends AppCompatActivity {
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);
         intent.putExtra("lastName", lastName);
+        intent.putExtra("_id", _id);
         startActivity(intent);
     }
 

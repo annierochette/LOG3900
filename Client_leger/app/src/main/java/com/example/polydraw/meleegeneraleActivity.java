@@ -79,6 +79,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
     private String firstName;
     private String lastName;
     public String channel;
+    private String _id;
 
 
     @Override
@@ -99,6 +100,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
         firstName = intent.getStringExtra("firstName");
         lastName = intent.getStringExtra("lastName");
         channel = intent.getStringExtra("matchId");
+        _id = intent.getStringExtra("_id");
 
         drawingCanvas.setChannel(channel);
 
@@ -124,6 +126,20 @@ public class meleegeneraleActivity extends AppCompatActivity {
                 });
             }
         });*/
+
+        socket.getSocket().on("startMatch",new Emitter.Listener() {
+            @Override
+            public void call(final Object... args) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String data = (String) args[0];
+                        System.out.println(data);
+
+                    }
+                });
+            }
+        });
 
     }
 
@@ -312,11 +328,13 @@ public class meleegeneraleActivity extends AppCompatActivity {
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);
         intent.putExtra("lastName", lastName);
+        intent.putExtra("_id", _id);
         startActivity(intent);
     }
 
     //source: https://www.youtube.com/watch?v=zmjfAcnosS0
     public void startTimer(){
+
         drawingCanvas.setChannel(channel);
         timer = new CountDownTimer(remainingTime, 1000) {
             @Override
@@ -361,6 +379,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
         bundle.putString("username", username);
         bundle.putString("firstName", firstName);
         bundle.putString("lastName", lastName);
+        bundle.putString("_id", _id);
         postMultiplayerGameDialog postMultiplayerGameDialog = new postMultiplayerGameDialog();
         postMultiplayerGameDialog.show(getSupportFragmentManager(), "postMultiplayerGameDialog");
         postMultiplayerGameDialog.setArguments(bundle);

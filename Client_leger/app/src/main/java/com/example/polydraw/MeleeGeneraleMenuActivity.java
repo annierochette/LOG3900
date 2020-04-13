@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.polydraw.Socket.SocketIO;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,11 +30,15 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
@@ -53,6 +59,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
     private String username;
     private String firstName;
     private String lastName;
+    private String _id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +68,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 
         HttpGetMatches task = new HttpGetMatches();
-        task.execute(SocketIO.HTTP_URL+"/match/");
+        task.execute(SocketIO.HTTP_URL+"match/");
 
         Intent intent = getIntent();
         player = intent.getStringExtra("player");
@@ -69,6 +76,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         username = intent.getStringExtra("username");
         firstName = intent.getStringExtra("firstName");
         lastName = intent.getStringExtra("lastName");
+        _id = intent.getStringExtra("_id");
 
         System.out.println("MELEE MENU TOKEN :"+ token);
 
@@ -131,6 +139,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);
         intent.putExtra("lastName", lastName);
+        intent.putExtra("_id", _id);
         startActivity(intent);
     }
 
@@ -140,6 +149,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);
         intent.putExtra("lastName", lastName);
+        intent.putExtra("_id", _id);
         startActivity(intent);
     }
 
@@ -149,6 +159,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);
         intent.putExtra("lastName", lastName);
+        intent.putExtra("_id", _id);
         startActivity(intent);
     }
 
@@ -164,6 +175,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);
         intent.putExtra("lastName", lastName);
+        intent.putExtra("_id", _id);
         startActivity(intent);
     }
 
@@ -179,13 +191,13 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            adapter = new matchListAdapter(new ArrayList<String>(), token, username, lastName, firstName);
+            adapter = new matchListAdapter(new ArrayList<String>(), token, username, lastName, firstName, _id, socket);
         }
 
         @Override
         protected void onProgressUpdate(String... values) {
             matchList.add(values[0]);
-            adapter = new matchListAdapter(matchList, token, username, lastName, firstName);
+            adapter = new matchListAdapter(matchList, token, username, lastName, firstName, _id, socket);
             myRecyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
@@ -201,10 +213,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
                         JSONObject oneObject = jsonArray.getJSONObject(i);
                         // Pulling items from the array
                         String matchName = oneObject.getString("name");//name
-                        String matchId = oneObject.getString("_id");
-                        publishProgress(matchId);
-                        /*matchListId.put(matchName, matchId);
-                        System.out.println(matchListId);*/
+                        publishProgress(matchName);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -260,5 +269,4 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
     public String getToken() {
         return token;
     }
-
 }

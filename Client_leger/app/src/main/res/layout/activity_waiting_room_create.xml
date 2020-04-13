@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WaitingRoomCreate">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/chatButton"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:background="@drawable/chat_foreground"
+            android:layout_alignParentRight="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="350dp"
+                android:layout_height="85dp"
+                android:layout_margin="20dp"
+                android:fontFamily="sans-serif-black"
+                android:gravity="center"
+                android:text="Salle d'attente"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+                android:textColor="#2364aa"
+                android:textSize="36sp" />
+
+            <ListView
+                android:id="@+id/playersWaiting"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
+            <Button
+                android:id="@+id/playButton"
+                android:layout_width="280dp"
+                android:layout_height="85dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/round_button"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Jouer"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                android:textColor="@android:color/white"
+                android:textSize="30sp"
+                android:visibility="invisible"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

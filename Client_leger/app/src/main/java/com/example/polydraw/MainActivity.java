@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     public Application app;
 
-    String query_url = "/players/login";
+    String query_url = "players/login";
 
     public static String editTextString;
 
@@ -127,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
                     String username1 = reader.get("username").toString();
                     String lastName1 = reader.get("lastName").toString();
                     String firstName1 = reader.get("firstName").toString();
+                    String _id = reader.get("_id").toString();
 
                     playerInfos = new Player(username1, lastName1, firstName1, token1);
 
@@ -136,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("username", username1);
                     intent.putExtra("lastName", lastName1);
                     intent.putExtra("firstName", firstName1);
+                    intent.putExtra("_id", _id);
                 } catch(Exception e){
                     e.printStackTrace();
                 }
