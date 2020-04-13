@@ -148,7 +148,7 @@ module.exports = function(http) {
       socket.on(SOCKET.MATCH.JOIN_MATCH, (channel, username) => {
         let players = matchManager.getPlayerInWaitingRoom(channel);
         if ( !players || players.length < 4) {
-          let playersInWaitingRoom = matchManager.addPlayerInWaitingRoom(channel, username);
+          let playersInWaitingRoom = matchManager.addPlayerToWaitingRoom(channel, username);
           io.emit(SOCKET.MATCH.JOIN_MATCH, playersInWaitingRoom);
         } else {
           socket.to(SOCKET.MATCH.FULL, "La partie est complète.");
