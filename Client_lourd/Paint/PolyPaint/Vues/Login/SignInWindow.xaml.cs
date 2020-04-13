@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using PolyPaint.VueModeles;
+using PolyPaint.Utilitaires;
 
 namespace PolyPaint.Vues
 {
@@ -64,7 +65,7 @@ namespace PolyPaint.Vues
                 var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
                 var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var res = await HttpClient.PostAsync("http://localhost:5050/players", httpContent);
+                var res = await HttpClient.PostAsync(Constants.ADDR + "players", httpContent);
                 if (res.Content != null)
                 {
                     var responseContent = await res.Content.ReadAsStringAsync();

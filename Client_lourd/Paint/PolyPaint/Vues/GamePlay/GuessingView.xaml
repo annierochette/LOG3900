@@ -41,11 +41,10 @@
         </StackPanel>
        
             <TextBox x:Name="answerTextBox" Height="50" TextWrapping="Wrap" Grid.Column="2" Grid.Row="10" Grid.ColumnSpan="3" FontSize="36"/>
-        <Button x:Name="BtnSend" Content="Envoyer" Height="50" Background="#FFFF7F11" Grid.Column="5" Grid.Row="10"  FontSize="24" FontFamily="Ink Free" Foreground="White"/>
+        <Button x:Name="BtnSend" Content="Envoyer" Height="50" Background="#FFFF7F11" Grid.Column="5" Grid.Row="10"  FontSize="20" Foreground="White"/>
        
         <custom:TimerControl x:Name="timer"  Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="2"  Loaded="TimerControl_Loaded" VerticalAlignment="Top" />
-        <Button x:Name="button" Width="75" Height="40" Command="{Binding GoToGameModeMenu}"  HorizontalAlignment="Center">
-            <Image Source="back.png"></Image>
-        </Button>
+       
+        <Button Content="RETOUR" FontWeight="Bold" Height="35" Foreground="white" Background="#2364AA" Width="80" Command="{Binding GoToGameModeMenu}" HorizontalAlignment="Center" />
     </Grid>
 </UserControl>

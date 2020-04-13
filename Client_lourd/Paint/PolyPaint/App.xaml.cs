@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace PolyPaint
 {
@@ -26,10 +27,8 @@ namespace PolyPaint
             app.Show();
         }
 
-        protected override void OnExit(ExitEventArgs e)
+        protected void Disconnect(object sender, ExitEventArgs e)  
         {
-            base.OnExit(e);
-
             var socket = AppSocket.Instance;
             socket.Close();
         }

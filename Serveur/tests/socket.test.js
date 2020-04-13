@@ -2,7 +2,7 @@ const io = require('socket.io-client');
 const http = require('http');
 const ioBack = require('../src/socket');
 const app = require("../src/app");
-const CHAT = require("../common/constants/chat");
+const SOCKET = require("../common/constants/socket");
 
 let socket;
 let httpServer;
@@ -50,7 +50,7 @@ describe("Socket IO events", () => {
     
     
   it("should send message with timestamp to the general channel", (done) => {
-    socket.on(CHAT.EVENTS.MESSAGE, (msg)=> {
+    socket.on(SOCKET.CHAT.MESSAGE, (msg)=> {
       expect(msg.username).toEqual(username);
       expect(msg.channel).toEqual(generalChannel);
       expect(msg.message).toEqual(msgBody);
@@ -58,11 +58,11 @@ describe("Socket IO events", () => {
       done();
     });
 
-    socket.emit(CHAT.EVENTS.MESSAGE, username, generalChannel, msgBody);
+    socket.emit(SOCKET.CHAT.MESSAGE, username, generalChannel, msgBody);
   });
 
   it("should join a channel", (done) => {
-    socket.on(CHAT.EVENTS.MESSAGE, (msg) => {
+    socket.on(SOCKET.CHAT.MESSAGE, (msg) => {
       expect(msg.username).toEqual(username);
       expect(msg.channel).toEqual(personnalChannel);
       expect(msg.message).toEqual(msgBody);
@@ -70,12 +70,12 @@ describe("Socket IO events", () => {
       done();
     });
 
-    socket.emit(CHAT.EVENTS.JOIN_CHANNEL, username, personnalChannel);
-    socket.emit(CHAT.EVENTS.MESSAGE, username, personnalChannel, msgBody);
+    socket.emit(SOCKET.CHAT.JOIN_CHANNEL, username, personnalChannel);
+    socket.emit(SOCKET.CHAT.MESSAGE, username, personnalChannel, msgBody);
   });
 
   it("should receive messages from joined channels only", (done) => {
-    socket.on(CHAT.EVENTS.MESSAGE, (msg) => {
+    socket.on(SOCKET.CHAT.MESSAGE, (msg) => {
         expect(msg.username).toEqual(username);
         expect(msg.channel).toEqual(generalChannel);
         expect(msg.message).toEqual(msgBody);
@@ -83,12 +83,12 @@ describe("Socket IO events", () => {
         done();
       });
   
-    socket.emit(CHAT.EVENTS.MESSAGE, username, personnalChannel, "Ceci est faux.");
-    setTimeout( () => { socket.emit(CHAT.EVENTS.MESSAGE, username, generalChannel, msgBody); }, 50); 
+    socket.emit(SOCKET.CHAT.MESSAGE, username, personnalChannel, "Ceci est faux.");
+    setTimeout( () => { socket.emit(SOCKET.CHAT.MESSAGE, username, generalChannel, msgBody); }, 50); 
   });
 
   it("should leave a joined channel", () => {
-    socket.on(CHAT.EVENTS.MESSAGE, (msg) => {
+    socket.on(SOCKET.CHAT.MESSAGE, (msg) => {
         expect(msg.username).toEqual(username);
         expect(msg.channel).toEqual(generalChannel);
         expect(msg.message).toEqual(msgBody);
@@ -96,10 +96,10 @@ describe("Socket IO events", () => {
         done();
       });
   
-    socket.emit(CHAT.EVENTS.JOIN_CHANNEL, username, personnalChannel);
-    socket.emit(CHAT.EVENTS.LEAVE_CHANNEL, username, personnalChannel);  
-    socket.emit(CHAT.EVENTS.MESSAGE, username, personnalChannel, "Ceci est faux.");
-    setTimeout( () => { socket.emit(CHAT.EVENTS.MESSAGE, username, generalChannel, msgBody); }, 50);
+    socket.emit(SOCKET.CHAT.JOIN_CHANNEL, username, personnalChannel);
+    socket.emit(SOCKET.CHAT.LEAVE_CHANNEL, username, personnalChannel);  
+    socket.emit(SOCKET.CHAT.MESSAGE, username, personnalChannel, "Ceci est faux.");
+    setTimeout( () => { socket.emit(SOCKET.CHAT.MESSAGE, username, generalChannel, msgBody); }, 50);
   });
 
 });

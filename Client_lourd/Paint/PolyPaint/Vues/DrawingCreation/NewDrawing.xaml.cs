@@ -1,8 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿using CsPotrace;
+using Newtonsoft.Json;
+using PolyPaint.Convertisseurs;
+using PolyPaint.Utilitaires;
 using PolyPaint.VueModeles;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -14,7 +19,10 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Ink;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using Point = System.Windows.Point;
 
 namespace PolyPaint.Vues
 {
@@ -22,7 +30,11 @@ namespace PolyPaint.Vues
     public partial class NewDrawing : System.Windows.Controls.UserControl
     {
         StrokeCollection strokes = new StrokeCollection();
-       
+        public String Svg ;
+        bool[,] Matrix;
+        ArrayList ListOfCurveArray;
+        Bitmap Bitmap;
+
 
         public NewDrawing()
         {
@@ -47,6 +59,11 @@ namespace PolyPaint.Vues
                 if (HasAtleastOneClue)
                 {
                     save.IsEnabled = true;
+                    importer.IsEnabled = true;
+                    if (!string.IsNullOrWhiteSpace(Svg) || strokes.Count > 0)
+                    {
+                        sendGame.IsEnabled = true;
+                    }
                 }
             }
             else
@@ -61,28 +78,43 @@ namespace PolyPaint.Vues
         {
 
             inkCanvas.Visibility = Visibility.Visible;
-            NewDrawingForm.Visibility = Visibility.Hidden;
+            NewDrawingForm.Visibility = Visibility.Collapsed;
 
-            save.Visibility = Visibility.Hidden;
+            save.Visibility = Visibility.Collapsed;
             confirm.Visibility = Visibility.Visible;
 
-            cancel_button.Visibility = Visibility.Hidden;
+            cancel_button.Visibility = Visibility.Collapsed;
             back_button.Visibility = Visibility.Visible;
+
+            quickdraw.Visibility = Visibility.Collapsed;
+            importer.Visibility = Visibility.Collapsed;
+            sendGame.Visibility = Visibility.Collapsed;
         }
 
         private void back_button_Click(object sender, RoutedEventArgs e)
         {
-            inkCanvas.Visibility = Visibility.Hidden;
+            inkCanvas.Visibility = Visibility.Collapsed;
             NewDrawingForm.Visibility = Visibility.Visible;
 
             save.Visibility = Visibility.Visible;
-            confirm.Visibility = Visibility.Hidden;
+            confirm.Visibility = Visibility.Collapsed;
 
             cancel_button.Visibility = Visibility.Visible;
-            back_button.Visibility = Visibility.Hidden;
+            back_button.Visibility = Visibility.Collapsed;
+
+            importer.Visibility = Visibility.Visible;
+            quickdraw.Visibility = Visibility.Visible;
+            quickdrawPage.Visibility = Visibility.Collapsed;
+            ImageImport.Visibility = Visibility.Collapsed;
+
+            sendGame.Visibility = Visibility.Visible;
+
+            cancel_button2.Visibility = Visibility.Collapsed;
+            save_button.Visibility = Visibility.Collapsed;
+            updateForm.Visibility = Visibility.Collapsed;
         }
 
-        
+
         private void confirm_drawing(object sender, RoutedEventArgs e)
         {
             //((DrawingWindowViewModel)(this.DataContext)).AfficherTraitsClassique();
@@ -101,15 +133,15 @@ namespace PolyPaint.Vues
 
         private void afficherTraitsClassique()
         {
-            
+
             strokes = ((DrawingWindowViewModel)(DataContext)).Traits;
             var tasks = new List<Task<(int Index, bool IsDone)>>();
 
-     
+
             foreach (Stroke stroke in strokes)
-                 {
-                
-            
+            {
+
+
                 StylusPointCollection points = new StylusPointCollection();
                 Timer timer = new Timer();
                 timer.Interval = 10;
@@ -117,64 +149,61 @@ namespace PolyPaint.Vues
 
                 int index = 0;
 
-                    timer.Tick += (s, a) =>
+                timer.Tick += (s, a) =>
+                {
+
+                    StylusPoint point = stroke.StylusPoints[index];
+                    var x = (float)point.X;
+                    var y = (float)point.Y;
+
+                    points.Add(new StylusPoint(x, y));
+
+                    inkPresenter.Strokes.Add(new Stroke(points));
+
+                    index++;
+                    if (index >= stroke.StylusPoints.Count)
                     {
+                        timer.Stop();
 
-                        StylusPoint point = stroke.StylusPoints[index];
-                        var x = (float)point.X;
-                        var y = (float)point.Y;
+                    }
+                };
 
-                        points.Add(new StylusPoint(x, y));
 
-                        inkPresenter.Strokes.Add(new Stroke(points));
+            }
 
-                        index++;
-                        if (index >= stroke.StylusPoints.Count)
-                        {
-                            timer.Stop();
-                           
-                        }
-                    };
-                
-                    
-                }
-            
         }
-            
-        
 
-        //private void afficherTraitsAléatoire()
+        //private void afficherTraitsClassique()
         //{
-        //    Random r = new Random();
         //    strokes = ((DrawingWindowViewModel)(DataContext)).Traits;
         //    StylusPointCollection points = new StylusPointCollection();
-        //    for (int i = 0; i < strokes.Count; i++)
+
+
+        //    foreach (Stroke stroke in strokes)
         //    {
-        //        points.Add(strokes[i].StylusPoints);
-        //    }
-        //    StylusPointCollection first = new StylusPointCollection();
-        //    first.Add(points[0]);
-        //    Stroke newStroke = new Stroke(first);
-        //    inkPresenter.Strokes.Add(newStroke);
-        //    DispatcherTimer timer = new DispatcherTimer();
-        //    timer.Interval = TimeSpan.FromMilliseconds(10);
-          
-        //    foreach (int i in Enumerable.Range(0, points.Count).OrderBy(x => r.Next()))
-        //        {
+        //        points.Add(stroke.StylusPoints);
+        //        StylusPointCollection first = new StylusPointCollection();
+        //        first.Add(points[0]);
+        //        Stroke newStroke = new Stroke(first);
+        //        DispatcherTimer timer = new DispatcherTimer();
+        //        timer.Interval = TimeSpan.FromMilliseconds(10);
         //        timer.Start();
         //        int index = 0;
         //        timer.Tick += (s, a) =>
-        //        {
-        //            StylusPoint point = points[i];
-        //            inkPresenter.Strokes[0].StylusPoints.Add(point);
-        //            index++;
-        //            if (index >= points.Count) timer.Stop();
-        //        };
+        //                {
 
+        //                    newStroke.StylusPoints.Insert(index, points[index]);
+        //                    if (!inkPresenter.Strokes.Contains(newStroke))
+        //                    {
+        //                        inkPresenter.Strokes.Add(newStroke);
+        //                    }
+        //                    index++;
+        //                    if (index >= points.Count) timer.Stop();
+        //                };
         //    };
+
+
         //}
-
-
 
         private void modifyDrawing_button_Click(object sender, RoutedEventArgs e)
         {
@@ -209,68 +238,24 @@ namespace PolyPaint.Vues
         }
 
 
-        private async void SendNewGame(object sender, RoutedEventArgs e)
+        private void SendNewGame(object sender, RoutedEventArgs e)
         {
-            List<string> clues = getClues();
-           
-            if (strokes.Count > 0)
-            {
-               
-          
-                MyCustomStrokes customStrokes = new MyCustomStrokes();
-                customStrokes.StrokeCollection = new Point[strokes.Count][];
+            quickdrawPage.Visibility = Visibility.Collapsed;
+            NewDrawingForm.Visibility = Visibility.Visible;
 
-                for (int i = 0; i < strokes.Count; i++)
-                {
-                    customStrokes.StrokeCollection[i] =
-                      new Point[strokes[i].StylusPoints.Count];
+            save.Visibility = Visibility.Visible;
+            confirm.Visibility = Visibility.Collapsed;
+            send.Visibility = Visibility.Collapsed;
+            inkCanvas.Visibility = Visibility.Hidden;
+            modifyDrawing_button.Visibility = Visibility.Collapsed;
 
-                    for (int j = 0; j < strokes[i].StylusPoints.Count; j++)
-                    {
-                        customStrokes.StrokeCollection[i][j] = new Point();
-                        customStrokes.StrokeCollection[i][j].X =
-                                              strokes[i].StylusPoints[j].X;
-                        customStrokes.StrokeCollection[i][j].Y =
-                                              strokes[i].StylusPoints[j].Y;
-                    }
-                }
+            cancel_button.Visibility = Visibility.Visible;
+            back_button.Visibility = Visibility.Collapsed;
+            quickdraw.Visibility = Visibility.Visible;
+            importer.Visibility = Visibility.Visible;
 
 
-                MemoryStream ms = new MemoryStream();
-                BinaryFormatter bf = new BinaryFormatter();
-                bf.Serialize(ms, customStrokes);
-
-                try
-                {
-
-                    var HttpClient = new HttpClient();
-                    var infos = new Game
-                    {
-                        name = Word.Text,
-                        clues = clues,
-                        data = ms.GetBuffer()
-                    };
-                    var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
-                    var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
-
-                    var res = await HttpClient.PostAsync("http://localhost:5050/games", httpContent);
-                    if (res.Content != null)
-                    {
-                        var responseContent = await res.Content.ReadAsStringAsync();
-                        Console.WriteLine(responseContent);
-                        System.Windows.Forms.MessageBox.Show( "Image bien sauvegardée!", "Caption", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
-                    }
-                }
-
-                catch (Exception ex)
-                {
-                    System.Windows.Forms.MessageBox.Show(ex.Message);
-                }
-
-                strokes.Clear();
-            }
-        
+            sendGame.Visibility = Visibility.Visible;
         }
 
         public class Game
@@ -283,7 +268,7 @@ namespace PolyPaint.Vues
             public List<string> clues { get; set; }
 
             [JsonProperty("data")]
-            public byte[] data { get; set; }
+            public string data { get; set; }
         }
         [Serializable]
         public sealed class MyCustomStrokes
@@ -300,7 +285,14 @@ namespace PolyPaint.Vues
                 HasAtleastOneClue = true;
                 DeleteClue.IsEnabled = true;
                 if (IsWordWritten)
+                {
                     save.IsEnabled = true;
+                    importer.IsEnabled = true;
+                    if (!string.IsNullOrWhiteSpace(Svg) || strokes.Count > 0)
+                    {
+                        sendGame.IsEnabled = true;
+                    }
+                }
             }
             Clue.Text = "";
         }
@@ -318,7 +310,9 @@ namespace PolyPaint.Vues
             }
             if (!ListOfClues.HasItems) { 
                 DeleteClue.IsEnabled = false;
-                 save.IsEnabled = false;
+                save.IsEnabled = false;
+                sendGame.IsEnabled = false;
+                importer.IsEnabled = false;
             }
 
         }
@@ -331,14 +325,168 @@ namespace PolyPaint.Vues
             PropertyChanged(this, new PropertyChangedEventArgs(property));
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void inkCanvas_StrokeCollected(object sender, InkCanvasStrokeCollectedEventArgs e)
         {
             confirm.IsEnabled = true;
+            sendGame.IsEnabled = false;
+        }
+
+
+
+        private void refreshMatrix()
+        {
+            if (Bitmap == null) return;
+            Matrix = Potrace.BitMapToBinary(Bitmap, (int)contrastSlider.Value);
+            refreshPicture();
+
+        }
+
+        private void ContrastSlider_Scroll(object sender, EventArgs e)
+        {
+            refreshMatrix();
+            float p = 100 * (float)contrastSlider.Value / (float)255;
+
+        }
+
+        private void refreshPicture()
+        {
+            if (Matrix == null) return;
+            Bitmap b = Potrace.BinaryToBitmap(Matrix, true);
+            imgPhoto.Source = BitmapToImageSource(b);
+
+        }
+
+        private void vectorize()
+        {
+
+            ListOfCurveArray = new ArrayList();
+            Potrace.turdsize = Convert.ToInt32(contrastSlider.Value);
+            Potrace.curveoptimizing = true;
+            Matrix = Potrace.BitMapToBinary(Bitmap, (int)contrastSlider.Value);
+            Potrace.potrace_trace(Matrix, ListOfCurveArray);
+            Bitmap s = Potrace.Export2GDIPlus(ListOfCurveArray, Bitmap.Width, Bitmap.Height);
+            imgPhoto.Source = BitmapToImageSource(s);
+            refreshMatrix();
+
+        }
+
+        BitmapImage BitmapToImageSource(Bitmap bitmap)
+        {
+            using (MemoryStream memory = new MemoryStream())
+            {
+                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
+                memory.Position = 0;
+                BitmapImage bitmapimage = new BitmapImage();
+                bitmapimage.BeginInit();
+                bitmapimage.StreamSource = memory;
+                bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapimage.EndInit();
+
+                return bitmapimage;
+            }
+        }
+
+        private void btnLoad_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog op = new Microsoft.Win32.OpenFileDialog();
+            op.Title = "Select a picture";
+            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+              "Portable Network Graphic (*.png)|*.png" +
+              "|BMP Windows Bitmap (*.bmp)|*.bmp";
+
+            if (op.ShowDialog() == true)
+            {
+                imgPhoto.Source = new BitmapImage(new Uri(op.FileName));
+                save_button.IsEnabled = true;
+                ListOfCurveArray = null;
+                if (Bitmap != null) Bitmap.Dispose();
+                Bitmap = new Bitmap(op.FileName);
+                refreshMatrix();
+                vectorize();
+                Svg = Potrace.Export2SVG(ListOfCurveArray, Bitmap.Width, Bitmap.Height);
+
+                if (HasAtleastOneClue && !string.IsNullOrWhiteSpace(Word.Text))
+                {
+                    save.IsEnabled = true;
+                }
+            }
+        }
+
+        private void ImporterImage(object sender, RoutedEventArgs e)
+        {
+            NewDrawingForm.Visibility = Visibility.Collapsed;
+            importer.Visibility = Visibility.Collapsed;
+            save.Visibility = Visibility.Collapsed;
+            cancel_button.Visibility = Visibility.Collapsed;
+            quickdraw.Visibility = Visibility.Collapsed;
+            back_button.Visibility = Visibility.Collapsed;
+            sendGame.Visibility = Visibility.Collapsed;
+            ImageImport.Visibility = Visibility.Visible;
+            save_button.Visibility = Visibility.Visible;
+            cancel_button2.Visibility = Visibility.Visible;
+        }
+
+        private void quickdraw_Click(object sender, RoutedEventArgs e)
+        {
+            quickdrawPage.Visibility = Visibility.Visible;
+            NewDrawingForm.Visibility = Visibility.Collapsed;
+
+            save.Visibility = Visibility.Collapsed;
+            confirm.Visibility = Visibility.Collapsed;
+            send.Visibility = Visibility.Collapsed;
+
+            cancel_button.Visibility = Visibility.Collapsed;
+            back_button.Visibility = Visibility.Visible;
+            quickdraw.Visibility = Visibility.Collapsed;
+            importer.Visibility = Visibility.Collapsed;
+
+            sendGame.Visibility = Visibility.Collapsed;
+            updateForm.Visibility = Visibility.Visible;
+        }
+
+        private async void sendGame_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> clues = getClues();
+
+            if (String.IsNullOrEmpty(Svg))
+            {
+                Svg = SVGConverter.ConvertDrawingToSVG(strokes);
+            }
+
+            try
+            {
+                var HttpClient = new HttpClient();
+                var infos = new Game
+                {
+                    name = Word.Text,
+                    clues = clues,
+                    data = Svg
+                };
+                var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
+                var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var res = await HttpClient.PostAsync(Constants.ADDR + "games", httpContent);
+                if (res.Content != null)
+                {
+                    var responseContent = await res.Content.ReadAsStringAsync();
+                    Console.WriteLine(responseContent);
+                    System.Windows.Forms.MessageBox.Show("Image bien sauvegardée!", "Caption", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+
+            strokes.Clear();
+        }
+
+        private void updateForm_Click(object sender, RoutedEventArgs e)
+        {
+            Word.Text = quickdrawPage.getWord();
+            strokes = quickdrawPage.getGameStrokes();
+            back_button_Click(sender, e);
         }
     }
 }

@@ -2,6 +2,7 @@ const HTTP = require("../../common/constants/http");
 const https = require("https");
 const ndjson = require("ndjson");
 const categories = require("../../common/constants/categories");
+const LOGGER = require("../utils/logger");
 
 const PROBABILITY = 0.01;
 
@@ -26,7 +27,8 @@ exports.downloadCategory = function (category, amount) {
                 let keepDrawing = Math.random() <= PROBABILITY;
 
                 if (keepDrawing) {
-                  drawings.push(obj);
+                  resolve(obj);
+                  res.pause();
                 }
               } 
 
@@ -42,7 +44,7 @@ exports.downloadCategory = function (category, amount) {
             resolve(drawings);
           });
       }).on('error', (e) => {
-        console.log("ERR");
+        LOGGER.error(e);
       });
     });
 };
