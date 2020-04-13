@@ -139,6 +139,7 @@ namespace PolyPaint.CustomControls
             socket.On("channels", (data) =>
             {
                 temp = (JsonConvert.DeserializeObject<List<string>>(data.ToString()));
+                Console.WriteLine("TEMP: " + temp);
                 Dispatcher.Invoke(() =>
                 {
                     foreach (var channel in temp)

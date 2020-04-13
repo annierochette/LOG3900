@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using PolyPaint.Modeles;
 using System.Collections.Generic;
 using System.Windows.Ink;
+using PolyPaint.Utilitaires;
 
 namespace PolyPaint.CustomControls
 
@@ -70,8 +71,7 @@ namespace PolyPaint.CustomControls
                 fetching = true;
                 var HttpClient = new HttpClient();
                 HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hbm91Y2hlIiwiaWF0IjoxNTgzMzQyNTc2fQ.gWQpbS9nUt_Url6sDPgwBaAHLerd6XSc3k8lOq8sc7Y");
-
-                var res = await HttpClient.GetAsync("http://localhost:5050/quickdraw/");
+                var res = await HttpClient.GetAsync(Constants.ADDR + "quickdraw/");
                 if (res.Content != null)
                 {
                     var responseContent = await res.Content.ReadAsStringAsync();

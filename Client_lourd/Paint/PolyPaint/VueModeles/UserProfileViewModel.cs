@@ -51,14 +51,14 @@ namespace PolyPaint.VueModeles
             {
                 Console.WriteLine(Username);
                 var HttpClient = new HttpClient();
-                HttpResponseMessage response = await HttpClient.GetAsync("http://localhost:5050/players/" + Username);
+                HttpResponseMessage response = await HttpClient.GetAsync(Constants.ADDR + "players/" + Username);
                 response.EnsureSuccessStatusCode();
                 string res = await response.Content.ReadAsStringAsync();
 
                 //var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
                 //var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-                //var res = await HttpClient.PostAsync("http://localhost:5050/games", httpContent);
+                //var res = await HttpClient.PostAsync(Constants.ADDR + "games", httpContent);
                 //if (res.Content != null)
                 //{
                 //    var responseContent = await res.Content.ReadAsStringAsync();
