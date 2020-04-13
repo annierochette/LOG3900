@@ -32,9 +32,11 @@ public class MainActivity extends AppCompatActivity {
     private Button signupButton;
     private EditText password;
 
+    static Player playerInfos;
+
     public Application app;
 
-    String query_url = "players/login";
+    String query_url = "/players/login";
 
     public static String editTextString;
 
@@ -125,6 +127,10 @@ public class MainActivity extends AppCompatActivity {
                     String username1 = reader.get("username").toString();
                     String lastName1 = reader.get("lastName").toString();
                     String firstName1 = reader.get("firstName").toString();
+
+                    playerInfos = new Player(username1, lastName1, firstName1, token1);
+
+                    System.out.println("LOGIN TOKEN :"+ token1);
 
                     intent.putExtra("token", token1);
                     intent.putExtra("username", username1);

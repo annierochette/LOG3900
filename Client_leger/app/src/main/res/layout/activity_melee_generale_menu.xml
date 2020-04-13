@@ -88,6 +88,33 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:orientation="horizontal"
+            android:paddingBottom="15dp">
+
+            <TextView
+                android:id="@+id/general"
+                android:layout_width="600dp"
+                android:layout_height="wrap_content"
+                android:text="Partie generale"
+                android:fontFamily="sans-serif-condensed"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                android:textColor="@android:color/white"
+                android:textSize="30sp"/>
+
+            <Button
+                android:id="@+id/joinGeneral"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Créer"
+                android:background="@drawable/round_green_button"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/matchlist"

@@ -32,6 +32,8 @@ public class Menu extends AppCompatActivity {
 
     private SocketIO socket;
 
+    private Player playerInfos;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,6 +153,10 @@ public class Menu extends AppCompatActivity {
     public void onBackPressed() {
         backToLogin();
     }
+/*
+    public String getToken(){
+        return Player.class.toString();
+    }*/
 
 }
 

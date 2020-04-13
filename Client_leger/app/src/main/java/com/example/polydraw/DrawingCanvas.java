@@ -1,6 +1,7 @@
 package com.example.polydraw;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -9,6 +10,7 @@ import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.MotionEvent;
@@ -62,6 +64,7 @@ public class DrawingCanvas extends View {
         setBackgroundColor(Color.TRANSPARENT);
         setLayerType(LAYER_TYPE_HARDWARE, null);
         mBitmapPaint = new Paint(Paint.DITHER_FLAG);
+
 
         System.out.println("CHANNEL IN DRAWING CANVAS: "+channel);
 
@@ -312,6 +315,6 @@ public class DrawingCanvas extends View {
     }
 
     public void setChannel(String newChannel){
-        this.channel =  newChannel;
+        channel =  newChannel;
     }
 }

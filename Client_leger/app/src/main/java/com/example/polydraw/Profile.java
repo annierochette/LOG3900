@@ -71,8 +71,12 @@ public class Profile extends AppCompatActivity {
         firstName = intent.getStringExtra("firstName");
         lastName = intent.getStringExtra("lastName");
 
+        final String firstNameFinal = intent.getStringExtra("firstName");
+        final String lastNameFinal = intent.getStringExtra("lastName");
+        final String usernameFinal = intent.getStringExtra("username");
+
         HttpGetPlayer task = new HttpGetPlayer();
-        task.execute(SocketIO.HTTP_URL+"players/"+username+"/general-statistics");
+        task.execute(SocketIO.HTTP_URL+"/players/"+username+"/general-statistics");
 
         backButton = (Button) findViewById(R.id.backButton);
         disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
@@ -80,10 +84,10 @@ public class Profile extends AppCompatActivity {
         pictureButton = (Button) findViewById(R.id.changePicture);
 
         namePlaceholder = (TextView) findViewById(R.id.name);
-        namePlaceholder.setText(firstName+ " "+lastName);
+        namePlaceholder.setText(firstNameFinal+ " "+lastNameFinal);
 
         usernamePlaceholder = (TextView) findViewById(R.id.username);
-        usernamePlaceholder.setText(username);
+        usernamePlaceholder.setText(usernameFinal);
 
         nbPlayedGames = (TextView) findViewById(R.id.nbPlayedGames);
         if(matchPlayed!=null){

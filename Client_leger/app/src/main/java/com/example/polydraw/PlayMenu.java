@@ -48,6 +48,8 @@ public class PlayMenu extends AppCompatActivity {
         firstName = intent.getStringExtra("firstName");
         lastName = intent.getStringExtra("lastName");
 
+        System.out.println("PLAY MENU TOKEN :"+ token);
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

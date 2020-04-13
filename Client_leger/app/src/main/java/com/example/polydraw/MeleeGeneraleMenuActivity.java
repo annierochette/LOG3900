@@ -41,7 +41,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
     private ImageButton disconnectButton;
     private ImageView chatButton;
     private SocketIO socket;
-    private Button join;
+    private Button joinGeneral;
 
     matchListAdapter adapter;
     ArrayList<String> matchList;
@@ -61,7 +61,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 
         HttpGetMatches task = new HttpGetMatches();
-        task.execute(SocketIO.HTTP_URL+"match/");
+        task.execute(SocketIO.HTTP_URL+"/match/");
 
         Intent intent = getIntent();
         player = intent.getStringExtra("player");
@@ -70,12 +70,13 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         firstName = intent.getStringExtra("firstName");
         lastName = intent.getStringExtra("lastName");
 
-        System.out.println(token);
+        System.out.println("MELEE MENU TOKEN :"+ token);
 
         backButton = (Button) findViewById(R.id.backButton);
         createButton = (Button) findViewById(R.id.createButton);
         disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
         chatButton = (ImageView) findViewById(R.id.chatButton);
+        joinGeneral = (Button) findViewById(R.id.joinGeneral);
 
         matchList = new ArrayList<>();
         myRecyclerView = (RecyclerView) findViewById(R.id.matchlist);
@@ -113,6 +114,13 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
             }
         });
 
+        joinGeneral.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playGeneralGame();
+            }
+        });
+
     }
 
 
@@ -128,6 +136,15 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
     public void playMultiplayerGame(){
         Intent intent = new Intent(this, WaitingRoom.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
+        startActivity(intent);
+    }
+
+    public void playGeneralGame(){
+        Intent intent = new Intent(this, meleegeneraleActivity.class);
         intent.putExtra("token", token);
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);
@@ -162,13 +179,13 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            adapter = new matchListAdapter(new ArrayList<String>());
+            adapter = new matchListAdapter(new ArrayList<String>(), token, username, lastName, firstName);
         }
 
         @Override
         protected void onProgressUpdate(String... values) {
             matchList.add(values[0]);
-            adapter = new matchListAdapter(matchList);
+            adapter = new matchListAdapter(matchList, token, username, lastName, firstName);
             myRecyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
@@ -208,8 +225,6 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
                 // Create the urlConnection
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setConnectTimeout(5000);
-                urlConnection.setReadTimeout(5000);
                 urlConnection.setRequestProperty("Authorization", token);
                 urlConnection.setRequestMethod("GET");
 
@@ -240,6 +255,10 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
             return result;
         }
 
+    }
+
+    public String getToken() {
+        return token;
     }
 
 }

@@ -1,10 +1,12 @@
 package com.example.polydraw;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -78,8 +80,6 @@ public class meleegeneraleActivity extends AppCompatActivity {
     private String lastName;
     public String channel;
 
-    Intent intent;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -102,13 +102,16 @@ public class meleegeneraleActivity extends AppCompatActivity {
 
         drawingCanvas.setChannel(channel);
 
+        System.out.println("MELEE PARTIE TOKEN :"+ token);
+
         System.out.println("CHANNEL IN MELEE ACTIVITY: "+channel);
 
 
 
-        socket.getSocket().emit("joinChannel", "");
 
-        /*socket.getSocket().on("joinGame",new Emitter.Listener() {
+        /*socket.getSocket().emit("joinChannel", "");
+
+        socket.getSocket().on("joinGame",new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 runOnUiThread(new Runnable() {
@@ -318,7 +321,13 @@ public class meleegeneraleActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                openDialog();
+//                openDialog();
+                Intent intent = new Intent(meleegeneraleActivity.this, PlayMenu.class);
+                intent.putExtra("token", token);
+                intent.putExtra("username", username);
+                intent.putExtra("firstName", firstName);
+                intent.putExtra("lastName", lastName);
+                startActivity(intent);
 
             }
         }.start();
@@ -340,14 +349,19 @@ public class meleegeneraleActivity extends AppCompatActivity {
     }
 
     public void openDialog() {
+        Bundle bundle = new Bundle();
+        bundle.putString("token", token);
+        bundle.putString("username", username);
+        bundle.putString("firstName", firstName);
+        bundle.putString("lastName", lastName);
         postMultiplayerGameDialog postMultiplayerGameDialog = new postMultiplayerGameDialog();
         postMultiplayerGameDialog.show(getSupportFragmentManager(), "postMultiplayerGameDialog");
+        postMultiplayerGameDialog.setArguments(bundle);
         postMultiplayerGameDialog.setCancelable(false);
     }
 
     public void updatePoints(){
         score+=1;
-        System.out.println(score);
 //        points.setText(score +" pts");
     }
 

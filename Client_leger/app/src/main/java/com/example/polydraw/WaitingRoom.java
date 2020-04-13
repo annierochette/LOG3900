@@ -23,7 +23,7 @@ public class WaitingRoom extends AppCompatActivity {
     private SocketIO socket;
     private int nbPlayers = 2; //nb d'utilisateurs qui ont joint la partie
 
-    private String channelName;
+    private String channelName = "General";
 
     private String player;
     private String token;
@@ -45,11 +45,16 @@ public class WaitingRoom extends AppCompatActivity {
         firstName = intent.getStringExtra("firstName");
         lastName = intent.getStringExtra("lastName");
 
-        channelName = intent.getStringExtra("matchId");
+        if(token == null)
+            socket.emitDisconnectionStatus("disconnection");
+        System.out.println("WAITING ROOM TOKEN :"+ token);
+
+        if(intent.getStringExtra("matchId") != null)
+            channelName = intent.getStringExtra("matchId");
         System.out.println("je suis connecté à: "+channelName);
 
-        socket.getSocket().emit("joinChannel", channelName, username);
-        socket.getSocket().emit("joinGame", channelName, username);
+        /*socket.getSocket().emit("joinChannel", channelName, username);
+        socket.getSocket().emit("joinGame", channelName, username);*/
 
 //        socket.getSocket().on("joinGame", onJoinMatch);
         System.out.println();

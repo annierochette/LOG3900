@@ -20,11 +20,12 @@ public class postMultiplayerGameDialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         Intent intent = getActivity().getIntent();
-        player = intent.getStringExtra("player");
-        token = intent.getStringExtra("token");
-        username = intent.getStringExtra("username");
-        firstName = intent.getStringExtra("firstName");
-        lastName = intent.getStringExtra("lastName");
+        player = getArguments().getString("player");
+        token = getArguments().getString("token");
+        username = getArguments().getString("username");
+        firstName = getArguments().getString("firstName");
+        lastName = getArguments().getString("lastName");
+        System.out.println(token);
         builder.setTitle("Fin de la partie")
                 .setMessage("This is a Dialog")
                 .setPositiveButton("ok", new DialogInterface.OnClickListener() {
@@ -42,4 +43,5 @@ public class postMultiplayerGameDialog extends AppCompatDialogFragment {
 
         return builder.create();
     }
+
 }

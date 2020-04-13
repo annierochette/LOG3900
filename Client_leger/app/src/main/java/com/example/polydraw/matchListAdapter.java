@@ -21,6 +21,10 @@ import java.util.List;
 
 public class matchListAdapter extends RecyclerView.Adapter<matchListAdapter.MyViewHolder> {
     private ArrayList<String> matchList;
+    private String token;
+    private String username;
+    private String lastName;
+    private String firstName;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
@@ -35,8 +39,12 @@ public class matchListAdapter extends RecyclerView.Adapter<matchListAdapter.MyVi
 
     }
 
-    public matchListAdapter(ArrayList<String> matchList) {
+    public matchListAdapter(ArrayList<String> matchList, String token, String username, String lastName, String firstName) {
         this.matchList = matchList;
+        this.token = token;
+        this.username = username;
+        this.lastName = lastName;
+        this.firstName = firstName;
     }
 
     @Override public int getItemCount() {
@@ -58,7 +66,10 @@ public class matchListAdapter extends RecyclerView.Adapter<matchListAdapter.MyVi
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), WaitingRoom.class);
                 intent.putExtra("matchId", s);
-                v.getContext().getClass();
+                intent.putExtra("token", token);
+                intent.putExtra("username", username);
+                intent.putExtra("firstName", firstName);
+                intent.putExtra("lastName", lastName);
 //                v.getContext().getString();
 //                socket.getSocket().emit("joinChannel", s, "snoopy");
                 v.getContext().startActivity(intent);
