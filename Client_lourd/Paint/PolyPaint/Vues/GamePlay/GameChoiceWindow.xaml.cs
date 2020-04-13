@@ -117,22 +117,19 @@ namespace PolyPaint.Vues
 
             var infos = new gameCreated
             {
-                name = "game2",
                 players = playersList,
                 type = "FreeForAll"
-
 
             };
 
             var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
-            Console.WriteLine(json);
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             var res = await HttpClient.PostAsync(Constants.ADDR + "match/:type", httpContent);
             if (res.Content != null)
             {
                 var responseContent = await res.Content.ReadAsStringAsync();
-                //Console.WriteLine(responseContent);
+                Console.WriteLine(responseContent);
                 App.Current.Properties["gameName"] = "game1";
 
             }

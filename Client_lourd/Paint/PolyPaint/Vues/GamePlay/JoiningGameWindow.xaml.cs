@@ -142,8 +142,8 @@ namespace PolyPaint.Vues
 
 
                     Button bt = new Button();
-                    bt.Name = gamesUnstarted[i].name;
-                    Console.WriteLine(bt.Name);
+                    //bt.Name = "Game " + i.ToString();
+                   // Console.WriteLine(bt.Name);
                     bt.Content = gamesUnstarted[i].name;
                     bt.Click += joinGame;
 
