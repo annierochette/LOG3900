@@ -81,6 +81,8 @@ public class WaitingRoomCreate extends AppCompatActivity {
         /*socket.getSocket().emit("joinChannel", channelName, username);
         socket.getSocket().emit("joinGame", channelName, username);*/
 
+        socket.getSocket().on("createMatch", onJoinMatch);
+
         socket.getSocket().on("joinGame", onJoinMatch);
         /*socket.getSocket().on("startMatch", startMatch);*/
         System.out.println();
@@ -186,6 +188,16 @@ public class WaitingRoomCreate extends AppCompatActivity {
             intent.putExtra("matchId", channelName);
             intent.putExtra("_id", _id);
             startActivity(intent);
+        }
+    };
+
+    private Emitter.Listener onCreatetMatch = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+//            playersList = (String) args[0];
+            String data = args[0].toString();
+            System.out.println("CREATE MATCH");
+            System.out.println(data);
         }
     };
 

@@ -95,6 +95,7 @@ public class WaitingRoom extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                socket.getSocket().emit("startMatch", channelName, username);
                 playMultiplayerGame();
             }
         });
@@ -110,7 +111,6 @@ public class WaitingRoom extends AppCompatActivity {
 
     public void playMultiplayerGame(){
         Intent intent = new Intent(this, meleegeneraleActivity.class);
-        socket.getSocket().emit("startMatch", channelName, username);
         intent.putExtra("token", token);
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);
@@ -153,14 +153,14 @@ public class WaitingRoom extends AppCompatActivity {
             System.out.println(data);
             System.out.println("START MATCH");
 
-            Intent intent = new Intent(WaitingRoom.this, meleegeneraleActivity.class);
+            /*Intent intent = new Intent(WaitingRoom.this, meleegeneraleActivity.class);
             intent.putExtra("token", token);
             intent.putExtra("username", username);
             intent.putExtra("firstName", firstName);
             intent.putExtra("lastName", lastName);
             intent.putExtra("matchId", channelName);
             intent.putExtra("_id", _id);
-            startActivity(intent);
+            startActivity(intent);*/
         }
     };
 
@@ -179,8 +179,9 @@ public class WaitingRoom extends AppCompatActivity {
                 myList = (Arrays.asList(data.split(",")));
                 System.out.println("SIZE DE LA LISTE "+myList.size());
 
-                if(nbPlayers>1)
-                    playButton.setVisibility(View.VISIBLE);
+                adapter = new WaitingListAdapter(playersWaiting);
+                myRecyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
 
                 /*updateList updateList = new updateList();
                 updateList.execute(myList);*/
@@ -193,12 +194,8 @@ public class WaitingRoom extends AppCompatActivity {
             } catch(Exception e){
 
             }
-            /*            *//*List<String> myList = new ArrayList<String>(Arrays.asList(data.split(",")));
-            System.out.println("SIZE DE LA LISTE "+myList.size());*//*
-
-                    playersWaiting = (ListView) findViewById(R.id.playersWaiting);
-                    adapter = new ArrayAdapter<String>(WaitingRoom.this, android.R.layout.simple_list_item_1, myList);
-                    //playersWaiting.setAdapter(adapter);*/
+            if(nbPlayers>1)
+                playButton.setVisibility(View.VISIBLE);
 
         }
     };

@@ -28,6 +28,8 @@ import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 
+import org.json.JSONObject;
+
 import java.net.URISyntaxException;
 
 import yuku.ambilwarna.AmbilWarnaDialog; //https://codinginflow.com/tutorials/android/ambilwarna-color-picker-dialog
@@ -45,7 +47,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
     public TextView seekBarText;
     public Button toggle;
     public ImageButton sendAnswer;
-    public TextView hints;
+    public TextView mot;
     public EditText answer;
     public ImageView chatButton;
 
@@ -90,9 +92,9 @@ public class meleegeneraleActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         initializeObject();
         eventListeners();
-        startTimer();
         showNbPlayers();
         mDefaultColor = 0;
+        startTimer();
 
         Intent intent = getIntent();
         token = intent.getStringExtra("token");
@@ -131,6 +133,44 @@ public class meleegeneraleActivity extends AppCompatActivity {
             }
         });*/
 
+        socket.getSocket().on("nextRound",new Emitter.Listener() {
+            @Override
+            public void call(final Object... args) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String data = args[0].toString();
+                        System.out.println(data);
+                        System.out.println("ROUND");
+                        try{
+                            JSONObject reader = new JSONObject(data);
+                            JSONObject player = reader.getJSONObject("draftsman");
+                            String drawerString = player.toString();
+                            JSONObject word = reader.getJSONObject("name");
+                            String wordString = word.toString();
+
+                            if(drawerString.equals(username)){
+                                System.out.println("DESSINATEUR");
+                                guessingView = false;
+                                mot.setText(wordString);
+                                mot.setVisibility(View.VISIBLE);
+
+                            } else{
+                                guessingView = true;
+                                mot.setVisibility(View.INVISIBLE);
+                                System.out.println("DEVINEUR");
+                            }
+
+
+                        } catch(Exception e){
+
+                        }
+
+                    }
+                });
+            }
+        });
+
         socket.getSocket().on("startMatch",new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
@@ -153,7 +193,22 @@ public class meleegeneraleActivity extends AppCompatActivity {
                     public void run() {
                         String data = (String) args[0];
                         System.out.println(data);
-                        startTimer();
+                        chrono.setText(data);
+
+                    }
+                });
+            }
+        });
+
+        socket.getSocket().on("remainingTime",new Emitter.Listener() {
+            @Override
+            public void call(final Object... args) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String data = (String) args[0];
+                        System.out.println(data);
+                        chrono.setText(data);
 
                     }
                 });
@@ -178,7 +233,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
         layoutGuessingView = (LinearLayout) findViewById(R.id.guessingToolbox);
         drawingCanvas = (DrawingCanvas) findViewById(R.id.drawing);
         sendAnswer = (ImageButton) findViewById(R.id.sendAnswer);
-        hints = (TextView) findViewById(R.id.hints);
+        mot = (TextView) findViewById(R.id.word);
         answer = (EditText) findViewById(R.id.answer);
         chatButton = (ImageView) findViewById(R.id.chatButton);
         chrono = (TextView) findViewById(R.id.chronometer);
@@ -366,12 +421,12 @@ public class meleegeneraleActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 openDialog();
-                /*Intent intent = new Intent(meleegeneraleActivity.this, PlayMenu.class);
+                Intent intent = new Intent(meleegeneraleActivity.this, PlayMenu.class);
                 intent.putExtra("token", token);
                 intent.putExtra("username", username);
                 intent.putExtra("firstName", firstName);
                 intent.putExtra("lastName", lastName);
-                startActivity(intent);*/
+                startActivity(intent);
 
             }
         }.start();

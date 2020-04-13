@@ -123,8 +123,8 @@ public class SignupActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            if(result.equals("201")){
-                Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+            if(result=="success"){
+                Intent intent = new Intent(SignupActivity.this, Tutorial.class);
                 intent.putExtra("player", result);
                 startActivity(intent);
             }else{

@@ -53,8 +53,7 @@
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display3"
                 android:textColor="@android:color/white"
-                android:textSize="30sp"
-                android:visibility="invisible"/>
+                android:textSize="30sp" />
 
         </LinearLayout>
 

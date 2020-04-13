@@ -195,7 +195,7 @@
         android:layout_marginRight="15dp" />
 
         <TextView
-            android:id="@+id/hints"
+            android:id="@+id/word"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
@@ -204,19 +204,11 @@
             android:textColor="@android:color/black"
             android:textSize="30sp"
             android:textFontWeight="800"
-            android:text="Indices"
+            android:text="Mot à dessiner"
             android:gravity="center"
             android:layout_toRightOf="@id/separatorResults"
             android:layout_below="@id/player4"
             android:layout_marginTop="75dp"
-            android:visibility="invisible"/>
-
-        <ListView
-            android:id="@+id/hintsList"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/hints"
             android:visibility="invisible"/>
 
         <com.example.polydraw.GuessingCanvas
