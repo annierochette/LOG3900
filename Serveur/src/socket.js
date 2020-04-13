@@ -171,11 +171,11 @@ module.exports = function(http) {
 
       socket.on(SOCKET.MATCH.START_MATCH, async (matchId) => {
         matchManager.addMatch(matchId, matchManager.getPlayerInWaitingRoom(matchId));
+        console.log(matchId)
         let round = await matchManager.nextRound(matchId);
         io.to(matchId).emit(SOCKET.MATCH.NEXT_ROUND, round);
-        matchManager.start(matchId, 90);
+        matchManager.startTimer(matchId, 90);
       });
     
     });
 }
-

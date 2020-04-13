@@ -108,16 +108,17 @@ namespace PolyPaint.VueModeles
         /// </summary>
         public FreeForAllViewModel()
         {
-            socket.On("startMatch", (data) =>
-            {
-                Console.WriteLine(data);
+            //socket.On("startMatch", (data) =>
+            //{
+            //    string test = data.ToString();
+            //    Console.WriteLine(test);
 
-                //string test = (string)un;
-                //Console.WriteLine("le nombre: " + test);
-                //Console.WriteLine(test);
-                //TextBoxData = test;
+            //    //string test = (string)un;
+            //    //Console.WriteLine("le nombre: " + test);
+            //    //Console.WriteLine(test);
+            //    //TextBoxData = test;
 
-            });
+            //});
             ActivateDrawing = false;
             ActivateGuessing = true;
             ButtonCommand = new RelayCommand(o => ConvertDrawingToSVG("ToSVG"));

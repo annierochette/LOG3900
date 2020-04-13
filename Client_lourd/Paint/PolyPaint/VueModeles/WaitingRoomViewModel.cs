@@ -13,6 +13,7 @@ namespace PolyPaint.VueModeles
     {
         private ICommand _goToGameMenu;
         private ICommand _goToSignInWindow;
+        private ICommand _goToFreeForAll;
         public string _textBoxData;
         AppSocket socket = AppSocket.Instance;
         public ObservableCollection<string> SomeCollection { get; set; }
@@ -53,6 +54,19 @@ namespace PolyPaint.VueModeles
                 return _goToSignInWindow ?? (_goToSignInWindow = new RelayCommand(x =>
                 {
                     Mediator.Notify("GoToSignInWindow", "");
+                }));
+            }
+
+
+        }
+
+        public ICommand GoToFreeForAll
+        {
+            get
+            {
+                return _goToFreeForAll ?? (_goToFreeForAll = new RelayCommand(x =>
+                {
+                    Mediator.Notify("GoToFreeForAll", "");
                 }));
             }
 
