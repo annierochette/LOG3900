@@ -24,7 +24,7 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="1" Grid.ColumnSpan="6" Background="#FFE5E5E5">
-        <Button x:Name="QuitterCanal" Grid.Row="1" Grid.ColumnSpan="2"  Background="Red" FontSize="12" Foreground="White" Visibility="Hidden">Quitter le canal</Button>
+        <Button x:Name="QuitterCanal" Grid.Row="1" Grid.ColumnSpan="2"  Background="Red" FontSize="12" Foreground="White" Visibility="Hidden" Click="QuitterLeCanal">Quitter le canal</Button>
         </DockPanel>
         <Border Background="#2364AA" Grid.ColumnSpan="6"/>
         <Viewbox Stretch="Uniform" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left">

@@ -130,7 +130,7 @@ namespace PolyPaint.CustomControls
             }
             newChannelName.Text = "";
             
-            if(currentChannel != "Général")
+            if(currentChannel != "Général"  && currentChannel != "General")
             {
                 QuitterCanal.Visibility = Visibility.Visible;
             }else { QuitterCanal.Visibility = Visibility.Visible; }
@@ -186,20 +186,34 @@ namespace PolyPaint.CustomControls
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            socket.Emit("joinChannel", user.Username, ListOfChannels.SelectedItem);
-            currentChannel = ListOfChannels.SelectedItem.ToString();
-            ChatName.Text = (ListOfChannels.SelectedItem).ToString();
+            GoToChannel(ListOfChannels.SelectedItem.ToString());
+
+        }
+
+        public void GoToChannel( string channel)
+        {
+            socket.Emit("joinChannel", user.Username, channel );
+            currentChannel = channel;
+            ChatName.Text = channel;
             messageList.Text = "";
             if (messagesPerChannel.ContainsKey(currentChannel))
             {
                 messageList.Text = messagesPerChannel[currentChannel].ToString();
             }
-            if (currentChannel != "Général")
+            if (currentChannel != "Général" && currentChannel != "General")
             {
                 QuitterCanal.Visibility = Visibility.Visible;
             }
-            else { QuitterCanal.Visibility = Visibility.Visible; }
-
+            else { QuitterCanal.Visibility = Visibility.Hidden; }
         }
+
+        public void QuitterLeCanal(object sender, RoutedEventArgs e)
+        {
+            socket.Emit("leaveChannel", user.Username, ListOfChannels.SelectedItem);
+            messagesPerChannel[currentChannel] = "";
+            ListOfChannels.SelectedItem = "Général";
+            GoToChannel("Général");
+        }
+
     }
 }
