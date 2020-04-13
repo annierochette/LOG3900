@@ -1,24 +1,14 @@
 ﻿using System;
 using System.Net.Http;
 using Newtonsoft.Json;
-using PolyPaint.Utilitaires;
-using System.Collections.Generic;
-using System.Web;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using PolyPaint.VueModeles;
 using PolyPaint.Modeles;
+using PolyPaint.Utilitaires;
 
 namespace PolyPaint.Vues
 {
@@ -65,13 +55,19 @@ namespace PolyPaint.Vues
             var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
            
-            var res = await HttpClient.PostAsync("http://localhost:5050/players/login", httpContent);
+            var res = await HttpClient.PostAsync(Constants.ADDR + "login", httpContent);
             var responseContent = await res.Content.ReadAsStringAsync();
+            Console.WriteLine(responseContent);
             if (responseContent != "{}")
             {
-                Console.WriteLine(responseContent);
+             
                 User.instance.Username = username;
                 ((LoginViewModel)(DataContext)).GiveAccess();
+            } else
+            {
+                ErreurConnection.Visibility = Visibility.Visible;
+
+
             }
         
          

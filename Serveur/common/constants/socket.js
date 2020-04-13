@@ -5,8 +5,10 @@ module.exports.CHAT = {
 
     // Canaux de discussion
     CHANNELS: "channels",
+    DELETE_CHANNEL: "deleteChannel",
     JOIN_CHANNEL: "joinChannel",
     LEAVE_CHANNEL: "leaveChannel",
+    NEW_CHANNEL: "newChannel",
 
     // Message
     MESSAGE: "chat message",
@@ -27,6 +29,7 @@ module.exports.DRAFT = {
 
 module.exports.MATCH = {
     ANSWER: "answer",
+    FULL: "fullMatch",
     JOIN_MATCH: "joinGame",
     REMAINING_TIME: "remainingTime",
     START_MATCH: "startMatch",    

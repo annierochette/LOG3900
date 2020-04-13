@@ -7,17 +7,19 @@ const LOGGER = require("../utils/logger");
 exports.createGame = async function(req, res) {
     // Create a new player
     try {
+        console.log("CREATE")
         const game = new Game(req.body)
         await game.save();
+        console.log("CREATED")
         res.status(HTTP.STATUS.CREATED).json({ game });
     } catch (error) {
+        console.log("ERROR " + error)
         res.status(HTTP.STATUS.CONFLICT).send(error)
     }
 };
 
 exports.deleteGame = async function(req, res) {
     try {
-        console.log("Name: ");
         await Game.deleteOne({ name: req.params.name });
         res.status(HTTP.STATUS.OK).send();
     } catch (error) {
@@ -48,6 +50,6 @@ exports.getRandomGame = async function(playedGames) {
             return await Game.findOne({ games: { $nin: playedGames } }).skip(randomIndex);;
         }
     } catch (error) {
-        console.log("F NDJSFNKLS: " + error)
+        LOGGER.error(error);
     }
 }

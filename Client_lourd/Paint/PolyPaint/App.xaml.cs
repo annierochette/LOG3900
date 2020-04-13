@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace PolyPaint
 {
@@ -24,6 +25,12 @@ namespace PolyPaint
             LoginControlViewModel context = new LoginControlViewModel();
             app.DataContext = context;
             app.Show();
+        }
+
+        protected void Disconnect(object sender, ExitEventArgs e)  
+        {
+            var socket = AppSocket.Instance;
+            socket.Close();
         }
     }
 }

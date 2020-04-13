@@ -24,7 +24,6 @@ namespace PolyPaint.VueModeles
             PageViewModels.Add(new NewDrawingViewModel());
             PageViewModels.Add(new ImageImportViewModel());
             PageViewModels.Add(new NewGameFormViewModel());
-            PageViewModels.Add(new QuickDrawSuggestionViewModel());
 
             CurrentCreatorViewModel = PageViewModels[0];
 
@@ -32,7 +31,6 @@ namespace PolyPaint.VueModeles
             Mediator.Subscribe("GoToNewDrawingWindow", OnGoToNewDrawingWindow);
             Mediator.Subscribe("GoToImageImport", OnGoToImageImport);
             Mediator.Subscribe("GoToNewGameForm", OnGoToNewGameForm);
-            Mediator.Subscribe("GoToQuickDrawSuggestion", OnGoToQuickdrawSuggestion);
         }
 
         public List<IPageViewModel> PageViewModels
@@ -86,13 +84,6 @@ namespace PolyPaint.VueModeles
         {
             ChangeViewModel(PageViewModels[3]);
         }
-
-        private void OnGoToQuickdrawSuggestion(object obj)
-        {
-            ChangeViewModel(PageViewModels[4]);
-        }
-
-
 
     }
 
@@ -151,17 +142,6 @@ namespace PolyPaint.VueModeles
                 return _goToGameCreator ?? (_goToGameCreator = new RelayCommand(x =>
                 {
                     Mediator.Notify("GoToGameCreator", "");
-                }));
-            }
-        }
-
-        public ICommand GoToQuickDrawSuggestion
-        {
-            get
-            {
-                return _goToQuickdrawSuggestion ?? (_goToQuickdrawSuggestion = new RelayCommand(x =>
-                {
-                    Mediator.Notify("GoToQuickDrawSuggestion", "");
                 }));
             }
         }
@@ -253,33 +233,4 @@ namespace PolyPaint.VueModeles
 
     }
 
-    class QuickDrawSuggestionViewModel : BaseViewModel, IPageViewModel
-    {
-        private ICommand _goToGameCreator;
-        private Word word = new Word();
-        public string SuggestedWord { get; set; }
-
-        public override string GetCurrentViewModelName()
-        {
-            return "QuickDrawSuggestionViewModel";
-        }
-
-        public QuickDrawSuggestionViewModel()
-        {
-            SuggestedWord = word.SuggestedWord;
-           
-        }
-
-        
-        public ICommand GoToGameCreator
-        {
-            get
-            {
-                return _goToGameCreator ?? (_goToGameCreator = new RelayCommand(x =>
-                {
-                    Mediator.Notify("GoToGameCreator", "");
-                }));
-            }
-        }
-    }
 }
