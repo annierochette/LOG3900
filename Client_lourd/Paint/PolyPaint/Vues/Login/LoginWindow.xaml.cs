@@ -67,7 +67,6 @@ namespace PolyPaint.Vues
             {
                 ErreurConnection.Visibility = Visibility.Visible;
 
-
             }
         
          

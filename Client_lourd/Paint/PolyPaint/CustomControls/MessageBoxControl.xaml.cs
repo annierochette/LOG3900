@@ -130,6 +130,10 @@ namespace PolyPaint.CustomControls
             }
             newChannelName.Text = "";
             
+            if(currentChannel != "Général")
+            {
+                QuitterCanal.Visibility = Visibility.Visible;
+            }else { QuitterCanal.Visibility = Visibility.Visible; }
         }
 
         private void GetChatRooms()
@@ -190,7 +194,11 @@ namespace PolyPaint.CustomControls
             {
                 messageList.Text = messagesPerChannel[currentChannel].ToString();
             }
-
+            if (currentChannel != "Général")
+            {
+                QuitterCanal.Visibility = Visibility.Visible;
+            }
+            else { QuitterCanal.Visibility = Visibility.Visible; }
 
         }
     }
