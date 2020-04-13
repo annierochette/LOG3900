@@ -3,6 +3,7 @@ const ERR = require("../errors/messages/err");
 const LOGGER = require("../utils/logger");
 const Match = require("./match.model");
 const MatchManager = require("../match/match.manager");
+const Timestamp = require("../utils/timestamp");
 
 exports.createMatch = async function(req, res) {
     try {         
@@ -109,5 +110,17 @@ exports.startStatus = async function(matchId) {
     } catch (error) {
         LOGGER.info(error);
         throw new Exception("La partie ne peux être commencée");
+    }
+}
+
+// Create a free for all match
+exports.createFFAMatch = async function(username) {
+    try {         
+        let name = username + Timestamp.currentDate();
+        let match = new Match({"name": name, "type": "FreeForAll", "players": { "name": username }});
+        await match.save();
+        return match;
+    } catch (error) {
+        LOGGER.info(error);
     }
 }

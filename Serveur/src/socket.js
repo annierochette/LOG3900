@@ -150,12 +150,18 @@ module.exports = function(http) {
       // Match
       socket.on(SOCKET.MATCH.JOIN_MATCH, (channel, username) => {
         socket.join(channel);
-        let players = matchManager.getPlayerInWaitingRoom(channel);
-        if ( !players || players.length < 4) {
-          let playersInWaitingRoom = matchManager.addPlayerToWaitingRoom(channel, username);
-          io.emit(SOCKET.MATCH.JOIN_MATCH, playersInWaitingRoom);
+        let playersInWaitingRoom = matchManager.addPlayerToWaitingRoom(channel, username);
+        io.emit(SOCKET.MATCH.JOIN_MATCH, playersInWaitingRoom);
+      });
+
+      socket.on(SOCKET.MATCH.CREATE_MATCH, async (username) => {
+        let match = await matchManager.createMatch(username);
+        if (match){
+          socket.join(match.name);
+          let playersInWaitingRoom = matchManager.addPlayerToWaitingRoom(match.name, username);
+          io.emit(SOCKET.MATCH.CREATE_MATCH, playersInWaitingRoom);          
         } else {
-          socket.to(SOCKET.MATCH.FULL, "La partie est complète.");
+          console.log("Cannot create the match");
         }
       });
 
@@ -175,7 +181,6 @@ module.exports = function(http) {
 
       socket.on(SOCKET.MATCH.START_MATCH, async (matchId) => {
         matchManager.addMatch(matchId, matchManager.getPlayerInWaitingRoom(matchId));
-        console.log(matchId)
         let round = await matchManager.nextRound(matchId);
         io.to(matchId).emit(SOCKET.MATCH.NEXT_ROUND, round);
         matchManager.startTimer(matchId, 90);

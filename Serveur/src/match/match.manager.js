@@ -100,7 +100,7 @@ class MatchManager {
             this.matches.set(matchId, new Match(players, matchId, 90, this.io));
             this.waitingRoom.delete(matchId);
         } catch (error) {
-            LOGGER.info("La partie n'a pas être démarrée");
+            console.log("La partie n'a pas été démarrée");
         }
     }
       
@@ -144,6 +144,11 @@ class MatchManager {
 
     getPlayerInWaitingRoom(matchId) {
         return this.waitingRoom.get(matchId);
+    }
+
+    async createMatch(username) {
+        let match = await matchController.createFFAMatch(username);
+        return match;
     }
 }
 
