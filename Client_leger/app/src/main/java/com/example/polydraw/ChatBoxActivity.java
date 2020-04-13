@@ -220,6 +220,9 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
                     public void onClick(View v) {
                         if (!newChannelName.getText().toString().isEmpty()) {
                             String result = newChannelName.getText().toString();
+//
+//                            socket.getSocket().emit("leaveChannel", Username, currentChannel);
+
                             currentChannel = result;
                             socket.getSocket().emit("joinChannel", Username, result);
 
