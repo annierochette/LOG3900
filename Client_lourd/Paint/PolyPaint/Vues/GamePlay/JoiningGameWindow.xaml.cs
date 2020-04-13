@@ -109,7 +109,7 @@ namespace PolyPaint.Vues
             if (res.Content != null)
             {
                 var responseContent = await res.Content.ReadAsStringAsync();
-                Console.WriteLine(responseContent); 
+                Console.WriteLine(responseContent);
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 gamesUnstarted = js.Deserialize<gameList[]>(responseContent);
                 //App.Current.Properties["games"] = gamesUnstarted;
@@ -125,36 +125,50 @@ namespace PolyPaint.Vues
             }
 
             int nbGames = gamesUnstarted.Length;
-            for (int i = 0; i < nbGames; i++)
+            Console.WriteLine(nbGames);
+            if (nbGames == 0)
             {
-
-                Button bt = new Button();
-                bt.Name = gamesUnstarted[i].name;
-                Console.WriteLine(bt.Name);
-                bt.Content = gamesUnstarted[i].name;
-                bt.Click += joinGame;
-
-                bt.Height = 50;
-                bt.Width = 220;
-                bt.Foreground = Brushes.White;
-
-                Thickness margin = new Thickness(20);
-                bt.Margin = margin;
-
-                // FontSize="24" FontFamily="Ink Free"
-                bt.FontSize = 24;
-                FontFamily font = new FontFamily("Ink Free");
-                bt.FontFamily = font;
-                bt.Background = Brushes.Orange;
-
-                //Command="{Binding GoToWaitingRoom}"
-                Binding test = new Binding("GoToWaitingRoom");
-
-                JoiningGameViewModel testi = new JoiningGameViewModel();
-                bt.Command = testi.GoToWaitingRoom;
-                gameStack.Children.Add(bt);
+                TextBox noGames = new TextBox();
+                noGames.Text = "Aucune game n'est disponible pour le moment";
+                //FontSize="36" FontWeight="Bold" Foreground="White" TextAlignment="Center"
+                noGames.FontSize = 36;
+                noGames.Foreground = Brushes.White;
+                gameStack.Children.Add(noGames);
             }
+            else
+            {
+                for (int i = 0; i < nbGames; i++)
+                {
 
+
+                    Button bt = new Button();
+                    bt.Name = gamesUnstarted[i].name;
+                    Console.WriteLine(bt.Name);
+                    bt.Content = gamesUnstarted[i].name;
+                    bt.Click += joinGame;
+
+                    bt.Height = 50;
+                    bt.Width = 220;
+                    bt.Foreground = Brushes.White;
+
+                    Thickness margin = new Thickness(20);
+                    bt.Margin = margin;
+
+                    // FontSize="24" FontFamily="Ink Free"
+                    bt.FontSize = 24;
+                    FontFamily font = new FontFamily("Ink Free");
+                    bt.FontFamily = font;
+                    bt.Background = Brushes.Orange;
+
+                    //Command="{Binding GoToWaitingRoom}"
+                    Binding test = new Binding("GoToWaitingRoom");
+
+                    JoiningGameViewModel testi = new JoiningGameViewModel();
+                    bt.Command = testi.GoToWaitingRoom;
+                    gameStack.Children.Add(bt);
+                }
+
+            }
         }
 
 
