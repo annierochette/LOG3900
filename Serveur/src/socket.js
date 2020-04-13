@@ -164,7 +164,7 @@ module.exports = function(http) {
       });
 
       socket.on(SOCKET.MATCH.START_ROUND, (matchId) => {
-        matchManager.start(matchId, 90);
+        matchManager.startTimer(matchId, 90);
         io.to(matchId).emit(SOCKET.EMIT.START_ROUND, "Round started");
       });
 

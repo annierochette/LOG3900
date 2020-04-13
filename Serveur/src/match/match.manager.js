@@ -1,5 +1,7 @@
 const MatchTimer = require("./match.timer");
-const gameController = require("../game/game.controller"); 
+const gameController = require("../game/game.controller");
+const matchController = require("./match.controller"); 
+const SOCKET = require("../../common/constants/socket");
 
 class Match {
     constructor(players, matchId, duration, io) {
@@ -93,7 +95,13 @@ class MatchManager {
     }
 
     addMatch(matchId, players) {
-        this.matches.set(matchId, new Match(players, matchId, 90, this.io));
+        try {
+            matchController.startStatus(matchId);
+            this.matches.set(matchId, new Match(players, matchId, 90, this.io));
+            this.waitingRoom.delete(matchId);
+        } catch (error) {
+            LOGGER.info("La partie n'a pas être démarrée");
+        }
     }
       
     validateAnswer(matchId, answer, player) {
