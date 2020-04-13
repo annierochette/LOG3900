@@ -30,6 +30,7 @@ public class WaitingRoom extends AppCompatActivity {
     private String username;
     private String firstName;
     private String lastName;
+    private String playersList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,23 +45,14 @@ public class WaitingRoom extends AppCompatActivity {
         firstName = intent.getStringExtra("firstName");
         lastName = intent.getStringExtra("lastName");
 
-        channelName = intent.getStringExtra("matchName");
+        channelName = intent.getStringExtra("matchId");
         System.out.println("je suis connecté à: "+channelName);
 
-        socket.getSocket().emit("joinChannel", channelName);
+        socket.getSocket().emit("joinChannel", channelName, username);
+        socket.getSocket().emit("joinGame", channelName, username);
 
-        socket.getSocket().on("joinGame",new Emitter.Listener() {
-            @Override
-            public void call(final Object... args) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        String data = (String) args[0];
-                        Toast.makeText(WaitingRoom.this, data, Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
+//        socket.getSocket().on("joinGame", onJoinMatch);
+        System.out.println();
 
 
         playButton = (Button) findViewById(R.id.playButton);
@@ -91,6 +83,7 @@ public class WaitingRoom extends AppCompatActivity {
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);
         intent.putExtra("lastName", lastName);
+        intent.putExtra("matchId", channelName);
         startActivity(intent);
     }
 
@@ -100,9 +93,17 @@ public class WaitingRoom extends AppCompatActivity {
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);
         intent.putExtra("lastName", lastName);
+        intent.putExtra("matchId", channelName);
         startActivity(intent);
     }
     //A DECOMMENTER QUAND PARTIE SERA FONCTIONNELLE
     /*@Override
     public void onBackPressed() { }*/
+
+    private Emitter.Listener onJoinMatch = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            playersList = (String) args[0];
+        }
+    };
 }

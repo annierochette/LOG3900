@@ -32,6 +32,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
@@ -44,7 +45,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
     matchListAdapter adapter;
     ArrayList<String> matchList;
-    ArrayList<String> matchListId;
+    public Map<String,String> matchListId;
     public RecyclerView myRecyclerView;
 
     private String player;
@@ -77,7 +78,6 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         chatButton = (ImageView) findViewById(R.id.chatButton);
 
         matchList = new ArrayList<>();
-        matchListId = new ArrayList<>();
         myRecyclerView = (RecyclerView) findViewById(R.id.matchlist);
         /*adapter = new matchListAdapter(new ArrayList<String>());
         myRecyclerView.setAdapter(adapter);*/
@@ -183,10 +183,11 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
                     try {
                         JSONObject oneObject = jsonArray.getJSONObject(i);
                         // Pulling items from the array
-                        String matchName = oneObject.getString("name");
+                        String matchName = oneObject.getString("name");//name
                         String matchId = oneObject.getString("_id");
-                        matchListId.add(matchId);
-                        publishProgress(matchName);
+                        publishProgress(matchId);
+                        /*matchListId.put(matchName, matchId);
+                        System.out.println(matchListId);*/
 
                     } catch (JSONException e) {
                         e.printStackTrace();

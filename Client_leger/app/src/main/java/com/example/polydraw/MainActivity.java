@@ -157,8 +157,8 @@ public class MainActivity extends AppCompatActivity {
                 urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
                 urlConnection.setRequestProperty("Accept", "application/json");
                 urlConnection.setRequestMethod("POST");
-                urlConnection.setConnectTimeout(5000);
-                urlConnection.setReadTimeout(5000);
+                /*urlConnection.setConnectTimeout(5000);
+                urlConnection.setReadTimeout(5000);*/
 
                 if (this.postData != null) {
                     OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());

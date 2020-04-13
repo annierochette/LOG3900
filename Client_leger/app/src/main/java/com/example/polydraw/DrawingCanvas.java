@@ -46,6 +46,8 @@ public class DrawingCanvas extends View {
     public Bitmap mBitmap;
     private Paint mBitmapPaint;
 
+    private String channel = "General";
+
 
     public DrawingCanvas (Context context, AttributeSet attrs){
         super(context,attrs);
@@ -60,6 +62,8 @@ public class DrawingCanvas extends View {
         setBackgroundColor(Color.TRANSPARENT);
         setLayerType(LAYER_TYPE_HARDWARE, null);
         mBitmapPaint = new Paint(Paint.DITHER_FLAG);
+
+        System.out.println("CHANNEL IN DRAWING CANVAS: "+channel);
 
 
     }
@@ -157,7 +161,7 @@ public class DrawingCanvas extends View {
         if(eraser){
             if(_allPoints.size() == 15){
                 String json = new Gson().toJson(_allPoints);
-                socket.getSocket().emit("SegmentErasing", "General", json);
+                socket.getSocket().emit("SegmentErasing", channel, json);
                 _allPoints.clear();
                 _allPoints = new ArrayList<Point>();
             }
@@ -166,7 +170,7 @@ public class DrawingCanvas extends View {
         else{
             if(_allPoints.size() == 15){
                 String json = new Gson().toJson(_allPoints);
-                socket.getSocket().emit("StrokeDrawing", "General", json);
+                socket.getSocket().emit("StrokeDrawing", channel, json);
                 _allPoints.clear();
                 _allPoints = new ArrayList<Point>();
             }
@@ -190,7 +194,7 @@ public class DrawingCanvas extends View {
             if(eraser){
                 if(_allPoints.size() == 15){
                     String json = new Gson().toJson(_allPoints);
-                    socket.getSocket().emit("SegmentErasing", "General", json);
+                    socket.getSocket().emit("SegmentErasing", channel, json);
                     _allPoints.clear();
                     _allPoints = new ArrayList<Point>();
                 }
@@ -199,7 +203,7 @@ public class DrawingCanvas extends View {
             else {
                 if (_allPoints.size() == 15) {
                     String json = new Gson().toJson(_allPoints);
-                    socket.getSocket().emit("StrokeDrawing", "General", json);
+                    socket.getSocket().emit("StrokeDrawing", channel, json);
                     _allPoints.clear();
                     _allPoints = new ArrayList<Point>();
                 }
@@ -236,14 +240,14 @@ public class DrawingCanvas extends View {
 
         if(eraser){
             String json = new Gson().toJson(_allPoints);
-            socket.getSocket().emit("SegmentErasing", "General", json);
+            socket.getSocket().emit("SegmentErasing", channel, json);
             _allPoints.clear();
             _allPoints = new ArrayList<Point>();
 
         }
         else{
             String json = new Gson().toJson(_allPoints);
-            socket.getSocket().emit("StrokeDrawing", "General", json);
+            socket.getSocket().emit("StrokeDrawing", channel, json);
             _allPoints.clear();
             _allPoints = new ArrayList<Point>();
 
@@ -261,25 +265,25 @@ public class DrawingCanvas extends View {
     }
 
     public void setDrawingColor(int newColor){
-        socket.getSocket().emit("CouleurSelectionnee", "General", newColor);
+        socket.getSocket().emit("CouleurSelectionnee", channel, newColor);
         paintColor = newColor;
 
     }
 
     public void setWidth(int width){
-        socket.getSocket().emit("TailleTrait", "General", width);
+        socket.getSocket().emit("TailleTrait", channel, width);
         capWidth = width;
 
     }
 
     public void setPencilTip(String cap){
         if(cap.equals("Ronde")){
-            socket.getSocket().emit("PointeSelectionnee", "General", "Ronde");
+            socket.getSocket().emit("PointeSelectionnee", channel, "Ronde");
             capOption = Paint.Cap.ROUND;
 
         }
         else{
-            socket.getSocket().emit("PointeSelectionnee", "General", "Carre");
+            socket.getSocket().emit("PointeSelectionnee", channel, "Carre");
             capOption = Paint.Cap.SQUARE;
         }
 
@@ -305,5 +309,9 @@ public class DrawingCanvas extends View {
 
     public Paint.Cap getCapOption() {
         return capOption;
+    }
+
+    public void setChannel(String newChannel){
+        this.channel =  newChannel;
     }
 }

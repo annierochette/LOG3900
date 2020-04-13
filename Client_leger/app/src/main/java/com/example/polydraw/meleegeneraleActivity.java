@@ -2,6 +2,7 @@ package com.example.polydraw;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.MenuItem;
@@ -75,6 +76,10 @@ public class meleegeneraleActivity extends AppCompatActivity {
     private String username;
     private String firstName;
     private String lastName;
+    public String channel;
+
+    Intent intent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -89,15 +94,21 @@ public class meleegeneraleActivity extends AppCompatActivity {
         mDefaultColor = 0;
 
         Intent intent = getIntent();
-        player = intent.getStringExtra("player");
         token = intent.getStringExtra("token");
         username = intent.getStringExtra("username");
         firstName = intent.getStringExtra("firstName");
         lastName = intent.getStringExtra("lastName");
+        channel = intent.getStringExtra("matchId");
+
+        drawingCanvas.setChannel(channel);
+
+        System.out.println("CHANNEL IN MELEE ACTIVITY: "+channel);
+
+
 
         socket.getSocket().emit("joinChannel", "");
 
-        socket.getSocket().on("joinGame",new Emitter.Listener() {
+        /*socket.getSocket().on("joinGame",new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 runOnUiThread(new Runnable() {
@@ -105,10 +116,11 @@ public class meleegeneraleActivity extends AppCompatActivity {
                     public void run() {
                         String data = (String) args[0];
                         Toast.makeText(meleegeneraleActivity.this, data, Toast.LENGTH_SHORT).show();
+
                     }
                 });
             }
-        });
+        });*/
 
     }
 

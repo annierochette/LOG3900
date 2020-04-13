@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.ButtonBarLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.polydraw.Socket.SocketIO;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,11 +52,15 @@ public class matchListAdapter extends RecyclerView.Adapter<matchListAdapter.MyVi
     @Override public void onBindViewHolder(final matchListAdapter.MyViewHolder holder, final int position){
         final String s = matchList.get(position);
         holder.name.setText(s);
+        System.out.println();
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), WaitingRoom.class);
-                intent.putExtra("matchName", s);
+                intent.putExtra("matchId", s);
+                v.getContext().getClass();
+//                v.getContext().getString();
+//                socket.getSocket().emit("joinChannel", s, "snoopy");
                 v.getContext().startActivity(intent);
 
             }
