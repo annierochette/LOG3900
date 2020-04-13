@@ -172,6 +172,8 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
                         String newChannel = (String) args[0];
                         ChatChannel nc = new ChatChannel(newChannel);
 
+                        System.out.println("New channel " + newChannel);
+
                         if(currentChannel.equals(newChannel)){
                             switchCurrentChannelNoPosition();
                             nc.setCurrent(true);
@@ -192,6 +194,8 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
                     public void run() {
                         String deletedChannel = (String) args[0];
                         List<ChatChannel> channelsToDelete = new ArrayList<ChatChannel>();
+
+                        System.out.println("Channel deleted " + deletedChannel);
 
                         for(ChatChannel channel: ChannelList) {
                             if(channel.getChannelName().equals(deletedChannel)){
@@ -222,11 +226,16 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
                     public void onClick(View v) {
                         if (!newChannelName.getText().toString().isEmpty()) {
                             String result = newChannelName.getText().toString();
+
+                            socket.getSocket().emit("joinChannel", Username, result);
+                            System.out.println("Joined " + result);
+
                             socket.getSocket().emit("leaveChannel", Username, currentChannel);
+                            System.out.println("Left " + currentChannel);
 
                             currentChannel = result;
-                            socket.getSocket().emit("joinChannel", Username, result);
 
+                            updateChannelRecycler(ChannelList);
 //                            ChatChannel newChannel = new ChatChannel(result);
 //
 //                            switchCurrentChannelNoPosition();
@@ -273,6 +282,7 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         chatChannelAdapter = new ChatChannelAdapter(channelList, this);
         chatChannelAdapter.notifyDataSetChanged();
         channelsRecyclerView.setAdapter(chatChannelAdapter);
+        System.out.println("ChannelRecycler updated");
     }
 
     private void updateMessageRecycler(List<Message> messageList){
