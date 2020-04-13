@@ -48,7 +48,6 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
     private ImageButton disconnectButton;
     private ImageView chatButton;
     private SocketIO socket;
-    private Button joinGeneral;
 
     matchListAdapter adapter;
     ArrayList<String> matchList;
@@ -85,7 +84,6 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         createButton = (Button) findViewById(R.id.createButton);
         disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
         chatButton = (ImageView) findViewById(R.id.chatButton);
-        joinGeneral = (Button) findViewById(R.id.joinGeneral);
 
         matchList = new ArrayList<>();
         myRecyclerView = (RecyclerView) findViewById(R.id.matchlist);
@@ -123,12 +121,6 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
             }
         });
 
-//        joinGeneral.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                playGeneralGame();
-//            }
-//        });
 
         socket.getSocket().on("fullMatch", new Emitter.Listener() {
             @Override
@@ -154,7 +146,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
     }
 
     public void playMultiplayerGame(){
-        Intent intent = new Intent(this, WaitingRoom.class);
+        Intent intent = new Intent(this, WaitingRoomCreate.class);
         socket.emitNewGame("createMatch", username);
         intent.putExtra("token", token);
         intent.putExtra("username", username);
