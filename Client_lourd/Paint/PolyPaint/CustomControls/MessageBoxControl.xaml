@@ -24,11 +24,11 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="1" Grid.ColumnSpan="6" Background="#FFE5E5E5">
-        <Button x:Name="QuitterCanal" Grid.Row="1" Grid.ColumnSpan="2"  Background="Red" FontSize="12" Foreground="White" Visibility="Hidden" Click="QuitterLeCanal">Quitter le canal</Button>
+            <Button x:Name="QuitterCanal" Grid.Row="1" Grid.ColumnSpan="2"  Background="Red" FontSize="12" Foreground="White" Visibility="Hidden" Click="QuitterLeCanal">Quitter le canal</Button>
         </DockPanel>
         <Border Background="#2364AA" Grid.ColumnSpan="6"/>
         <Viewbox Stretch="Uniform" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left">
-        <TextBlock x:Name="ChatName"  Text="Général" FontSize="22" Foreground="White"  Margin="10"/>
+            <TextBlock x:Name="ChatName"  Text="Général" FontSize="22" Foreground="White"  Margin="10"/>
         </Viewbox>
         <TextBox x:Name="messageList"  Background="White"  Grid.ColumnSpan="6" Grid.Row="2" Grid.RowSpan="3" TextChanged="messageList_TextChanged" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"></TextBox>
         <DockPanel Grid.Column="3"  >
@@ -36,26 +36,27 @@
                 <Button Click="DisplayPopup" Height="50">
                     <TextBlock FontSize="30">+</TextBlock>
                 </Button>
-                
+
                 <Popup Name="NewChannelPopup" IsOpen="False" Placement="Bottom" HorizontalOffset="-200"  >
                     <Border BorderBrush="Black">
-                    <StackPanel Orientation="Vertical"  >
-                        
-                        <DockPanel Background="LightGray" Height="40">
-                         
-                    <TextBlock Name="myPopupText" HorizontalAlignment="Left"
-                 FontSize="18"
-                   Width="220" Text="Nom du nouveau cannal:" Padding="5">
+                        <StackPanel Orientation="Vertical"  >
 
-                    </TextBlock>
-                                <Button HorizontalAlignment="Right" FontSize="16" VerticalContentAlignment="Top" Content="x" Width="35" Click="HidePopup" />
+                            <DockPanel Background="LightGray" Height="40">
+
+                                <TextBlock Name="myPopupText" HorizontalAlignment="Left"
+                 FontSize="16"
+                   Width="200" Text="Nom du nouveau cannal:" Padding="5">
+
+                                </TextBlock>
+                                <Button HorizontalAlignment="Right" FontSize="16"  Content="x" Width="25" Click="HidePopup" Height="25" VerticalAlignment="Top"/>
                             </DockPanel>
-                        <StackPanel Orientation="Horizontal" Width="255">
-                        <TextBox x:Name="newChannelName" Width="200" HorizontalAlignment="Left" FontSize="16" ></TextBox>
-                            <Button HorizontalAlignment="Right" Width="55" Click="AddChatRoom">
-                                <TextBlock Text="Ok" FontSize="18"></TextBlock></Button>
+                            <StackPanel Orientation="Horizontal" Height="40" Width="255">
+                                <TextBox x:Name="newChannelName" Width="200" HorizontalAlignment="Left" FontSize="16" ></TextBox>
+                                <Button HorizontalAlignment="Right" Width="55" Click="AddChatRoom">
+                                    <TextBlock Text="Ok" FontSize="18"></TextBlock>
+                                </Button>
+                            </StackPanel>
                         </StackPanel>
-                    </StackPanel>
                     </Border>
                 </Popup>
             </StackPanel>
