@@ -186,11 +186,20 @@
             android:visibility="invisible"/>
 
         <Button
-            android:id="@+id/toggleButton"
+        android:id="@+id/toggleButton"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="toggle"
+        android:layout_below="@+id/player4"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp" />
+
+        <Button
+            android:id="@+id/updateButton"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:text="toggle"
-            android:layout_below="@+id/player4"
+            android:text="channel"
+            android:layout_below="@+id/toggleButton"
             android:layout_alignParentRight="true"
             android:layout_marginRight="15dp" />
 

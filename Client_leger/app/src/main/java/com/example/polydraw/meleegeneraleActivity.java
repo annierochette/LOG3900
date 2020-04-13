@@ -80,6 +80,8 @@ public class meleegeneraleActivity extends AppCompatActivity {
     private String lastName;
     public String channel;
 
+    public Button updateChannel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -157,6 +159,8 @@ public class meleegeneraleActivity extends AppCompatActivity {
         score3 = (TextView) findViewById(R.id.points3);
         score4 = (TextView) findViewById(R.id.points4);
 
+        updateChannel = (Button) findViewById(R.id.updateButton);
+
     }
 
     private void eventListeners() {
@@ -212,6 +216,13 @@ public class meleegeneraleActivity extends AppCompatActivity {
         toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { setToggle();
+
+            }
+        });
+
+        updateChannel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { drawingCanvas.setChannel(channel);
 
             }
         });
@@ -311,6 +322,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
 
     //source: https://www.youtube.com/watch?v=zmjfAcnosS0
     public void startTimer(){
+        drawingCanvas.setChannel(channel);
         timer = new CountDownTimer(remainingTime, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
