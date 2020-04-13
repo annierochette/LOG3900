@@ -68,13 +68,16 @@ module.exports = function(http) {
       socket.on(SOCKET.CHAT.LEAVE_CHANNEL, (username, channel) => {
         socket.leave(channel);
         let players = playersInChannel.get(channel);
-        players.delete(username);
+        
+        if (players) {
+          players.delete(username);
 
-        if (players.size == 0) {
-          playersInChannel.delete(channel);
-          io.emit(SOCKET.CHAT.DELETE_CHANNEL, channel);
-        } else {
-          playersInChannel.set(channel, players);
+          if (players.size == 0) {
+            playersInChannel.delete(channel);
+            io.emit(SOCKET.CHAT.DELETE_CHANNEL, channel);
+          } else {
+            playersInChannel.set(channel, players);
+          }
         }
 
         let timestamp = Timestamp.currentDate();    
