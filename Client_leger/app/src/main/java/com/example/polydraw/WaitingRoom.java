@@ -45,8 +45,8 @@ public class WaitingRoom extends AppCompatActivity {
         firstName = intent.getStringExtra("firstName");
         lastName = intent.getStringExtra("lastName");
 
-        if(token == null)
-            socket.emitDisconnectionStatus("disconnection");
+/*        if(token == null)
+            socket.emitDisconnectionStatus("disconnection");*/
         System.out.println("WAITING ROOM TOKEN :"+ token);
 
         if(intent.getStringExtra("matchId") != null)
@@ -56,7 +56,8 @@ public class WaitingRoom extends AppCompatActivity {
         /*socket.getSocket().emit("joinChannel", channelName, username);
         socket.getSocket().emit("joinGame", channelName, username);*/
 
-//        socket.getSocket().on("joinGame", onJoinMatch);
+        /*socket.getSocket().on("joinGame", onJoinMatch);
+        socket.getSocket().on("startMatch", startMatch);*/
         System.out.println();
 
 
@@ -106,6 +107,13 @@ public class WaitingRoom extends AppCompatActivity {
     public void onBackPressed() { }*/
 
     private Emitter.Listener onJoinMatch = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            playersList = (String) args[0];
+        }
+    };
+
+    private Emitter.Listener startMatch = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
             playersList = (String) args[0];

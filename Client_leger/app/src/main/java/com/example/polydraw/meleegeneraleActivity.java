@@ -80,8 +80,6 @@ public class meleegeneraleActivity extends AppCompatActivity {
     private String lastName;
     public String channel;
 
-    public Button updateChannel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -159,8 +157,6 @@ public class meleegeneraleActivity extends AppCompatActivity {
         score3 = (TextView) findViewById(R.id.points3);
         score4 = (TextView) findViewById(R.id.points4);
 
-        updateChannel = (Button) findViewById(R.id.updateButton);
-
     }
 
     private void eventListeners() {
@@ -220,13 +216,6 @@ public class meleegeneraleActivity extends AppCompatActivity {
             }
         });
 
-        updateChannel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { drawingCanvas.setChannel(channel);
-
-            }
-        });
-
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int pval = 0;
             @Override
@@ -247,6 +236,11 @@ public class meleegeneraleActivity extends AppCompatActivity {
         sendAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!answer.getText().toString().trim().isEmpty()) {
+
+//                    socket.getSocket().emit("answer", channel, answer.getText().toString());
+                    answer.setText(" ");
+                }
 
 
             }
@@ -258,6 +252,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
                 openChat();
             }
         });
+
 
     }
 

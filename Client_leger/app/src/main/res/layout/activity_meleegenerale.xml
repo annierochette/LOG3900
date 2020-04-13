@@ -194,15 +194,6 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="15dp" />
 
-        <Button
-            android:id="@+id/updateButton"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="channel"
-            android:layout_below="@+id/toggleButton"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp" />
-
         <TextView
             android:id="@+id/hints"
             android:layout_width="200dp"
