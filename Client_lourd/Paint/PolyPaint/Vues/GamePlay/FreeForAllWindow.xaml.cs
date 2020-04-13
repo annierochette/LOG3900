@@ -95,19 +95,23 @@ namespace PolyPaint.Vues
 
         private void answer(object sender, RoutedEventArgs e) {
             string answer = answerTextBox.Text;
-            string wordToFind = word.Text;
-            if (answer == wordToFind)
-            {
-                answerTextBox.IsEnabled = false;
-                socket.Emit("answer", Global.GameName, answer);
-                answerTextBox.Text = String.Empty;
+            socket.Emit("answer", Global.GameName, answer);
+            answerTextBox.Text = String.Empty;
+            answerTextBox.Focus();
 
-            }
-            else 
-            {
-                answerTextBox.Text = String.Empty;
-                answerTextBox.Focus();
-            }
+            //string wordToFind = word.Text;
+            //if (answer == wordToFind)
+            //{
+            //    answerTextBox.IsEnabled = false;
+            //    socket.Emit("answer", Global.GameName, answer);
+            //    answerTextBox.Text = String.Empty;
+
+            //}
+            //else 
+            //{
+            //    answerTextBox.Text = String.Empty;
+            //    answerTextBox.Focus();
+            //}
         }
 
 
