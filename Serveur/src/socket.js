@@ -7,7 +7,7 @@ const playerController = require("./player/player.controller");
 const Timestamp = require("./utils/timestamp");
 
 const frenchBadwordsList = require('french-badwords-list');
-const GENERAL = "General";
+const GENERAL = "Général";
 var playersInChannel = new Map();
 var channelsSubscribed = new Map();
 var playerSocket = new Map();
