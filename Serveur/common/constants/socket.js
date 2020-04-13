@@ -34,4 +34,5 @@ module.exports.MATCH = {
     REMAINING_TIME: "remainingTime",
     START_MATCH: "startMatch",    
     START_ROUND: "startTimer",
+    NEXT_ROUND: "nextRound",
 }
