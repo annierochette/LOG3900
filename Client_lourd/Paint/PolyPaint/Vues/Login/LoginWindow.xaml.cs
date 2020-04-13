@@ -55,7 +55,7 @@ namespace PolyPaint.Vues
             var json = await Task.Run(() => JsonConvert.SerializeObject(infos));
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
            
-            var res = await HttpClient.PostAsync(Constants.ADDR + "login", httpContent);
+            var res = await HttpClient.PostAsync(Constants.ADDR + "players/login", httpContent);
             var responseContent = await res.Content.ReadAsStringAsync();
             Console.WriteLine(responseContent);
             if (responseContent != "{}")
