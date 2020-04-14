@@ -115,35 +115,35 @@ module.exports = function(http) {
 
       // Draft
       socket.on(SOCKET.DRAFT.STROKE_DRAWING, (channel, points) => {
-        io.to(channel).emit(SOCKET.DRAFT.STROKE_DRAWING, points);
+        io.emit(SOCKET.DRAFT.STROKE_DRAWING, points);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_COLLECTED, (channel, points) => {
-        io.to(channel).emit(SOCKET.DRAFT.STROKE_COLLECTED, points);
+        io.emit(SOCKET.DRAFT.STROKE_COLLECTED, points);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_ERASING, (channel, points) => {
-        io.to(channel).emit(SOCKET.DRAFT.STROKE_ERASING, points);
+        io.emit(SOCKET.DRAFT.STROKE_ERASING, points);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_SEGMENT_ERASING, (channel, points) => {
-        io.to(channel).emit(SOCKET.DRAFT.STROKE_SEGMENT_ERASING, points);
+        io.emit(SOCKET.DRAFT.STROKE_SEGMENT_ERASING, points);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_COLOR, (channel, color) => {
-        io.to(channel).emit(SOCKET.DRAFT.STROKE_COLOR, color);
+        io.emit(SOCKET.DRAFT.STROKE_COLOR, color);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_SIZE, (channel, size) => {
-        io.to(channel).emit(SOCKET.DRAFT.STROKE_SIZE, size);
+        io.emit(SOCKET.DRAFT.STROKE_SIZE, size);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_TIP, (channel, tip) => {
-        io.to(channel).emit(SOCKET.DRAFT.STROKE_TIP, tip);
+        io.emit(SOCKET.DRAFT.STROKE_TIP, tip);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_TOOL, (channel, tool) => {
-        io.to(channel).emit(SOCKET.DRAFT.STROKE_TOOL, tool);
+        io.emit(SOCKET.DRAFT.STROKE_TOOL, tool);
       });
 
       // Match
