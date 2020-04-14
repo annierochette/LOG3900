@@ -8,18 +8,23 @@ import java.io.*;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.polydraw.Socket.SocketIO;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 import org.json.JSONException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -54,6 +59,9 @@ public class SignupActivity extends AppCompatActivity {
                 if(!name.getText().toString().trim().isEmpty() && !surname.getText().toString().trim().isEmpty() && !username.getText().toString().trim().isEmpty() && !password.getText().toString().trim().isEmpty() && !passwordConfirmation.getText().toString().trim().isEmpty()) {
                     if(password.getText().toString().equals(passwordConfirmation.getText().toString())) {
                         sendForm();
+                    }  else{
+                        SignupConfirmation signupConfirmation = new SignupConfirmation();
+                        signupConfirmation.show(getSupportFragmentManager(), "signupConfirmation");
 
                     }
                 }
@@ -80,7 +88,7 @@ public class SignupActivity extends AppCompatActivity {
                     postData.put("lastName", surname.getText().toString());
                     postData.put("username", username.getText().toString());
                     postData.put("password", password.getText().toString());
-                    HttpPost task = new HttpPost(postData);
+                    HttpPostSignup task = new HttpPostSignup(postData);
                     task.execute(SocketIO.HTTP_URL+query_url);
 
 
@@ -100,5 +108,90 @@ public class SignupActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() { }
+
+    public class HttpPostSignup extends AsyncTask<String, Void, String> {
+        JSONObject postData;
+        public String status;
+        public String token;
+        public JSONObject player;
+        public HttpPostSignup(Map<String, String> postData) {
+            if (postData != null) {
+                this.postData = new JSONObject(postData);
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            if(result=="success"){
+                Intent intent = new Intent(SignupActivity.this, Tutorial.class);
+                intent.putExtra("player", result);
+                startActivity(intent);
+            }else{
+                SignupError signupError = new SignupError();
+                signupError.show(getSupportFragmentManager(), "signupError");
+
+            }
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            try {
+                URL url = new URL(params[0]);
+
+
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+                urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                urlConnection.setRequestProperty("Accept", "application/json");
+                urlConnection.setRequestMethod("POST");
+
+                if (this.postData != null) {
+                    OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
+                    writer.write(postData.toString());
+                    writer.flush();
+                }
+
+                final int statusCode = urlConnection.getResponseCode();
+
+                if(statusCode == 200||statusCode == 201){
+                    System.out.println(statusCode + ": Successful request");
+                    status = "success";
+                    if (statusCode < 299) { // success
+                        BufferedReader in = new BufferedReader(new InputStreamReader(
+                                urlConnection.getInputStream()));
+                        String inputLine;
+                        StringBuffer response = new StringBuffer();
+
+                        while ((inputLine = in.readLine()) != null) {
+                            response.append(inputLine);
+                        }
+                        in.close();
+
+                        String data = response.toString();
+                        Gson gson = new Gson();
+                        JSONObject reader = new JSONObject(data);
+                        player  = reader.getJSONObject("player");
+                        token = player.get("token").toString();
+
+                    }
+                }
+
+                else{
+                    System.out.println(statusCode + ": Something went wrong...");
+                    status = "failed";
+                }
+
+
+            } catch (Exception e) {
+                Log.d(TAG, e.getLocalizedMessage());
+            }
+            return status;
+        }
+
+    }
 
 }

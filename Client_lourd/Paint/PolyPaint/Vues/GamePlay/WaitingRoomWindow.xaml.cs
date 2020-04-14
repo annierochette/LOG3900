@@ -43,9 +43,9 @@ namespace PolyPaint.Vues
         }
 
 
-        private void voir(object sender, RoutedEventArgs e) {
-            
-            
+        private void quitRoom(object sender, RoutedEventArgs e)
+        {
+            socket.Emit("stopWaiting", Global.GameName, User.instance.Username);
         }
 
         private void assignView(object sender, System.EventArgs e)

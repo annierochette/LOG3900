@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_polydraw_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WaitingRoom"></activity>
+        <activity android:name=".WaitingRoomCreate"></activity>
+        <activity android:name=".WaitingRoom" />
         <activity android:name=".MeleeGeneraleMenuActivity" />
         <activity android:name=".ModeSoloActivity" />
         <activity android:name=".meleegeneraleActivity" />

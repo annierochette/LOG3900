@@ -54,6 +54,8 @@ public class GuessingCanvas extends View {
         socket.getSocket().on("CouleurSelectionnee", onColorChange);
         socket.getSocket().on("TailleTrait", onWidthChange);
         socket.getSocket().on("PointeSelectionnee", onTipChange);
+
+        System.out.println("GUESSING CANVAS");
     }
 
     @Override

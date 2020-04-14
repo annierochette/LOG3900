@@ -27,6 +27,9 @@ public class Slideshow extends PagerAdapter {
             R.drawable.tuto_menu,
             R.drawable.tuto_profil,
             R.drawable.tuto_menu,
+            R.drawable.tuto_chat,
+            R.drawable.tuto_addchat,
+            R.drawable.tuto_menu,
             R.drawable.tuto_param,
             R.drawable.tuto_fin
     };

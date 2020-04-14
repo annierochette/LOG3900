@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private Button signupButton;
     private EditText password;
 
+    static Player playerInfos;
+
     public Application app;
 
     String query_url = "players/login";
@@ -125,11 +127,17 @@ public class MainActivity extends AppCompatActivity {
                     String username1 = reader.get("username").toString();
                     String lastName1 = reader.get("lastName").toString();
                     String firstName1 = reader.get("firstName").toString();
+                    String _id = reader.get("_id").toString();
+
+                    playerInfos = new Player(username1, lastName1, firstName1, token1);
+
+                    System.out.println("LOGIN TOKEN :"+ token1);
 
                     intent.putExtra("token", token1);
                     intent.putExtra("username", username1);
                     intent.putExtra("lastName", lastName1);
                     intent.putExtra("firstName", firstName1);
+                    intent.putExtra("_id", _id);
                 } catch(Exception e){
                     e.printStackTrace();
                 }
@@ -157,8 +165,8 @@ public class MainActivity extends AppCompatActivity {
                 urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
                 urlConnection.setRequestProperty("Accept", "application/json");
                 urlConnection.setRequestMethod("POST");
-                urlConnection.setConnectTimeout(5000);
-                urlConnection.setReadTimeout(5000);
+                /*urlConnection.setConnectTimeout(5000);
+                urlConnection.setReadTimeout(5000);*/
 
                 if (this.postData != null) {
                     OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
