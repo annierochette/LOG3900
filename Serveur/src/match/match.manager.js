@@ -1,5 +1,7 @@
 const MatchTimer = require("./match.timer");
-const gameController = require("../game/game.controller"); 
+const gameController = require("../game/game.controller");
+const matchController = require("./match.controller"); 
+const SOCKET = require("../../common/constants/socket");
 
 class Match {
     constructor(players, matchId, duration, io) {
@@ -93,7 +95,13 @@ class MatchManager {
     }
 
     addMatch(matchId, players) {
-        this.matches.set(matchId, new Match(players, matchId, 90, this.io));
+        try {
+            matchController.startStatus(matchId);
+            this.matches.set(matchId, new Match(players, matchId, 90, this.io));
+            this.waitingRoom.delete(matchId);
+        } catch (error) {
+            console.log("La partie n'a pas été démarrée");
+        }
     }
       
     validateAnswer(matchId, answer, player) {
@@ -126,16 +134,29 @@ class MatchManager {
 
     addPlayerToWaitingRoom(matchId, username) {
         if (this.waitingRoom.has(matchId)) {
-            this.waitingRoom.get(matchId).push(username);
+            this.waitingRoom.get(matchId).add(username);
         } else {
-            this.waitingRoom.set(matchId, [username]);
+            this.waitingRoom.set(matchId, new Set([username]));
         }
 
-        return this.waitingRoom.get(matchId); 
+        return Array.from(this.waitingRoom.get(matchId)); 
+    }
+
+    leaveWaitingRoom(matchId, username) {
+        if (this.waitingRoom.has(matchId)) {
+            this.waitingRoom.get(matchId).delete(username);
+        }
+
+        return Array.from(this.waitingRoom.get(matchId)); 
     }
 
     getPlayerInWaitingRoom(matchId) {
-        return this.waitingRoom.get(matchId);
+        return Array.from(this.waitingRoom.get(matchId));
+    }
+
+    async createMatch(username) {
+        let match = await matchController.createFFAMatch(username);
+        return match;
     }
 }
 

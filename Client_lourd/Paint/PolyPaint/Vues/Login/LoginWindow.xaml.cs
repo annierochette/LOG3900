@@ -96,6 +96,7 @@ namespace PolyPaint.Vues
             
             var responseContent = await res.Content.ReadAsStringAsync();
             Console.WriteLine(responseContent);
+           
             if (responseContent != "{}")
             {
                 JavaScriptSerializer js = new JavaScriptSerializer();
