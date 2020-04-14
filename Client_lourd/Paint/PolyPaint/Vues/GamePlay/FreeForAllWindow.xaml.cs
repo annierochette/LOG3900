@@ -28,11 +28,7 @@ namespace PolyPaint.Vues
 
         public void onEndTimer(object sender, EventArgs e)
         {
-            //socket.Emit("nextRound", Global.GameName);
-
-            endGme.Visibility = Visibility.Visible;
-            BtnSend.IsEnabled = false;
-            draftsman.IsEnabled = false;
+            Console.WriteLine("fin de round");
         }
 
 
