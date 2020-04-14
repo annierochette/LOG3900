@@ -136,14 +136,22 @@ class MatchManager {
         if (this.waitingRoom.has(matchId)) {
             this.waitingRoom.get(matchId).push(username);
         } else {
-            this.waitingRoom.set(matchId, [username]);
+            this.waitingRoom.set(matchId, new Set([username]));
         }
 
-        return this.waitingRoom.get(matchId); 
+        return Array.from(this.waitingRoom.get(matchId)); 
+    }
+
+    leaveWaitingRoom(matchId, username) {
+        if (this.waitingRoom.has(matchId)) {
+            this.waitingRoom.get(matchId).delete(username);
+        }
+
+        return Array.from(this.waitingRoom.get(matchId)); 
     }
 
     getPlayerInWaitingRoom(matchId) {
-        return this.waitingRoom.get(matchId);
+        return Array.from(this.waitingRoom.get(matchId));
     }
 
     async createMatch(username) {

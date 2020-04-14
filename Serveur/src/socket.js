@@ -115,42 +115,42 @@ module.exports = function(http) {
 
       // Draft
       socket.on(SOCKET.DRAFT.STROKE_DRAWING, (channel, points) => {
-        io.emit(SOCKET.DRAFT.STROKE_DRAWING, points);
+        io.to(channel).emit(SOCKET.DRAFT.STROKE_DRAWING, points);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_COLLECTED, (channel, points) => {
-        io.emit(SOCKET.DRAFT.STROKE_COLLECTED, points);
+        io.to(channel).emit(SOCKET.DRAFT.STROKE_COLLECTED, points);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_ERASING, (channel, points) => {
-        io.emit(SOCKET.DRAFT.STROKE_ERASING, points);
+        io.to(channel).emit(SOCKET.DRAFT.STROKE_ERASING, points);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_SEGMENT_ERASING, (channel, points) => {
-        io.emit(SOCKET.DRAFT.STROKE_SEGMENT_ERASING, points);
+        io.to(channel).emit(SOCKET.DRAFT.STROKE_SEGMENT_ERASING, points);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_COLOR, (channel, color) => {
-        io.emit(SOCKET.DRAFT.STROKE_COLOR, color);
+        io.to(channel).emit(SOCKET.DRAFT.STROKE_COLOR, color);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_SIZE, (channel, size) => {
-        io.emit(SOCKET.DRAFT.STROKE_SIZE, size);
+        io.to(channel).emit(SOCKET.DRAFT.STROKE_SIZE, size);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_TIP, (channel, tip) => {
-        io.emit(SOCKET.DRAFT.STROKE_TIP, tip);
+        io.to(channel).emit(SOCKET.DRAFT.STROKE_TIP, tip);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_TOOL, (channel, tool) => {
-        io.emit(SOCKET.DRAFT.STROKE_TOOL, tool);
+        io.to(channel).emit(SOCKET.DRAFT.STROKE_TOOL, tool);
       });
 
       // Match
       socket.on(SOCKET.MATCH.JOIN_MATCH, (channel, username) => {
         socket.join(channel);
         let playersInWaitingRoom = matchManager.addPlayerToWaitingRoom(channel, username);
-        io.emit(SOCKET.MATCH.JOIN_MATCH, playersInWaitingRoom);
+        io.to(channel).emit(SOCKET.MATCH.JOIN_MATCH, playersInWaitingRoom);
       });
 
       socket.on(SOCKET.MATCH.CREATE_MATCH, async (username) => {
@@ -158,7 +158,7 @@ module.exports = function(http) {
         if (match){
           socket.join(match.name);
           let playersInWaitingRoom = matchManager.addPlayerToWaitingRoom(match.name, username);
-          io.emit(SOCKET.MATCH.CREATE_MATCH, playersInWaitingRoom);          
+          io.to(match.name).emit(SOCKET.MATCH.CREATE_MATCH, playersInWaitingRoom);          
         } else {
           console.log("Cannot create the match");
         }
@@ -183,6 +183,12 @@ module.exports = function(http) {
         let round = await matchManager.nextRound(matchId);
         io.to(matchId).emit(SOCKET.MATCH.NEXT_ROUND, round);
         matchManager.startTimer(matchId, 90);
+      });
+
+      socket.on(SOCKET.MATCH.LEAVE_WAITING_ROOM, (matchId, username) => {
+        socket.join(channel);
+        let playersInWaitingRoom = matchManager.leaveWaitingRoom(channel, username);
+        io.to(matchId).emit(SOCKET.MATCH.JOIN_MATCH, playersInWaitingRoom);
       });
     
     });
