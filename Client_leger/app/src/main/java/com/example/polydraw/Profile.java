@@ -53,6 +53,7 @@ public class Profile extends AppCompatActivity {
     public JSONObject generalStats;
     String matchWon;
     String matchPlayed;
+    String[] statsView;
 
     private List<JSONObject> games;
 
@@ -91,38 +92,8 @@ public class Profile extends AppCompatActivity {
         usernamePlaceholder = (TextView) findViewById(R.id.username);
         usernamePlaceholder.setText(usernameFinal);
 
-        nbPlayedGames = (TextView) findViewById(R.id.nbPlayedGames);
-        if(matchPlayed!=null){
-            int matchsJoues = Integer.valueOf(matchPlayed);
-            int matchsGagnes = Integer.valueOf(matchWon);
-            float result = (matchsGagnes/matchsJoues)*100;
-            nbPlayedGames.setText("Nombre de parties jouées: "+ matchPlayed);
-        } else{
-            nbPlayedGames.setText("Nombre de parties jouées: 0");
-
-        }
-
-        nbGamesWon = (TextView) findViewById(R.id.nbGamesWon);
-        if(matchPlayed!=null){
-            int matchsJoues = Integer.valueOf(matchPlayed);
-            int matchsGagnes = Integer.valueOf(matchWon);
-            float result = (matchsGagnes/matchsJoues)*100;
-            nbGamesWon.setText("Pourcentage de parties gagnées: "+result+"%");
-        } else{
-            nbGamesWon.setText("Pourcentage de parties gagnées: 0%");
-
-        }
-
         gameTime = (TextView) findViewById(R.id.gameTime);
         gameTime.setText("Temps moyen d'une partie: 1 minute");
-
-        time = (TextView) findViewById(R.id.time);
-        if(matchPlayed!=null){
-            time.setText("Temps total à jouer: "+matchPlayed+" minutes");
-        } else{
-            time.setText("Temps total à jouer: 0 minute");
-
-        }
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,6 +183,13 @@ public class Profile extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            System.out.println(s);
+            statsView = s.split(",");
+            Integer var1 = Integer.parseInt(statsView[0]);
+            Integer var2 = Integer.parseInt(statsView[1]);
+            System.out.println(var1 +" "+ var2);
+            setStats(var1, var2);
+
         }
 
         @Override
@@ -248,9 +226,7 @@ public class Profile extends AppCompatActivity {
                     generalStats = reader.getJSONObject("generalStats");
                     matchWon = generalStats.get("matchWon").toString();
                     matchPlayed = generalStats.get("matchPlayed").toString();
-                    System.out.println(matchWon);
-                    System.out.println(matchPlayed);
-
+                    result = generalStats.get("matchWon").toString() + ","+generalStats.get("matchPlayed").toString();
 
                 } else{
                     result = null;
@@ -261,6 +237,34 @@ public class Profile extends AppCompatActivity {
                 e.printStackTrace();
             }
             return result;
+        }
+
+    }
+
+    public void setStats(Integer matchsGagnes, Integer matchsJoues){
+        nbGamesWon = (TextView) findViewById(R.id.nbGamesWon);
+        if(matchsJoues!=null){
+            Integer result = ((matchsGagnes*100)/matchsJoues);
+            nbGamesWon.setText("Pourcentage de parties gagnées: "+result+"%");
+        } else{
+            nbGamesWon.setText("Pourcentage de parties gagnées: 0%");
+
+        }
+
+        time = (TextView) findViewById(R.id.time);
+        if(matchPlayed!=null){
+            time.setText("Temps total à jouer: "+matchPlayed+" minutes");
+        } else{
+            time.setText("Temps total à jouer: 0 minute");
+
+        }
+
+        nbPlayedGames = (TextView) findViewById(R.id.nbPlayedGames);
+        if(matchsJoues!=null){
+            nbPlayedGames.setText("Nombre de parties jouées: "+ matchPlayed);
+        } else{
+            nbPlayedGames.setText("Nombre de parties jouées: 0");
+
         }
 
     }
