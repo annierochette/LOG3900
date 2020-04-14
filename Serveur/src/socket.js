@@ -187,7 +187,7 @@ module.exports = function(http) {
 
       socket.on(SOCKET.MATCH.LEAVE_WAITING_ROOM, (matchId, username) => {
         socket.join(matchId);
-        let playersInWaitingRoom = matchManager.leaveWaitingRoom(channel, username);
+        let playersInWaitingRoom = matchManager.leaveWaitingRoom(matchId, username);
         io.to(matchId).emit(SOCKET.MATCH.JOIN_MATCH, playersInWaitingRoom);
       });
     
