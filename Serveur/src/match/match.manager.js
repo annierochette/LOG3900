@@ -134,7 +134,7 @@ class MatchManager {
 
     addPlayerToWaitingRoom(matchId, username) {
         if (this.waitingRoom.has(matchId)) {
-            this.waitingRoom.get(matchId).push(username);
+            this.waitingRoom.get(matchId).add(username);
         } else {
             this.waitingRoom.set(matchId, new Set([username]));
         }
