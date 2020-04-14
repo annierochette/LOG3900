@@ -65,7 +65,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
 
     private int score;
 
-    private int nbPlayers = 2;
+    private int nbPlayers;
     public TextView player1;
     public TextView player2;
     public TextView player3;
@@ -80,7 +80,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
     private String username;
     private String firstName;
     private String lastName;
-    public String channel;
+    public String channel = "General";
     private String _id;
 
 
@@ -382,6 +382,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
     public void setToggle(){
         if(!guessingView){
             guessingView = true;
+            toggle.setText("DEVINEUR");
             layoutGuessingView.setVisibility(View.VISIBLE);
             layoutDrawingView.setVisibility(View.INVISIBLE);
             guessingCanvas.setVisibility(View.VISIBLE);
@@ -389,6 +390,7 @@ public class meleegeneraleActivity extends AppCompatActivity {
         }
         else{
             guessingView = false;
+            toggle.setText("DESSINATEUR");
             layoutGuessingView.setVisibility(View.INVISIBLE);
             layoutDrawingView.setVisibility(View.VISIBLE);
             guessingCanvas.setVisibility(View.INVISIBLE);

@@ -48,7 +48,7 @@ public class DrawingCanvas extends View {
     public Bitmap mBitmap;
     private Paint mBitmapPaint;
 
-    private String channel = "General";
+    private String channel;
 
 
     public DrawingCanvas (Context context, AttributeSet attrs){
@@ -66,7 +66,7 @@ public class DrawingCanvas extends View {
         mBitmapPaint = new Paint(Paint.DITHER_FLAG);
 
 
-        System.out.println("CHANNEL IN DRAWING CANVAS: "+channel);
+        System.out.println("DRAWING CANVAS");
 
 
     }

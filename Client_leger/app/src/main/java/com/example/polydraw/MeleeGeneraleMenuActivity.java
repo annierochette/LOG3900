@@ -47,6 +47,8 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
     private Button createButton;
     private ImageButton disconnectButton;
     private ImageView chatButton;
+    private Button freeButton;
+
     private SocketIO socket;
 
     matchListAdapter adapter;
@@ -84,6 +86,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         createButton = (Button) findViewById(R.id.createButton);
         disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
         chatButton = (ImageView) findViewById(R.id.chatButton);
+        freeButton = (Button) findViewById(R.id.freeButton);
 
         matchList = new ArrayList<>();
         myRecyclerView = (RecyclerView) findViewById(R.id.matchlist);
@@ -103,7 +106,8 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playMultiplayerGame();
+                FunctionalityNotAvailable functionalityNotAvailable = new FunctionalityNotAvailable();
+                functionalityNotAvailable.show(getSupportFragmentManager(), "functionalityNotAvailable");
             }
         });
 
@@ -121,6 +125,13 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
             }
         });
 
+        freeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playGeneralGame();
+            }
+        });
+
 
         socket.getSocket().on("fullMatch", new Emitter.Listener() {
             @Override
@@ -132,8 +143,6 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         });
 
     }
-
-
 
     public void backToPlayMenu() {
         Intent intent = new Intent(this, PlayMenu.class);

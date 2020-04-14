@@ -130,9 +130,19 @@ public class WaitingRoom extends AppCompatActivity {
         intent.putExtra("_id", _id);
         startActivity(intent);
     }
-    //A DECOMMENTER QUAND PARTIE SERA FONCTIONNELLE
-    /*@Override
-    public void onBackPressed() { }*/
+
+    @Override
+    public void onBackPressed() {
+        socket.getSocket().emit("stopWaiting", channelName, username);
+        Intent intent = new Intent(this, meleegeneraleActivity.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
+        intent.putExtra("matchId", channelName);
+        intent.putExtra("_id", _id);
+        startActivity(intent);
+    }
 
     /*public void setAdapter(List<String> array){
         myList = new ArrayList<String>(array);
@@ -177,7 +187,6 @@ public class WaitingRoom extends AppCompatActivity {
                 System.out.println("Nb de joueurs presents: "+nbPlayers);
 
                 myList = (Arrays.asList(data.split(",")));
-                System.out.println("SIZE DE LA LISTE "+myList.size());
 
                 adapter = new WaitingListAdapter(playersWaiting);
                 myRecyclerView.setAdapter(adapter);
@@ -194,8 +203,6 @@ public class WaitingRoom extends AppCompatActivity {
             } catch(Exception e){
 
             }
-            if(nbPlayers>1)
-                playButton.setVisibility(View.VISIBLE);
 
         }
     };
