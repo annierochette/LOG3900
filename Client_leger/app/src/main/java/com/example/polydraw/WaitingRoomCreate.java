@@ -1,6 +1,7 @@
 package com.example.polydraw;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -40,7 +41,7 @@ public class WaitingRoomCreate extends AppCompatActivity {
     private ImageButton disconnectButton;
     private ImageView chatButton;
     private SocketIO socket;
-    private int nbPlayers = 2; //nb d'utilisateurs qui ont joint la partie
+    private int nbPlayers; //nb d'utilisateurs qui ont joint la partie
 
     private String channelName = "General";
 
@@ -51,10 +52,13 @@ public class WaitingRoomCreate extends AppCompatActivity {
     private String lastName;
     private String _id;
 
-    ListView playersWaiting;
-    ArrayAdapter<String> adapter;
     JSONArray playersList;
-    List<String> myList;
+
+    WaitingListAdapter adapter;
+    List<String> playersWaiting;
+    public RecyclerView myRecyclerView;
+
+    List<String>myList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,31 +76,26 @@ public class WaitingRoomCreate extends AppCompatActivity {
 
 /*        if(token == null)
             socket.emitDisconnectionStatus("disconnection");*/
-        System.out.println("WAITING ROOM CREATE TOKEN :"+ token);
+        System.out.println("WAITING ROOM TOKEN :"+ token);
 
         if(intent.getStringExtra("matchId") != null)
             channelName = intent.getStringExtra("matchId");
         System.out.println("je suis connecté à: "+channelName);
 
-        /*socket.getSocket().emit("joinChannel", channelName, username);
+        //socket.getSocket().emit("joinChannel", channelName, username);
+        /*System.out.print("PRINT USERNAME POUR EMIT JOIN WAITINGROOM: "+ username);
         socket.getSocket().emit("joinGame", channelName, username);*/
 
-        socket.getSocket().on("createMatch", onJoinMatch);
-
         socket.getSocket().on("joinGame", onJoinMatch);
-        /*socket.getSocket().on("startMatch", startMatch);*/
-        System.out.println();
-
+        socket.getSocket().on("startMatch", onStartMatch);
 
         playButton = (Button) findViewById(R.id.playButton);
         chatButton = (ImageView) findViewById(R.id.chatButton);
 
-        if(nbPlayers > 1)
-            playButton.setVisibility(View.VISIBLE);
-
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                socket.getSocket().emit("startMatch", channelName, username);
                 playMultiplayerGame();
             }
         });
@@ -108,13 +107,10 @@ public class WaitingRoomCreate extends AppCompatActivity {
             }
         });
 
-        setAdapter(adapter);
-
     }
 
     public void playMultiplayerGame(){
         Intent intent = new Intent(this, meleegeneraleActivity.class);
-        socket.getSocket().emit("startMatch", channelName, username);
         intent.putExtra("token", token);
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);
@@ -134,43 +130,17 @@ public class WaitingRoomCreate extends AppCompatActivity {
         intent.putExtra("_id", _id);
         startActivity(intent);
     }
-    //A DECOMMENTER QUAND PARTIE SERA FONCTIONNELLE
-    /*@Override
-    public void onBackPressed() { }*/
 
-    private Emitter.Listener onJoinMatch = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-//            playersList = (String) args[0];
-            String data = args[0].toString();
-            System.out.println(data);
-            System.out.println("SOCKET JOIN ON");
-            try{
-                playersList= new JSONArray(data);
+    /*public void setAdapter(List<String> array){
+        myList = new ArrayList<String>(array);
+        System.out.println("SIZE DE LA LISTE "+myList.size());
 
-                nbPlayers = playersList.length();
-                System.out.println("Nb de joueurs presents: "+nbPlayers);
+        playButton.setVisibility(View.VISIBLE);
 
-                myList = (Arrays.asList(data.split(",")));
-                System.out.println("SIZE DE LA LISTE "+myList.size());
-
-                /*playersWaiting = (ListView) findViewById(R.id.playersWaiting);
-                adapter = new ArrayAdapter<String>(WaitingRoom.this, android.R.layout.simple_list_item_1, new ArrayList<String>());
-                playersWaiting.setAdapter(adapter);*/
-
-
-            } catch(Exception e){
-
-            }
-            /*List<String> myList = new ArrayList<String>(Arrays.asList(data.split(",")));
-            System.out.println("SIZE DE LA LISTE "+myList.size());*/
-
-            playersWaiting = (ListView) findViewById(R.id.playersWaiting);
-            adapter = new ArrayAdapter<String>(WaitingRoomCreate.this, android.R.layout.simple_list_item_1, myList);
-            //playersWaiting.setAdapter(adapter);
-
-        }
-    };
+        playersWaiting = (ListView) findViewById(R.id.playersWaiting);
+        adapter = new ArrayAdapter<String>(WaitingRoom.this, android.R.layout.simple_list_item_1, myList);
+        playersWaiting.setAdapter(adapter);
+    }*/
 
     private Emitter.Listener onStartMatch = new Emitter.Listener() {
         @Override
@@ -180,34 +150,106 @@ public class WaitingRoomCreate extends AppCompatActivity {
             System.out.println(data);
             System.out.println("START MATCH");
 
-            Intent intent = new Intent(WaitingRoomCreate.this, meleegeneraleActivity.class);
+            /*Intent intent = new Intent(WaitingRoom.this, meleegeneraleActivity.class);
             intent.putExtra("token", token);
             intent.putExtra("username", username);
             intent.putExtra("firstName", firstName);
             intent.putExtra("lastName", lastName);
             intent.putExtra("matchId", channelName);
             intent.putExtra("_id", _id);
-            startActivity(intent);
+            startActivity(intent);*/
         }
     };
 
-    private Emitter.Listener onCreatetMatch = new Emitter.Listener() {
+    private Emitter.Listener onJoinMatch = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
 //            playersList = (String) args[0];
             String data = args[0].toString();
-            System.out.println("CREATE MATCH");
             System.out.println(data);
+            System.out.println("SOCKET JOIN ON");
+            try{
+                playersList = new JSONArray(data);
+                setNbPlayers(playersList.length());
+                System.out.println("Nb de joueurs presents: "+nbPlayers);
+
+                myList = (Arrays.asList(data.split(",")));
+
+                adapter = new WaitingListAdapter(playersWaiting);
+                myRecyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+
+                /*updateList updateList = new updateList();
+                updateList.execute(myList);*/
+
+                /*playersWaiting = (ListView) findViewById(R.id.playersWaiting);
+                adapter = new ArrayAdapter<String>(WaitingRoom.this, android.R.layout.simple_list_item_1, new ArrayList<String>());
+                playersWaiting.setAdapter(adapter);*/
+
+
+            } catch(Exception e){
+
+            }
+
         }
     };
 
-    public void setAdapter(ArrayAdapter<String> newArray){
-        playersWaiting = (ListView) findViewById(R.id.playersWaiting);
-        adapter = newArray;
-        playersWaiting.setAdapter(adapter);
-        if(nbPlayers>1)
-            playButton.setVisibility(View.VISIBLE);
-
+    public void setNbPlayers(int num){
+        this.nbPlayers = num;
     }
+
+/*    public class updateList extends AsyncTask<List<String>, String, List<String>> {
+        public updateList() {
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            adapter = new WaitingListAdapter(new ArrayList<String>());
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            playersWaiting.add(values[0]);
+            adapter = new WaitingListAdapter(playersWaiting);
+            myRecyclerView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
+
+        @SuppressLint("WrongThread")
+        @Override
+        protected void onPostExecute(List<String> s) {
+            super.onPostExecute(s);
+            try{
+                JSONArray jsonArray = new JSONArray(s);
+                for(int i = 0; i<jsonArray.length(); i++){
+                    try {
+                        JSONObject oneObject = jsonArray.getJSONObject(i);
+                        // Pulling items from the array
+                        String name = oneObject.toString();
+                        publishProgress(name);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            } catch(Exception e){
+
+            }
+
+        }
+
+        @Override
+        protected List<String> doInBackground(List<String>... params) {
+
+            socket.getSocket().on("joinGame", onJoinMatch);
+
+
+
+            return myList;
+        }
+
+    }*/
 
 }

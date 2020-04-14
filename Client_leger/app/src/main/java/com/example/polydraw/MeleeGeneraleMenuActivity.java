@@ -154,24 +154,15 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void playMultiplayerGame(){
-        Intent intent = new Intent(this, WaitingRoomCreate.class);
-        socket.emitNewGame("createMatch", username);
-        intent.putExtra("token", token);
-        intent.putExtra("username", username);
-        intent.putExtra("firstName", firstName);
-        intent.putExtra("lastName", lastName);
-        intent.putExtra("_id", _id);
-        startActivity(intent);
-    }
-
     public void playGeneralGame(){
-        Intent intent = new Intent(this, meleegeneraleActivity.class);
+        Intent intent = new Intent(this, WaitingRoomCreate.class);
         intent.putExtra("token", token);
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);
         intent.putExtra("lastName", lastName);
         intent.putExtra("_id", _id);
+        intent.putExtra("matchId", "General");
+        socket.getSocket().emit("joinGame", "General", username);
         startActivity(intent);
     }
 

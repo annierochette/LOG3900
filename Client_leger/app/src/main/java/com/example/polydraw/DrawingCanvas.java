@@ -316,6 +316,5 @@ public class DrawingCanvas extends View {
 
     public void setChannel(String newChannel){
         channel =  newChannel;
-        System.out.println("CHANNEL IN DRAWING CANVAS: "+channel);
     }
 }

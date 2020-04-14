@@ -423,12 +423,6 @@ public class meleegeneraleActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 openDialog();
-                Intent intent = new Intent(meleegeneraleActivity.this, PlayMenu.class);
-                intent.putExtra("token", token);
-                intent.putExtra("username", username);
-                intent.putExtra("firstName", firstName);
-                intent.putExtra("lastName", lastName);
-                startActivity(intent);
 
             }
         }.start();

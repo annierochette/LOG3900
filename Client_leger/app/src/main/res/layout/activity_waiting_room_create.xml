@@ -31,16 +31,25 @@
                 android:layout_margin="20dp"
                 android:fontFamily="sans-serif-black"
                 android:gravity="center"
-                android:text="Salle d'attente"
+                android:text="Dessin en réseau"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display4"
                 android:textColor="#2364aa"
                 android:textSize="36sp" />
 
-            <ListView
-                android:id="@+id/playersWaiting"
-                android:layout_width="match_parent"
-                android:layout_height="200dp" />
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="350dp"
+                android:layout_height="85dp"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="Partagez vos oeuvres"
+                android:fontFamily="sans-serif-condensed"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                android:textColor="@android:color/white"
+                android:textSize="30sp"/>
+
 
             <Button
                 android:id="@+id/playButton"

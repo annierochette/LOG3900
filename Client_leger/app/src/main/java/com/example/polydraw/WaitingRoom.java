@@ -133,15 +133,16 @@ public class WaitingRoom extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        socket.getSocket().emit("stopWaiting", channelName, username);
-        Intent intent = new Intent(this, meleegeneraleActivity.class);
+/*        socket.getSocket().emit("stopWaiting", channelName, username);
+        System.out.println("PARTIR DE LA WAITING ROOM");
+        Intent intent = new Intent(this, MeleeGeneraleMenuActivity.class);
         intent.putExtra("token", token);
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);
         intent.putExtra("lastName", lastName);
         intent.putExtra("matchId", channelName);
         intent.putExtra("_id", _id);
-        startActivity(intent);
+        startActivity(intent);*/
     }
 
     /*public void setAdapter(List<String> array){
