@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MeleeGeneraleMenuActivity">
+
+
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@drawable/back_button"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Retour"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@android:color/white"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="15dp"/>
+
+    <ImageView
+        android:id="@+id/chatButton"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:background="@drawable/chat_foreground"
+        android:layout_toLeftOf="@id/logoutButton" />
+
+    <ImageButton
+        android:id="@+id/logoutButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@mipmap/disconnect_round"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="350dp"
+            android:layout_height="85dp"
+            android:layout_margin="20dp"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:text="Mêlée Générale"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+            android:textColor="#2364aa"
+            android:textSize="36sp" />
+
+        <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:orientation="horizontal"
+        android:paddingBottom="15dp">
+
+        <TextView
+            android:id="@+id/newGame"
+            android:layout_width="600dp"
+            android:layout_height="wrap_content"
+            android:text="Créer une nouvelle partie"
+            android:fontFamily="sans-serif-condensed"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"/>
+
+        <Button
+            android:id="@+id/createButton"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Créer"
+            android:background="@drawable/round_green_button"
+            android:textColor="@android:color/white"/>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:orientation="horizontal"
+            android:paddingBottom="15dp">
+
+            <TextView
+                android:id="@+id/freeGame"
+                android:layout_width="600dp"
+                android:layout_height="wrap_content"
+                android:text="Dessin en réseau"
+                android:fontFamily="sans-serif-condensed"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                android:textColor="@android:color/white"
+                android:textSize="30sp"/>
+
+            <Button
+                android:id="@+id/freeButton"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Joindre"
+                android:background="@drawable/round_green_button"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/matchlist"
+            android:layout_width="750dp"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingStart="15dp"
+            android:scrollbars="vertical"
+            android:layout_marginRight="5dp"/>
+
+    </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
