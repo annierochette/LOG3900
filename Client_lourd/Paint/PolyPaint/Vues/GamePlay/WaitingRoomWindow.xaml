@@ -42,7 +42,7 @@
             <TextBlock x:Name="nbConnect"  TextWrapping="Wrap" FontSize="16" FontWeight="Bold" Foreground="White" TextAlignment="Center" Text="{Binding TextBoxData}" Margin="0,3,0,0" />
 
         </StackPanel>
-        <Button Content="RETOUR" FontWeight="Bold" Height="35" Foreground="white" Background="#2364AA" Width="80" Command="{Binding GoToGameChoice}" HorizontalAlignment="Center" />
+        <Button Content="RETOUR" Click="quitRoom" FontWeight="Bold" Height="35" Foreground="white" Background="#2364AA" Width="80" Command="{Binding GoToGameChoice}" HorizontalAlignment="Center" />
             
         
     </Grid>

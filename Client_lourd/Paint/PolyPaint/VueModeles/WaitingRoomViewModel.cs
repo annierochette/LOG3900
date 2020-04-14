@@ -94,8 +94,16 @@ namespace PolyPaint.VueModeles
             socket.On("joinGame", (data) =>
             {
                 Console.WriteLine(data);
+                Newtonsoft.Json.Linq.JArray test = (Newtonsoft.Json.Linq.JArray)data;
+                Console.WriteLine(test.Count);
+                if (test.Count != 0) {
+                    for (int i = 0; i < test.Count; i++) {
+                        string text = test[i] + ", ";
+                        Console.WriteLine("names: " + text);
+                        TextBoxData += text;
+                    }
+                }
                 
-                TextBoxData = data.ToString();
 
             });
 

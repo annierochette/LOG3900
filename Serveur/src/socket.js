@@ -60,6 +60,7 @@ module.exports = function(http) {
         messageController.lastPage(username, channel);
         let timestamp = Timestamp.currentDate();
         let  msg = { "message": username + " a rejoint la conversation.", "username": username, "timestamp": Timestamp.chatString(timestamp), "channel": channel };
+        console.log(username + " joined " + channel);
         socket.to(channel).broadcast.emit(SOCKET.CHAT.MESSAGE, msg);
       });
 
@@ -80,6 +81,7 @@ module.exports = function(http) {
 
         let timestamp = Timestamp.currentDate();    
         let  msg = { "message": username + " a quitté la conversation.", "username": username, "timestamp": Timestamp.chatString(timestamp), "channel": channel };
+        console.log(username + " left " + channel);
         io.to(channel).emit(SOCKET.CHAT.MESSAGE, msg);
       });
 
@@ -131,14 +133,17 @@ module.exports = function(http) {
       });
 
       socket.on(SOCKET.DRAFT.STROKE_COLOR, (channel, color) => {
+        console.log("Color change")
         io.emit(SOCKET.DRAFT.STROKE_COLOR, color);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_SIZE, (channel, size) => {
+        console.log("Size change")
         io.emit(SOCKET.DRAFT.STROKE_SIZE, size);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_TIP, (channel, tip) => {
+        console.log("Tip change")
         io.emit(SOCKET.DRAFT.STROKE_TIP, tip);
       });
 

@@ -19,7 +19,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.net.ssl.SSLContext;
 
 public class SocketIO {
-    private static final String serverUrl = "http://192.168.2.243:5050";
+    public static final String HTTP_URL = "https://fais-moi-un-dessin.herokuapp.com/"; //https://fais-moi-un-dessin.herokuapp.com/  //http://192.168.2.243:5050
     private static Socket socket;
     private static SocketIO instance;
     private static Activity act;
@@ -34,7 +34,7 @@ public class SocketIO {
             instance.initID(uid);
             if (SocketIO.getSocket() == null) {
                 try{
-                    Socket newSocket = IO.socket(serverUrl);
+                    Socket newSocket = IO.socket(HTTP_URL);
                     SocketIO.setSocket(newSocket);
                     SocketIO.connectIO();
                     emit("connection","General", null);
@@ -94,24 +94,9 @@ public class SocketIO {
             }
     }
 
-//    public static void emitWithAcknowledge(String event, Object args)
-//            throws MalformedURLException {
-//        if (!SocketIO.getSocket().connected()) {
-//            SocketIO.getSocket().connect();
-//        }
-//        SocketIO.getSocket().emit(event, new IOAcknowledge() {
-//
-//            @Override
-//            public void ack(Object... args) {
-//                // TODO Auto-generated method stub
-//
-//            }
-//        }, args);
-//    }
-
     public void init(){
         try{
-            socket = IO.socket("http://192.168.2.243:5050");
+            socket = IO.socket(HTTP_URL);
             socket = socket.connect();
             socket.emit("connection");
         }
@@ -121,31 +106,11 @@ public class SocketIO {
         }
     }
 
-    /*public void sendMessage(Button button){
-        JSONObject data = new JSONObject();
-        try {
-
-            String username = data.getString("username");
-            final String message = data.getString("message");
-            String timestamp = data.getString("timestamp");
-
-            final Message m = new Message(username,message,timestamp);
-
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!m.getMessage().trim().isEmpty() && !m.getMessage().isEmpty()) {
-
-                        socket.emit("chat message", m.getUsername(), m.getMessage());
-                        m.setMessage(" ");
-                    }
-                }
-            });
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+    public static void emitNewGame(String event, Object args) {
+        if (!SocketIO.getSocket().connected()) {
+            SocketIO.getSocket().connect();
         }
-
-    }*/
+        SocketIO.getSocket().emit(event, args);
+    }
 
 }

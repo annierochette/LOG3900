@@ -16,19 +16,18 @@ namespace PolyPaint.Vues
     /// </summary>
     public partial class FreeForAllWindow : UserControl
     {
-        private AppSocket socket;
+        private AppSocket socket = AppSocket.Instance;
         //private MouseEventArgs z;
         public FreeForAllWindow()
         {
             InitializeComponent();
-            
+
             timer._end += onEndTimer;
-            
+
         }
 
         public void onEndTimer(object sender, EventArgs e)
         {
-            //socket.Emit("nextRound", Global.GameName);
             Console.WriteLine("fin de round");
         }
 
@@ -82,7 +81,7 @@ namespace PolyPaint.Vues
 
         private void TimerControl_Loaded(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void sendMessageOnEnter(object sender, KeyEventArgs e)
@@ -93,9 +92,17 @@ namespace PolyPaint.Vues
             }
         }
 
+        
+
         private void answer(object sender, RoutedEventArgs e) {
             string answer = answerTextBox.Text;
+            
+            //socket.Emit("answer", Global.GameName, answer);
+            answerTextBox.Text = String.Empty;
+            answerTextBox.Focus();
+
             string wordToFind = word.Text;
+            Console.WriteLine("wordToFind: " + wordToFind);
             if (answer == wordToFind)
             {
                 answerTextBox.IsEnabled = false;

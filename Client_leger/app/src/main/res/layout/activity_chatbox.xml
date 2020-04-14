@@ -13,7 +13,7 @@
         android:background="@color/colorPrimary"
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:title="@string/GENERAL_CHANNEL"
+        android:title="@+string/CHANNEL_NAME"
         android:titleTextColor="@android:color/white">
 
         <ImageButton
@@ -72,6 +72,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
+                    android:inputType="text"
+                    android:imeOptions="actionSend"
                     android:hint="Entrez votre message..."
                     android:textColor="@android:color/black" />
 
@@ -90,11 +92,12 @@
             android:layout_marginLeft="3dp"
             android:background="@android:color/darker_gray" />
 
-        <ListView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/channelsList"
             android:layout_width="200dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="3"
+            android:scrollbars="vertical" />
     </LinearLayout>
 
 </RelativeLayout>

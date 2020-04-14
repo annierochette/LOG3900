@@ -30,15 +30,6 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="15dp"/>
 
-        <!--<fragment
-            android:name="com.example.polydraw.Chat"
-            android:id="@+id/chatFragment"
-            android:layout_width="420dp"
-            android:layout_height="700dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"/>-->
-
-
         <ImageButton
             android:id="@+id/profile"
             style="?android:attr/borderlessButtonStyle"

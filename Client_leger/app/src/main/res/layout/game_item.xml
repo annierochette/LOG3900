@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:gravity="center"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp">
 
     <TextView
         android:id="@+id/gameName"
         android:layout_width="600dp"
         android:layout_height="wrap_content"
-        android:text="Nom du jeu" />
+        android:text="Nom de la partie"
+        android:fontFamily="sans-serif-condensed"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"/>
 
     <Button
         android:id="@+id/joinButton"
@@ -17,4 +26,4 @@
         android:layout_toRightOf="@id/gameName"
         android:background="@drawable/round_green_button"
         android:textColor="@android:color/white"/>
-</RelativeLayout>
+</LinearLayout>

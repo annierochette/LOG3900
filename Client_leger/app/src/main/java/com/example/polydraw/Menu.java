@@ -23,10 +23,17 @@ public class Menu extends AppCompatActivity {
     private Button settingsButton;
     private ImageButton disconnectButton;
     private ImageView chatButton;
-//    public String username = getIntent().getStringExtra("username");
+
+    private String player;
+    private String token;
+    private String username;
+    private String firstName;
+    private String lastName;
+    private String _id;
 
     private SocketIO socket;
-    private String http = "http://192.168.2.243:5050";
+
+    private Player playerInfos;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +47,14 @@ public class Menu extends AppCompatActivity {
         settingsButton = (Button) findViewById(R.id.settings);
         disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
         chatButton = (ImageView) findViewById(R.id.chatButton);
+
+        Intent intent = getIntent();
+        player = intent.getStringExtra("player");
+        token = intent.getStringExtra("token");
+        username = intent.getStringExtra("username");
+        firstName = intent.getStringExtra("firstName");
+        lastName = intent.getStringExtra("lastName");
+        _id = intent.getStringExtra("_id");
 
         socket = new SocketIO();
         socket.init();
@@ -57,6 +72,7 @@ public class Menu extends AppCompatActivity {
                 openProfileView();
             }
         });
+
         tutorialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,23 +104,39 @@ public class Menu extends AppCompatActivity {
 
     public void openPlayMenuView(){
         Intent intent = new Intent(this, PlayMenu.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
+        intent.putExtra("_id", _id);
         startActivity(intent);
     }
 
     public void openProfileView(){
         Intent intent = new Intent(this, Profile.class);
-//        intent.putExtra("username", username);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
+        intent.putExtra("_id", _id);
         startActivity(intent);
     }
 
     public void openTutorialView(){
         Intent intent = new Intent(this, Tutorial.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
+        intent.putExtra("_id", _id);
         startActivity(intent);
     }
 
     public void openSettingsView(){
-        Intent intent = new Intent(this, Settings.class);
-        startActivity(intent);
+        FunctionalityNotAvailable functionalityNotAvailable = new FunctionalityNotAvailable();
+        functionalityNotAvailable.show(getSupportFragmentManager(), "functionalityNotAvailable");
+        /*Intent intent = new Intent(this, Settings.class);
+        startActivity(intent);*/
     }
 
     public void backToLogin(){
@@ -115,6 +147,11 @@ public class Menu extends AppCompatActivity {
 
     public void openChat(){
         Intent intent = new Intent(this, ChatBoxActivity.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
+        intent.putExtra("_id", _id);
         startActivity(intent);
     }
 
@@ -122,6 +159,10 @@ public class Menu extends AppCompatActivity {
     public void onBackPressed() {
         backToLogin();
     }
+/*
+    public String getToken(){
+        return Player.class.toString();
+    }*/
 
 }
 
