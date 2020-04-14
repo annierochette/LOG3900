@@ -131,14 +131,17 @@ module.exports = function(http) {
       });
 
       socket.on(SOCKET.DRAFT.STROKE_COLOR, (channel, color) => {
+        console.log("Color change")
         io.emit(SOCKET.DRAFT.STROKE_COLOR, color);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_SIZE, (channel, size) => {
+        console.log("Size change")
         io.emit(SOCKET.DRAFT.STROKE_SIZE, size);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_TIP, (channel, tip) => {
+        console.log("Tip change")
         io.emit(SOCKET.DRAFT.STROKE_TIP, tip);
       });
 

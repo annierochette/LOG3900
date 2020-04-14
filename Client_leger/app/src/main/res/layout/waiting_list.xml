@@ -8,7 +8,7 @@
     android:paddingBottom="15dp">
 
     <TextView
-        android:id="@+id/gameName"
+        android:id="@+id/playerName"
         android:layout_width="600dp"
         android:layout_height="wrap_content"
         android:text="Nom de la partie"
@@ -16,14 +16,7 @@
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Display3"
         android:textColor="@android:color/white"
-        android:textSize="30sp"/>
+        android:textSize="30sp"
+        android:gravity="center"/>
 
-    <Button
-        android:id="@+id/joinButton"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="Joindre"
-        android:layout_toRightOf="@id/gameName"
-        android:background="@drawable/round_green_button"
-        android:textColor="@android:color/white"/>
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.polydraw;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -9,6 +10,7 @@ import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.MotionEvent;
@@ -46,6 +48,8 @@ public class DrawingCanvas extends View {
     public Bitmap mBitmap;
     private Paint mBitmapPaint;
 
+    private String channel;
+
 
     public DrawingCanvas (Context context, AttributeSet attrs){
         super(context,attrs);
@@ -60,6 +64,9 @@ public class DrawingCanvas extends View {
         setBackgroundColor(Color.TRANSPARENT);
         setLayerType(LAYER_TYPE_HARDWARE, null);
         mBitmapPaint = new Paint(Paint.DITHER_FLAG);
+
+
+        System.out.println("DRAWING CANVAS");
 
 
     }
@@ -126,6 +133,9 @@ public class DrawingCanvas extends View {
                 break;
 
             case MotionEvent.ACTION_UP:
+                for (int pc = 0; pc < pointerCount; pc++) {
+                    pointUp((int)event.getX(pc), (int)event.getY(pc), event.getPointerId(pc));
+                }
                 break;
 
             case MotionEvent.ACTION_POINTER_UP:
@@ -151,11 +161,23 @@ public class DrawingCanvas extends View {
         Point pt = new Point(x,y);
         _allPoints.add(pt);
 
-        if(_allPoints.size() == 25){
-            String json = new Gson().toJson(_allPoints);
-            socket.getSocket().emit("StrokeDrawing", "General", json);
-            _allPoints.clear();
-            _allPoints = new ArrayList<Point>();
+        if(eraser){
+            if(_allPoints.size() == 15){
+                String json = new Gson().toJson(_allPoints);
+                socket.getSocket().emit("SegmentErasing", channel, json);
+                _allPoints.clear();
+                _allPoints = new ArrayList<Point>();
+            }
+
+        }
+        else{
+            if(_allPoints.size() == 15){
+                String json = new Gson().toJson(_allPoints);
+                socket.getSocket().emit("StrokeDrawing", channel, json);
+                _allPoints.clear();
+                _allPoints = new ArrayList<Point>();
+            }
+
         }
 
         Stroke stroke = new Stroke(paint);
@@ -172,12 +194,22 @@ public class DrawingCanvas extends View {
             stroke.addPoint(pt);
             _allPoints.add(pt);
 
-            if(_allPoints.size() == 25){
-                System.out.println(_allPoints);
-                String json = new Gson().toJson(_allPoints);
-                socket.getSocket().emit("StrokeDrawing", "General", json);
-                _allPoints.clear();
-                _allPoints = new ArrayList<Point>();
+            if(eraser){
+                if(_allPoints.size() == 15){
+                    String json = new Gson().toJson(_allPoints);
+                    socket.getSocket().emit("SegmentErasing", channel, json);
+                    _allPoints.clear();
+                    _allPoints = new ArrayList<Point>();
+                }
+
+            }
+            else {
+                if (_allPoints.size() == 15) {
+                    String json = new Gson().toJson(_allPoints);
+                    socket.getSocket().emit("StrokeDrawing", channel, json);
+                    _allPoints.clear();
+                    _allPoints = new ArrayList<Point>();
+                }
             }
         }
     }
@@ -197,31 +229,38 @@ public class DrawingCanvas extends View {
         _allStroke.add(stroke);
     }
 
-    //Essaie pour l'efface de traits//
+    private void pointUp(int x, int y, int id) {
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(capWidth);
+        paint.setAntiAlias(true);
+        paint.setColor(paintColor);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        paint.setStrokeCap(capOption);
 
-//    private void findStroke(int x, int y, int id) {
-//        Paint paint = new Paint();
-//        paint.setStyle(Paint.Style.FILL);
-//        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-//
-//        Stroke stroke = new Stroke(paint);
-//
-//        for (Stroke existingStroke: _allStroke) {
-//            for (Point pt : existingStroke.pointArray) {
-//                if (pt.equals(x, y)) {e
-//                    stroke = existingStroke;
-//                }
-//
-//            }
-//        }
-//
-//        Stroke erasedStroke = new Stroke(paint, stroke.pointArray);
-//        _allStroke.add(erasedStroke);
-//        _allStroke.remove(stroke);
-//
-//
-//        invalidate();
-//    }
+        Point pt = new Point(x,y);
+        _allPoints.add(pt);
+
+        if(eraser){
+            String json = new Gson().toJson(_allPoints);
+            socket.getSocket().emit("SegmentErasing", channel, json);
+            _allPoints.clear();
+            _allPoints = new ArrayList<Point>();
+
+        }
+        else{
+            String json = new Gson().toJson(_allPoints);
+            socket.getSocket().emit("StrokeDrawing", channel, json);
+            _allPoints.clear();
+            _allPoints = new ArrayList<Point>();
+
+        }
+
+        Stroke stroke = new Stroke(paint);
+        stroke.addPoint(pt);
+        activeStrokes.put(id, stroke);
+        _allStroke.add(stroke);
+    }
 
     public void setErase(boolean isErase){
         eraser = isErase;
@@ -229,21 +268,25 @@ public class DrawingCanvas extends View {
     }
 
     public void setDrawingColor(int newColor){
+        socket.getSocket().emit("CouleurSelectionnee", channel, newColor);
         paintColor = newColor;
 
     }
 
     public void setWidth(int width){
+        socket.getSocket().emit("TailleTrait", channel, width);
         capWidth = width;
 
     }
 
     public void setPencilTip(String cap){
         if(cap.equals("Ronde")){
-           capOption = Paint.Cap.ROUND;
+            socket.getSocket().emit("PointeSelectionnee", channel, "Ronde");
+            capOption = Paint.Cap.ROUND;
 
         }
         else{
+            socket.getSocket().emit("PointeSelectionnee", channel, "Carre");
             capOption = Paint.Cap.SQUARE;
         }
 
@@ -259,17 +302,6 @@ public class DrawingCanvas extends View {
         return bmp;
     }
 
-//    public void sendPoints(ArrayList<Point> points){
-//
-//        try {
-//            ObjectOutputStream oos = new ObjectOutputStream(socket.getSocket());
-//            oos.writeObject(points);
-//        } catch (IOException e){
-//            e.printStackTrace();
-//        }
-//    }
-
-
     public int getPaintColor() {
         return paintColor;
     }
@@ -280,5 +312,9 @@ public class DrawingCanvas extends View {
 
     public Paint.Cap getCapOption() {
         return capOption;
+    }
+
+    public void setChannel(String newChannel){
+        channel =  newChannel;
     }
 }

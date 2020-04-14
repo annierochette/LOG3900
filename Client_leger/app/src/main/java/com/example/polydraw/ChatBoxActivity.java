@@ -52,7 +52,6 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
     private SocketIO socket;
 
     String Username = MainActivity.editTextString;
-    public String IpAddress = "192.168.2.243";
     public String channelName;
     String[] channels = {"General"};
 
@@ -65,19 +64,6 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         send = (Button) findViewById(R.id.send);
         addChannel = (ImageButton) findViewById(R.id.addChannel);
         ListView lv = (ListView) findViewById(R.id.channelsList);
-
-        /*try {
-
-            chatsocket = IO.socket("http://"+IpAddress+":5050"); //https://fais-moi-un-dessin.herokuapp.com/"
-
-            chatsocket.connect();
-
-            chatsocket.emit("connection");
-            chatsocket.emit("changeUsername", Username);
-
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }*/
 
         MessageList = new ArrayList<>();
         myRecyclerView = (RecyclerView) findViewById(R.id.messagelist);
