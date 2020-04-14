@@ -23,7 +23,7 @@ namespace PolyPaint.CustomControls
     public partial class TimerControl : UserControl
     {
 
-        public int time = 10;
+        public int time = 90;
         public DispatcherTimer Timer;
         public EventHandler _end;
 
