@@ -139,7 +139,7 @@
         </StackPanel>
 
         <TextBox x:Name="answerTextBox" Height="50" IsEnabled="{Binding AnswerBox}" KeyDown="sendMessageOnEnter" Visibility="{Binding ActivateGuessing, Converter={StaticResource BoolToVisibilityConverter}}" TextWrapping="Wrap" Grid.Column="2" Grid.Row="10" Grid.ColumnSpan="3" FontSize="36" Margin="0,49,0,1" Grid.RowSpan="2"/>
-        <Button x:Name="BtnSend" Content="Envoyer" Visibility="{Binding ActivateGuessing, Converter={StaticResource BoolToVisibilityConverter}}" Height="50" Background="#FFFF7F11" Grid.Column="5" Grid.Row="10"  FontSize="24" FontFamily="Ink Free" Foreground="White" Margin="0,49,0,1" Grid.RowSpan="2"/>
+        <Button x:Name="BtnSend" Content="Envoyer" Visibility="{Binding ActivateGuessing, Converter={StaticResource BoolToVisibilityConverter}}" Height="50" Background="#FFFF7F11" Grid.Column="5" Grid.Row="10"  FontSize="24" FontFamily="Ink Free" Foreground="White" Margin="0,49,0,1" Grid.RowSpan="2" Click="answer"/>
 
 
         <custom:TimerControl x:Name="timer" Grid.Column="4" Grid.ColumnSpan="4" Grid.RowSpan="2" Margin="66,0,49,10" Loaded="TimerControl_Loaded" />
@@ -148,6 +148,8 @@
         </Button>
         <TextBlock  Text="mot à faire deviner: " Visibility="{Binding ActivateDrawing, Converter={StaticResource BoolToVisibilityConverter}}" TextWrapping="Wrap" FontSize="20" FontWeight="Bold" Foreground="White" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,0,105,0"/>
         <TextBlock x:Name="word" Visibility="{Binding ActivateDrawing, Converter={StaticResource BoolToVisibilityConverter}}" Text="{Binding TextBoxWordData}" TextWrapping="Wrap" FontSize="40" FontWeight="Bold" Foreground="White" Grid.Column="3" Grid.ColumnSpan="2" Margin="1,0,105,0"/>
+        <TextBlock x:Name="endGme" Visibility="Hidden" Text="Fin de partie" TextWrapping="Wrap" FontSize="80" FontWeight="Bold" Foreground="Black" Grid.ColumnSpan="6" Margin="50,0,65,33" Grid.Row="4" Grid.RowSpan="4" Grid.Column="2"/>
+
 
     </Grid>
 

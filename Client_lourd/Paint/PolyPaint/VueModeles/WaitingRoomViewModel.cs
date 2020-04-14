@@ -98,7 +98,9 @@ namespace PolyPaint.VueModeles
                 Console.WriteLine(test.Count);
                 if (test.Count != 0) {
                     for (int i = 0; i < test.Count; i++) {
-                        TextBoxData += test[i].ToString();
+                        string text = test[i] + ", ";
+                        Console.WriteLine("names: " + text);
+                        TextBoxData += text;
                     }
                 }
                 
