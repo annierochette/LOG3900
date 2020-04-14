@@ -1,32 +1,36 @@
 const Message = require("./message.model");
 const PAGE_SIZE = 25;
 
-var pageKeeper = new Map();
+const pageKeeper = new Map();
 
 exports.previousPage = async function(player, channel) {
-    let key = { "player": player, "channel": channel };
-    let infos = pageKeeper.get(key);
+    console.log(player + " " + channel);
 
-    if (infos.offset < 0) { return; }
+    let infos = pageKeeper.get(player).get(channel);
 
-    let results = await Message.paginate({}, { offset: infos.offset, limit: infos.documents });
-    let newInfos = { "offset": offset - PAGE_SIZE, "documents": PAGE_SIZE };
-    pageKeeper.set(key, newInfos);
+    if (!infos || infos.offset < 0) { return; }
+
+    let results = await Message.paginate({channel: channel}, { offset: infos.offset, limit: infos.documents });
+    let newInfos = { "offset": infos.offset - PAGE_SIZE, "documents": PAGE_SIZE };
+    pageKeeper.get(player).set(channel, newInfos);
 
     return results.docs;
 }
 
 exports.lastPage = async function(player, channel) {
-    let collection = await Message.paginate({}, { limit: 0 });
+    let collection = await Message.paginate({channel: channel}, { limit: 0 });
     let offset = Math.floor(collection.total / PAGE_SIZE) * PAGE_SIZE;
     let remaining = collection.total - offset;
-    let key = { "player": player, "channel": channel };
+    let channelInfos =  new Map()
     if (remaining == 0) {
         offset -= offset - PAGE_SIZE;
-        pageKeeper.set(key, {"offset": offset, "documents": PAGE_SIZE});
+        channelInfos.set(channel, {"offset": offset, "documents": PAGE_SIZE});
     } else {
-        pageKeeper.set(key, {"offset": offset, "documents": remaining});
+        channelInfos.set(channel, {"offset": offset, "documents": remaining});
     }
+    pageKeeper.set(player, channelInfos);
+
+    console.log("LAST "+ player + " " + channel);
 }
 
 exports.save = async function(message, username, channel, timestamp) {

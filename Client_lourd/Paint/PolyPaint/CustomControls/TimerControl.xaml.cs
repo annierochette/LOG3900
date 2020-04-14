@@ -23,8 +23,9 @@ namespace PolyPaint.CustomControls
     public partial class TimerControl : UserControl
     {
 
-        public int time = 10;
+        public int time = 90;
         public DispatcherTimer Timer;
+        public EventHandler _end;
 
         public TimerControl()
         {
@@ -38,9 +39,10 @@ namespace PolyPaint.CustomControls
 
         void Timer_Tick(object sender, EventArgs e)
         {
-            if (time > 0) {
+            if (time > 0)
+            {
                 {
-                    
+
                     if (time <= 10)
                     {
 
@@ -53,7 +55,7 @@ namespace PolyPaint.CustomControls
                             TBCountDown.Foreground = Brushes.Black;
                         }
                         time--;
-                        TBCountDown.Text = string.Format("0{0}:{1}", time / 60, time % 60);
+                        TBCountDown.Text = string.Format("0{0}:0{1}", time / 60, time % 60);
                     }
                     else
                     {
@@ -62,11 +64,14 @@ namespace PolyPaint.CustomControls
                     }
                 }
 
-                }
+            }
 
-                else
-                {
-                    Timer.Stop();
+            else
+            {
+                Timer.Stop();
+                _end?.Invoke(sender, e);
+            
+
                 //    string vm = ((BaseViewModel)(DataContext)).GetCurrentViewModelName();
                 //    if (vm == "GuessingViewModel")
                 //{

@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PolyPaint.VueModeles;
 using Quobject.SocketIoClientDotNet.Client;
+using PolyPaint.Modeles;
 
 
 namespace PolyPaint.Vues
@@ -28,29 +29,29 @@ namespace PolyPaint.Vues
         private AppSocket socket = AppSocket.Instance;
         public WaitingRoomWindow()
         {
-            InitializeComponent();
-            string gameName = (string)App.Current.Properties["gameName"];
-            socket.Emit("joinGame", gameName);
-            
 
+            InitializeComponent();
+            string gameName = "";
+            gameName = Global.GameName;
+            
+            Console.WriteLine("WaitingRoom: " +gameName);
+            Console.WriteLine("waiting room: " + Application.Current.Properties["gameName"]);
+            Console.WriteLine("token: " + User.Instance.Token);
+            //socket.On("joinGame", gameName);
+
+       
         }
 
 
-        private void voir(object sender, RoutedEventArgs e) {
-            Console.WriteLine("Voici le mot:");
-            string prop = (string)App.Current.Properties["gameName"];
-            Console.WriteLine(prop);
-            App.Current.Properties["gameName"] = "partie2";
-             prop = (string)App.Current.Properties["gameName"];
-            Console.WriteLine(prop);
-            
+        private void quitRoom(object sender, RoutedEventArgs e)
+        {
+            socket.Emit("stopWaiting", Global.GameName, User.instance.Username);
         }
 
         private void assignView(object sender, System.EventArgs e)
         {
 
-            ((WaitingRoomViewModel)(DataContext)).assignGuessingView();
-            //((WaitingRoomViewModel)(DataContext)).assignDrawingView();
+            socket.Emit("startMatch", Global.GameName);
         }
 
 

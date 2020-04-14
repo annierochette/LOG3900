@@ -6,6 +6,7 @@ using System.Windows.Controls.Primitives;
 using PolyPaint.VueModeles;
 using System.Windows.Controls;
 using System.Windows.Ink;
+using PolyPaint.Utilitaires;
 
 
 namespace PolyPaint.Vues
@@ -15,15 +16,22 @@ namespace PolyPaint.Vues
     /// </summary>
     public partial class FreeForAllWindow : UserControl
     {
-
+        private AppSocket socket = AppSocket.Instance;
         //private MouseEventArgs z;
         public FreeForAllWindow()
         {
             InitializeComponent();
 
+            timer._end += onEndTimer;
+
         }
 
-        
+        public void onEndTimer(object sender, EventArgs e)
+        {
+            Console.WriteLine("fin de round");
+        }
+
+
         // Pour gérer les points de contrôles.
         private void GlisserCommence(object sender, DragStartedEventArgs e)
         {
@@ -74,6 +82,39 @@ namespace PolyPaint.Vues
         private void TimerControl_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void sendMessageOnEnter(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                answer(sender, e);
+            }
+        }
+
+        
+
+        private void answer(object sender, RoutedEventArgs e) {
+            string answer = answerTextBox.Text;
+            
+            //socket.Emit("answer", Global.GameName, answer);
+            answerTextBox.Text = String.Empty;
+            answerTextBox.Focus();
+
+            string wordToFind = word.Text;
+            Console.WriteLine("wordToFind: " + wordToFind);
+            if (answer == wordToFind)
+            {
+                answerTextBox.IsEnabled = false;
+                socket.Emit("answer", Global.GameName, answer);
+                answerTextBox.Text = String.Empty;
+
+            }
+            else 
+            {
+                answerTextBox.Text = String.Empty;
+                answerTextBox.Focus();
+            }
         }
 
 

@@ -7,7 +7,7 @@ const playerController = require("./player/player.controller");
 const Timestamp = require("./utils/timestamp");
 
 const frenchBadwordsList = require('french-badwords-list');
-const GENERAL = "General";
+const GENERAL = "Général";
 var playersInChannel = new Map();
 var channelsSubscribed = new Map();
 var playerSocket = new Map();
@@ -19,8 +19,6 @@ module.exports = function(http) {
     filter.addWords(...frenchBadwordsList.array);
 
     io.on(SOCKET.CHAT.CONNECTION, function(socket){
-      messageController.lastPage(socket.id, GENERAL);
-      
       socket.join(GENERAL);
       console.log("Users connected: " + io.engine.clientsCount);
       // console.log("User connected" + dateString);
@@ -59,7 +57,7 @@ module.exports = function(http) {
           channelsSubscribed.set(username, new Set([channel]));
         }
           
-        messageController.lastPage(socket.id, channel);
+        messageController.lastPage(username, channel);
         let timestamp = Timestamp.currentDate();
         let  msg = { "message": username + " a rejoint la conversation.", "username": username, "timestamp": Timestamp.chatString(timestamp), "channel": channel };
         socket.to(channel).broadcast.emit(SOCKET.CHAT.MESSAGE, msg);
@@ -68,13 +66,16 @@ module.exports = function(http) {
       socket.on(SOCKET.CHAT.LEAVE_CHANNEL, (username, channel) => {
         socket.leave(channel);
         let players = playersInChannel.get(channel);
-        players.delete(username);
+        
+        if (players) {
+          players.delete(username);
 
-        if (players.size == 0) {
-          playersInChannel.delete(channel);
-          io.emit(SOCKET.CHAT.DELETE_CHANNEL, channel);
-        } else {
-          playersInChannel.set(channel, players);
+          if (players.size == 0) {
+            playersInChannel.delete(channel);
+            io.emit(SOCKET.CHAT.DELETE_CHANNEL, channel);
+          } else {
+            playersInChannel.set(channel, players);
+          }
         }
 
         let timestamp = Timestamp.currentDate();    
@@ -88,8 +89,10 @@ module.exports = function(http) {
         socket.emit(SOCKET.CHAT.CHANNELS, channels);
       });
 
-      socket.on(SOCKET.CHAT.HISTORY, async (channel) => {
-        let docs = await messageController.previousPage(socket.id);
+      socket.on(SOCKET.CHAT.HISTORY, async (username, channel) => {
+        console.log("History username" + username);
+        console.log("History channel" + channel);
+        let docs = await messageController.previousPage(username, channel);
         socket.to(channel).emit(SOCKET.CHAT.HISTORY, docs);
       });
 
@@ -112,7 +115,6 @@ module.exports = function(http) {
 
       // Draft
       socket.on(SOCKET.DRAFT.STROKE_DRAWING, (channel, points) => {
-        console.log("StrokeDrawing")
         io.emit(SOCKET.DRAFT.STROKE_DRAWING, points);
       });
 
@@ -149,11 +151,19 @@ module.exports = function(http) {
 
       // Match
       socket.on(SOCKET.MATCH.JOIN_MATCH, (channel, username) => {
-        if ( matchManager.getPlayerInWaitingRoom(channel).length < 4) {
-          let playersInWaitingRoom = matchManager.addPlayerInWaitingRoom(channel, username);
-          io.emit(SOCKET.MATCH.JOIN_MATCH, playersInWaitingRoom);
+        socket.join(channel);
+        let playersInWaitingRoom = matchManager.addPlayerToWaitingRoom(channel, username);
+        io.to(channel).emit(SOCKET.MATCH.JOIN_MATCH, playersInWaitingRoom);
+      });
+
+      socket.on(SOCKET.MATCH.CREATE_MATCH, async (username) => {
+        let match = await matchManager.createMatch(username);
+        if (match){
+          socket.join(match.name);
+          let playersInWaitingRoom = matchManager.addPlayerToWaitingRoom(match.name, username);
+          io.to(match.name).emit(SOCKET.MATCH.CREATE_MATCH, playersInWaitingRoom);          
         } else {
-          socket.to(SOCKET.MATCH.FULL, "La partie est complète.");
+          console.log("Cannot create the match");
         }
       });
 
@@ -162,7 +172,7 @@ module.exports = function(http) {
       });
 
       socket.on(SOCKET.MATCH.START_ROUND, (matchId) => {
-        matchManager.start(matchId, 90);
+        matchManager.startTimer(matchId, 90);
         io.to(matchId).emit(SOCKET.EMIT.START_ROUND, "Round started");
       });
 
@@ -175,9 +185,14 @@ module.exports = function(http) {
         matchManager.addMatch(matchId, matchManager.getPlayerInWaitingRoom(matchId));
         let round = await matchManager.nextRound(matchId);
         io.to(matchId).emit(SOCKET.MATCH.NEXT_ROUND, round);
-        matchManager.start(matchId, 90);
+        matchManager.startTimer(matchId, 90);
+      });
+
+      socket.on(SOCKET.MATCH.LEAVE_WAITING_ROOM, (matchId, username) => {
+        socket.join(matchId);
+        let playersInWaitingRoom = matchManager.leaveWaitingRoom(matchId, username);
+        io.to(matchId).emit(SOCKET.MATCH.JOIN_MATCH, playersInWaitingRoom);
       });
     
     });
 }
-

@@ -34,6 +34,10 @@ namespace PolyPaint.Modeles
 
         public string Lastname { get; set; }
 
+        public string Token { get; set; }
+
+        public string Id { get; set; }
+
         //public event PropertyChangedEventHandler PropertyChanged;
 
 

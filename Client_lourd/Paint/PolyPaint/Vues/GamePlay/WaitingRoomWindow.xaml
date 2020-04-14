@@ -33,7 +33,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="2" Grid.ColumnSpan="4" Grid.Row="2" Grid.RowSpan="6" Margin="91,55.267,9,3.933" >
-            <Button Height="50" Width="220" Click="assignView" Margin="42,130,38,22" Content="DÉMARRER" Background="#FFFF7F11" BorderThickness="2" FontSize="20" Foreground="White" />
+            <Button Height="50" Width="220" Click="assignView" Margin="42,130,38,22" Content="DÉMARRER" Background="#FFFF7F11" BorderThickness="2" FontSize="20" Foreground="White" Command="{Binding GoToFreeForAll}" />
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.ColumnSpan="6" Grid.RowSpan="4" Height="177" VerticalAlignment="Top" Margin="91,55,9,0" >
             <TextBlock  TextWrapping="Wrap" Text="Salle d'attente" FontSize="36" FontWeight="Bold" Foreground="White" TextAlignment="Center" />
@@ -42,7 +42,7 @@
             <TextBlock x:Name="nbConnect"  TextWrapping="Wrap" FontSize="16" FontWeight="Bold" Foreground="White" TextAlignment="Center" Text="{Binding TextBoxData}" Margin="0,3,0,0" />
 
         </StackPanel>
-        <Button Content="RETOUR" FontWeight="Bold" Height="35" Foreground="white" Background="#2364AA" Width="80" Command="{Binding GoToGameChoice}" HorizontalAlignment="Center" />
+        <Button Content="RETOUR" Click="quitRoom" FontWeight="Bold" Height="35" Foreground="white" Background="#2364AA" Width="80" Command="{Binding GoToGameChoice}" HorizontalAlignment="Center" />
             
         
     </Grid>

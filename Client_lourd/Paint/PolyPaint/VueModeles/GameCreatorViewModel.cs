@@ -25,7 +25,7 @@ namespace PolyPaint.VueModeles
             PageViewModels.Add(new ImageImportViewModel());
             PageViewModels.Add(new NewGameFormViewModel());
 
-            CurrentCreatorViewModel = PageViewModels[0];
+            CurrentCreatorViewModel = PageViewModels[1];
 
             Mediator.Subscribe("GoToGameCreator", OnGoToGameCreator);
             Mediator.Subscribe("GoToNewDrawingWindow", OnGoToNewDrawingWindow);
@@ -152,16 +152,16 @@ namespace PolyPaint.VueModeles
 
     class NewDrawingViewModel : DrawingWindowViewModel
     {
-        private ICommand _goToGameCreator;
+        private ICommand _goToGameMenu;
 
 
-        public ICommand GoToGameCreator
+        public ICommand GoToGameMenu
         {
             get
             {
-                return _goToGameCreator ?? (_goToGameCreator = new RelayCommand(x =>
+                return _goToGameMenu ?? (_goToGameMenu = new RelayCommand(x =>
                 {
-                    Mediator.Notify("GoToGameCreator", "");
+                    Mediator.Notify("GoToGameMenu", "");
                 }));
             }
         }

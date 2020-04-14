@@ -12,6 +12,7 @@
         <convertisseurs:ConvertisseurBordure x:Key="convertisseurBordure" />
         <convertisseurs:ConvertisseurCouleurFond x:Key="convertisseurCouleurFond" />
         <convertisseurs:ConvertisseurModeEdition x:Key="convertisseurModeEdition" />
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </UserControl.Resources>
 
 
@@ -51,15 +52,103 @@
         <Thumb Name="vertical" Grid.Row="2" Grid.Column="2" Background="White" DragDelta="GlisserMouvementRecu" 
                       DragStarted="GlisserCommence" DragCompleted="GlisserTermine" Margin="22,24,72,16"
                       />-->
-   
-            <custom:DrawingWindow ClipToBounds="True" x:Name="draftsman" Grid.Column="0" Grid.ColumnSpan="9" Grid.Row="2" Grid.RowSpan="10"
+
+        <custom:DrawingWindow Visibility="{Binding ActivateDrawing, Converter={StaticResource BoolToVisibilityConverter}}" ClipToBounds="True" x:Name="draftsman" Grid.Column="0" Grid.ColumnSpan="9" Grid.Row="2" Grid.RowSpan="10"
                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"                           
                            Background="#FFFDF9F9"/>
- 
-        <custom:TimerControl Grid.Column="4" Grid.ColumnSpan="4" Grid.RowSpan="2" Margin="66,0,49,10" Loaded="TimerControl_Loaded" />
+
+        <!--<Border Grid.Row="11" Grid.ColumnSpan="9" BorderThickness="0,0,0,0.5" BorderBrush="#77000000">
+            <StackPanel Orientation="Horizontal" Height="60" Visibility="{Binding ActivateDrawing, Converter={StaticResource BoolToVisibilityConverter}}" >
+                <StackPanel.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0.01">
+                        <GradientStop Color="Gray"/>
+                        <GradientStop Color="#FFFFFFFF"/>
+                        <GradientStop Color="#FFE0E0E0" Offset="1"/>
+                    </LinearGradientBrush>
+                </StackPanel.Background>
+
+
+                <Button Name="crayon" Width="40" Height="40" Margin="5" 
+                        BorderBrush="{Binding Path=OutilSelectionne, Converter={StaticResource convertisseurBordure}, ConverterParameter=crayon, UpdateSourceTrigger=PropertyChanged}" 
+                        Background="{Binding Path=OutilSelectionne, Converter={StaticResource convertisseurCouleurFond}, ConverterParameter=crayon, UpdateSourceTrigger=PropertyChanged}" 
+                        Command="{Binding Path=ChoisirOutil}"
+                        CommandParameter="crayon">
+                    <StackPanel>
+                        <Image Source="/Resources/crayon.png"  />
+                    </StackPanel>
+                </Button>
+                <Button Name="efface_segment" Width="40" Height="40" Margin="5" 
+                        BorderBrush="{Binding Path=OutilSelectionne, Converter={StaticResource convertisseurBordure}, ConverterParameter=efface_segment, UpdateSourceTrigger=PropertyChanged}" 
+                        Background="{Binding Path=OutilSelectionne, Converter={StaticResource convertisseurCouleurFond}, ConverterParameter=efface_segment, UpdateSourceTrigger=PropertyChanged}" 
+                        Command="{Binding Path=ChoisirOutil}"
+                        CommandParameter="efface_segment">
+                    <StackPanel>
+                        <Image Source="/Resources/efface_crayon.png" />
+                    </StackPanel>
+                </Button>
+                <Button Name="efface_trait" Width="40" Height="40" Margin="5" 
+                        BorderBrush="{Binding Path=OutilSelectionne, Converter={StaticResource convertisseurBordure}, ConverterParameter=efface_trait, UpdateSourceTrigger=PropertyChanged}" 
+                        Background="{Binding Path=OutilSelectionne, Converter={StaticResource convertisseurCouleurFond}, ConverterParameter=efface_trait, UpdateSourceTrigger=PropertyChanged}" 
+                        Command="{Binding Path=ChoisirOutil}"
+                        CommandParameter="efface_trait">
+                    <StackPanel>
+                        <Image Source="/Resources/efface.png" />
+                    </StackPanel>
+                </Button>
+                <StackPanel Orientation="Horizontal">
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="5,5,5,5" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Name="PointeRonde" Width="24" Height="24" Margin="0"
+                            BorderBrush="{Binding Path=PointeSelectionnee, Converter={StaticResource convertisseurBordure}, ConverterParameter=ronde, UpdateSourceTrigger=PropertyChanged}" 
+                            Background="{Binding Path=PointeSelectionnee, Converter={StaticResource convertisseurCouleurFond}, ConverterParameter=ronde, UpdateSourceTrigger=PropertyChanged}"                                 
+                            HorizontalContentAlignment="Center"                                
+                            Command="{Binding Path=ChoisirPointe}"
+                            CommandParameter="ronde">
+                            <Ellipse Width="10" Height="10" Fill="Black" Stroke="Black" StrokeThickness="2" HorizontalAlignment="Center"/>
+                        </Button>
+                        <Button Name="PointeCarree" Width="24" Height="24" Margin="0"
+                            HorizontalContentAlignment="Center"                            
+                            BorderBrush="{Binding Path=PointeSelectionnee, Converter={StaticResource convertisseurBordure}, ConverterParameter=carree, UpdateSourceTrigger=PropertyChanged}" 
+                            Background="{Binding Path=PointeSelectionnee, Converter={StaticResource convertisseurCouleurFond}, ConverterParameter=carree, UpdateSourceTrigger=PropertyChanged}"                                
+                            Command="{Binding Path=ChoisirPointe}"
+                            CommandParameter="carree">
+                            <Rectangle Width="10" Height="10" Fill="Black" Stroke="Black" StrokeThickness="2" HorizontalAlignment="Center"/>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+
+                <Slider Width="100" Height="26" Minimum="1" Maximum="50"
+                        Value="{Binding Path=TailleTrait, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        Margin="12"
+                        Foreground="Gray"                        
+                        TickFrequency="10" TickPlacement="BottomRight" IsSnapToTickEnabled="False">
+                </Slider>
+            </StackPanel>
+
+        </Border>-->
+
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="9" Visibility="{Binding ActivateGuessing, Converter={StaticResource BoolToVisibilityConverter}}" Grid.Row="2" Grid.RowSpan="9" Background="#FFFDF9F9">
+            <InkPresenter Visibility="{Binding ActivateGuessing, Converter={StaticResource BoolToVisibilityConverter}}" ClipToBounds="True" Name="surfaceDessin" 
+                           HorizontalAlignment="Stretch" VerticalAlignment="Stretch"                           
+                                                                        
+                           Strokes="{Binding Path=Traits, Mode=OneTime}">
+
+            </InkPresenter>
+        </StackPanel>
+
+        <TextBox x:Name="answerTextBox" Height="50" IsEnabled="{Binding AnswerBox}" KeyDown="sendMessageOnEnter" Visibility="{Binding ActivateGuessing, Converter={StaticResource BoolToVisibilityConverter}}" TextWrapping="Wrap" Grid.Column="2" Grid.Row="10" Grid.ColumnSpan="3" FontSize="36" Margin="0,49,0,1" Grid.RowSpan="2"/>
+        <Button x:Name="BtnSend" Content="Envoyer" Visibility="{Binding ActivateGuessing, Converter={StaticResource BoolToVisibilityConverter}}" Height="50" Background="#FFFF7F11" Grid.Column="5" Grid.Row="10"  FontSize="24" FontFamily="Ink Free" Foreground="White" Margin="0,49,0,1" Grid.RowSpan="2" Click="answer"/>
+
+
+        <custom:TimerControl x:Name="timer" Grid.Column="4" Grid.ColumnSpan="4" Grid.RowSpan="2" Margin="66,0,49,10" Loaded="TimerControl_Loaded" />
         <Button x:Name="button" Width="75" Height="40" Command="{Binding GoToGameModeMenu}" >
             <Image Source="back.png"></Image>
-        </Button> 
+        </Button>
+        <TextBlock  Text="mot à faire deviner: " Visibility="{Binding ActivateDrawing, Converter={StaticResource BoolToVisibilityConverter}}" TextWrapping="Wrap" FontSize="20" FontWeight="Bold" Foreground="White" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,0,105,0"/>
+        <TextBlock x:Name="word" Visibility="{Binding ActivateDrawing, Converter={StaticResource BoolToVisibilityConverter}}" Text="{Binding TextBoxWordData}" TextWrapping="Wrap" FontSize="40" FontWeight="Bold" Foreground="White" Grid.Column="3" Grid.ColumnSpan="2" Margin="1,0,105,0"/>
+
 
     </Grid>
 
