@@ -1,14 +1,16 @@
 const Message = require("./message.model");
 const PAGE_SIZE = 25;
 
-var pageKeeper = new Map();
+const pageKeeper = new Map();
 
 exports.previousPage = async function(player, channel) {
+    console.log(player + " " + channel);
+
     let infos = pageKeeper.get(player).get(channel);
 
-    if (infos.offset < 0) { return; }
+    if (!infos || infos.offset < 0) { return; }
 
-    let results = await Message.paginate({}, { offset: infos.offset, limit: infos.documents });
+    let results = await Message.paginate({channel: channel}, { offset: infos.offset, limit: infos.documents });
     let newInfos = { "offset": infos.offset - PAGE_SIZE, "documents": PAGE_SIZE };
     pageKeeper.get(player).set(channel, newInfos);
 
@@ -16,7 +18,7 @@ exports.previousPage = async function(player, channel) {
 }
 
 exports.lastPage = async function(player, channel) {
-    let collection = await Message.paginate({}, { limit: 0 });
+    let collection = await Message.paginate({channel: channel}, { limit: 0 });
     let offset = Math.floor(collection.total / PAGE_SIZE) * PAGE_SIZE;
     let remaining = collection.total - offset;
     let channelInfos =  new Map()
@@ -27,6 +29,8 @@ exports.lastPage = async function(player, channel) {
         channelInfos.set(channel, {"offset": offset, "documents": remaining});
     }
     pageKeeper.set(player, channelInfos);
+
+    console.log("LAST "+ player + " " + channel);
 }
 
 exports.save = async function(message, username, channel, timestamp) {

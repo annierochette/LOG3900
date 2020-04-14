@@ -19,7 +19,6 @@ module.exports = function(http) {
     filter.addWords(...frenchBadwordsList.array);
 
     io.on(SOCKET.CHAT.CONNECTION, function(socket){
-      messageController.lastPage(socket.id, GENERAL);
       socket.join(GENERAL);
       console.log("Users connected: " + io.engine.clientsCount);
       // console.log("User connected" + dateString);
@@ -58,7 +57,7 @@ module.exports = function(http) {
           channelsSubscribed.set(username, new Set([channel]));
         }
           
-        messageController.lastPage(socket.id, channel);
+        messageController.lastPage(username, channel);
         let timestamp = Timestamp.currentDate();
         let  msg = { "message": username + " a rejoint la conversation.", "username": username, "timestamp": Timestamp.chatString(timestamp), "channel": channel };
         socket.to(channel).broadcast.emit(SOCKET.CHAT.MESSAGE, msg);
@@ -90,8 +89,10 @@ module.exports = function(http) {
         socket.emit(SOCKET.CHAT.CHANNELS, channels);
       });
 
-      socket.on(SOCKET.CHAT.HISTORY, async (channel) => {
-        let docs = await messageController.previousPage(socket.id, channel);
+      socket.on(SOCKET.CHAT.HISTORY, async (username, channel) => {
+        console.log("History username" + username);
+        console.log("History channel" + channel);
+        let docs = await messageController.previousPage(username, channel);
         socket.to(channel).emit(SOCKET.CHAT.HISTORY, docs);
       });
 
@@ -114,43 +115,42 @@ module.exports = function(http) {
 
       // Draft
       socket.on(SOCKET.DRAFT.STROKE_DRAWING, (channel, points) => {
-        console.log(points)
-        io.emit(SOCKET.DRAFT.STROKE_DRAWING, points);
+        io.to(channel).emit(SOCKET.DRAFT.STROKE_DRAWING, points);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_COLLECTED, (channel, points) => {
-        io.emit(SOCKET.DRAFT.STROKE_COLLECTED, points);
+        io.to(channel).emit(SOCKET.DRAFT.STROKE_COLLECTED, points);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_ERASING, (channel, points) => {
-        io.emit(SOCKET.DRAFT.STROKE_ERASING, points);
+        io.to(channel).emit(SOCKET.DRAFT.STROKE_ERASING, points);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_SEGMENT_ERASING, (channel, points) => {
-        io.emit(SOCKET.DRAFT.STROKE_SEGMENT_ERASING, points);
+        io.to(channel).emit(SOCKET.DRAFT.STROKE_SEGMENT_ERASING, points);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_COLOR, (channel, color) => {
-        io.emit(SOCKET.DRAFT.STROKE_COLOR, color);
+        io.to(channel).emit(SOCKET.DRAFT.STROKE_COLOR, color);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_SIZE, (channel, size) => {
-        io.emit(SOCKET.DRAFT.STROKE_SIZE, size);
+        io.to(channel).emit(SOCKET.DRAFT.STROKE_SIZE, size);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_TIP, (channel, tip) => {
-        io.emit(SOCKET.DRAFT.STROKE_TIP, tip);
+        io.to(channel).emit(SOCKET.DRAFT.STROKE_TIP, tip);
       });
 
       socket.on(SOCKET.DRAFT.STROKE_TOOL, (channel, tool) => {
-        io.emit(SOCKET.DRAFT.STROKE_TOOL, tool);
+        io.to(channel).emit(SOCKET.DRAFT.STROKE_TOOL, tool);
       });
 
       // Match
       socket.on(SOCKET.MATCH.JOIN_MATCH, (channel, username) => {
         socket.join(channel);
         let playersInWaitingRoom = matchManager.addPlayerToWaitingRoom(channel, username);
-        io.emit(SOCKET.MATCH.JOIN_MATCH, playersInWaitingRoom);
+        io.to(channel).emit(SOCKET.MATCH.JOIN_MATCH, playersInWaitingRoom);
       });
 
       socket.on(SOCKET.MATCH.CREATE_MATCH, async (username) => {
@@ -158,7 +158,7 @@ module.exports = function(http) {
         if (match){
           socket.join(match.name);
           let playersInWaitingRoom = matchManager.addPlayerToWaitingRoom(match.name, username);
-          io.emit(SOCKET.MATCH.CREATE_MATCH, playersInWaitingRoom);          
+          io.to(match.name).emit(SOCKET.MATCH.CREATE_MATCH, playersInWaitingRoom);          
         } else {
           console.log("Cannot create the match");
         }
@@ -183,6 +183,12 @@ module.exports = function(http) {
         let round = await matchManager.nextRound(matchId);
         io.to(matchId).emit(SOCKET.MATCH.NEXT_ROUND, round);
         matchManager.startTimer(matchId, 90);
+      });
+
+      socket.on(SOCKET.MATCH.LEAVE_WAITING_ROOM, (matchId, username) => {
+        socket.join(matchId);
+        let playersInWaitingRoom = matchManager.leaveWaitingRoom(channel, username);
+        io.to(matchId).emit(SOCKET.MATCH.JOIN_MATCH, playersInWaitingRoom);
       });
     
     });
