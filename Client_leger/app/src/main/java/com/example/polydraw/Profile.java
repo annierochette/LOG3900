@@ -92,9 +92,6 @@ public class Profile extends AppCompatActivity {
         usernamePlaceholder = (TextView) findViewById(R.id.username);
         usernamePlaceholder.setText(usernameFinal);
 
-        gameTime = (TextView) findViewById(R.id.gameTime);
-        gameTime.setText("Temps moyen d'une partie: 1 minute");
-
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -243,7 +240,7 @@ public class Profile extends AppCompatActivity {
 
     public void setStats(Integer matchsGagnes, Integer matchsJoues){
         nbGamesWon = (TextView) findViewById(R.id.nbGamesWon);
-        if(matchsJoues!=null){
+        if(matchPlayed!="0"){
             Integer result = ((matchsGagnes*100)/matchsJoues);
             nbGamesWon.setText("Pourcentage de parties gagnées: "+result+"%");
         } else{
@@ -252,7 +249,7 @@ public class Profile extends AppCompatActivity {
         }
 
         time = (TextView) findViewById(R.id.time);
-        if(matchPlayed!=null){
+        if(matchPlayed!="0"){
             time.setText("Temps total à jouer: "+matchPlayed+" minutes");
         } else{
             time.setText("Temps total à jouer: 0 minute");
@@ -260,10 +257,18 @@ public class Profile extends AppCompatActivity {
         }
 
         nbPlayedGames = (TextView) findViewById(R.id.nbPlayedGames);
-        if(matchsJoues!=null){
+        if(matchPlayed!="0"){
             nbPlayedGames.setText("Nombre de parties jouées: "+ matchPlayed);
         } else{
             nbPlayedGames.setText("Nombre de parties jouées: 0");
+
+        }
+
+        gameTime = (TextView) findViewById(R.id.gameTime);
+        if(matchPlayed!="0"){
+            gameTime.setText("Temps moyen d'une partie: 1 minute");
+        } else{
+            gameTime.setText("Temps moyen d'une partie: 0 minute");
 
         }
 
