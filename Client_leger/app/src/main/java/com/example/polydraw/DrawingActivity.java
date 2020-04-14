@@ -1,8 +1,10 @@
 package com.example.polydraw;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -21,12 +23,15 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Random;
 
 import yuku.ambilwarna.AmbilWarnaDialog; //https://codinginflow.com/tutorials/android/ambilwarna-color-picker-dialog
@@ -44,6 +49,12 @@ public class DrawingActivity extends AppCompatActivity {
     private Button backButton;
     private ImageView chatButton;
 
+    private String player;
+    private String token;
+    private String username;
+    private String firstName;
+    private String lastName;
+
     ConstraintLayout mLayout;
     int mDefaultColor;
 
@@ -55,6 +66,14 @@ public class DrawingActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         initializeObject();
         eventListeners();
+        mDefaultColor = 0;
+
+        Intent intent = getIntent();
+        player = intent.getStringExtra("player");
+        token = intent.getStringExtra("token");
+        username = intent.getStringExtra("username");
+        firstName = intent.getStringExtra("firstName");
+        lastName = intent.getStringExtra("lastName");
 
     }
 
@@ -83,7 +102,6 @@ public class DrawingActivity extends AppCompatActivity {
                 eraseButton.setBackground(getDrawable(R.drawable.selected_button));
                 drawButton.setBackground(getDrawable(R.drawable.round_button));
                 capStyle.setBackground(getDrawable(R.drawable.round_button));
-                openEraserOptions();
 
             }
         });
@@ -144,66 +162,9 @@ public class DrawingActivity extends AppCompatActivity {
         download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                File folder = getDir(Environment.DIRECTORY_PICTURES, Context.MODE_PRIVATE);
-                boolean success = false;
+                System.out.println("download clicked");
+                SaveImage(drawingCanvas.getBitmap());
 
-                if (!folder.exists()) {
-                    success = folder.mkdirs();
-                }
-
-                System.out.println(success + " folder");
-
-                Random random = new Random();
-                int randomInteger = random.nextInt();
-
-                File file = new File(folder, "drawing" + randomInteger + ".txt");
-
-                if (!file.exists()) {
-                    try {
-                        success = file.createNewFile();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                System.out.println(success + " file");
-
-                FileOutputStream ostream = null;
-                String content = "Content of the file";
-
-                try {
-                    ostream = new FileOutputStream(file);
-
-                    byte[] contentBytes = content.getBytes();
-
-                    ostream.write(contentBytes);
-                    ostream.flush();
-                    ostream.close();
-
-//                    System.out.println(ostream);
-//                    View targetView = drawingCanvas;
-//
-//                    Bitmap well = drawingCanvas.getBitmap();
-//                    Bitmap save = Bitmap.createBitmap(320, 480, Bitmap.Config.ARGB_8888);
-//
-//                    Paint paint = new Paint();
-//                    paint.setColor(Color.WHITE);
-//
-//                    Canvas now = new Canvas(save);
-//                    now.drawRect(new Rect(0, 0, 320, 480), paint);
-//                    now.drawBitmap(well, new Rect(0, 0, well.getWidth(), well.getHeight()), new Rect(0, 0, 320, 480), null);
-//
-//                    save.compress(Bitmap.CompressFormat.PNG, 100, ostream);
-
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Null error", Toast.LENGTH_SHORT).show();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "File error", Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "IO error", Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
@@ -221,12 +182,6 @@ public class DrawingActivity extends AppCompatActivity {
             }
         });
 
-        download.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
     public void openColorPicker() {
@@ -262,30 +217,69 @@ public class DrawingActivity extends AppCompatActivity {
 
     }
 
-    public void openEraserOptions(){
-        PopupMenu popup = new PopupMenu(DrawingActivity.this, eraseButton);
-        popup.getMenuInflater().inflate(R.menu.eraser_menu, popup.getMenu());
-
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(MenuItem item) {
-                Toast.makeText(DrawingActivity.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
-        popup.show();
-    }
-
     public void backToPlayMenu() {
         Intent intent = new Intent(this, PlayMenu.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
         startActivity(intent);
     }
 
     public void openChat(){
         Intent intent = new Intent(this, ChatBoxActivity.class);
+        intent.putExtra("token", token);
+        intent.putExtra("username", username);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
         startActivity(intent);
     }
 
     @Override
     public void onBackPressed() { }
+
+    private void SaveImage(Bitmap finalBitmap) {
+
+        // source: https://developer.android.com/training/permissions/requesting
+        if (ContextCompat.checkSelfPermission(DrawingActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(DrawingActivity.this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(DrawingActivity.this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        1);
+
+            }
+
+        }
+
+        File myDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator);
+        myDir.mkdirs();
+
+        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String stamp = sdf.format(timestamp);
+        System.out.println(stamp);
+
+        String fname = "Fais-moi un dessin_" + stamp +".jpg";
+        File file = new File (myDir, fname);
+        if (file.exists ())
+            file.delete ();
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            System.out.println(fname);
+            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+            Toast.makeText(DrawingActivity.this,"Téléchargé", Toast.LENGTH_SHORT).show();
+            out.flush();
+            out.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
 }
 
