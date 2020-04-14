@@ -94,21 +94,6 @@ public class SocketIO {
             }
     }
 
-//    public static void emitWithAcknowledge(String event, Object args)
-//            throws MalformedURLException {
-//        if (!SocketIO.getSocket().connected()) {
-//            SocketIO.getSocket().connect();
-//        }
-//        SocketIO.getSocket().emit(event, new IOAcknowledge() {
-//
-//            @Override
-//            public void ack(Object... args) {
-//                // TODO Auto-generated method stub
-//
-//            }
-//        }, args);
-//    }
-
     public void init(){
         try{
             socket = IO.socket(HTTP_URL);
@@ -121,31 +106,11 @@ public class SocketIO {
         }
     }
 
-    /*public void sendMessage(Button button){
-        JSONObject data = new JSONObject();
-        try {
-
-            String username = data.getString("username");
-            final String message = data.getString("message");
-            String timestamp = data.getString("timestamp");
-
-            final Message m = new Message(username,message,timestamp);
-
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!m.getMessage().trim().isEmpty() && !m.getMessage().isEmpty()) {
-
-                        socket.emit("chat message", m.getUsername(), m.getMessage());
-                        m.setMessage(" ");
-                    }
-                }
-            });
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+    public static void emitNewGame(String event, Object args) {
+        if (!SocketIO.getSocket().connected()) {
+            SocketIO.getSocket().connect();
         }
-
-    }*/
+        SocketIO.getSocket().emit(event, args);
+    }
 
 }

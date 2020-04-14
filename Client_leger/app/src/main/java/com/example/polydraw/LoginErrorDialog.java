@@ -15,7 +15,6 @@ public class LoginErrorDialog extends AppCompatDialogFragment {
         builder.setTitle("Une erreur est survenue lors de la connexion")
                 .setMessage("Utilisateur inexistant ou utilisateur/mot de passe incorrect");
 
-
         return builder.create();
     }
 }

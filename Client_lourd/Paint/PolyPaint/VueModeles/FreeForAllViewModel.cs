@@ -25,6 +25,7 @@ namespace PolyPaint.VueModeles
     {
         response info;
         public string _textBoxWordData;
+        public bool _answerBox;
 
         public string TextBoxWordData
         {
@@ -38,6 +39,20 @@ namespace PolyPaint.VueModeles
 
             }
         }
+
+        public bool answerBox
+        {
+            get
+            {
+                return _answerBox;
+            }
+            set
+            {
+                _answerBox = value;
+
+            }
+        }
+
         public class game
         {
 
@@ -121,6 +136,19 @@ namespace PolyPaint.VueModeles
             }
         }
 
+        private ICommand _goToGameChoice;
+
+        public ICommand GoToGameChoice
+        {
+            get
+            {
+                return _goToGameChoice ?? (_goToGameChoice = new RelayCommand(x =>
+                {
+                    Mediator.Notify("GoToGameChoice", "");
+                }));
+            }
+        }
+
         public ICommand ButtonCommand { get; set; }
 
 
@@ -189,10 +217,22 @@ namespace PolyPaint.VueModeles
 
             socket.On("answer", (data) =>
             {
+                Console.WriteLine("answer socket");
                 Newtonsoft.Json.Linq.JObject obj = (Newtonsoft.Json.Linq.JObject)data;
                 Newtonsoft.Json.Linq.JToken un = obj.GetValue("valid");
                 Newtonsoft.Json.Linq.JToken ts = obj.GetValue("score");
+                bool validity = (bool)un;
+                if (validity)
+                {
+                    answerBox = false;
+                    
 
+                }
+                else {
+                    answerBox = true;
+                }
+                Console.WriteLine("answer validity: " + answerBox.ToString());
+                Console.WriteLine("score: " + (string)ts);
 
             });
 

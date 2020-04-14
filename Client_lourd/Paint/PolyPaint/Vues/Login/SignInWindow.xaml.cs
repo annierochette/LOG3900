@@ -66,27 +66,32 @@ namespace PolyPaint.Vues
                 var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
                 var res = await HttpClient.PostAsync(Constants.ADDR + "players", httpContent);
-                if (res.Content != null)
+            
+                if (res.IsSuccessStatusCode)
                 {
                     var responseContent = await res.Content.ReadAsStringAsync();
                     Console.WriteLine(responseContent);
                     System.Windows.MessageBox.Show("Votre compte à bien été créé!", "Succès");
                     ((SignInViewModel)(DataContext)).GoToLogin();
                 }
-                else { 
-                    var responseContent = await res.Content.ReadAsStringAsync();
-                    Console.WriteLine("marche pas: " + responseContent); }
-                Console.WriteLine(password);
+                else
+                {
+
+                    System.Windows.MessageBox.Show("Ce nom d'usager est déjà pris. Veuillez réessayer.", "Erreur");
+                }
             }
-            else { System.Windows.MessageBox.Show("le mot de passe et la vérification ne correspondent pas", "Erreur"); }
+            else { System.Windows.MessageBox.Show("Le mot de passe et sa vérification ne correspondent pas.", "Erreur"); }
         }
 
         private void surnameBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (surnameBox.Text.Length > 0)
                 tbsurname.Visibility = Visibility.Collapsed;
-            else
+            else 
                 tbsurname.Visibility = Visibility.Visible;
+            SetConnexionVisibility();
+
+
         }
         private void nameBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -94,14 +99,21 @@ namespace PolyPaint.Vues
                 tbname.Visibility = Visibility.Collapsed;
             else
                 tbname.Visibility = Visibility.Visible;
+            SetConnexionVisibility();
         }
 
         private void usernameBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (usernameBox.Text.Length > 0)
+            {
                 tbusername.Visibility = Visibility.Collapsed;
+                SetConnexionVisibility();
+            }
             else
+            {
                 tbusername.Visibility = Visibility.Visible;
+                SetConnexionVisibility();
+            }
         }
 
         private void passBox_PasswordChanged(object sender, RoutedEventArgs e)
@@ -110,11 +122,7 @@ namespace PolyPaint.Vues
                 tbpassword.Visibility = Visibility.Collapsed;
             else
                 tbpassword.Visibility = Visibility.Visible;
-            if (rePassBox.Password.Length >= 7 && passBox.Password.Length >= 7)
-            {
-                connection.IsEnabled = true;
-            }
-            else connection.IsEnabled = false;
+            SetConnexionVisibility();
         }
 
         private void rePassBox_PasswordChanged(object sender, RoutedEventArgs e)
@@ -123,10 +131,17 @@ namespace PolyPaint.Vues
                 tbrepassword.Visibility = Visibility.Collapsed;
             else
                 tbrepassword.Visibility = Visibility.Visible;
-            if (rePassBox.Password.Length >= 7 && passBox.Password.Length >= 7)
+            SetConnexionVisibility();
+        }
+
+        private void SetConnexionVisibility()
+        {
+            if (surnameBox.Text.Length>0 && nameBox.Text.Length>0 && usernameBox.Text.Length > 0 && rePassBox.Password.Length >=7 && passBox.Password.Length >=7)
             {
                 connection.IsEnabled = true;
-            } else connection.IsEnabled= false;
+            }
+            else connection.IsEnabled = false;
         }
+
     }
 }

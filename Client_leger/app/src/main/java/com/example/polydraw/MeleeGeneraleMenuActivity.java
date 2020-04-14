@@ -6,11 +6,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -18,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.polydraw.Socket.SocketIO;
+import com.github.nkzawa.emitter.Emitter;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,10 +31,15 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
@@ -37,11 +47,13 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
     private Button createButton;
     private ImageButton disconnectButton;
     private ImageView chatButton;
+    private Button freeButton;
+
     private SocketIO socket;
-    private Button join;
 
     matchListAdapter adapter;
     ArrayList<String> matchList;
+    public Map<String,String> matchListId;
     public RecyclerView myRecyclerView;
 
     private String player;
@@ -49,6 +61,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
     private String username;
     private String firstName;
     private String lastName;
+    private String _id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,13 +78,15 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         username = intent.getStringExtra("username");
         firstName = intent.getStringExtra("firstName");
         lastName = intent.getStringExtra("lastName");
+        _id = intent.getStringExtra("_id");
 
-        System.out.println(token);
+        System.out.println("MELEE MENU TOKEN :"+ token);
 
         backButton = (Button) findViewById(R.id.backButton);
         createButton = (Button) findViewById(R.id.createButton);
         disconnectButton = (ImageButton) findViewById(R.id.logoutButton);
         chatButton = (ImageView) findViewById(R.id.chatButton);
+        freeButton = (Button) findViewById(R.id.freeButton);
 
         matchList = new ArrayList<>();
         myRecyclerView = (RecyclerView) findViewById(R.id.matchlist);
@@ -91,7 +106,8 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playMultiplayerGame();
+                FunctionalityNotAvailable functionalityNotAvailable = new FunctionalityNotAvailable();
+                functionalityNotAvailable.show(getSupportFragmentManager(), "functionalityNotAvailable");
             }
         });
 
@@ -109,9 +125,24 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
             }
         });
 
+        freeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playGeneralGame();
+            }
+        });
+
+
+        socket.getSocket().on("fullMatch", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                String data = args[0].toString();
+                System.out.println("FULL MATCH: "+data);
+
+            }
+        });
+
     }
-
-
 
     public void backToPlayMenu() {
         Intent intent = new Intent(this, PlayMenu.class);
@@ -119,15 +150,19 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);
         intent.putExtra("lastName", lastName);
+        intent.putExtra("_id", _id);
         startActivity(intent);
     }
 
-    public void playMultiplayerGame(){
-        Intent intent = new Intent(this, WaitingRoom.class);
+    public void playGeneralGame(){
+        Intent intent = new Intent(this, WaitingRoomCreate.class);
         intent.putExtra("token", token);
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);
         intent.putExtra("lastName", lastName);
+        intent.putExtra("_id", _id);
+        intent.putExtra("matchId", "General");
+        socket.getSocket().emit("joinGame", "General", username);
         startActivity(intent);
     }
 
@@ -143,6 +178,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
         intent.putExtra("username", username);
         intent.putExtra("firstName", firstName);
         intent.putExtra("lastName", lastName);
+        intent.putExtra("_id", _id);
         startActivity(intent);
     }
 
@@ -158,14 +194,13 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            adapter = new matchListAdapter(new ArrayList<String>());
+            adapter = new matchListAdapter(new ArrayList<String>(), token, username, lastName, firstName, _id, socket);
         }
 
         @Override
         protected void onProgressUpdate(String... values) {
             matchList.add(values[0]);
-            System.out.println(values[0]);
-            adapter = new matchListAdapter(matchList);
+            adapter = new matchListAdapter(matchList, token, username, lastName, firstName, _id, socket);
             myRecyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
@@ -180,7 +215,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
                     try {
                         JSONObject oneObject = jsonArray.getJSONObject(i);
                         // Pulling items from the array
-                        String matchName = oneObject.getString("name");
+                        String matchName = oneObject.getString("name");//name
                         publishProgress(matchName);
 
                     } catch (JSONException e) {
@@ -202,14 +237,12 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
                 // Create the urlConnection
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setConnectTimeout(5000);
-                urlConnection.setReadTimeout(5000);
                 urlConnection.setRequestProperty("Authorization", token);
                 urlConnection.setRequestMethod("GET");
 
 
                 int statusCode = urlConnection.getResponseCode();
-                System.out.println(statusCode);
+                System.out.println("Status GET liste des parties: "+statusCode);
 
                 if (statusCode < 299) { // success
                     BufferedReader in = new BufferedReader(new InputStreamReader(
@@ -236,4 +269,7 @@ public class MeleeGeneraleMenuActivity extends AppCompatActivity {
 
     }
 
+    public String getToken() {
+        return token;
+    }
 }

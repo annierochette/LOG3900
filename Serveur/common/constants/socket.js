@@ -29,8 +29,10 @@ module.exports.DRAFT = {
 
 module.exports.MATCH = {
     ANSWER: "answer",
+    CREATE_MATCH: "createMatch",
     FULL: "fullMatch",
     JOIN_MATCH: "joinGame",
+    LEAVE_WAITING_ROOM: "stopWaiting",
     REMAINING_TIME: "remainingTime",
     START_MATCH: "startMatch",    
     START_ROUND: "startTimer",
