@@ -77,17 +77,11 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         socket.getSocket().emit("channels");
         socket.getSocket().on("channels", getChannels);
 
-//        ChatChannel c = new ChatChannel("General");
-//        c.setCurrent(true);
-//        ChannelList.add(c);
         for(ChatChannel channel: ChannelList) {
             if(channel.getChannelName().equals(currentChannel)){
                 channel.setCurrent(true);
             }
         }
-
-        socket.getSocket().emit("history", currentChannel);
-//        socket.getSocket().on("history", retrieveHistory);
 
         updateChannelRecycler(ChannelList);
         setToolbarName(currentChannel);
@@ -227,21 +221,6 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
             }
         });
 
-        socket.getSocket().on("history", new Emitter.Listener() {
-            @Override
-            public void call(final Object... args) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        JSONObject messages = (JSONObject) args[0];
-
-                        System.out.println("Retrieve messages");
-                        System.out.println(messages);
-                    }
-                });
-            }
-        });
-
         addChannel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -263,21 +242,9 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
                             socket.getSocket().emit("joinChannel", Username, result);
                             System.out.println("Joined " + result);
 
-
-                            socket.getSocket().emit("history", result);
-//                            socket.getSocket().on("history", retrieveHistory);
-//                            socket.getSocket().emit("leaveChannel", Username, currentChannel);
-//                            System.out.println("Left " + currentChannel);
-
                             currentChannel = result;
 
                             updateChannelRecycler(ChannelList);
-
-//                            ChatChannel newChannel = new ChatChannel(result);
-//                            switchCurrentChannelNoPosition();
-//                            newChannel.setCurrent(true);
-//                            ChannelList.add(newChannel);
-//                            updateChannelRecycler(ChannelList);
 
                             Toast.makeText(ChatBoxActivity.this, "Le canal '" + result + "' a été créé", Toast.LENGTH_SHORT).show();
                             Toast.makeText(ChatBoxActivity.this, "Vous êtes désormais dans le canal " + result , Toast.LENGTH_SHORT).show();
@@ -335,14 +302,11 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
             socket.getSocket().emit("leaveChannel", Username, currentChannel);
             currentChannel = channel.getChannelName();
 
-            socket.getSocket().emit("history", currentChannel);
             switchCurrentChannel(position);
 
             socket.getSocket().emit("joinChannel", Username, channel.getChannelName());
 
             Toast.makeText(ChatBoxActivity.this, "Vous êtes désormais dans le canal " + channel.getChannelName() , Toast.LENGTH_SHORT).show();
-//            socket.getSocket().emit("channels");
-//            socket.getSocket().on("channels", getChannels);
 
         }
     }
@@ -371,16 +335,6 @@ public class ChatBoxActivity extends AppCompatActivity implements NewChatChannel
         updateChannelRecycler(ChannelList);
         setToolbarName(currentChannel);
     }
-
-//    private Emitter.Listener retrieveHistory = new Emitter.Listener() {
-//        @Override
-//        public void call(Object... args) {
-//            JSONObject messages = (JSONObject) args[0];
-//
-//            System.out.println("Retrieve messages");
-//            System.out.println(messages);
-//        }
-//    };
 
     private Emitter.Listener getChannels = new Emitter.Listener() {
         @Override
